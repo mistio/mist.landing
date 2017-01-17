@@ -1,0 +1,24 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src/landing-app.html",
+  "fragments": [
+    "src/landing-product.html",
+    "src/landing-list.html",
+    "src/landing-detail.html",
+    "src/lazy-resources.html",
+  ],
+  "sourceGlobs": [
+   "src/**/*",
+   "data/**/*",
+   "images/**/*",
+   "bower.json",
+   "app.yaml"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/**/*",
+    "bower_components/custom-elements/**/*",
+    "bower_components/shadydom/**/*",
+    "bower_components/shadycss/**/*"
+  ]
+}

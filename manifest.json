@@ -1,0 +1,21 @@
+{
+  "name": "Mist.io landing page",
+  "short_name": "landing",
+  "icons": [{
+      "src": "images/mist-icon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }, {
+      "src": "images/mist-icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }, {
+      "src": "images/mist-icon-194.png",
+      "sizes": "194x194",
+      "type": "image/png"
+    }],
+  "start_url": "/",
+  "background_color": "#fff",
+  "display": "standalone",
+  "theme_color": "#fff"
+}

@@ -1,0 +1,142 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="landing-button.html">
+<link rel="import" href="landing-image.html">
+
+<dom-module id="landing-home">
+
+  <template>
+
+    <style include="landing-button">
+
+      .image-link {
+        outline: none;
+      }
+
+      .image-link > landing-image::after {
+        display: block;
+        content: '';
+        position: absolute;
+        transition-property: opacity;
+        transition-duration: 0s;
+        transition-delay: 90ms;
+        pointer-events: none;
+        opacity: 0;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        outline: #2196F3 auto 5px;
+        outline: -moz-mac-focusring auto 5px;
+        outline: -webkit-focus-ring-color auto 5px;
+      }
+
+      .image-link:focus > landing-image::after {
+        opacity: 1;
+      }
+
+      .item {
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .item:nth-of-type(3),
+      .item:nth-of-type(4) {
+        display: inline-block;
+        width: 50%;
+      }
+
+      landing-image {
+        position: relative;
+        height: 1020px;
+        overflow: hidden;
+        --landing-image-img: {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: -9999px;
+          right: -9999px;
+          max-width: none;
+        };
+        margin-top: 40px;
+      }
+
+      h2 {
+        font-size: 1.3em;
+        font-weight: 500;
+        margin: 32px 0;
+      }
+
+      .item:nth-of-type(3) > h2,
+      .item:nth-of-type(4) > h2 {
+        font-size: 1.1em;
+      }
+
+      @media (max-width: 767px) {
+        landing-image {
+          height: 240px;
+        }
+
+        h2 {
+          margin: 24px 0;
+        }
+
+        .item:nth-of-type(3) > landing-button > a,
+        .item:nth-of-type(4) > landing-button > a {
+          padding: 8px 24px;
+        }
+      }
+
+    </style>
+
+    <div class="item"
+    <h2>How may servers do you have?</h2>
+    <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
+    <landing-button>
+        <a aria-label="Get started" href="/sign-up">Get started</a>
+    </landing-button>
+    <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABIDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHpVTBi4f/EABkQAAMBAQEAAAAAAAAAAAAAAAABAgMTMv/aAAgBAQABBQKcs2csyfNQkRKYpSX/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAeEAACAQMFAAAAAAAAAAAAAAAAAgEQMZIRITJRkf/aAAgBAQAGPwLWUW/RwXwgndsi7ZTT/8QAGxABAAICAwAAAAAAAAAAAAAAAQARIWExUXH/2gAIAQEAAT8hFVFWXaGq8TCjqWzfQqgGZgADif/aAAwDAQACAAMAAAAQ4M//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEAAwACAwAAAAAAAAAAAAABABEhMUFRsdH/2gAIAQEAAT8QbryhV1yw5RSwr5RU8AQDrIaI60AK+BzYiqo9Ve5jEAFtz//Z"></landing-image>
+    </div>
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'landing-home',
+
+      properties: {
+
+        categories: {
+          type: Array
+        },
+
+        visible: {
+          type: Boolean,
+          observer: '_visibleChanged'
+        }
+
+      },
+
+      _visibleChanged: function(visible) {
+        if (visible) {
+          this.fire('change-section', { title: 'Home' });
+        }
+      }
+
+    });
+
+  </script>
+
+</dom-module>

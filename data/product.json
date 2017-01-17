@@ -1,0 +1,10 @@
+[
+  {
+    "name":"about",
+    "title":"About Mist.io",
+    "category":"product",
+    "description":"Mist.io makes cloud management simple, setting you free from vendor lock-­in. It abstracts the infrastructure level, to help you easily replicate your entire setup across providers. It works from any web device, including laptops, tablets and phones, to help you take action from anywhere you are.\n It supports all popular computing platforms including public clouds, private clouds, Docker containers and bare metal machines. It provides a unified interface for performing common management tasks like provisioning, orchestration, monitoring and automation. It comes with a RESTful API and command line tools, so you can easily integrate it in your existing workflow. \n You can choose the edition that works best for you. Freemium SaaS, Enteprise on-premises or Community Supported Open Source. It aims to become the de-facto standard for multi­-cloud management and a broker of cloud computing services. It's targeted to developers, system administrators and any organisation that performs on-premises, remote, or hybrid computing.",
+    "image":"/data/images/10-25058B.jpg",
+    "largeImage":"/data/images/10-25058A.jpg"
+  }
+]
