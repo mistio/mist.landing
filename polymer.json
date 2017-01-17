@@ -5,7 +5,7 @@
     "src/landing-product.html",
     "src/landing-list.html",
     "src/landing-detail.html",
-    "src/lazy-resources.html",
+    "src/lazy-resources.html"
   ],
   "sourceGlobs": [
    "src/**/*",
