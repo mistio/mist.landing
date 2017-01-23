@@ -9,21 +9,34 @@
 
     <template>
         <style>
-            paper-button > paper-spinner {
+            paper-button {
+                /**/
+                width: 100%;
+                margin-top: 8px;
+                color: #fff;
+                font-weight: 500;
+                font-size: 16px;
+            }
+            paper-spinner {
                 width: 16px;
                 height: 16px;
+            }
+            iron-form {
+                width: 274px;
+                margin: 0 auto;
+            }
+            paper-button:not([disabled]) {
+                background-color: #2196F3;
             }
         </style>
         <iron-form id="signInForm">
             <form method="post" action="/login" enctype='application/json'>
                 <paper-input name="email" label="Email" required auto-validate></paper-input>
                 <paper-input name="password" label="Password" type="password" required auto-validate></paper-input>
-
+                <paper-spinner id="spinner" hidden></paper-spinner>
                 <paper-button raised on-tap="_submitButtonHandler" disabled id="signInSubmit">
-                    Submit
-                    <paper-spinner id="spinner" hidden></paper-spinner>
+                    Sign in
                 </paper-button>
-                <paper-button raised on-tap="_reset">Reset</paper-button>
                 <div class="output"></div>
             </form>
         </iron-form>
@@ -66,7 +79,6 @@
                 this.$.spinner.active = true;
                 this.$.spinner.hidden = false;
                 this.$.signInSubmit.disabled = true;
-                //this.$.signInForm.request.params['Csrf-Token'] = CSRF_TOKEN;
                 this.async(function() {this.$.signInForm.submit()}, 1000);
             },
             _reset: function(event) {
