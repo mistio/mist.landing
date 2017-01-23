@@ -18,15 +18,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-media-query/iron-media-query.html">
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
 <link rel="import" href="landing-category-data.html">
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
-
+<link rel="import" href="landing-page.html">
 <dom-module id="landing-app">
 
   <template>
 
-    <style include="landing-button">
+    <style>
 
       :host {
         display: block;
@@ -42,6 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-spinner-color: var(--app-accent-color);
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         color: var(--app-primary-color);
+        background-color: #f2f2f2;
       }
 
       app-header {
@@ -53,6 +56,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           height: 10px;
           bottom: -10px;
         };
+        box-shadow: rgba(0, 0, 0, 0.156863) 0px 2px 5px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 10px 0px;
+        height: 74px;
       }
 
       paper-icon-button {
@@ -60,7 +65,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .logo {
-        text-align: center;
+        text-align: left;
+        padding-top: 20px;
+      }
+
+      .logo img {
+        height: 53px;
       }
 
       .logo a {
@@ -75,7 +85,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .left-bar-item {
-        width: 40px;
+
       }
 
       .menu-btn {
@@ -92,7 +102,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         overflow: hidden;
       }
 
-      :host(:not([page=detail])) .back-btn {
+      :host(:not([page=sign-in])) .back-btn{
+        display: none;
+      }
+
+      :host([page=sign-in]) .logo,
+      :host([page=sign-up]) .logo {
+        display: none;
+      }
+
+      :host([page=sign-in]) .signin-btn-container {
         display: none;
       }
 
@@ -103,6 +122,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       #tabContainer {
         position: relative;
         height: 66px;
+        width: 87%;
+        text-align: center;
+        margin-top: 12px;
       }
 
       landing-tabs, landing-tab {
@@ -116,17 +138,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       landing-tab {
-        margin: 0 10px;
+        margin: 0 5px;
       }
 
       landing-tab a {
         display: inline-block;
         outline: none;
-        padding: 9px 5px;
-        font-size: 13px;
-        font-weight: 500;
+        padding: 27px 9px;
+        font-size: 15px;
+        font-weight: 400;
         text-decoration: none;
         color: var(--app-primary-color);
+        text-transform: uppercase;
       }
 
       .drawer-list {
@@ -184,6 +207,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         text-transform: uppercase;
       }
 
+      paper-button {
+        background-color: #2196F3;
+        font-weight: 500;
+        color: #fff;
+      }
+
+      div.signin-btn-container paper-button {
+        background-color: #444;
+        font-size: 16px;
+        margin-left: 32px;
+        margin-top: 12px;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
       /* small screen */
       @media (max-width: 767px) {
         :host {
@@ -195,6 +235,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         :host([page=detail]) .menu-btn {
+          display: none;
+        }
+
+        .logo {
           display: none;
         }
       }
@@ -231,33 +275,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <a class="back-btn" href="/[[categoryName]]" tabindex="-1">
             <paper-icon-button icon="arrow-back" aria-label="Go back"></paper-icon-button>
           </a>
+          <div class="logo">
+            <a href="/" aria-label="Mist.io Home"><img src="../images/logo.svg"></a>
+          </div>
         </div>
-        <div class="logo" main-title><a href="/" aria-label="Mist.io Home">Mist.io</a></div>
+        <div main-title>
+        </div>
+
+        <!-- Lazy-create the tabs for larger screen sizes. -->
+        <div id="tabContainer" sticky$="[[_shouldShowTabs]]" hidden$="[[!_shouldShowTabs]]">
+          <dom-if if="[[_shouldRenderTabs]]">
+            <template>
+              <landing-tabs
+                  selected="[[categoryName]]"
+                  attr-for-selected="name">
+                <dom-repeat items="[[categories]]" as="category" initial-count="4">
+                  <template>
+                  <landing-tab name="[[category.name]]">
+                    <a name="[[category.name]]" href="[[category.href]]" target="new">[[category.title]]</a>
+                  </landing-tab>
+                  </template>
+                </dom-repeat>
+              </landing-tabs>
+            </template>
+          </dom-if>
+        </div>
         <div class="signin-btn-container">
-          <landing-button>
-            <a href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io">Sign In</a>
-          </landing-button>
+          <a href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io">
+            <paper-button raised>Sign In</paper-button>
+          </a>
         </div>
       </app-toolbar>
-
-      <!-- Lazy-create the tabs for larger screen sizes. -->
-      <div id="tabContainer" sticky$="[[_shouldShowTabs]]" hidden$="[[!_shouldShowTabs]]">
-        <dom-if if="[[_shouldRenderTabs]]">
-          <template>
-            <landing-tabs
-                selected="[[categoryName]]"
-                attr-for-selected="name">
-              <dom-repeat items="[[categories]]" as="category" initial-count="4">
-                <template>
-                <landing-tab name="[[category.name]]">
-                  <a href="/[[category.name]]">[[category.title]]</a>
-                </landing-tab>
-                </template>
-              </dom-repeat>
-            </landing-tabs>
-          </template>
-        </dom-if>
-      </div>
     </app-header>
 
     <!-- Lazy-create the drawer for small screen sizes. -->
@@ -268,7 +316,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <iron-selector role="navigation" class="drawer-list" selected="[[categoryName]]" attr-for-selected="name">
           <dom-repeat items="[[categories]]" as="category" initial-count="4">
             <template>
-              <a name="[[category.name]]" href="/list/[[category.name]]">[[category.title]]</a>
+              <a name="[[category.name]]" href="[[category.href]]">[[category.title]]</a>
             </template>
           </dom-repeat>
         </iron-selector>
@@ -280,9 +328,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <!-- home view -->
       <landing-home name="home" categories="[[categories]]"></landing-home>
 
-
-      <landing-product name="product" route="[[subroute]]" offline="[[offline]]"></landing-product>
+      <dom-repeat items="[[categories]]" as="category">
+        <template>
+          <landing-page name="[[category.name]]" route="[[subroute]]" offline="[[offline]]"></landing-page>
+        </template>
+      </dom-repeat>
       <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]"></landing-sign-in>
+      <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]"></landing-sign-up>
 
       <!-- list view of items in a category -->
       <landing-list name="list" route="[[subroute]]" offline="[[offline]]"></landing-list>
@@ -388,8 +440,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             // When a load failed, it triggered a 404 which means we need to
             // eagerly load the 404 page definition
             var cb = this._pageLoaded.bind(this, Boolean(oldPage));
+            var category = this.categories && this.categories.find(function(c){ return c.name == page});
+            var template = category ? category.template : page;
             this.importHref(
-              this.resolveUrl('landing-' + page + '.html'),
+              this.resolveUrl('landing-' + template + '.html'),
               cb, cb, true);
           }
         }
@@ -413,7 +467,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.importHref(this.resolveUrl('lazy-resources.html'), function() {
               // Register service worker if supported.
               if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/service-worker.js');
+                navigator.serviceWorker.register('service-worker.js');
               }
               this._notifyNetworkStatus();
               this.loadComplete = true;
@@ -462,7 +516,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // effects during the scroll.
         Polymer.AppLayout.scroll({ top: scrollTop, behavior: 'silent' });
 
-        this.categoryName = detail.category || '';
+        this.categoryName = detail.category || 'home';
 
         // Announce the page's title
         if (detail.title) {
@@ -500,7 +554,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _computeShouldShowTabs: function(page, smallScreen) {
-        return (page === 'home' || page === 'list' || page === 'detail') && !smallScreen;
+        return ((page === 'home' || page === 'list' || page === 'detail') ||
+                this.categories && this.categories.map(function(c){return c.name}).indexOf(page) > -1) && !smallScreen;
       },
 
       _computeShouldRenderTabs: function(_shouldShowTabs, loadComplete) {
