@@ -9,14 +9,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="landing-button.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
 <link rel="import" href="landing-image.html">
 
 <dom-module id="landing-home">
 
   <template>
 
-    <style include="landing-button">
+    <style>
 
       .image-link {
         outline: none;
@@ -91,22 +92,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         h2 {
           margin: 24px 0;
         }
-
-        .item:nth-of-type(3) > landing-button > a,
-        .item:nth-of-type(4) > landing-button > a {
-          padding: 8px 24px;
-        }
       }
 
+      paper-button {
+        background-color: #0099cc;
+        color: #fff;
+        font-size: 18px;
+        height: 54px;
+        padding: 0 50px;
+        margin: 40px;
+      }
+
+      a {
+        text-decoration: none;
+      }
     </style>
 
-    <div class="item"
+    <div class="item">
     <h2>How may servers do you have?</h2>
     <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
-    <landing-button>
-        <a aria-label="Get started" href="/sign-up">Get started</a>
-    </landing-button>
-    <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wgARCAAOABIDASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAIDAQX/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAHpVTBi4f/EABkQAAMBAQEAAAAAAAAAAAAAAAABAgMTMv/aAAgBAQABBQKcs2csyfNQkRKYpSX/xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/AT//xAAeEAACAQMFAAAAAAAAAAAAAAAAAgEQMZIRITJRkf/aAAgBAQAGPwLWUW/RwXwgndsi7ZTT/8QAGxABAAICAwAAAAAAAAAAAAAAAQARIWExUXH/2gAIAQEAAT8hFVFWXaGq8TCjqWzfQqgGZgADif/aAAwDAQACAAMAAAAQ4M//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAEDAQE/ED//xAAUEQEAAAAAAAAAAAAAAAAAAAAQ/9oACAECAQE/ED//xAAcEAEAAwACAwAAAAAAAAAAAAABABEhMUFRsdH/2gAIAQEAAT8QbryhV1yw5RSwr5RU8AQDrIaI60AK+BzYiqo9Ve5jEAFtz//Z"></landing-image>
+
+    <a aria-label="Get started" href="/sign-up" tabindex="-1">
+      <paper-button raised>Get started</paper-button>
+    </a>
+    <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
     </div>
   </template>
 
