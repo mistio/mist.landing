@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/typed-text/typed-text.html">
 
 <link rel="import" href="landing-image.html">
 
@@ -74,9 +75,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       h2 {
-        font-size: 1.3em;
-        font-weight: 500;
-        margin: 32px 0;
+        font-size: 52px;
+        font-weight: 300;
+        margin: 1.78rem 0 1.424rem 0;
+      }
+
+      h5 {
+        font-size: 1.64rem;
+        font-weight: 300;
+        margin: 0.82rem 0 0.656rem 0;
       }
 
       .item:nth-of-type(3) > h2,
@@ -106,10 +113,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       a {
         text-decoration: none;
       }
+
+      typed-text {
+        display: inline-block;
+        font-weight: 500;
+      }
     </style>
 
     <div class="item">
-    <h2>How may servers do you have?</h2>
+    <h2>How many <typed-text cursor="|" noretype="" loop="" strings="[
+      &quot;clouds&quot;,
+      &quot;servers&quot;,
+      &quot;containers&quot;,
+      &quot;keys&quot;,
+      &quot;scripts&quot;]"></typed-text> do you have?</h2>
     <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
 
     <a aria-label="Get started" href="/sign-up" tabindex="-1">
