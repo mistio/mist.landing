@@ -60,8 +60,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 74px;
       }
 
+      app-toolbar {
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+
       paper-icon-button {
         color: var(--app-primary-color);
+        margin-top: 12px;
       }
 
       .logo {
@@ -93,7 +99,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .signin-btn-container {
-        float: right;
+        position: absolute;
+        right: 12px;
       }
 
       .announcer {
@@ -102,8 +109,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         overflow: hidden;
       }
 
-      :host(:not([page=sign-in])) .back-btn{
+      .back-btn {
         display: none;
+      }
+
+      :host([page=sign-in]) .back-btn, :host([page=sign-up]) .back-btn {
+        display: block;
       }
 
       :host([page=sign-in]) .logo,
@@ -122,9 +133,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       #tabContainer {
         position: relative;
         height: 66px;
-        width: 87%;
+        width: 500px;
         text-align: center;
-        margin-top: 12px;
+        margin: 12px auto 0;
       }
 
       landing-tabs, landing-tab {
@@ -175,7 +186,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       iron-pages {
         max-width: 1440px;
-        margin: 0 auto;
+        margin: -16px auto 0;
       }
 
       footer {
@@ -215,9 +226,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       div.signin-btn-container paper-button {
         background-color: #444;
-        font-size: 16px;
-        margin-left: 32px;
+        font-size: 15px;
+        margin-right: 0;
+        margin-left: 0px;
+        padding: 2px 18px;
+        font-weight: 400;
         margin-top: 12px;
+        line-height: 36px;
       }
 
       a {
@@ -278,8 +293,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div class="logo">
             <a href="/" aria-label="Mist.io Home"><img src="../images/logo.svg"></a>
           </div>
-        </div>
-        <div main-title>
         </div>
 
         <!-- Lazy-create the tabs for larger screen sizes. -->
