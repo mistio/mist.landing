@@ -23,7 +23,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-category-data.html">
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
-<link rel="import" href="landing-page.html">
+<link rel="import" href="landing-sign-in.html">
+<link rel="import" href="landing-sign-up.html">
 <dom-module id="landing-app">
 
   <template>
@@ -96,11 +97,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .menu-btn {
         display: none;
-      }
-
-      .signin-btn-container {
-        position: absolute;
-        right: 12px;
       }
 
       .announcer {
@@ -256,6 +252,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .logo {
           display: none;
         }
+
+        .signin-btn-container {
+          position: absolute;
+          right: 16px;
+        }
       }
 
     </style>
@@ -278,7 +279,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     -->
     <landing-category-data categories="{{categories}}"></landing-category-data>
 
-    <app-header role="navigation" id="header" effects="waterfall" condenses reveals>
+    <app-header role="navigation" id="header" effects="waterfall" fixed>
       <app-toolbar>
         <div class="left-bar-item">
           <paper-icon-button
