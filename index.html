@@ -24,12 +24,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="manifest" href="manifest.json">
 
   <script tal:condition="csrf_token|nothing" tal:content="string: var CSRF_TOKEN=${csrf_token}"></script>
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <script tal:condition="not:build_path" src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
   <script tal:content="string: var BUILD_PATH='${build_path}'">
       var BUILD_PATH='';
   </script>
+  <script>
+      // setup Polymer options
+    window.Polymer = {lazyRegister: true};
 
+  </script>
   <link rel="import" href="src/landing-app.html">
 
   <style>

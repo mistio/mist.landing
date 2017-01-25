@@ -45,45 +45,37 @@
         Polymer({
             is: 'landing-sign-in',
             attached: function() {
-                this.$.signInForm.addEventListener('keyup', this._validate);
-                this.$.signInForm.addEventListener('change', this._validate);
+                var that = this,
+                    validate = function(event) {
+                        // Validate the entire form to see if we should enable the `Submit` button.
+                        that.$.signInSubmit.disabled = !that.$.signInForm.validate();
+                        if (event.key == "Enter")
+                            that.$.signInForm.submit();
+                    }
+                this.$.signInForm.addEventListener('keyup', validate);
+                this.$.signInForm.addEventListener('change', validate);
 
                 this.$.signInForm.addEventListener('iron-form-error', function(event) {
                     console.warn("GOT ERROR!", event);
-                    this.querySelector('#spinner').active = false;
-                    this.querySelector('#spinner').hidden = true;
-                    this.querySelector('#signInSubmit').disabled = false;
-                    this.querySelector('.output').innerHTML = event.detail.error.message;
+                    that.$.signInForm.querySelector('#spinner').active = false;
+                    that.$.signInForm.querySelector('#spinner').hidden = true;
+                    that.$.signInForm.querySelector('#signInSubmit').disabled = false;
+                    that.$.signInForm.querySelector('.output').innerHTML = event.detail.error.message;
                 });
                 this.$.signInForm.addEventListener('iron-form-response', function(event) {
-                    this.querySelector('.output').innerHTML = "SUCCESS!";
+                    that.$.signInForm.querySelector('.output').innerHTML = "SUCCESS!";
                     console.warn("GOT RESPONSE!", event);
                     window.location = event.detail.response.redirect;
                 });
-                this.$.signInForm.addEventListener('iron-form-presubmit', this._preSubmit);
-
-            },
-            _validate: function(event) {
-                // Validate the entire form to see if we should enable the `Submit` button.
-                this.querySelector('#signInSubmit').disabled = !this.validate();
-                if (event.key == "Enter")
-                    this.submit();
-            },
-            _preSubmit: function(event) {
-                this.ajax.headers['Csrf-Token'] = CSRF_TOKEN;
-            },
-            _reset: function(event) {
-                this.reset();
+                this.$.signInForm.addEventListener('iron-form-presubmit', function(event) {
+                    that.$.signInForm.ajax.headers['Csrf-Token'] = CSRF_TOKEN;
+                });
             },
             _submitButtonHandler:  function(event) {
                 this.$.spinner.active = true;
                 this.$.spinner.hidden = false;
                 this.$.signInSubmit.disabled = true;
                 this.async(function() {this.$.signInForm.submit()}, 1000);
-            },
-            _reset: function(event) {
-                this.$.signInForm.reset();
-                this.$.signInForm.querySelector('.output').innerHTML = '';
             }
         });
 
