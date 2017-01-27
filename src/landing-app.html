@@ -25,12 +25,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-home.html">
 <link rel="import" href="landing-sign-in.html">
 <link rel="import" href="landing-sign-up.html">
+
 <dom-module id="landing-app">
-
   <template>
-
     <style>
-
       :host {
         display: block;
         position: relative;
@@ -122,6 +120,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: none;
       }
 
+      .signin-btn-container {
+          position: absolute;
+          right: 16px;
+      }
+
+      .signin-btn-container.true {
+        position: relative;
+        right: 0px;
+      }
+
       [hidden] {
         display: none !important;
       }
@@ -173,7 +181,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .drawer-list a.iron-selected {
         color: black;
-        font-weight: bold;
+        font-weight:   bold;
       }
 
       app-drawer {
@@ -252,20 +260,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .logo {
           display: none;
         }
-
-        .signin-btn-container {
-          position: absolute;
-          right: 16px;
-        }
       }
-
     </style>
 
     <landing-analytics key="[[gaId]]"></landing-analytics>
     <!--
       app-location and app-route elements provide the state of the URL for the app.
     -->
-    <app-location route="{{route}}"></app-location>
+    <app-location route="{{route}}" id="appLocation"></app-location>
     <app-route
         route="{{route}}"
         pattern="/:page"
@@ -314,7 +316,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </template>
           </dom-if>
         </div>
-        <div class="signin-btn-container">
+        <div class$="signin-btn-container [[_shouldShowTabs]]">
           <a href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io">
             <paper-button raised>Sign In</paper-button>
           </a>
@@ -349,6 +351,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </dom-repeat>
       <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]"></landing-sign-in>
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]"></landing-sign-up>
+      <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]"></landing-set-password>
+      <landing-new-component name="set-password" route="[[subroute]]" offline="[[offline]]"></landing-new-component>
 
       <!-- list view of items in a category -->
       <landing-list name="list" route="[[subroute]]" offline="[[offline]]"></landing-list>
