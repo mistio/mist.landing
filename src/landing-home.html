@@ -10,7 +10,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/typed-text/typed-text.html">
+<link rel="import" href="../bower_components/paper-styles/shadow.html">
 
 <link rel="import" href="landing-image.html">
 
@@ -18,7 +20,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template>
 
+    <style is="custom-style" include="iron-flex"></style>
     <style>
+      paper-material {
+        @apply(--shadow-elevation-2dp);
+      }
+      .section > * {
+        max-width: 1148px;
+        margin: 0 auto;
+        padding: 48px 24px;
+      }
+
+      .section.grey {
+        background-color: #f2f2f2;
+      }
+
+      .section.white {
+        background-color: #fff;
+      }
+
+      .hero {
+        padding: 0;
+      }
 
       .image-link {
         outline: none;
@@ -49,8 +72,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .item {
         display: block;
         text-decoration: none;
+      }
+
+      .text-center {
         text-align: center;
-        margin-bottom: 40px;
       }
 
       .item:nth-of-type(3),
@@ -78,6 +103,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-size: 52px;
         font-weight: 300;
         margin: 1.78rem 0 1.424rem 0;
+      }
+
+      h3 {
+        font-size: 34px;
+        font-weight: 300;
       }
 
       h5 {
@@ -108,6 +138,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 54px;
         padding: 0 50px;
         margin: 40px;
+        font-weight: 500;
       }
 
       a {
@@ -118,21 +149,60 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: inline-block;
         font-weight: 500;
       }
+
+      .col {
+        width: 50%;
+        box-sizing: border-box;
+      }
+
+      .pad {
+        padding: 16px;
+      }
+
+      img.with-shadow {
+        max-width: 100%;
+        display: block;
+      }
+
+      .with-shadow {
+        @apply(--shadow-elevation-2dp);
+      }
     </style>
 
-    <div class="item">
-    <h2>How many <typed-text cursor="|" noretype="" loop="" strings="[
-      &quot;clouds&quot;,
-      &quot;servers&quot;,
-      &quot;containers&quot;,
-      &quot;keys&quot;,
-      &quot;scripts&quot;]"></typed-text> do you have?</h2>
-    <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
+    <div class="section">
+      <div class="hero text-center"> 
+        <h2>How many <typed-text cursor="|" noretype="" loop="" strings="[
+          &quot;clouds&quot;,
+          &quot;servers&quot;,
+          &quot;containers&quot;,
+          &quot;keys&quot;,
+          &quot;scripts&quot;]"></typed-text> do you have?</h2>
+        <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
 
-    <a aria-label="Get started" href="/sign-up" tabindex="-1">
-      <paper-button raised>Get started</paper-button>
-    </a>
-    <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
+        <a aria-label="Get started" href="/sign-up" tabindex="-1">
+          <paper-button raised>Get started</paper-button>
+        </a>
+        <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
+      </div>
+    </div>
+    <div class="section white">
+      <div class="container horizontal layout">
+        <div class="col">
+          <h3>How it works</h3>
+
+          <p>Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.</p>
+
+          <p>Invite team members and delegate access. See real time cost and usage reporting. Create, reboot or destroy virtual machines. View their metadata, tag and search them.</p>
+
+          <p>Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.</p>
+        </div>
+        <div class="col pad">
+          <img class="with-shadow" src="../images/frontpage/home-dashboard.png"/>
+        </div>
+      </div>
+    </div>
+    <div class="section grid">
+      
     </div>
   </template>
 
