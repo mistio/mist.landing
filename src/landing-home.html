@@ -15,6 +15,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="landing-image.html">
@@ -47,6 +49,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       .hero {
         padding: 0 48px;
+      }
+
+      :host {
+        display: block;
       }
 
       .image-link {
@@ -158,53 +164,63 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           display: block;
         }
       }
+
+      #placeholder {
+          opacity: 0;
+          background-color: grey;
+          @apply(--layout-fit);
+      }
+
     </style>
 
-    <div class="section">
-      <div class="hero text-center"> 
-        <h2 class="typed">How many <typed-text cursor="|" noretype="" loop="" strings="[
-          &quot;clouds&quot;,
-          &quot;servers&quot;,
-          &quot;containers&quot;,
-          &quot;keys&quot;,
-          &quot;scripts&quot;]"></typed-text> do you have?</h2>
-        <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
+    <div id="placeholder"></div>
+    <div id="container">
+      <div class="section grey">
+        <div class="hero text-center"> 
+          <h2 class="typed">How many <typed-text cursor="|" noretype="" loop="" strings="[
+            &quot;clouds&quot;,
+            &quot;servers&quot;,
+            &quot;containers&quot;,
+            &quot;keys&quot;,
+            &quot;scripts&quot;]"></typed-text> do you have?</h2>
+          <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
 
-        <a aria-label="Get started" href="/sign-up" tabindex="-1">
-          <paper-button raised>Get started</paper-button>
-        </a>
-        <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
+          <a aria-label="Get started" href="/sign-up" tabindex="-1">
+            <paper-button raised on-click="_signUpClick">Get started</paper-button>
+          </a>
+          <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
+        </div>
       </div>
-    </div>
-    
-    <div class="section white">
-      <div class="container">
-        <div class="grid-row items-center">
-          <div class="xs12 s6 m6 l6">
-            <h3>How it works</h3>
+      
+      <div class="section white">
+        <div class="container">
+          <div class="grid-row items-center">
+            <div class="xs12 s6 m6 l6">
+              <h3>How it works</h3>
 
-            <p>Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.</p>
+              <p>Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.</p>
 
-            <p>Invite team members and delegate access. See real time cost and usage reporting. Create, reboot or destroy virtual machines. View their metadata, tag and search them.</p>
+              <p>Invite team members and delegate access. See real time cost and usage reporting. Create, reboot or destroy virtual machines. View their metadata, tag and search them.</p>
 
-            <p>Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.</p>
-          </div>
-          <div class="xs12 s6 m6 l6">
-            <img class="with-shadow" src="../images/frontpage/home-dashboard.png"/>
+              <p>Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.</p>
+            </div>
+            <div class="xs12 s6 m6 l6">
+              <img class="with-shadow" src="../images/frontpage/home-dashboard.png"/>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="section grey">
-      <div class="container text-center">
-        <landing-features features="[[features]]"></landing-features>
-      </div>        
-    </div>
+      <div class="section grey">
+        <div class="container text-center">
+          <landing-features></landing-features>
+        </div>        
+      </div>
 
-    <div class="section white">
-      <div class="container text-center">
-        <landing-testimonials clients="[[clients]]"></landing-testimonials>
+      <div class="section white">
+        <div class="container text-center">
+          <landing-testimonials></landing-testimonials>
+        </div>
       </div>
     </div>
 
@@ -216,7 +232,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       is: 'landing-home',
 
+      behaviors: [
+        Polymer.NeonSharedElementAnimatableBehavior
+      ],
+
       properties: {
+        animationConfig: {
+          type: Object
+        },
 
         categories: {
           type: Array
@@ -229,12 +252,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       },
 
+      attached: function() {
+        this.animationConfig = {
+          'entry': [{
+            name: 'reverse-ripple-animation',
+            id: 'reverse-ripple',
+            toPage: this
+          }],
+
+          'exit': [{
+            name: 'fade-out-animation',
+            node: this.$.container,
+            timing: {
+              delay: 150,
+              duration: 0
+            }
+          }, {
+            name: 'ripple-animation',
+            id: 'ripple',
+            fromPage: this
+          }]
+        };
+      },
+
       _visibleChanged: function(visible) {
         if (visible) {
           this.fire('change-section', { title: 'Home' });
         }
-      }
+      },
 
+      _signUpClick: function(event) {
+        console.warn('signup click');
+
+        this.sharedElements = {
+          'ripple': event.target,
+          'reverse-ripple': event.target
+        };
+      }
     });
 
   </script>

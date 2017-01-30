@@ -4,6 +4,8 @@
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <dom-module id="landing-sign-in">
     <template>
@@ -65,25 +67,41 @@
             }
             a#forgotPasswordLink {
             }
+            #placeholder {
+                opacity: 0;
+                background-color: grey;
+                @apply(--layout-fit);
+            }
         </style>
 
-        <h1>Sign in to your Mist.io account</h1>
-        <iron-form id="signInForm">
-            <form method="post" action="/login" enctype='application/json'>
-                <paper-input name="email" label="Email" required auto-validate autofocus></paper-input>
-                <paper-input name="password" label="Password" type="password" required auto-validate></paper-input>
-                <paper-button raised on-tap="_submitButtonHandler" disabled id="signInSubmit">
-                    <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
-                    <div class="output" hidden$="[[loading]]">GO</div>
-                </paper-button>
-                <div class="forgot"><a href="/forgot" id="forgotPasswordLink">Forgot password?</a></div>
-            </form>
-        </iron-form>
+        <div id="placeholder"></div>
+        <div id="container">
+            <h1>Sign in to your Mist.io account</h1>
+            <iron-form id="signInForm">
+                <form method="post" action="/login" enctype='application/json'>
+                    <paper-input name="email" id="signin-email" label="Email" required auto-validate autofocus></paper-input>
+                    <paper-input name="password" id="signin-password" label="Password" type="password" required auto-validate></paper-input>
+                    <paper-button raised on-tap="_submitButtonHandler" disabled id="signInSubmit">
+                        <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
+                        <div class="output" hidden$="[[loading]]">ENTER</div>
+                    </paper-button>
+                    <div class="forgot"><a href="/forgot" id="forgotPasswordLink">Forgot password?</a></div>
+                </form>
+            </iron-form>
+        </div>
     </template>
     <script>
         Polymer({
             is: 'landing-sign-in',
+
+            behaviors: [
+                Polymer.NeonSharedElementAnimatableBehavior
+            ],
             properties: {
+                animationConfig: Object,
+
+                sharedElements: Object,
+
                 loading: {
                     type: Boolean,
                     value: false
@@ -91,6 +109,47 @@
             },
 
             attached: function() {
+                this.animationConfig = {
+                    'entry': [{
+                        name: 'ripple-animation',
+                        id: 'ripple',
+                        toPage: this
+                    }, {
+                        name: 'fade-out-animation',
+                        node: this.$.placeholder,
+                        timing: {
+                            delay: 250
+                        }
+                    }, {
+                        name: 'fade-out-animation',
+                        node: document.querySelector('landing-app').$.header,
+                        timing: {
+                            delay: 0
+                        }
+                    }, {
+                        name: 'fade-in-animation',
+                        node: this.$.container,
+                        timing: {
+                            delay: 50
+                        }
+                    }],
+                    'exit': [{
+                        name: 'fade-out-animation',
+                        node: this.$.container,
+                        timing: {
+                            duration: 0
+                        }
+                    }, {
+                        name: 'reverse-ripple-animation',
+                        id: 'reverse-ripple',
+                        fromPage: this
+                    }]
+                };
+
+                this.sharedElements = {
+                    'ripple': this.$.placeholder,
+                    'reverse-ripple': this.$.placeholder
+                };
                 var that = this,
                     validate = function(event) {
                     // Validate the entire form to see if we should enable the `Submit` button.
@@ -128,6 +187,5 @@
                 this.async(function() {this.$.signInForm.submit()}, 1000);
             }
         });
-
     </script>
 </dom-module>

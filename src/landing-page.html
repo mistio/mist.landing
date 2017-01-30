@@ -10,6 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="landing-icons.html">
 
 <dom-module id="landing-page">
@@ -32,22 +34,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 50px 0 50px 0;
         font-weight: 300;
       }
-
+      #placeholder {
+          opacity: 0;
+          background-color: grey;
+          @apply(--layout-fit);
+      }
     </style>
 
     <div>
-      <h1>[[name]]</h1>
+      <div id="placeholder"></div>
+      <div id="container">
+        <h1>[[name]]</h1>
+        <landing-button>
+          <a href="/">Go to the home page</a>
+        </landing-button>
+        <div id="content"></div>
+      </div>
     </div>
-    <landing-button>
-      <a href="/">Go to the home page</a>
-    </landing-button>
 
   </template>
   <script>
     Polymer({
       is: 'landing-page',
+      behaviors: [
+        Polymer.NeonSharedElementAnimatableBehavior
+      ],
+
       properties: {
+        animationConfig: Object,
+        sharedElements: Object,
         name: String
+      },
+      attached: function() {
+        this.animationConfig = {
+          'entry': [],
+
+          'exit': [{
+            name: 'fade-out-animation',
+            node: this.$.container,
+            timing: {
+              delay: 150,
+              duration: 0
+            }
+          }, {
+            name: 'ripple-animation',
+            id: 'ripple',
+            fromPage: this
+          }]
+        };
+
+        this.sharedElements = {
+            'ripple': this.$.placeholder,
+            'reverse-ripple': this.$.placeholder
+        };
       }
     });
   </script>
