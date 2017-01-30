@@ -26,6 +26,38 @@
         font-size: 16px !important;
       }
     }
+
+    .row {
+      margin-bottom: 24px;
+    }
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .decorated {
+      position: relative;
+    }
+
+    .decorated:after {
+      content: "";
+      position: absolute;
+      display: inline-block;
+      width: 80px;
+      border-bottom: 2px solid #7f7f7f;
+      bottom: -20px;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      transition: all .3s ease-in-out;
+    }
+
+    .decorated:hover:after {
+      width: 160px;
+    }
+
     .items-center {
       align-items: center;
     }

@@ -8,6 +8,8 @@
     <style>
         :host {
             position: relative;
+            display: block;
+            padding: 24px;
         } 
         .client {
             font-size: 0.9em;
@@ -73,7 +75,6 @@
         }
     </style>
     
-    <h2>See what some of our clients say</h2>
     <div id="testimonials">
       <template is="dom-repeat" items="[[clients]]" as="client">
         <div id="[[index]]" class="testimonial" active$="{{isEqual(index, activeIndex)}}">

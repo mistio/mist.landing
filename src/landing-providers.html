@@ -6,6 +6,10 @@
   <template>
     <style include="shared-styles"></style>
     <style>
+        :host {
+            display: block;
+            padding: 24px;
+        }
         .provider img {
             opacity: .4;
             max-width: 100%;
@@ -24,7 +28,6 @@
         }
     </style>
 
-    <h2>Supported Providers</h2>
     <div class="grid-row providers">
       <template is="dom-repeat" items="[[providers]]" as="provider">
         <div class="xs6 s6 m4 l4 margin-top margin-bottom padding-bottom">
