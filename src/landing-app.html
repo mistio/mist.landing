@@ -397,7 +397,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </dom-if>
     <neon-animated-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="404">
       <!-- home view -->
-      <landing-home name="home" categories="[[categories]]" id="home" data="{{category.items}}"></landing-home>
+      <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]"></landing-home>
 
       <dom-repeat items="[[categories]]" as="category">
         <template>
