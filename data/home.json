@@ -1,0 +1,44 @@
+{	
+"clients": [{
+        "name": "Iben Rodriguez",
+        "jobtitle": "Principal Architect, Cloud and Virtualization - Spirent Communications",
+        "testimonial": "Mist.io in an integral part of our development, test, and production operational programs in the Spirent VCT lab.",
+        "image": "iben.jpg"
+    },{
+        "name": "Ethan Jucovy",
+        "jobtitle": "Lead Technical Architect - Progressive Change Campaign Committee",
+        "testimonial": "Mist.io saved me headaches and probably hours of work at least three times in the last week, with totally different use cases each time",
+        "image": "ethan.png"
+    },{
+        "name": "Eric Gonzales",
+        "jobtitle": "Network and Systems Support Specialist - Enspire Learning",
+        "testimonial": "Since I began using mist.io, I have been able to respond to alerts and begin isolating issues and implementing changes before any customer impact is experienced. The ability to launch, control, and manage our Amazon instances from any device is a leap above any other cloud management or monitoring services.",
+        "image": "eric.png"
+	}],
+"features": [{
+	    "title": "Single panel",
+	    "icon": "hardware:laptop-mac",
+	    "description": "Control public & private clouds, containers, bare metal servers, more."
+	},{
+	    "title": "Role Base Access",
+	    "icon": "icons:supervisor-account",
+	    "description": "Fine grain controls for delegating access to team members."
+	},{
+	    "title": "Cost Visibility.",
+	    "icon": "icons:visibility",
+	    "description": "Cost and usage reporting across all your infrastructure.",
+	    "new": true
+	},{
+	    "title": "Simplify your workflows",
+	    "icon": "icons:cached",
+	    "description": "Orchestrate repeatable deployments, automate common responses."
+	},{
+	    "title": "Secure",
+	    "icon": "hardware:security",
+	    "description": "Enforce your policies consistently, across any computing platform."
+	},{
+	    "title": "No migration",
+	    "icon": "icons:cloud-done",
+	    "description": "Re-architecting infrastructure not required. Get started fast."
+	}]
+}

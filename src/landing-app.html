@@ -335,7 +335,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!--
       landing-category-data provides the list of categories.
     -->
-    <landing-category-data categories="{{categories}}"></landing-category-data>
+    <landing-category-data categories="{{categories}}" category-name="[[page]]" category="{{category}}"></landing-category-data>
 
     <app-header role="navigation" id="header" effects="waterfall" fixed>
       <app-toolbar>
@@ -397,7 +397,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </dom-if>
     <neon-animated-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="404">
       <!-- home view -->
-      <landing-home name="home" categories="[[categories]]" id="home"></landing-home>
+      <landing-home name="home" categories="[[categories]]" id="home" data="{{category.items}}"></landing-home>
 
       <dom-repeat items="[[categories]]" as="category">
         <template>
@@ -446,6 +446,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         numItems: {
           type: Number,
           value: 0
+        },
+
+        category: {
+          type: Object,
+          notify: true
         },
 
         gaId: {

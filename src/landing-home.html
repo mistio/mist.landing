@@ -213,13 +213,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="section grey">
         <div class="contains text-center">
-          <landing-features></landing-features>
+          <landing-features features="[[data.features]]"></landing-features>
         </div>        
       </div>
 
       <div class="section white">
         <div class="contains text-center">
-          <landing-testimonials></landing-testimonials>
+          <landing-testimonials clients="[[data.clients]]"></landing-testimonials>
         </div>
       </div>
     </div>
@@ -243,6 +243,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         categories: {
           type: Array
+        },
+
+        data: {
+          type: Object,
+          notify: true
         },
 
         visible: {

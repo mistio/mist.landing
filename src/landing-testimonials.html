@@ -99,31 +99,13 @@
 
   <script>
 
-    var CLIENTS = [{
-        "name": "Iben Rodriguez",
-        "jobtitle": "Principal Architect, Cloud and Virtualization - Spirent Communications",
-        "testimonial": "Mist.io in an integral part of our development, test, and production operational programs in the Spirent VCT lab.",
-        "image": "iben.jpg"
-    },{
-        "name": "Ethan Jucovy",
-        "jobtitle": "Lead Technical Architect - Progressive Change Campaign Committee",
-        "testimonial": "Mist.io saved me headaches and probably hours of work at least three times in the last week, with totally different use cases each time",
-        "image": "ethan.png"
-    },{
-        "name": "Eric Gonzales",
-        "jobtitle": "Network and Systems Support Specialist - Enspire Learning",
-        "testimonial": "Since I began using mist.io, I have been able to respond to alerts and begin isolating issues and implementing changes before any customer impact is experienced. The ability to launch, control, and manage our Amazon instances from any device is a leap above any other cloud management or monitoring services.",
-        "image": "eric.png"
-    }]
-
     Polymer({
 
         is: 'landing-testimonials',
 
         properties: {
             clients: {
-                type: Array,
-                value: CLIENTS
+                type: Array
             },
             activeIndex: {
                 type: Number,
