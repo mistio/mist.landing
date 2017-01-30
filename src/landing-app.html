@@ -399,8 +399,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <landing-page name="[[category.name]]" id="[[category.name]]" route="[[subroute]]" offline="[[offline]]"></landing-page>
         </template>
       </dom-repeat>
-      <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]"></landing-sign-in>
-      <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]"></landing-sign-up>
+      <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"></landing-sign-in>
+      <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"></landing-sign-up>
       <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]"></landing-set-password>
       <landing-new-component name="set-password" route="[[subroute]]" offline="[[offline]]"></landing-new-component>
 
@@ -646,13 +646,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _signInClick: function(event) {
         console.warn('signin click', event.target);
-        this.$.pages.querySelector('#' + this.page).sharedElements = {
+        this.$.home.sharedElements = {
           'ripple': event.target,
           'reverse-ripple': event.target
         };
-        //this.$.header.style.opacity = 0;
 
-        //this.$.pages.selected = 'sign-in';
       }
 
     });

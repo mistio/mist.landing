@@ -178,17 +178,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       attached: function() {
-
-      },
-
-      _visibleChanged: function(visible) {
-        if (visible) {
-          this.fire('change-section', { title: 'Home' });
-        }
-      },
-
-      _signUpClick: function(event) {
-        console.warn('signin click');
         this.animationConfig = {
           'entry': [{
             name: 'reverse-ripple-animation',
@@ -209,6 +198,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             fromPage: this
           }]
         };
+      },
+
+      _visibleChanged: function(visible) {
+        if (visible) {
+          this.fire('change-section', { title: 'Home' });
+        }
+      },
+
+      _signUpClick: function(event) {
+        console.warn('signup click');
+
         this.sharedElements = {
           'ripple': event.target,
           'reverse-ripple': event.target
