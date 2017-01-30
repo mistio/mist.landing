@@ -6,8 +6,9 @@
   <template>
     <style include="shared-styles"></style>
     <style>
-        .client iron-icon {
-        }
+        :host {
+            position: relative;
+        } 
         .client {
             font-size: 0.9em;
         }
@@ -30,31 +31,67 @@
         hr {
             max-width: 66%;
         }
-        .testimonial {
+        .client-testimonial {
             max-width: 75%;
             margin: 0 auto;
         }
-        .client-area {
+        #testimonials {
+            position: relative;
+            height: 300px;
+        }
+        .testimonial {
+            position: absolute;
+            width: 100%;
+            top: 0;
             padding-bottom: 48px;
+            transition: 100ms opacity ease-in;
+            opacity: 0;
+        }
+        .testimonial[active] {
+            opacity: 1;
+        }
+        #controls {
+            text-align: center;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+        }
+        #controls .control-item {
+            display: inline-block;
+            cursor: pointer;
+            height: 16px;
+            width: 16px;
+            margin: 0 12px;
+            background-color: #e0e0e0;
+            transition: background-color .3s;
+            border-radius: 50%;
+            font-size: 0;
+        }
+        #controls .control-item[active] {
+            background-color: #09c;
         }
     </style>
     
-    <div class="testimonials">
-      <template is="dom-repeat" items="[[clients]]" as="client">
-        <div class="client-area">
+    <div id="testimonials">
+      <template id="testimonialsRepeater" is="dom-repeat" items="[[clients]]" as="client">
+        <div id="[[index]]" class="testimonial" active$="{{isEqual(index, activeIndex)}}">
             <div class="client">
-                <img alt="[[client.name]]" class="client-image" src$="../images/testimonials/[[client.image]]"/>
+                <!-- dynamicly generated imge paths should not be relative. $ will resolve it. -->
+                <img alt="[[client.name]]" class="client-image" src$="images/testimonials/[[client.image]]"/>
                 <h5 class="client-name">[[client.name]]</h5>
                 <h4 class="job-title">[[client.jobtitle]]</h4>
                 <hr/>
-                <p class="testimonial">"[[client.testimonial]]"</p>
+                <p class="client-testimonial">"[[client.testimonial]]"</p>
             </div>
         </div>
       </template>
     </div>
 
-    <div class="controls">
-        1 2 3
+    <div id="controls">
+        <template is="dom-repeat" items="[[clients]]" as="client">
+            <div data-index="[[index]]" class="control-item" on-tap="_selectTestimonial" active$="{{isEqual(index, activeIndex)}}">[[index]]</div>
+        </template>
     </div>
     
   </template>
@@ -65,12 +102,17 @@
         "name": "Iben Rodriguez",
         "jobtitle": "Principal Architect, Cloud and Virtualization - Spirent Communications",
         "testimonial": "Mist.io in an integral part of our development, test, and production operational programs in the Spirent VCT lab.",
-        "image": "iben.png"
+        "image": "iben.jpg"
     },{
         "name": "Ethan Jucovy",
         "jobtitle": "Lead Technical Architect - Progressive Change Campaign Committee",
         "testimonial": "Mist.io saved me headaches and probably hours of work at least three times in the last week, with totally different use cases each time",
-        "image": "ethan.jpg"
+        "image": "ethan.png"
+    },{
+        "name": "Eric Gonzales",
+        "jobtitle": "Network and Systems Support Specialist - Enspire Learning",
+        "testimonial": "Since I began using mist.io, I have been able to respond to alerts and begin isolating issues and implementing changes before any customer impact is experienced. The ability to launch, control, and manage our Amazon instances from any device is a leap above any other cloud management or monitoring services.",
+        "image": "eric.png"
     }]
 
     Polymer({
@@ -81,9 +123,19 @@
             clients: {
                 type: Array,
                 value: CLIENTS
+            },
+            activeIndex: {
+                type: Number,
+                value: 0,
+                notify: true
             }
+        },        
+        _selectTestimonial: function(e) {
+            this.set('activeIndex', e.target.dataIndex);
+        },
+        isEqual: function(ind, activeIndex){
+            return ind == this.activeIndex;
         }
-
     });
 
   </script>
