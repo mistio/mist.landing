@@ -1,0 +1,87 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="landing-features">  
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+        .features iron-icon {
+            width: 48px;
+            height: 48px;
+        }
+        .feature {
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        .new-feature {
+            position: absolute;
+            top: 52px;
+            background-color: #09c;
+            color: #fff;
+            border-radius: 2px;
+            padding: 1px 4px;
+            width: 58px;
+            left: calc(50% - 29px);
+        }
+    </style>
+    
+    <div class="grid-row features">
+      <template is="dom-repeat" items="[[features]]" as="feature">
+        <div class="xs6 s6 m6 l4 margin-top margin-bottom padding-bottom">
+            <div class="feature">
+                <iron-icon icon="[[feature.icon]]"></iron-icon>
+                <h5>[[feature.title]]</h5>
+                <span class="new-feature" hidden$="[[!feature.new]]">New!</span>
+                <p>[[feature.description]]</p>
+            </div>
+        </div>
+      </template>
+    </div>
+    
+  </template>
+
+  <script>
+
+    var FEATURES = [{
+        "title": "Single panel",
+        "icon": "hardware:laptop-mac",
+        "description": "Control public & private clouds, containers, bare metal servers, more."
+    },{
+        "title": "Role Base Access",
+        "icon": "icons:supervisor-account",
+        "description": "Fine grain controls for delegating access to team members."
+    },{
+        "title": "Cost Visibility.",
+        "icon": "icons:visibility",
+        "description": "Cost and usage reporting across all your infrastructure.",
+        "new": true
+    },{
+        "title": "Simplify your workflows",
+        "icon": "icons:cached",
+        "description": "Orchestrate repeatable deployments, automate common responses."
+    },{
+        "title": "Secure",
+        "icon": "hardware:security",
+        "description": "Enforce your policies consistently, across any computing platform."
+    },{
+        "title": "No migration",
+        "icon": "icons:cloud-done",
+        "description": "Re-architecting infrastructure not required. Get started fast."
+    }]
+
+    Polymer({
+
+        is: 'landing-features',
+
+        properties: {
+            features: {
+                type: Array,
+                value: FEATURES
+            }
+        }
+
+    });
+
+  </script>
+</dom-module>

@@ -13,14 +13,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/typed-text/typed-text.html">
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
 
+<link rel="import" href="shared-styles.html">
 <link rel="import" href="landing-image.html">
+<link rel="import" href="landing-features.html">
+<link rel="import" href="landing-testimonials.html">
 
 <dom-module id="landing-home">
 
   <template>
 
     <style is="custom-style" include="iron-flex"></style>
+    <style include="shared-styles"></style>
     <style>
       paper-material {
         @apply(--shadow-elevation-2dp);
@@ -40,7 +46,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .hero {
-        padding: 0;
+        padding: 0 48px;
       }
 
       .image-link {
@@ -97,24 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           max-width: none;
         };
         margin-top: 40px;
-      }
-
-      h2 {
-        font-size: 52px;
-        font-weight: 300;
-        margin: 1.78rem 0 1.424rem 0;
-      }
-
-      h3 {
-        font-size: 34px;
-        font-weight: 300;
-      }
-
-      h5 {
-        font-size: 1.64rem;
-        font-weight: 300;
-        margin: 0.82rem 0 0.656rem 0;
-      }
+      }      
 
       .item:nth-of-type(3) > h2,
       .item:nth-of-type(4) > h2 {
@@ -164,14 +153,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
 
-      .with-shadow {
-        @apply(--shadow-elevation-2dp);
+      @media only screen and (max-width: 943px) {
+        typed-text {
+          display: block;
+        }
       }
     </style>
 
     <div class="section">
       <div class="hero text-center"> 
-        <h2>How many <typed-text cursor="|" noretype="" loop="" strings="[
+        <h2 class="typed">How many <typed-text cursor="|" noretype="" loop="" strings="[
           &quot;clouds&quot;,
           &quot;servers&quot;,
           &quot;containers&quot;,
@@ -185,25 +176,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
       </div>
     </div>
+    
     <div class="section white">
-      <div class="container horizontal layout">
-        <div class="col">
-          <h3>How it works</h3>
+      <div class="container">
+        <div class="grid-row items-center">
+          <div class="xs12 s6 m6 l6">
+            <h3>How it works</h3>
 
-          <p>Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.</p>
+            <p>Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.</p>
 
-          <p>Invite team members and delegate access. See real time cost and usage reporting. Create, reboot or destroy virtual machines. View their metadata, tag and search them.</p>
+            <p>Invite team members and delegate access. See real time cost and usage reporting. Create, reboot or destroy virtual machines. View their metadata, tag and search them.</p>
 
-          <p>Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.</p>
-        </div>
-        <div class="col pad">
-          <img class="with-shadow" src="../images/frontpage/home-dashboard.png"/>
+            <p>Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.</p>
+          </div>
+          <div class="xs12 s6 m6 l6">
+            <img class="with-shadow" src="../images/frontpage/home-dashboard.png"/>
+          </div>
         </div>
       </div>
     </div>
-    <div class="section grid">
-      
+
+    <div class="section grey">
+      <div class="container text-center">
+        <landing-features features="[[features]]"></landing-features>
+      </div>        
     </div>
+
+    <div class="section white">
+      <div class="container text-center">
+        <landing-testimonials clients="[[clients]]"></landing-testimonials>
+      </div>
+    </div>
+
   </template>
 
   <script>
