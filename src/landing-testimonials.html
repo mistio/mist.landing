@@ -73,8 +73,9 @@
         }
     </style>
     
+    <h2>See what some of our clients say</h2>
     <div id="testimonials">
-      <template id="testimonialsRepeater" is="dom-repeat" items="[[clients]]" as="client">
+      <template is="dom-repeat" items="[[clients]]" as="client">
         <div id="[[index]]" class="testimonial" active$="{{isEqual(index, activeIndex)}}">
             <div class="client">
                 <!-- dynamicly generated imge paths should not be relative. $ will resolve it. -->
@@ -129,7 +130,21 @@
                 value: 0,
                 notify: true
             }
-        },        
+        },
+        observers: [
+            'updateHeights(clients)'
+        ],
+        updateHeights: function(clients){
+            var testimonials = this.$.testimonials.children;
+            var heights = [];
+            [].forEach.call(testimonials, function(t){
+                heights.push(t.offsetHeight);
+            })
+            var height = heights.reduce(function(a,b){
+                return Math.max(a,b);
+            });
+            console.log(testimonials, height, heights);
+        },
         _selectTestimonial: function(e) {
             this.set('activeIndex', e.target.dataIndex);
         },
