@@ -11,7 +11,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/typed-text/typed-text.html">
-
+<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="landing-image.html">
 
 <dom-module id="landing-home">
@@ -19,6 +20,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
 
     <style>
+      :host {
+        display: block;
+        overflow: hidden;
+      }
+
       .image-link {
         outline: none;
       }
@@ -117,22 +123,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: inline-block;
         font-weight: 500;
       }
+      #placeholder {
+          opacity: 0;
+          background-color: grey;
+          @apply(--layout-fit);
+      }
     </style>
 
-    <div class="item">
-    <h2>How many <typed-text cursor="|" blink noretype="" loop="" strings="[
-      &quot;clouds&quot;,
-      &quot;servers&quot;,
-      &quot;containers&quot;,
-      &quot;keys&quot;,
-      &quot;scripts&quot;]"></typed-text> do you have?</h2>
-    <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
+    <div id="placeholder"></div>
+    <div id="container">
+      <div class="item">
+        <h2>How many <typed-text cursor="|" blink noretype="" loop="" strings="[
+          &quot;clouds&quot;,
+          &quot;servers&quot;,
+          &quot;containers&quot;,
+          &quot;keys&quot;,
+          &quot;scripts&quot;]"></typed-text> do you have?</h2>
+        <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
 
-    <a aria-label="Get started" href="/sign-up" tabindex="-1">
-      <paper-button raised>Get started</paper-button>
-    </a>
-    <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
+        <a aria-label="Get started" href="/sign-up" tabindex="-1">
+          <paper-button raised on-click="_signUpClick">Get started</paper-button>
+        </a>
+        <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
+      </div>
     </div>
+
+
   </template>
 
   <script>
@@ -141,7 +157,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       is: 'landing-home',
 
+      behaviors: [
+        Polymer.NeonSharedElementAnimatableBehavior
+      ],
+
       properties: {
+        animationConfig: {
+          type: Object
+        },
 
         categories: {
           type: Array
@@ -154,12 +177,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       },
 
+      attached: function() {
+
+      },
+
       _visibleChanged: function(visible) {
         if (visible) {
           this.fire('change-section', { title: 'Home' });
         }
-      }
+      },
 
+      _signUpClick: function(event) {
+        console.warn('signin click');
+        this.animationConfig = {
+          'entry': [{
+            name: 'reverse-ripple-animation',
+            id: 'reverse-ripple',
+            toPage: this
+          }],
+
+          'exit': [{
+            name: 'fade-out-animation',
+            node: this.$.container,
+            timing: {
+              delay: 150,
+              duration: 0
+            }
+          }, {
+            name: 'ripple-animation',
+            id: 'ripple',
+            fromPage: this
+          }]
+        };
+        this.sharedElements = {
+          'ripple': event.target,
+          'reverse-ripple': event.target
+        };
+      }
     });
 
   </script>
