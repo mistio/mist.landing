@@ -22,6 +22,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-image.html">
 <link rel="import" href="landing-features.html">
 <link rel="import" href="landing-testimonials.html">
+<link rel="import" href="landing-providers.html">
 
 <dom-module id="landing-home">
 
@@ -222,6 +223,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <landing-testimonials clients="[[data.clients]]"></landing-testimonials>
         </div>
       </div>
+
+      <div class="section grey">
+        <div class="contains text-center">
+          <landing-providers providers="[[data.providers]]"></landing-providers>
+        </div>
+      </div>
+
     </div>
 
   </template>

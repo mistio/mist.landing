@@ -1,4 +1,4 @@
-{	
+{   
 "clients": [{
         "name": "Iben Rodriguez",
         "jobtitle": "Principal Architect, Cloud and Virtualization - Spirent Communications",
@@ -14,31 +14,89 @@
         "jobtitle": "Network and Systems Support Specialist - Enspire Learning",
         "testimonial": "Since I began using mist.io, I have been able to respond to alerts and begin isolating issues and implementing changes before any customer impact is experienced. The ability to launch, control, and manage our Amazon instances from any device is a leap above any other cloud management or monitoring services.",
         "image": "eric.png"
-	}],
+    }],
 "features": [{
-	    "title": "Single panel",
-	    "icon": "hardware:laptop-mac",
-	    "description": "Control public & private clouds, containers, bare metal servers, more."
-	},{
-	    "title": "Role Base Access",
-	    "icon": "icons:supervisor-account",
-	    "description": "Fine grain controls for delegating access to team members."
-	},{
-	    "title": "Cost Visibility.",
-	    "icon": "icons:visibility",
-	    "description": "Cost and usage reporting across all your infrastructure.",
-	    "new": true
-	},{
-	    "title": "Simplify your workflows",
-	    "icon": "icons:cached",
-	    "description": "Orchestrate repeatable deployments, automate common responses."
-	},{
-	    "title": "Secure",
-	    "icon": "hardware:security",
-	    "description": "Enforce your policies consistently, across any computing platform."
-	},{
-	    "title": "No migration",
-	    "icon": "icons:cloud-done",
-	    "description": "Re-architecting infrastructure not required. Get started fast."
-	}]
+        "title": "Single panel",
+        "icon": "hardware:laptop-mac",
+        "description": "Control public & private clouds, containers, bare metal servers, more."
+    },{
+        "title": "Role Base Access",
+        "icon": "icons:supervisor-account",
+        "description": "Fine grain controls for delegating access to team members."
+    },{
+        "title": "Cost Visibility.",
+        "icon": "icons:visibility",
+        "description": "Cost and usage reporting across all your infrastructure.",
+        "new": true
+    },{
+        "title": "Simplify your workflows",
+        "icon": "icons:cached",
+        "description": "Orchestrate repeatable deployments, automate common responses."
+    },{
+        "title": "Secure",
+        "icon": "hardware:security",
+        "description": "Enforce your policies consistently, across any computing platform."
+    },{
+        "title": "No migration",
+        "icon": "icons:cloud-done",
+        "description": "Re-architecting infrastructure not required. Get started fast."
+    }],
+"providers": [{
+        "name": "amazon",
+        "image": "amazon.png"
+    },{
+        "name": "gce",
+        "image": "gce.png"
+    },{
+        "name": "microsoft azure",
+        "image": "azure.png"
+    },{
+        "name": "docker",
+        "image": "docker.png"
+    },{
+        "name": "openstack",
+        "image": "openstack.png"
+    },{
+        "name": "kvm",
+        "image": "kvm.png"
+    },{
+        "name": "vmware vcloud",
+        "image": "vcloud.png"
+    },{
+        "name": "softlayer",
+        "image": "softlayer.png"
+    },{
+        "name": "rackspace",
+        "image": "rackspace.png"
+    },{
+        "name": "digital ocean",
+        "image": "digitalocean.png"
+    },{
+        "name": "linode",
+        "image": "linode.png"
+    },{
+        "name": "nephoscale",
+        "image": "nephoscale.png"
+    },{
+        "name": "indonesian",
+        "image": "indonesian.png"
+    },{
+        "name": "hostvirtual",
+        "image": "hostvirtual.png"
+    },{
+        "name": "vultr",
+        "image": "vultr.png"
+    },{
+        "name": "vmware",
+        "image": "vmware-vsphere.png"
+    },{
+        "name": "packet",
+        "image": "packet.png"
+    },{
+        "name": "cloudify",
+        "image": "cloudify.png"
+    },{
+        "name": "kubernetes",
+        "image": "kubernetes.png"
+    }]
 }
