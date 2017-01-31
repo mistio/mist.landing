@@ -1,0 +1,130 @@
+{   
+"clients": [{
+        "name": "Iben Rodriguez",
+        "jobtitle": "Principal Architect, Cloud and Virtualization - Spirent Communications",
+        "testimonial": "Mist.io in an integral part of our development, test, and production operational programs in the Spirent VCT lab.",
+        "image": "iben.jpg"
+    },{
+        "name": "Ethan Jucovy",
+        "jobtitle": "Lead Technical Architect - Progressive Change Campaign Committee",
+        "testimonial": "Mist.io saved me headaches and probably hours of work at least three times in the last week, with totally different use cases each time",
+        "image": "ethan.png"
+    },{
+        "name": "Eric Gonzales",
+        "jobtitle": "Network and Systems Support Specialist - Enspire Learning",
+        "testimonial": "Since I began using mist.io, I have been able to respond to alerts and begin isolating issues and implementing changes before any customer impact is experienced. The ability to launch, control, and manage our Amazon instances from any device is a leap above any other cloud management or monitoring services.",
+        "image": "eric.png"
+    }],
+"features": [{
+        "title": "Single panel",
+        "icon": "hardware:laptop-mac",
+        "description": "Control public & private clouds, containers, bare metal servers, more."
+    },{
+        "title": "Role Base Access",
+        "icon": "icons:supervisor-account",
+        "description": "Fine grain controls for delegating access to team members."
+    },{
+        "title": "Cost Visibility.",
+        "icon": "icons:visibility",
+        "description": "Cost and usage reporting across all your infrastructure.",
+        "new": true
+    },{
+        "title": "Simplify your workflows",
+        "icon": "icons:cached",
+        "description": "Orchestrate repeatable deployments, automate common responses."
+    },{
+        "title": "Secure",
+        "icon": "hardware:security",
+        "description": "Enforce your policies consistently, across any computing platform."
+    },{
+        "title": "No migration",
+        "icon": "icons:cloud-done",
+        "description": "Re-architecting infrastructure not required. Get started fast."
+    }],
+"editions": [{
+        "title": "Hosted Edition",
+        "icon": "icons:cloud-circle",
+        "description": "A SaaS of the Mist.io platform. Get started fast."
+    },{
+        "title": "Enterprise Edition",
+        "icon": "icons:account-balance",
+        "description": "Run Mist.io in your data center, under your terms, and behind your firewall."
+    },{
+        "title": "Community Edition",
+        "icon": "social:share",
+        "description": "Mist.io is open source and available to be modified."
+    }],
+"faq": [{
+        "question": "How do I use it?",
+        "answer": "The easiest way to get started with Mist.io is to sign up to the freemium SaaS version."
+    },{
+        "question": "Can I install it on-premises?",
+        "answer": "Yes! There is an Enterprise edition as well as a Community Supported Open Source one.",
+        "linktext": "Community Supported Open",
+        "linkref": "https://github.com/mistio/mist.io"
+    },{
+        "question": "How much does it cost?",
+        "answer": "You can manage unlimited machines and you can enable monitoring and automation for a single machine with 1 week data retention for free."
+    },{
+        "question": "What about security?",
+        "answer": "Security has been a top priority for Mist.io since before the first line of code. We perform continuous auditing of code & infrastructure and follow internal processes designed to maximize security."
+    }],
+"providers": [{
+        "name": "amazon",
+        "image": "amazon.png"
+    },{
+        "name": "gce",
+        "image": "gce.png"
+    },{
+        "name": "microsoft azure",
+        "image": "azure.png"
+    },{
+        "name": "docker",
+        "image": "docker.png"
+    },{
+        "name": "openstack",
+        "image": "openstack.png"
+    },{
+        "name": "kvm",
+        "image": "kvm.png"
+    },{
+        "name": "vmware vcloud",
+        "image": "vcloud.png"
+    },{
+        "name": "softlayer",
+        "image": "softlayer.png"
+    },{
+        "name": "rackspace",
+        "image": "rackspace.png"
+    },{
+        "name": "digital ocean",
+        "image": "digitalocean.png"
+    },{
+        "name": "linode",
+        "image": "linode.png"
+    },{
+        "name": "nephoscale",
+        "image": "nephoscale.png"
+    },{
+        "name": "indonesian",
+        "image": "indonesian.png"
+    },{
+        "name": "hostvirtual",
+        "image": "hostvirtual.png"
+    },{
+        "name": "vultr",
+        "image": "vultr.png"
+    },{
+        "name": "vmware",
+        "image": "vmware-vsphere.png"
+    },{
+        "name": "packet",
+        "image": "packet.png"
+    },{
+        "name": "cloudify",
+        "image": "cloudify.png"
+    },{
+        "name": "kubernetes",
+        "image": "kubernetes.png"
+    }]
+}

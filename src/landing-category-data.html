@@ -67,6 +67,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           notify: true
         },
 
+        builtinCategories: {
+          type: Array,
+          value: ['sign-up', 'sign-in', 'set-password']
+        },
+
         category: {
           type: Object,
           computed: '_computeCategory(categoryName)',
@@ -92,7 +97,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return c;
           }
         }
-        this.fire('show-invalid-url-warning');
+        if (this.builtinCategories.indexOf(categoryName) == -1)
+          this.fire('show-invalid-url-warning');
       },
 
       _computeCategory: function(categoryName) {
@@ -113,7 +119,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return item;
           }
         }
-        this.fire('show-invalid-url-warning');
+        if (this.builtinCategories.indexOf(itemName) == -1)
+          this.fire('show-invalid-url-warning');
       },
 
       _fetchItems: function(category, attempts) {

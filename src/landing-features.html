@@ -1,4 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
 
 <link rel="import" href="shared-styles.html">
 
@@ -46,41 +48,13 @@
 
   <script>
 
-    var FEATURES = [{
-        "title": "Single panel",
-        "icon": "hardware:laptop-mac",
-        "description": "Control public & private clouds, containers, bare metal servers, more."
-    },{
-        "title": "Role Base Access",
-        "icon": "icons:supervisor-account",
-        "description": "Fine grain controls for delegating access to team members."
-    },{
-        "title": "Cost Visibility.",
-        "icon": "icons:visibility",
-        "description": "Cost and usage reporting across all your infrastructure.",
-        "new": true
-    },{
-        "title": "Simplify your workflows",
-        "icon": "icons:cached",
-        "description": "Orchestrate repeatable deployments, automate common responses."
-    },{
-        "title": "Secure",
-        "icon": "hardware:security",
-        "description": "Enforce your policies consistently, across any computing platform."
-    },{
-        "title": "No migration",
-        "icon": "icons:cloud-done",
-        "description": "Re-architecting infrastructure not required. Get started fast."
-    }]
-
     Polymer({
 
         is: 'landing-features',
 
         properties: {
             features: {
-                type: Array,
-                value: FEATURES
+                type: Array
             }
         }
 
