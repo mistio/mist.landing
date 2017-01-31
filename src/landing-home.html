@@ -25,6 +25,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-providers.html">
 <link rel="import" href="landing-editions.html">
 <link rel="import" href="landing-faq.html">
+<link rel="import" href="landing-footer.html">
 
 <dom-module id="landing-home">
 
@@ -35,19 +36,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style>
       paper-material {
         @apply(--shadow-elevation-2dp);
-      }
-      .section > * {
-        max-width: 1148px;
-        margin: 0 auto;
-        padding: 48px 24px;
-      }
-
-      .section.grey {
-        background-color: #f2f2f2;
-      }
-
-      .section.white {
-        background-color: #fff;
       }
 
       .hero {
@@ -248,7 +236,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
               <paper-button raised on-click="_signUpClick">Sign up to Mist.io</paper-button>
             </a>
-            <div class="secondary">No credit card needed.</div>
+            <div class="secondary">No credit card required</div>
           </div>
         </div>
       </div>
@@ -261,6 +249,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <landing-faq faq="[[data.faq]]"></landing-faq>
         </div>
       </div>
+
+      <landing-footer></landing-footer>
 
     </div>
 
