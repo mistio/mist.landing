@@ -67,7 +67,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           notify: true
         },
 
-        builtinCategories: ['sign-up', 'sign-in', 'set-password'],
+        builtinCategories: {
+          type: Array,
+          value: ['sign-up', 'sign-in', 'set-password']
+        },
 
         category: {
           type: Object,
@@ -94,7 +97,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return c;
           }
         }
-        if (this.builtinCategories.indexOf(itemName) == -1)
+        if (this.builtinCategories.indexOf(categoryName) == -1)
           this.fire('show-invalid-url-warning');
       },
 
