@@ -54,6 +54,21 @@
         "icon": "social:share",
         "description": "Mist.io is open source and available to be modified."
     }],
+"faq": [{
+        "question": "How do I use it?",
+        "answer": "The easiest way to get started with Mist.io is to sign up to the freemium SaaS version."
+    },{
+        "question": "Can I install it on-premises?",
+        "answer": "Yes! There is an Enterprise edition as well as a Community Supported Open Source one.",
+        "linktext": "Community Supported Open",
+        "linkref": "https://github.com/mistio/mist.io"
+    },{
+        "question": "How much does it cost?",
+        "answer": "You can manage unlimited machines and you can enable monitoring and automation for a single machine with 1 week data retention for free."
+    },{
+        "question": "What about security?",
+        "answer": "Security has been a top priority for Mist.io since before the first line of code. We perform continuous auditing of code & infrastructure and follow internal processes designed to maximize security."
+    }],
 "providers": [{
         "name": "amazon",
         "image": "amazon.png"
