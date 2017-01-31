@@ -41,6 +41,19 @@
         "icon": "icons:cloud-done",
         "description": "Re-architecting infrastructure not required. Get started fast."
     }],
+"editions": [{
+        "title": "Hosted Edition",
+        "icon": "icons:cloud-circle",
+        "description": "A SaaS of the Mist.io platform. Get started fast."
+    },{
+        "title": "Enterprise Edition",
+        "icon": "icons:account-balance",
+        "description": "Run Mist.io in your data center, under your terms, and behind your firewall."
+    },{
+        "title": "Community Edition",
+        "icon": "social:share",
+        "description": "Mist.io is open source and available to be modified."
+    }],
 "providers": [{
         "name": "amazon",
         "image": "amazon.png"

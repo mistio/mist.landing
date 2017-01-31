@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-features.html">
 <link rel="import" href="landing-testimonials.html">
 <link rel="import" href="landing-providers.html">
+<link rel="import" href="landing-editions.html">
 
 <dom-module id="landing-home">
 
@@ -233,6 +234,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <h2 class="decorated row">Supported Providers</h2>
           </div> 
           <landing-providers providers="[[data.providers]]"></landing-providers>
+        </div>
+      </div>
+
+      <div class="section white">
+        <div class="contains text-center">
+          <div class="row">
+            <h2 class="decorated row">Choose your Mist.io</h2>
+          </div> 
+          <landing-editions editions="[[data.editions]]"></landing-editions>
+          <div class="row">
+            <a aria-label="Get started" href="/sign-up" tabindex="-1">
+              <paper-button raised on-click="_signUpClick">Sign up to Mist.io</paper-button>
+            </a>
+            <div class="secondary">No credit card needed.</div>
+          </div>
         </div>
       </div>
 
