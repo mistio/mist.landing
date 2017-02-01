@@ -28,7 +28,8 @@
     "mist-password": "mistio/mist-password",
     "typed-text": "typed-text#^1.1.1",
     "neon-animation": "2.0-preview",
-    "web-animations-js": "web-animations/web-animations-js#^2.2.0"
+    "web-animations-js": "web-animations/web-animations-js#^2.2.0",
+    "paper-material": "2.0-preview"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
