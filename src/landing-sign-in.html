@@ -153,14 +153,14 @@
             <h1>Sign in to your account</h1>
             <iron-form id="signInForm">
                 <paper-material elevation="1">
-                    <paper-button raised class="white" ><iron-icon icon="google"></iron-icon>Sign in with Google</paper-button>
-                    <paper-button raised class="white" ><iron-icon icon="github"></iron-icon>Sign in with Github</paper-button>
+                    <paper-button raised class="white" on-click="_socialAuthGoogle"><iron-icon icon="google"></iron-icon>Sign in with Google</paper-button>
+                    <paper-button raised class="white" on-click="_socialAuthGithub"><iron-icon icon="github"></iron-icon>Sign in with Github</paper-button>
                     <div class="or">
                         or
                     </div>
 
                     <form method="post" action="/login" enctype='application/json'>
-                        <paper-input name="email" id="signin-email" label="Email" required auto-validate autofocus validator="email-validator"></paper-input>
+                        <paper-input name="email" id="signin-email" label="Email" required auto-validate autofocus type="email"></paper-input>
                         <paper-input name="password" id="signin-password" label="Password" type="password" required auto-validate></paper-input>
                         <paper-button raised on-tap="_submitButtonHandler" disabled id="signInSubmit">
                             <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
@@ -287,6 +287,12 @@
                     'ripple': event.target,
                     'reverse-ripple': event.target
                 };
+            },
+            _socialAuthGoogle: function(event){
+                window.location = '/social_auth/login/google-oauth2';
+            },
+            _socialAuthGithub: function(event){
+                window.location = '/social_auth/login/github';
             }
         });
     </script>
