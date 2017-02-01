@@ -68,10 +68,6 @@
                 margin: 0 auto;
             }
 
-            iron-form {
-
-            }
-
             paper-button:not([disabled]) {
                 background-color: #0099cc;
                 color: #fff;
@@ -257,7 +253,6 @@
                 this.$.signInForm.addEventListener('iron-form-error', function(event) {
                     console.warn("GOT ERROR!", event.detail);
                     that.loading = false;
-                    //that.$.signInForm.querySelector('#signInSubmit').disabled = false;
                     that.$.signInForm.querySelector('.output').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
                 });
                 this.$.signInForm.addEventListener('iron-form-response', function(event) {
@@ -273,7 +268,7 @@
                 this.loading = true;
                 this.$.signInSubmit.disabled = true;
                 this.$.signInForm.querySelector('.output').innerHTML = '';
-                this.async(function() {this.$.signInForm.submit()}, 1000);
+                this.$.signInForm.submit();
             },
             _logoClicked: function(event) {
                 console.warn('logo click');

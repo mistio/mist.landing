@@ -171,29 +171,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: none;
       }
 
+      :host([page=set-password]),
+      :host([page=forgot-password]),
       :host([page=sign-in]),
       :host([page=sign-up]) {
         padding-top: 0px;
       }
 
-      :host([page=sign-in]) .back-btn, 
-      :host([page=sign-up]) .back-btn {
-        display: block;
-      }
-
+      :host([page=set-password]) .logo,
+      :host([page=forgot-password]) .logo,
       :host([page=sign-in]) .logo,
       :host([page=sign-up]) .logo {
         display: none;
       }
 
+      :host([page=set-password]) > app-header,
+      :host([page=forgot-password]) > app-header,
       :host([page=sign-in]) > app-header,
       :host([page=sign-up]) > app-header {
         z-index: -1;
       }
 
       .signin-btn-container {
-          position: absolute;
-          right: 16px;
+        position: absolute;
+        right: 16px;
       }
 
       .signin-btn-container.true {
