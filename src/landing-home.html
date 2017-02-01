@@ -160,6 +160,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           opacity: 0;
           background-color: grey;
           @apply(--layout-fit);
+          z-index: -1;
       }
 
     </style>
@@ -168,7 +169,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="container">
       <div class="section grey">
         <div class="hero text-center"> 
-          <h2 class="typed">How many <typed-text cursor="|" noretype="" loop="" strings="[
+          <h2 class="typed">How many <typed-text cursor="|" blink noretype="" loop="" strings="[
             &quot;clouds&quot;,
             &quot;servers&quot;,
             &quot;containers&quot;,
@@ -288,13 +289,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       attached: function() {
+        this.animationConfig = {};
+      },
+
+      _visibleChanged: function(visible) {
+        if (visible) {
+          this.fire('change-section', { title: 'Home' });
+        }
+      },
+
+      _signUpClick: function(event) {
+        console.warn('signup click');
+        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.animationConfig = {
           'entry': [{
-            name: 'reverse-ripple-animation',
-            id: 'reverse-ripple',
+            name: 'ripple-animation',
+            id: 'ripple',
             toPage: this
           }],
-
           'exit': [{
             name: 'fade-out-animation',
             node: this.$.container,
@@ -308,22 +320,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             fromPage: this
           }]
         };
-      },
-
-      _visibleChanged: function(visible) {
-        if (visible) {
-          this.fire('change-section', { title: 'Home' });
-        }
-      },
-
-      _signUpClick: function(event) {
-        console.warn('signup click');
-
         this.sharedElements = {
           'ripple': event.target,
           'reverse-ripple': event.target
         };
-
       }
     });
 
