@@ -31,7 +31,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-home.html">
 <link rel="import" href="landing-sign-in.html">
 <link rel="import" href="landing-sign-up.html">
+<link rel="import" href="landing-forgot-password.html">
 <link rel="import" href="shared-styles.html">
+
+<link rel="import" href="landing-icons.html">
 
 <dom-module id="landing-app">
   <template>
@@ -96,6 +99,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --paper-button-ink-color: var(--app-accent-color);
         --paper-icon-button-ink-color: var(--app-accent-color);
         --paper-spinner-color: var(--app-accent-color);
+        --paper-input-container-focus-color: #0099cc;
+
         -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
         color: var(--app-primary-color);
         @apply --layout-fullbleed;
@@ -166,23 +171,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: none;
       }
 
-      :host([page=sign-in]) .back-btn, :host([page=sign-up]) .back-btn {
-        display: block;
+      :host([page=set-password]),
+      :host([page=forgot-password]),
+      :host([page=sign-in]),
+      :host([page=sign-up]) {
+        padding-top: 0px;
       }
 
+      :host([page=set-password]) .logo,
+      :host([page=forgot-password]) .logo,
       :host([page=sign-in]) .logo,
       :host([page=sign-up]) .logo {
         display: none;
       }
 
+      :host([page=set-password]) > app-header,
+      :host([page=forgot-password]) > app-header,
       :host([page=sign-in]) > app-header,
       :host([page=sign-up]) > app-header {
         z-index: -1;
       }
 
       .signin-btn-container {
-          position: absolute;
-          right: 16px;
+        position: absolute;
+        right: 16px;
       }
 
       .signin-btn-container.true {
@@ -395,7 +407,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </app-drawer>
       </template>
     </dom-if>
-    <neon-animated-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="404">
+    <neon-animated-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="not-found">
       <!-- home view -->
       <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]"></landing-home>
 
@@ -406,15 +418,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </dom-repeat>
       <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"></landing-sign-in>
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"></landing-sign-up>
-      <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]"></landing-set-password>
-      <landing-new-component name="set-password" route="[[subroute]]" offline="[[offline]]"></landing-new-component>
+      <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password"></landing-forgot-password>
+
+      <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password"></landing-set-password>
 
       <!-- list view of items in a category -->
       <landing-list name="list" route="[[subroute]]" offline="[[offline]]"></landing-list>
       <!-- detail view of one item -->
       <landing-detail name="detail" route="[[subroute]]" offline="[[offline]]"></landing-detail>
 
-      <landing-404-warning name="404"></landing-404-warning>
+      <landing-not-found name="not-found" id="not-found"></landing-not-found>
     </neon-animated-pages>
 
     <footer>
@@ -478,7 +491,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         'change-section': '_onChangeSection',
         'announce': '_onAnnounce',
         'dom-change': '_domChange',
-        'show-invalid-url-warning': '_onFallbackSelectionTriggered'
+        'show-invalid-url-warning': '_onFallbackSelectionTriggered',
+        'neon-animation-start': '_prepareAnimation',
+        'neon-animation-finish': '_cleanupAnimation'
       },
 
       created: function() {
@@ -496,6 +511,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _routePageChanged: function(page) {
+        console.warn('pageChanged', this.page, page);
         // HACK(keanulee): Need to check if `page` actually changed due to polymer#3935.
         if (this.page === 'list' && this.page !== page) {
           this._listScrollTop = window.pageYOffset;
@@ -634,7 +650,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _onFallbackSelectionTriggered: function() {
-        this.page = '404';
+        this.page = 'not-found';
       },
 
       _computeShouldShowTabs: function(page, smallScreen) {
@@ -656,11 +672,47 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _signInClick: function(event) {
         console.warn('signin click', event.target);
+        this.$.pages.querySelector('#sign-in').$.placeholder.style.zIndex = 1;
+        window.scrollTo(0, 0);
+        this.$.home.animationConfig = {
+          'entry': [{
+            name: 'ripple-animation',
+            id: 'ripple',
+            toPage: this.$.home
+          }],
+          'exit': [{
+            name: 'fade-out-animation',
+            node: this.$.home.$.container,
+            timing: {
+              delay: 150,
+              duration: 0
+            }
+          }, {
+            name: 'ripple-animation',
+            id: 'ripple',
+            fromPage: this.$.home
+          }]
+        };
         this.$.home.sharedElements = {
           'ripple': event.target,
           'reverse-ripple': event.target
         };
+        this.$.pages.querySelector('#sign-in').sharedElements = {
+          'ripple': this.$.pages.querySelector('#sign-in').$.placeholder,
+          'reverse-ripple': this.$.pages.querySelector('#sign-in').$.placeholder
+        };
+      },
 
+      _cleanupAnimation: function(event) {
+        var page = this.$.pages.querySelector('#' + this.page);
+        var placeholder;
+        if (page && page.$)
+          placeholder = page.$.placeholder;
+        if (placeholder)
+          placeholder.style.zIndex = -1;
+        console.warn('_cleanupAnimation', event, this.page, page, placeholder);
+        if (this.page == 'home')
+          page.animationConfig = {};
       }
 
     });
