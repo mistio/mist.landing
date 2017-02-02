@@ -14,18 +14,18 @@
             display: none;
         }
 
-        h4 {
+        :host h4 {
           font-size: 2.28rem;
           margin: 1.14rem 0 .912rem;
         }
 
-        h5 {
+        :host h5 {
           line-height: 140%;
           font-size: 1.64rem;
           margin: .82rem 0 .656rem;
         }
 
-        h6 {
+        :host h6 {
           font-size: 1rem;
         }
         
@@ -137,33 +137,27 @@
         <div id="promote" class="section dark">
             <div class="contains">
                 <div class="grid-row">
-                    <h5 class="l12 emph"><a href="https://www.crowdcast.io/e/implementing-multi-cloud-self-service/register" target="new">Live Webinar:</a></h5>
+                    <h5 class="l12 emph"><a href="[[data.href]]" target="new">[[data.type]]:</a></h5>
                 </div>
                 <div class="grid-row">
                     <div class="l8 m12 xs12 ">
-                        <h4 class="light title"><a href="https://www.crowdcast.io/e/implementing-multi-cloud-self-service/register" target="new">Implementing Self-Service and Delegating Access for Multi and Hybrid Clouds</a></h4>
-                        <div class="">Thursday, February 9, 11 am PST | 2 pm EST | 7 pm GMT </div>
+                        <h4 class="light title"><a href$="[[data.href]]" target="new">[[data.title]]</a></h4>
+                        <div class="">[[data.time]]</div>
                         <div class="promtext">
-                            <span class="join">Do you use public and private clouds for your development, testing, and QA? <br/>
-                  Would you like to make your dev teams more productive and efficient? </span>
+                            <span class="join">[[data.description]]</span>
                             <br/>
-                            <a class="emph" href="https://www.crowdcast.io/e/implementing-multi-cloud-self-service/register" target="new"> Read more &raquo;</a>
+                            <a class="emph" href$="[[data.href]]" target="new"> Read more &raquo;</a>
                         </div>
                         <div class="people">
-                            <div class="person">
-                                <img class="person-img" src="../images/promo/dimitris-moraitis.jpg" />
-                                <div class="name">Dimitris Moraitis
-                                    <br/>
-                                    <span class="comp">Co-Founder &amp; CTO</span>
-                                </div>
-                            </div>
-                            <div class="person">
-                                <img class="person-img" src="../images/promo/mario.png" />
-                                <div class="name">Mario Olivarez
-                                    <br/>
-                                    <span class="comp">Director, Customer Success</span>
-                                </div>
-                            </div>
+                            <template is="dom-repeat" items="[[data.people]]" as="person">
+                              <div class="person">
+                                  <img class="person-img" src$="images/promo/[[person.image]]"/>
+                                  <div class="name">[[person.name]]
+                                      <br/>
+                                      <span class="comp">[[person.jobtitle]]</span>
+                                  </div>
+                              </div>
+                            </template>
                         </div>
                     </div>
                     <div class="l4 m12 xs12 right-alligned">
@@ -174,7 +168,7 @@
                             <h6 class="light"><strong>Enable self-service</strong>  and <br class="widescreens"/> orchestrate workflows</h6>
                             <h6 class="light"><strong>Cut costs</strong> using smart scheduling <br class="widescreens"/>and more</h6>
                         </div>
-                        <a href="https://www.crowdcast.io/e/implementing-multi-cloud-self-service/register" target="new"><paper-button raised="" class="paper-material" role="button" tabindex="0" animated="" elevation="1" aria-disabled="false">Register Now</paper-button></a>
+                        <a href$="[[data.href]]"" target="new"><paper-button raised="" class="paper-material" role="button" tabindex="0" animated="" elevation="1" aria-disabled="false">Register Now</paper-button></a>
                     </div>
                 </div>
             </div>
@@ -186,7 +180,7 @@
         is: 'landing-promo',
 
         properties: {
-            data: Array
+            data: Object
         }
 
     });

@@ -69,10 +69,22 @@
         "question": "What about security?",
         "answer": "Security has been a top priority for Mist.io since before the first line of code. We perform continuous auditing of code & infrastructure and follow internal processes designed to maximize security."
     }],
-"promo": [{
-        "type": "live webinar",
-        "title": "How do I use it?"
-    }],
+"promo": {
+        "type": "Live Webinar",
+        "title": "Implementing Self-Service and Delegating Access for Multi and Hybrid Clouds",
+        "description": "Do you use public and private clouds for your development, testing, and QA? Would you like to make your dev teams more productive and efficient?",
+        "time": "Thursday, February 9, 11 am PST | 2 pm EST | 7 pm GMT",
+        "href": "https://www.crowdcast.io/e/implementing-multi-cloud-self-service/register",
+        "people": [{
+            "name": "Dimitris Moraitis",
+            "jobtitle": "Co-Founder, CTO",
+            "image": "dimitris-moraitis.jpg"
+        },{
+            "name": "Mario Olivarez",
+            "jobtitle": "Director, Customer Success",
+            "image": "mario.png"
+        }]
+    },
 "providers": [{
         "name": "amazon",
         "image": "amazon.png"
