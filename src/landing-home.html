@@ -26,6 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-editions.html">
 <link rel="import" href="landing-faq.html">
 <link rel="import" href="landing-footer.html">
+<link rel="import" href="landing-promo.html">
 
 <dom-module id="landing-home">
 
@@ -182,6 +183,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
         </div>
       </div>
+
+      <landing-promo hidden$="[[!data.promo]]" data="[[data.promo]]"></landing-promo>
       
       <div class="section white">
         <div class="contains">

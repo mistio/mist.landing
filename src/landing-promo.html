@@ -1,0 +1,46 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="landing-promo">  
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host[hidden] {
+        display: none;
+      }
+        
+    </style>
+    
+    <div class="section dark">
+      <div class="contains">
+        <div class="grid-row">
+          <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
+            promo
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+        is: 'landing-promo',
+
+        properties: {
+            data: Array
+        }
+
+    });
+
+  </script>
+</dom-module>
