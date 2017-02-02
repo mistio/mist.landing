@@ -69,6 +69,10 @@
         "question": "What about security?",
         "answer": "Security has been a top priority for Mist.io since before the first line of code. We perform continuous auditing of code & infrastructure and follow internal processes designed to maximize security."
     }],
+"promo": [{
+        "type": "live webinar",
+        "title": "How do I use it?"
+    }],
 "providers": [{
         "name": "amazon",
         "image": "amazon.png"

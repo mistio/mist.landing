@@ -1,6 +1,12 @@
 <dom-module id="shared-styles">
     <template>
         <style>
+    :root {
+      font-size: 18px;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+      -webkit-font-smoothing: var(--paper-font-common-base_-_-webkit-font-smoothing);
+    }
     h2 {
       font-size: 52px;
       font-weight: 300;
@@ -12,6 +18,10 @@
       font-weight: 300;
     }
 
+    h4 {
+      font-size: 2.28rem;
+    }
+
     h5 {
       font-size: 1.64rem;
       font-weight: 300;
@@ -21,6 +31,10 @@
       @apply(--shadow-elevation-2dp);
     }
     
+    a {
+      text-decoration: none;
+    }
+
     @media only screen and (max-width: 993px) {
       body {
         font-size: 16px !important;
