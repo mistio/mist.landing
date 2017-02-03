@@ -10,17 +10,56 @@
     <style>
       :host {
         display: block;
+        color: rgba(255,255,255,0.87);
       }
-        
+      ul.footer-nav {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      ul.footer-nav li {
+        display: inline-block;
+        line-height: 1.5em;
+        padding-right: 8px;
+      }
+      .subfoot {
+        background-color: #212121;
+      }
+      .subfoot .contains {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
     </style>
     
     <div class="section dark">
       <div class="contains">
         <div class="grid-row">
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
-            footer
+            <img src="../images/logo-white.svg" width="125px">
+            <p>+1-650-605-3299 </p>
+            <p>info@mist.io</p>
+            
+            <p>Mist.io Inc, <br/>
+            620 Folsom St, <br/>
+            San Francisco, CA 94107
+            </p>
+          </div>
+          <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
+            
           </div>
         </div>
+      </div>
+    </div>
+    <div class="section subfoot">
+      <div class="contains">
+        <ul class="footer-nav">
+          <li>Home</li>
+          <li>Product</li>
+          <li>Pricing</li>
+          <li>Docs</li>
+          <li>Blog</li>
+          <li>About</li>
+        </ul>
       </div>
     </div>
 
