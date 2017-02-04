@@ -151,7 +151,7 @@
                         <div class="people">
                             <template is="dom-repeat" items="[[data.people]]" as="person">
                               <div class="person">
-                                  <img class="person-img" src$="images/promo/[[person.image]]"/>
+                                  <img class="person-img" src$="[[_imagePath(person)]]"/>
                                   <div class="name">[[person.name]]
                                       <br/>
                                       <span class="comp">[[person.jobtitle]]</span>
@@ -181,6 +181,10 @@
 
         properties: {
             data: Object
+        },
+
+        _imagePath: function(person) {
+            return 'images/promo/' + person.image;
         }
 
     });

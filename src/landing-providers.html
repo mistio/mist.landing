@@ -32,7 +32,7 @@
       <template is="dom-repeat" items="[[providers]]" as="provider">
         <div class="xs6 s6 m4 l4 margin-top margin-bottom padding-bottom">
             <div class="provider">
-                <img alt="[[provider.name]]" src$="images/providers/[[provider.image]]"/>
+                <img alt="[[provider.name]]" src$="[[_imagePath(provider)]]"/>
             </div>
         </div>
       </template>
@@ -50,8 +50,10 @@
             providers: {
                 type: Array
             }
+        },
+        _imagePath: function(provider) {
+            return 'images/providers/' + provider.image;
         }
-
     });
 
   </script>

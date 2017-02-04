@@ -23,8 +23,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-styles/default-theme.html">
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/neon-animation/web-animations.html">
-<link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
-<link rel="import" href="../bower_components/neon-animation/neon-animations.html">
+<!--link rel="import" href="../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../bower_components/neon-animation/neon-animations.html"-->
+<link rel="import" href="landing-pages.html">
 
 <link rel="import" href="landing-category-data.html">
 <!-- Since 'home' is the default route, eagerly load it. -->
@@ -40,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <style include="shared-styles"></style>
     <style>
-        neon-animated-pages {
+        neon-animated-pages, landing-pages {
           height: 100%;
         }
 
@@ -407,7 +408,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </app-drawer>
       </template>
     </dom-if>
-    <neon-animated-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="not-found">
+    <landing-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="not-found">
       <!-- home view -->
       <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]"></landing-home>
 
@@ -428,7 +429,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <landing-detail name="detail" route="[[subroute]]" offline="[[offline]]"></landing-detail>
 
       <landing-not-found name="not-found" id="not-found"></landing-not-found>
-    </neon-animated-pages>
+    </landing-pages>
 
     <footer>
 
@@ -672,7 +673,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _signInClick: function(event) {
         console.warn('signin click', event.target);
-        this.$.pages.querySelector('#sign-in').$.placeholder.style.zIndex = 1;
         window.scrollTo(0, 0);
         this.$.home.animationConfig = {
           'entry': [{
@@ -697,6 +697,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           'ripple': event.target,
           'reverse-ripple': event.target
         };
+        this.$.pages.querySelector('#sign-in').$.placeholder.style.zIndex = 1;
         this.$.pages.querySelector('#sign-in').sharedElements = {
           'ripple': this.$.pages.querySelector('#sign-in').$.placeholder,
           'reverse-ripple': this.$.pages.querySelector('#sign-in').$.placeholder

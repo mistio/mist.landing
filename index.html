@@ -30,9 +30,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       var BUILD_PATH='';
   </script>
   <script>
-      // setup Polymer options
+    // setup Polymer options
     window.Polymer = {lazyRegister: true};
-
   </script>
   <link rel="import" href="src/landing-app.html">
 
@@ -73,19 +72,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
     window.performance && performance.mark && performance.mark('index.html');
-    /*
-    (function() {
-      if ('registerElement' in document
-          && 'import' in document.createElement('link')
-          && 'content' in document.createElement('template')) {
-        // platform is good!
-      } else {
-        // polyfill the platform!
-        var e = document.createElement('script');
-        e.src = '/landing/bower_components/webcomponentsjs/webcomponents-lite.js';
-        document.body.appendChild(e);
-      }
-    })();*/
   </script>
 
   <!-- mixpanel-->

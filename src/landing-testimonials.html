@@ -80,7 +80,7 @@
         <div id="[[index]]" class="testimonial" active$="{{isEqual(index, activeIndex)}}">
             <div class="client">
                 <!-- dynamicly generated imge paths should not be relative. $ will resolve it. -->
-                <img alt="[[client.name]]" class="client-image" src$="images/testimonials/[[client.image]]"/>
+                <img alt="[[client.name]]" class="client-image" src$="[[_imagePath(client)]]"/>
                 <h5 class="client-name">[[client.name]]</h5>
                 <h4 class="job-title">[[client.jobtitle]]</h4>
                 <hr/>
@@ -133,6 +133,9 @@
         },
         isEqual: function(ind, activeIndex){
             return ind == this.activeIndex;
+        },
+        _imagePath: function(client) {
+            return 'images/testimonials/' + client.image;
         }
     });
 
