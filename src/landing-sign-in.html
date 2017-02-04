@@ -219,15 +219,10 @@
                     }],
                     'exit': [{
                         name: 'fade-out-animation',
-                        node: this.$.container,
                         timing: {
-                        delay: 150,
-                        duration: 0
+                            delay: 150,
+                            duration: 300
                         }
-                    }, {
-                        name: 'ripple-animation',
-                        id: 'ripple',
-                        fromPage: this
                     }]
                 };
 
@@ -273,11 +268,6 @@
             _logoClicked: function(event) {
                 console.warn('logo click');
                 this.parentElement.querySelector('#home').$.placeholder.style.zIndex = 1;
-                this.parentElement.querySelector('#home').animationConfig['entry'] = [{
-                    name: 'ripple-animation',
-                    id: 'ripple',
-                    toPage: this.parentElement.querySelector('#home')
-                }];
                 this.sharedElements = {
                     'ripple': event.target,
                     'reverse-ripple': event.target

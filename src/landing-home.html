@@ -179,7 +179,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
 
           <a aria-label="Get started" href="/sign-up" tabindex="-1">
-            <paper-button raised on-click="_signUpClick">Get started</paper-button>
+            <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started</paper-button>
           </a>
           <landing-image src="../images/mockup-imac-n.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
         </div>
@@ -238,7 +238,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <landing-editions editions="[[data.editions]]"></landing-editions>
           <div class="row">
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
-              <paper-button raised on-click="_signUpClick">Sign up to Mist.io</paper-button>
+              <paper-button raised on-click="_signUpClick" id="signUpBtn2">Sign up to Mist.io</paper-button>
             </a>
             <div class="secondary">No credit card required</div>
           </div>
@@ -292,24 +292,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       attached: function() {
-        this.animationConfig = {};
-      },
-
-      _visibleChanged: function(visible) {
-        if (visible) {
-          this.fire('change-section', { title: 'Home' });
-        }
-      },
-
-      _signUpClick: function(event) {
-        console.warn('signup click');
-        window.scrollTo(0, 0);
-        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-        this.parentElement.querySelector('#sign-up').sharedElements = {
-          'ripple': this.parentElement.querySelector('#sign-up').$.placeholder,
-          'reverse-ripple': this.parentElement.querySelector('#sign-up').$.placeholder
-        };
-
         this.animationConfig = {
           'entry': [{
             name: 'ripple-animation',
@@ -326,13 +308,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }, {
             name: 'ripple-animation',
             id: 'ripple',
-            fromPage: this
+            fromPage: this,
+            node: this.$.signUpBtn1
           }]
         };
         this.sharedElements = {
-          'ripple': event.target,
-          'reverse-ripple': event.target
+          'ripple': this.$.signUpBtn1
         };
+      },
+
+      _visibleChanged: function(visible) {
+        if (visible) {
+          this.fire('change-section', { title: 'Home' });
+        }
+      },
+
+      _signUpClick: function(event) {
+        console.warn('signup click');
+        //window.scrollTo(0, 0);
+
+        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+      },
+
+      _signUpClick2: function(event) {
+
       }
     });
 

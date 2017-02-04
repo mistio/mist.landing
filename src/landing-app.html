@@ -678,25 +678,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _signInClick: function(event) {
         console.warn('signin click', event.target);
         window.scrollTo(0, 0);
-        this.$.home.animationConfig = {
-          'entry': [{
-            name: 'ripple-animation',
-            id: 'ripple',
-            toPage: this.$.home
-          }],
-          'exit': [{
-            name: 'fade-out-animation',
-            node: this.$.home.$.container,
-            timing: {
-              delay: 150,
-              duration: 0
-            }
-          }, {
-            name: 'ripple-animation',
-            id: 'ripple',
-            fromPage: this.$.home
-          }]
-        };
         this.$.home.sharedElements = {
           'ripple': event.target,
           'reverse-ripple': event.target
@@ -716,8 +697,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (placeholder)
           placeholder.style.zIndex = -1;
         console.warn('_cleanupAnimation', event, this.page, page, placeholder);
-        if (this.page == 'home')
-          page.animationConfig = {};
+        //if (this.page == 'home')
+        //  page.animationConfig = {};
       }
 
     });

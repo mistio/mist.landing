@@ -67,7 +67,7 @@
         "answer": "You can manage unlimited machines and you can enable monitoring and automation for a single machine with 1 week data retention for free."
     },{
         "question": "What about security?",
-        "answer": "Security has been a top priority for Mist.io since before the first line of code. We perform continuous auditing of code & infrastructure and follow internal processes designed to maximize security."
+        "answer": "You can use Mist.io to implement access control &amp; auditing policies consistently for your entire infrastructure. We're continously auditing our own code and processes. We run a bug bounty program for responsible disclosure of security vulnerabilities. For more info contact infosec@mist.io"
     }],
 "promo": {
         "type": "Live Webinar",
