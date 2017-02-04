@@ -254,8 +254,7 @@
                 this.$.signUpForm.addEventListener('iron-form-error', function(event) {
                     console.warn("GOT ERROR!", event.detail);
                     that.loading = false;
-                    that.$.signUpForm.querySelector('form').hide();
-                    that.$.signUpForm.querySelector('.output').innerHTML = event.detail.response;
+                    that.$.signUpForm.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
                 });
                 this.$.signUpForm.addEventListener('iron-form-response', function(event) {
                     console.warn("SIGNUP SUCCESS!", event);
