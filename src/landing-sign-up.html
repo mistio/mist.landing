@@ -151,7 +151,7 @@
             <h1>Create your account</h1>
             <iron-form id="signUpForm">
                 <paper-material elevation="1">
-                    <form method="post" action="/register" enctype='application/json'>
+                    <form method="post" action="/register" enctype='application/json' id='form'>
                         <paper-button raised class="white" on-click="_socialAuthGoogle"><iron-icon icon="landing:google"></iron-icon>Sign up with Google</paper-button>
                         <paper-button raised class="white" on-click="_socialAuthGithub"><iron-icon icon="landing:github"></iron-icon>Sign up with Github</paper-button>
                         <div class="or">
@@ -194,6 +194,13 @@
             },
 
             attached: function() {
+                if (this.route.__queryParams.invitoken){
+                    var element = document.createElement('input');
+                    element.type = 'hidden';
+                    element.name = 'invitoken';
+                    element.value = this.route.__queryParams.invitoken;
+                    this.$.form.appendChild(element);
+                }
                 this.animationConfig = {
                     'entry': [{
                         name: 'ripple-animation',
