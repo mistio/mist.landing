@@ -96,7 +96,7 @@
 
             #placeholder {
                 opacity: 0;
-                background-color: grey;
+                background-color: #424242;
                 @apply(--layout-fit);
                 z-index: -1;
             }
@@ -155,7 +155,7 @@
                         or
                     </div>
 
-                    <form method="post" action="/login" enctype='application/json'>
+                    <form method="post" action="/login" enctype='application/json' id="form">
                         <paper-input name="email" id="signin-email" label="Email" required auto-validate autofocus type="email"></paper-input>
                         <paper-input name="password" id="signin-password" label="Password" type="password" required auto-validate></paper-input>
                         <paper-button raised on-tap="_submitButtonHandler" disabled id="signInSubmit">
@@ -193,6 +193,21 @@
             },
 
             attached: function() {
+                if (this.route.__queryParams.invitoken){
+                    var element = document.createElement('input');
+                    element.type = 'hidden';
+                    element.name = 'invitoken';
+                    element.value = this.route.__queryParams.invitoken;
+                    this.$.form.appendChild(element);
+                }
+                if (this.route.__queryParams.return_to){
+                    var element = document.createElement('input');
+                    element.type = 'hidden';
+                    element.name = 'return_to';
+                    element.value = this.route.__queryParams.return_to;
+                    this.$.form.appendChild(element);
+                }
+
                 this.animationConfig = {
                     'entry': [{
                         name: 'ripple-animation',
@@ -202,7 +217,7 @@
                         name: 'fade-out-animation',
                         node: this.$.placeholder,
                         timing: {
-                            delay: 250
+                            delay: 50
                         }
                     }, {
                         name: 'fade-out-animation',
@@ -217,19 +232,14 @@
                             delay: 50
                         }
                     }],
-                    'exit': [{
-                        name: 'fade-out-animation',
-                        timing: {
-                            delay: 150,
-                            duration: 300
-                        }
-                    }]
+                    'exit': []
                 };
 
                 this.sharedElements = {
                     'ripple': this.$.placeholder,
                     'reverse-ripple': this.$.placeholder
                 };
+
                 var that = this,
                     validate = function(event) {
                     // Validate the entire form to see if we should enable the `Submit` button.
@@ -237,14 +247,13 @@
                     that.$.signInSubmit.disabled = !ret;
                     return ret;
                 }
+                this.$.signInForm.addEventListener('change', validate);
                 this.$.signInForm.addEventListener('keyup', function(event) {
                     var submitDisabled = that.$.signInSubmit.disabled;
                     that.$.signInForm.querySelector('.output').innerHTML = "Sign in with your email";
                     if (validate(event) && !submitDisabled && event.key == "Enter")
                         that._submitButtonHandler();
                 });
-                this.$.signInForm.addEventListener('change', validate);
-
                 this.$.signInForm.addEventListener('iron-form-error', function(event) {
                     console.warn("GOT ERROR!", event.detail);
                     that.loading = false;
@@ -266,17 +275,14 @@
                 this.$.signInForm.submit();
             },
             _logoClicked: function(event) {
-                console.warn('logo click');
-                this.parentElement.querySelector('#home').$.placeholder.style.zIndex = 1;
-                this.sharedElements = {
-                    'ripple': event.target,
-                    'reverse-ripple': event.target
-                };
+
             },
             _socialAuthGoogle: function(event){
+                this.fire('user-action', 'google sign in');
                 window.location = '/social_auth/login/google-oauth2';
             },
             _socialAuthGithub: function(event){
+                this.fire('user-action', 'github sign in');
                 window.location = '/social_auth/login/github';
             }
         });

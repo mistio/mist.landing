@@ -15,7 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-icons.html">
 <link rel="import" href="landing-button.html">
 
-<dom-module id="landing-page">
+<dom-module id="landing-error">
   <template>
     <style>
 
@@ -35,43 +35,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 50px 0 50px 0;
         font-weight: 300;
       }
-      #placeholder {
-          opacity: 0;
-          background-color: grey;
-          @apply(--layout-fit);
-      }
     </style>
 
-    <div>
-      <div id="placeholder"></div>
-      <div id="container">
-        <h1>[[name]]</h1>
-        <landing-button>
-          <a href="/">Go to the home page</a>
-        </landing-button>
-        <div id="content"></div>
-      </div>
+    <div id="container">
+    <h1>[[route.__queryParams.msg]]</h1>
+    <landing-button>
+      <a href="/">Go to the home page</a>
+    </landing-button>
     </div>
 
   </template>
   <script>
     Polymer({
-      is: 'landing-page',
-      behaviors: [
-        Polymer.NeonSharedElementAnimatableBehavior
-      ],
-
+      is: 'landing-error',
       properties: {
-        animationConfig: Object,
-        sharedElements: Object,
-        name: String
-      },
-      attached: function() {
-        this.animationConfig = {
-          'entry': [],
-
-          'exit': []
-        };
+        msg: String
       }
     });
   </script>

@@ -98,7 +98,7 @@
 
             #placeholder {
                 opacity: 0;
-                background-color: grey;
+                background-color: #0099cc;
                 @apply(--layout-fit);
                 z-index: -1;
             }
@@ -262,12 +262,14 @@
                 this.$.signUpForm.submit();
             },
             _logoClicked: function(event) {
-                console.warn('logo click');
+
             },
             _socialAuthGoogle: function(event){
+                this.fire('user-action', 'google sign up');
                 window.location = '/social_auth/login/google-oauth2';
             },
             _socialAuthGithub: function(event){
+                this.fire('user-action', 'github sign up');
                 window.location = '/social_auth/login/github';
             }
         });

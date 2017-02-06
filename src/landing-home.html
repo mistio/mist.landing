@@ -238,7 +238,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <landing-editions editions="[[data.editions]]"></landing-editions>
           <div class="row">
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
-              <paper-button raised on-click="_signUpClick" id="signUpBtn2">Sign up to Mist.io</paper-button>
+              <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
             </a>
             <div class="secondary">No credit card required</div>
           </div>
@@ -293,11 +293,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       attached: function() {
         this.animationConfig = {
-          'entry': [{
-            name: 'ripple-animation',
-            id: 'ripple',
-            toPage: this
-          }],
+          'entry': [],
           'exit': [{
             name: 'fade-out-animation',
             node: this.$.container,
@@ -324,14 +320,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _signUpClick: function(event) {
-        console.warn('signup click');
-        //window.scrollTo(0, 0);
-
+        window.scrollTo(0, 0);
+        // bring placeholder to fg for animation to work
         this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        this.fire('user-action', 'sign up button 1 click');
       },
 
       _signUpClick2: function(event) {
-
+        window.scrollTo(0, 0);
+        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        this.fire('user-action', 'sign up button 2 click');
       }
     });
 
