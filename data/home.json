@@ -56,12 +56,10 @@
     }],
 "faq": [{
         "question": "How do I use it?",
-        "answer": "The easiest way to get started with Mist.io is to sign up to the freemium SaaS version."
+        "answer": "The easiest way to get started with Mist.io is to [sign up](http://localhost/sign-up) to the freemium SaaS version."
     },{
         "question": "Can I install it on-premises?",
-        "answer": "Yes! There is an Enterprise edition as well as a Community Supported Open Source one.",
-        "linktext": "Community Supported Open",
-        "linkref": "https://github.com/mistio/mist.io"
+        "answer": "Yes! There is an Enterprise edition as well as a [Community Supported Open Source](https://github.com/mistio/mist.io) one."
     },{
         "question": "How much does it cost?",
         "answer": "You can manage unlimited machines and you can enable monitoring and automation for a single machine with 1 week data retention for free."

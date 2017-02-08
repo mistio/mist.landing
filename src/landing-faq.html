@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/marked-element/marked-element.html">
 
 <link rel="import" href="shared-styles.html">
 
@@ -17,6 +18,14 @@
             margin: 0 auto;
             position: relative;
         }
+        .markdown-html a {
+            text-decoration: none !important;
+            color: #09c !important;
+        }
+        marked-element::content a {
+            text-decoration: none !important;
+            color: #09c !important;   
+        }
     </style>
     
     <div class="grid-row editions">
@@ -24,8 +33,7 @@
         <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
             <div class="faqitem">
                 <h5>[[faqitem.question]]</h5>
-                <p>[[faqitem.answer]]</p>
-                <p id="faqp[[index]]"></p>
+                <marked-element markdown="[[faqitem.answer]]"></marked-element>
             </div>
         </div>
       </template>
