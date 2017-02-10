@@ -27,6 +27,7 @@
 
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
+<link rel="import" href="landing-pricing.html">
 <link rel="import" href="landing-sign-in.html">
 <link rel="import" href="landing-sign-up.html">
 <link rel="import" href="landing-forgot-password.html">
@@ -418,6 +419,8 @@
     <landing-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="not-found">
       <!-- home view -->
       <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]"></landing-home>
+
+      <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]"></landing-pricing>
 
       <dom-repeat items="[[categories]]" as="category">
         <template>
