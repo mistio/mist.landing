@@ -1,0 +1,353 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/typed-text/typed-text.html">
+<link rel="import" href="../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="landing-faq.html">
+<link rel="import" href="landing-footer.html">
+
+<dom-module id="landing-pricing">
+    <template>
+        <style is="custom-style" include="iron-flex"></style>
+        <style include="shared-styles"></style>
+        <style>
+        paper-material {
+            @apply(--shadow-elevation-2dp);
+        }
+        
+        .hero {
+            padding: 48px;
+        }
+        
+        :host {
+            display: block;
+        }
+        
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        @media (max-width: 767px) {
+            h2 {
+                margin: 24px 0;
+            }
+        }
+        
+        paper-button {
+            background-color: #0099cc;
+            color: #fff;
+            font-size: 18px;
+            height: 54px;
+            padding: 0 50px;
+            margin: 0 0 1.424rem 0;
+            font-weight: 500;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        .col {
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .pad {
+            padding: 16px;
+        }
+        
+        @media only screen and (max-width: 943px) {
+            typed-text {
+                display: block;
+            }
+        }
+        
+        #placeholder {
+            opacity: 0;
+            background-color: grey;
+            @apply(--layout-fit);
+            z-index: -1;
+        }
+        
+        .plan {
+            margin-bottom: 50px;
+            overflow: auto;
+            @apply(--shadow-elevation-2dp);
+        }
+        .plan, .plan * {
+            box-sizing: border-box;
+        }
+        .plan .plan-title {
+            background-color: #444;
+            color: #fff;
+            text-transform: uppercase;
+            padding: 20px 0;
+            font-size: 24px;
+        }
+        
+        .plan .plan-title.bg-0 {
+            background-color: #999;
+        }
+        
+        .plan .plan-title.bg-1 {
+            background-color: #777;
+        }
+        
+        .plan .plan-title.bg-2 {
+            background-color: #555;
+        }
+        
+        .plan .plan-title.bg-3 {
+            background-color: #222;
+        }
+        
+        .plan .plan-body-item {
+            padding: 20px 10px;
+            min-height: 100px;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            .plan .plan-body-item {
+                min-height: 50px;
+            }
+        }
+        
+        .plan .plan-body-item + .plan-body-item {
+            border-top: 1px solid #d4d4d4;
+        }
+        
+        .plan .plan-body-item:last-child {
+            border-bottom: 1px solid #d4d4d4;
+        }
+        
+        .plan .plan-body-item.highlight {
+            background-color: #f2f2f2;
+        }
+        
+        .plan .plan-body-item * {
+            width: 100%;
+            margin-bottom: 0;
+        }
+        
+        .plan .plan-body-item .valign {
+            display: block;
+        }
+        
+        .plan .plan-body-item .price {
+            font-weight: 700;
+            /*margin-bottom: 30px;*/
+        }
+        
+        .plan .price sub,
+        .plan .price sup {
+            font-size: 18px;
+            font-weight: 300;
+            vertical-align: middle;
+        }
+        
+        .plan .price sup {
+            font-size: 24px;
+            padding: 0 5px;
+        }
+        
+        paper-button#enterpriseBtn {
+            background-color: #4caf50;
+            /*green*/
+            display: block-inline;
+            line-height: 54px;
+            border-radius: 0;
+        }
+        
+        #pricing-info ul li {
+            margin-left: 15px;
+            clear: both;
+        }
+        </style>
+        <div id="placeholder"></div>
+        <div id="container">
+            <div class="section grey">
+                <div class="hero text-center">
+                    <h2>Mist.io Pricing</h2>
+                    <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                        <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started for free</paper-button>
+                    </a>
+                    <div class="secondary">No credit card required</div>
+                </div>
+            </div>
+            <div class="section white">
+                <div class="contains">
+                    <div class="grid-row items-center">
+                        <template is="dom-repeat" items="[[data.plans]]" as="plan">
+                          <div class="col s12 m6 l3">
+                            <div class="plan">
+                                <div class$="plan-title text-center bg-[[index]]">
+                                  [[plan.title]] 
+                                </div>
+                                <div class="plan-body text-center">
+                                    <div class="plan-body-item valign-wrapper">
+                                        <div class="valign">
+                                            <h2 class="price"><sup>$</sup>[[plan.cost]]<sub>/mo.</sub></h2>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">[[plan.description]]</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section dark">
+                <div class="contains">
+                  <div class="row text-center">
+                    <h2 class="decorated">Enterprise Plan</h2>
+                  </div>
+                  <div class="grid-row">
+                        <div class="col s12 m6 l8">
+                            <div class="left">
+                                <h5 class="w400">Do you have more than 300 machines? <br/>Do you want to run Mist.io on premises? </h5>
+                                
+                                <p> Mist.io can provide custom pricing for businesses with a lot of infrastructure. <br/>Also, we can work with you to run Mist.io on premises or to setup a proof of concept.  </p>
+
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 l4">
+                            <h5 class="w400 line1">Contact us if you: </h5>
+                            <p>
+                                <iron-icon icon="done"></iron-icon> Have more than 300 machines <br/>
+                                <iron-icon icon="done"></iron-icon> Want to run an on-premises POC <br/>
+                            </p>
+                            <p> 
+                                <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
+                                  <paper-button raised on-click="_requestInfoEnterprise" id="enterpriseBtn">Request Pricing</paper-button>
+                              </a>
+                            </p>
+                        </div>
+                   </div>
+                </div>
+            </div>
+
+            <div class="section grey">
+                <div class="contains">
+                    <div class="row text-center">
+                        <h2 class="decorated row">Pricing FAQ</h2>
+                    </div>
+                    <landing-faq faq="[[data.faq]]"></landing-faq>
+                </div>
+            </div>
+
+            <div class="section white">
+                <div class="contains text-center">
+                    <div class="row">
+                        <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                            <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
+                        </a>
+                        <div class="secondary">No credit card required</div>
+                    </div>
+                </div>
+            </div>
+
+            <landing-footer></landing-footer>
+
+        </div>
+    </template>
+    <script>
+    Polymer({
+
+        is: 'landing-pricing',
+
+        behaviors: [
+            Polymer.NeonSharedElementAnimatableBehavior
+        ],
+
+        properties: {
+            animationConfig: {
+                type: Object
+            },
+
+            categories: {
+                type: Array
+            },
+
+            data: {
+                type: Object,
+                notify: true
+            },
+
+            visible: {
+                type: Boolean,
+                observer: '_visibleChanged'
+            }
+
+        },
+
+        attached: function() {
+            this.animationConfig = {
+                'entry': [],
+                'exit': [{
+                    name: 'fade-out-animation',
+                    node: this.$.container,
+                    timing: {
+                        delay: 150,
+                        duration: 0
+                    }
+                }, {
+                    name: 'ripple-animation',
+                    id: 'ripple',
+                    fromPage: this,
+                    node: this.$.signUpBtn1
+                }]
+            };
+            this.sharedElements = {
+                'ripple': this.$.signUpBtn1
+            };
+        },
+
+        _visibleChanged: function(visible) {
+            if (visible) {
+                this.fire('change-section', {
+                    title: 'Home'
+                });
+            }
+        },
+
+        _signUpClick: function(event) {
+            window.scrollTo(0, 0);
+            // bring placeholder to fg for animation to work
+            this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+            this.fire('user-action', 'sign up button 1 click');
+        },
+
+        _signUpClick2: function(event) {
+            window.scrollTo(0, 0);
+            this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+            this.fire('user-action', 'sign up button 2 click');
+        },
+
+        _requestInfoEnterprise: function(event) {
+            window.scrollTo(0, 0);
+            this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+            this.fire('user-action', 'request info for enterprise plan');
+        },
+    });
+    </script>
+</dom-module>
