@@ -30,7 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         
         .hero {
-            padding: 48px;
+            padding: 0 48px 48px 48px;
         }
         
         :host {
@@ -87,10 +87,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         .plan {
             margin-bottom: 50px;
             overflow: auto;
-            @apply(--shadow-elevation-2dp);
+            @apply(--shadow-elevation-4dp);
         }
         .plan, .plan * {
             box-sizing: border-box;
+            margin: 0;
         }
         .plan .plan-title {
             background-color: #444;
@@ -141,7 +142,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         
         .plan .plan-body-item * {
             width: 100%;
-            margin-bottom: 0;
         }
         
         .plan .plan-body-item .valign {
