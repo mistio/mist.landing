@@ -14,11 +14,16 @@
 <link rel="import" href="../bower_components/paper-styles/default-theme.html">
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/neon-animation/web-animations.html">
+<link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+
+<link rel="import" href="../data/tos-content.html">
+<link rel="import" href="../data/privacy-content.html">
+<link rel="import" href="../data/pledge-content.html">
 
 <link rel="import" href="landing-pages.html">
 <link rel="import" href="landing-category-data.html">
 <link rel="import" href="landing-icons.html">
-<link rel="import" href="shared-styles.html">
+<!-- <link rel="import" href="shared-styles.html"> -->
 
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
@@ -38,6 +43,7 @@
         padding-top: 130px;
         padding-bottom: 64px;
         min-height: 100vh;
+        color: #444444;
         background-color: #f2f2f2;
         --app-primary-color: #444444;
         --app-secondary-color: #757575;
@@ -307,6 +313,11 @@
         text-decoration: none;
       }
 
+      paper-dialog h2 {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+
       /* small screen */
       @media (max-width: 767px) {
         :host {
@@ -433,6 +444,27 @@
 
     </footer>
 
+    <paper-dialog id="show-tos" with-backdrop>
+      <h2>Terms of Service</h2>
+      <paper-dialog-scrollable>
+        <tos-content></tos-content>
+      </paper-dialog-scrollable>
+    </paper-dialog>
+
+    <paper-dialog id="show-privacy" with-backdrop>
+      <h2>Privacy Policy</h2>
+      <paper-dialog-scrollable>
+        <privacy-content></privacy-content>
+      </paper-dialog-scrollable>
+    </paper-dialog>
+
+    <paper-dialog id="show-pledge" with-backdrop>
+      <h2>Pledge</h2>
+      <paper-dialog-scrollable>
+        <pledge-content></pledge-content>
+      </paper-dialog-scrollable>
+    </paper-dialog>
+
     <!-- a11y announcer -->
     <div class="announcer" aria-live="assertive">[[_a11yLabel]]</div>
 
@@ -493,7 +525,8 @@
         'show-invalid-url-warning': '_onFallbackSelectionTriggered',
         'neon-animation-start': '_prepareAnimation',
         'neon-animation-finish': '_cleanupAnimation',
-        'user-action': '_onUserAction'
+        'user-action': '_onUserAction',
+        'open-dialog': '_openDialog'
       },
 
       created: function() {
@@ -709,7 +742,13 @@
 
       _tabClicked: function(event) {
         this.fire('user-action', 'tab click ' + event.target.textContent);
-      }
+      },
+
+      _openDialog: function(e) {
+        console.log(e.detail.content);
+          var content = e.detail.content;
+          this.$["show-"+content].open();
+      },
 
     });
 
