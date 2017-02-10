@@ -67,22 +67,6 @@
         "question": "How secure is it?",
         "answer": "Mist.io can help you enhance security by implementing policies to control and audit access consistently across your entire infrastructure. We're continously hardening our own code and processes, while we use Mist.io ourselves to manage all internal infrastructure. We run a bounty program for responsible disclosures. For more info contact infosec at mist.io"
     }],
-"promo": {
-        "type": "Live Webinar",
-        "title": "Implementing Self-Service and Delegating Access for Multi and Hybrid Clouds",
-        "description": "Do you use public and private clouds for your development, testing, and QA? Would you like to make your dev teams more productive and efficient?",
-        "time": "Thursday, February 9, 11 am PST | 2 pm EST | 7 pm GMT",
-        "href": "https://www.crowdcast.io/e/implementing-multi-cloud-self-service/register",
-        "people": [{
-            "name": "Dimitris Moraitis",
-            "jobtitle": "Co-Founder, CTO",
-            "image": "dimitris-moraitis.jpg"
-        },{
-            "name": "Mario Olivarez",
-            "jobtitle": "Director, Customer Success",
-            "image": "mario.png"
-        }]
-    },
 "providers": [{
         "name": "amazon",
         "image": "amazon.png"
