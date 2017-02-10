@@ -29,7 +29,10 @@
     "typed-text": "typed-text#^1.1.1",
     "neon-animation": "2.0-preview",
     "web-animations-js": "web-animations/web-animations-js#^2.2.0",
-    "paper-material": "2.0-preview"
+    "paper-material": "2.0-preview",
+    "paper-dialog": "2.0-preview",
+    "paper-dialog-scrollable": "2.0-preview",
+    "marked-element": "^1.3.1"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
@@ -55,6 +58,14 @@
     "iron-input": "2.0-preview",
     "iron-a11y-announcer": "2.0-preview",
     "iron-icons": "2.0-preview",
-    "paper-material": "2.0-preview"
+    "paper-material": "2.0-preview",
+    "iron-resizable-behavior": "2.0-preview",
+    "iron-overlay-behavior": "2.0-preview",
+    "iron-fit-behavior": "2.0-preview",
+    "iron-selector": "2.0-preview",
+    "neon-animation": "2.0-preview",
+    "paper-dialog": "2.0-preview",
+    "paper-dialog-behavior": "2.0-preview",
+    "paper-dialog-scrollable": "2.0-preview"
   }
 }
