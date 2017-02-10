@@ -3,9 +3,14 @@
         <style>
     :root {
       font-size: 18px;
+      font-weight: 400;
       -ms-text-size-adjust: 100%;
       -webkit-text-size-adjust: 100%;
       -webkit-font-smoothing: antialiased;
+      box-sizing: border-box;
+    }
+    :root *, :after, :before {
+      box-sizing: inherit; 
     }
     h2 {
       font-size: 52px;
@@ -31,6 +36,22 @@
       text-decoration: none;
     }
 
+    sub,
+    sup {
+      font-size: 75%;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+
+    sup {
+      top: -0.5em;
+    }
+
+    sub {
+      bottom: -0.25em;
+    }
+
     paper-dialog {
       max-width: 67vw;
     }
@@ -44,6 +65,44 @@
       body {
         font-size: 16px !important;
       }
+    }
+
+    paper-button {
+      letter-spacing: .5px;
+    }
+
+    .w200 {
+      font-weight: 200;
+    }
+
+    .w300 {
+      font-weight: 300;
+    }
+
+    .w400 {
+      font-weight: 400;
+    }
+
+    .w500 {
+      font-weight: 500;
+    }
+
+    .line1 {
+      line-height: 1em;
+      margin: 0;
+    }
+
+    .valign-wrapper {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+    }
+
+    .valign-wrapper .valign {
+      display: block;
     }
 
     .section > * {
@@ -62,6 +121,7 @@
 
     .section.dark {
       background-color: #424242;
+      color: rgba(255,255,255,0.87);
     }
 
     .row {
