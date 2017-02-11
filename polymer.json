@@ -2,7 +2,7 @@
   "entrypoint": "index.html",
   "shell": "src/landing-app.html",
   "fragments": [
-    "src/landing-product.html",
+    "src/landing-page.html",
     "src/landing-list.html",
     "src/landing-detail.html",
     "src/lazy-resources.html"
@@ -16,7 +16,7 @@
   ],
   "includeDependencies": [
     "manifest.json",
-    "bower_components/webcomponentsjs/webcomponents-lite.min.js",
+    "bower_components/webcomponentsjs/webcomponents-lite.js",
     "bower_components/webcomponentsjs/**/*",
     "bower_components/custom-elements/**/*",
     "bower_components/shadydom/**/*",
