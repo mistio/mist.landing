@@ -16,14 +16,11 @@
 <link rel="import" href="../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 
-<link rel="import" href="../data/tos-content.html">
-<link rel="import" href="../data/privacy-content.html">
-<link rel="import" href="../data/pledge-content.html">
 
 <link rel="import" href="landing-pages.html">
 <link rel="import" href="landing-category-data.html">
 <link rel="import" href="landing-icons.html">
-<!-- <link rel="import" href="shared-styles.html"> -->
+<link rel="import" href="shared-styles.html">
 
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
@@ -165,10 +162,6 @@
         position: fixed;
         height: 0;
         overflow: hidden;
-      }
-
-      .back-btn {
-        display: none;
       }
 
       :host([page=set-password]),
@@ -366,9 +359,6 @@
               on-click="_toggleDrawer"
               aria-label="Categories">
           </paper-icon-button>
-          <a class="back-btn" href="/[[categoryName]]" tabindex="-1">
-            <paper-icon-button icon="arrow-back" aria-label="Go back"></paper-icon-button>
-          </a>
           <div class="logo">
             <a href="/" aria-label="Mist.io Home"><img src="../images/logo.svg"></a>
           </div>
@@ -376,10 +366,10 @@
 
         <!-- Lazy-create the tabs for larger screen sizes. -->
         <div id="tabContainer" sticky$="[[_shouldShowTabs]]" hidden$="[[!_shouldShowTabs]]">
-          <dom-if if="[[_shouldRenderTabs]]">
+          <dom-if if="[[_shouldRenderTabs]]" restamp>
             <template>
               <landing-tabs
-                  selected="{{categoryName}}"
+                  selected="{{page}}"
                   attr-for-selected="name">
                 <dom-repeat items="[[categories]]" as="category" initial-count="4">
                   <template>
@@ -406,7 +396,7 @@
       <template>
       <!-- Two-way bind `drawerOpened` since app-drawer can update `opened` itself. -->
       <app-drawer opened="{{drawerOpened}}" swipe-open tabindex="0">
-        <iron-selector role="navigation" class="drawer-list" selected="[[categoryName]]" attr-for-selected="name">
+        <iron-selector role="navigation" class="drawer-list" selected="{{page}}" attr-for-selected="name">
           <dom-repeat items="[[categories]]" as="category" initial-count="4">
             <template>
               <a name="[[category.name]]" href="[[category.href]]">[[category.title]]</a>
@@ -577,9 +567,10 @@
             var cb = this._pageLoaded.bind(this, Boolean(oldPage));
             var category = this.categories && this.categories.find(function(c){ return c.name == page});
             var template = category ? category.template : page;
-            this.importHref(
-              this.resolveUrl('landing-' + template + '.html'),
-              cb, cb, true);
+            if (template)
+              this.importHref(
+                this.resolveUrl('landing-' + template + '.html'),
+                cb, cb, true);
           }
         }
       },
@@ -593,6 +584,7 @@
             this.$.header.resetLayout();
           }, 1);
         }
+        this.$.pages.selected = this.page;
       },
 
       _ensureLazyLoaded: function() {
@@ -647,7 +639,7 @@
         // scroll to the last saved position only if the category has not changed.
         var scrollTop = 0;
         if (this.page === 'list') {
-          if (this.categoryName === detail.category) {
+          if (this.category.name === detail.category) {
             scrollTop = this._listScrollTop;
           } else {
             // Reset the list view scrollTop if the category changed.
@@ -657,8 +649,6 @@
         // Use `Polymer.AppLayout.scroll` with `behavior: 'silent'` to disable header scroll
         // effects during the scroll.
         Polymer.AppLayout.scroll({ top: scrollTop, behavior: 'silent' });
-
-        this.categoryName = detail.category || 'home';
 
         // Announce the page's title
         if (detail.title) {
