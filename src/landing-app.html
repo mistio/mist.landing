@@ -360,7 +360,7 @@
               aria-label="Categories">
           </paper-icon-button>
           <div class="logo">
-            <a href="/" aria-label="Mist.io Home"><img src="../images/logo.svg"></a>
+            <a href="/" aria-label="Mist.io Home" on-tap="_logoClicked"><img src="../images/logo.svg"></a>
           </div>
         </div>
 
@@ -735,6 +735,10 @@
 
       _tabClicked: function(event) {
         this.fire('user-action', 'tab click ' + event.target.textContent);
+      },
+
+      _logoClicked: function(event) {
+        this.fire('user-action', 'header logo click');
       },
 
       _openDialog: function(e) {

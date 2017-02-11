@@ -162,12 +162,12 @@
                             <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
                             <div class="output" hidden$="[[loading]]">Sign in with your email</div>
                         </paper-button>
-                        <div class="forgot"><a href="/forgot-password" id="forgotPasswordLink"><span>Forgot password?</span></a></div>
+                        <div class="forgot"><a href="/forgot-password" id="forgotPasswordLink" on-tap="_forgotPasswordClicked"><span>Forgot password?</span></a></div>
                     </form>
                 </paper-material>
             </iron-form>
 
-            <div class="sign-up"><a href="/sign-up">Create account</a></div></div>
+            <div class="sign-up"><a href="/sign-up" on-tap="_createAccountClicked">Create account</a></div></div>
     </template>
     <script>
         Polymer({
@@ -275,7 +275,7 @@
                 this.$.signInForm.submit();
             },
             _logoClicked: function(event) {
-
+                this.fire('user-action', 'logo click');
             },
             _socialAuthGoogle: function(event){
                 this.fire('user-action', 'google sign in');
@@ -284,6 +284,12 @@
             _socialAuthGithub: function(event){
                 this.fire('user-action', 'github sign in');
                 window.location = '/social_auth/login/github';
+            },
+            _createAccountClicked: function(event) {
+                this.fire('user-action', 'create account click');
+            },
+            _forgotPasswordClicked: function(event) {
+                this.fire('user-action', 'forgot password click');
             }
         });
     </script>

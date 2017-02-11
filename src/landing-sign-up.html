@@ -168,7 +168,7 @@
                 </paper-material>
             </iron-form>
 
-            <div class="sign-up"><a href="/sign-in">Sign in</a></div></div>
+            <div class="sign-up"><a href="/sign-in" on-tap="_signInClicked">Sign in</a></div></div>
     </template>
     <script>
         Polymer({
@@ -269,7 +269,7 @@
                 this.$.signUpForm.submit();
             },
             _logoClicked: function(event) {
-
+                this.fire('user-action', 'logo click');
             },
             _socialAuthGoogle: function(event){
                 this.fire('user-action', 'google sign up');
@@ -278,6 +278,9 @@
             _socialAuthGithub: function(event){
                 this.fire('user-action', 'github sign up');
                 window.location = '/social_auth/login/github';
+            },
+            _signInClicked: function(event) {
+                this.fire('user-action', 'sign-in click')
             }
         });
     </script>
