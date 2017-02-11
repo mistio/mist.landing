@@ -126,11 +126,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _fetchItems: function(category, attempts) {
         this._setFailure(false);
         // Only fetch the items of a category if it has not been previously set.
-        if (!category || category.items) {
+        if (!category || category.items || !category.template) {
           return;
         }
         this._getResource({
-          url: '/landing/data/' + category.name + '.json',
+          url: 'data/' + category.name + '.json',
           onLoad: function(e) {
             this.set('category.items', JSON.parse(e.target.responseText));
           },
