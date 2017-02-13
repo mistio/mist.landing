@@ -12,16 +12,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/marked-element/marked-element.html">
+
 <link rel="import" href="landing-icons.html">
 <link rel="import" href="landing-button.html">
+<link rel="import" href="landing-footer.html">
 
 <dom-module id="landing-page">
   <template>
+    <style include="shared-styles"></style>
     <style>
 
       :host {
         display: block;
-        text-align: center;
         color: var(--app-secondary-color);
       }
 
@@ -40,18 +43,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           background-color: grey;
           @apply(--layout-fit);
       }
+
+      .title {
+        text-transform: capitalize;
+      }
+
+      #content {
+        padding-top: 16px;
+        padding-bottom: 80px;
+      }
+
     </style>
 
     <div>
       <div id="placeholder"></div>
       <div id="container">
-        <h1>[[name]]</h1>
-        <landing-button>
+        
+        <div class="section grey">
+          <div class="contains">
+            <div class="text-center">
+              <h2 class="decorated row title">[[title]]</h2>
+            </div>
+            <div id="content">
+              <marked-element markdown="[[data.body]]"></marked-element>
+            </div>
+          </div>
+        </div>
+
+        <!-- <landing-button>
           <a href="/">Go to the home page</a>
-        </landing-button>
-        <div id="content"></div>
+        </landing-button> -->
       </div>
     </div>
+
+    <landing-footer></landing-footer>
 
   </template>
   <script>
@@ -64,14 +89,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         animationConfig: Object,
         sharedElements: Object,
-        name: String
+        name: String,
+        title: String,
+        data: Object
       },
+
       attached: function() {
         this.animationConfig = {
           'entry': [],
 
           'exit': []
         };
+
       }
     });
   </script>
