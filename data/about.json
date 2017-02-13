@@ -1,1 +1,112 @@
-{}
+{ 
+"text": "<p><strong>Mist.io makes cloud management simple</strong>, setting you free from vendor lock-­in. It abstracts the infrastructure level, to help you easily replicate your entire setup across providers. It works from any web device, including laptops, tablets and phones, to help you take action from anywhere you are.</p><p><strong>It supports all popular computing platforms</strong> including public clouds, private clouds, Docker containers and bare metal machines. It provides a unified interface for performing common management tasks like provisioning, orchestration, monitoring and automation. It comes with a RESTful API and command line tools, so you can easily integrate it in your existing workflow.</p><p><strong>You can choose the edition that works best for you.</strong> Freemium SaaS, Enteprise on-premises or Community Supported Open Source. It aims to become the de-facto standard for multi­-cloud management and a broker of cloud computing services. It's targeted to developers, system administrators and any organisation that performs on-premises, remote, or hybrid computing.</p>",
+"people": [{
+        "name": "Chris Psaltis",
+        "job-description": "CEO & co-founder",
+        "photo": "cpsaltis.jpg", 
+        "linkedin": "https://gr.linkedin.com/in/chpsaltis",
+        "twitter": "https://twitter.com/cpsaltis",
+        "github": "https://github.com/cpsaltis"
+    },{
+        "name": "Dimitris Moraitis",
+        "job-description": "CTO & co-founder",
+        "photo": "dimo.jpg", 
+        "linkedin": "https://gr.linkedin.com/in/dimmo",
+        "twitter": "https://twitter.com/d1_mo",
+        "github": "https://github.com/d-mo"
+    },{
+        "name": "Markos Gogoulos",
+        "job-description": "Customer Success Engineer & co-founder",
+        "photo": "mgogoulos.jpg", 
+        "linkedin": "https://gr.linkedin.com/in/mgogoulos",
+        "github": "https://github.com/mgogoulos"
+    },{
+        "name": "Mike Muzurakis",
+        "job-description": "Community Manager & co-founder",
+        "photo": "clopy.jpg", 
+        "linkedin": "https://gr.linkedin.com/in/muzurakis",
+        "github": "https://github.com/Clopy"
+    },{
+        "name": "Yannis Chatzikonstantinou",
+        "job-description": "Lead Data Scientist",
+        "photo": "yconst.png", 
+        "linkedin": "https://www.linkedin.com/in/yconst"
+    },{
+        "name": "Mario Olivarez",
+        "job-description": "Director of Sales",
+        "photo": "mario.png", 
+        "linkedin": "https://www.linkedin.com/in/olivarezmario"
+    },{
+        "name": "Dimitris Rozakis",
+        "job-description": "Backend Engineer",
+        "photo": "dr.jpg", 
+        "linkedin": "https://gr.linkedin.com/pub/dimitris-rozakis/bb/35a/b50",
+        "github": "https://github.com/dimrozakis"
+    },{
+        "name": "Christos Loukas",
+        "job-description": "DevOps Engineer",
+        "photo": "louk.jpg", 
+        "linkedin": "https://gr.linkedin.com/pub/chris-loukas/90/988/38b",
+        "github": "https://github.com/commixon"
+    },{
+        "name": "Evi Psaltou",
+        "job-description": "Office manager",
+        "photo": "evi.png", 
+        "linkedin": "https://www.linkedin.com/in/evi-psaltou-23590b130"
+    },{
+        "name": "Ioannis Karydis",
+        "job-description": "Backend Developer",
+        "photo": "giannis.png", 
+        "github": "https://github.com/johnnyWalnut"
+    },{
+        "name": "Chris Pollalis",
+        "job-description": "Backend Software Engineer",
+        "photo": "cpollalis.png", 
+        "linkedin": "https://gr.linkedin.com/in/christos-pollalis-206459105",
+        "github": "https://github.com/pchristos"
+    },{
+        "name": "Spiros Tzavaras",
+        "job-description": "QA engineer",
+        "photo": "spyros.png",
+        "github": "https://github.com/mpempekos"
+    },{
+        "name": "Christina Papakonstantinou",
+        "job-description": "Designer & Frontend Developer",
+        "photo": "xristina.png", 
+        "github": "https://github.com/xristina"
+    }],
+"advisors": [{
+        "name": "Allen Wirfs-Brock",
+        "photo": "allen.jpg", 
+        "linkedin": "https://www.linkedin.com/in/allenwb"
+    },{
+        "name": "David Hecht",
+        "photo": "david-3.jpg", 
+        "linkedin": "https://www.linkedin.com/in/davidhecht"
+    },{
+        "name": "Geva Perry",
+        "photo": "geva.jpg", 
+        "linkedin": "https://www.linkedin.com/in/gevaperry",
+        "twitter": "https://twitter.com/gevaperry"
+    },{
+        "name": "Andreas Kallis",
+        "photo": "andreas.jpg", 
+        "linkedin": "https://uk.linkedin.com/pub/andreas-kallis/3/a4a/140"
+    }],
+"partners": [{
+        "name": "gigaspaces",
+        "image": "gigaspaces.png"
+    },{
+        "name": "redhat",
+        "image": "redhat.png"
+    },{
+        "name": "nephoscale",
+        "image": "nephoscale.png"
+    },{
+        "name": "unisystems",
+        "image": "unisystems.png"
+    },{
+        "name": "indonesian cloud",
+        "image": "indocloud.png"
+    }]
+}
