@@ -30,7 +30,7 @@
 
     <div class="grid-row providers">
       <template is="dom-repeat" items="[[providers]]" as="provider">
-        <div class="xs6 s6 m4 l4 margin-top margin-bottom padding-bottom">
+        <div class$="xs6 s6 m4 l4 [[classes]]">
             <div class="provider">
                 <img alt="[[provider.name]]" src$="[[_imagePath(provider)]]"/>
             </div>
@@ -49,10 +49,12 @@
         properties: {
             providers: {
                 type: Array
-            }
+            },
+            folder: String,
+            classes: String
         },
         _imagePath: function(provider) {
-            return 'images/providers/' + provider.image;
+            return 'images/' + this.folder + '/' + provider.image;
         }
     });
 
