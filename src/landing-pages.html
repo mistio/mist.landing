@@ -82,7 +82,7 @@ animations to be run when switching to or switching out of the page.
 
     _onIronSelect: function(event) {
       // Disable animations in Polyfilled browsers for now
-      if (!('registerElement' in document
+      if (false || !('registerElement' in document
             && 'import' in document.createElement('link')
             && 'content' in document.createElement('template'))) {
         this.async(function(){
