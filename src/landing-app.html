@@ -374,7 +374,7 @@
                   attr-for-selected="name">
                 <dom-repeat items="[[categories]]" as="category" initial-count="4">
                   <template>
-                    <landing-tab name="[[category.name]]" on-click="_tabClicked">
+                    <landing-tab name="[[category.name]]" on-click="_tabClicked" hidden$="[[category.hiddenFromMenu]]">
                       <a name="[[category.name]]" href="[[category.href]]" target="new">[[category.title]]</a>
                     </landing-tab>
                   </template>
@@ -415,9 +415,9 @@
 
       <landing-about name="about" categories="[[categories]]" id="about" data="[[category.items]]"></landing-about>
 
-      <dom-repeat items="[[categories]]" as="category">
+      <dom-repeat items="[[categories]]" as="cat">
         <template>
-          <landing-page name="[[category.name]]" id="[[category.name]]" data="[[category.items]] route="[[subroute]]" offline="[[offline]]"></landing-page>
+          <landing-page name="[[cat.name]]" id="[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]"></landing-page>
         </template>
       </dom-repeat>
 
