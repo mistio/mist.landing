@@ -1,0 +1,216 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/typed-text/typed-text.html">
+<link rel="import" href="../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/marked-element/marked-element.html">
+
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="landing-faq.html">
+<link rel="import" href="landing-features-blocks.html">
+<link rel="import" href="landing-editions.html">
+<link rel="import" href="landing-footer.html">
+
+<dom-module id="landing-product">
+
+  <template>
+
+    <style is="custom-style" include="iron-flex"></style>
+    <style include="shared-styles"></style>
+    <style>
+      paper-material {
+        @apply(--shadow-elevation-2dp);
+      }
+
+      :host {
+        display: block;
+      }
+
+      paper-button {
+        background-color: #0099cc;
+        color: #fff;
+        font-size: 18px;
+        height: 54px;
+        padding: 0 50px;
+        margin: 0 40px 40px;
+        font-weight: 500;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .col {
+        width: 50%;
+        box-sizing: border-box;
+      }
+
+      .pad {
+        padding: 16px;
+      }
+
+      img.with-shadow {
+        max-width: 100%;
+        display: block;
+      }
+
+      #placeholder {
+          opacity: 0;
+          background-color: grey;
+          @apply(--layout-fit);
+          z-index: -1;
+      }
+
+      .title {
+        margin-bottom: 0;
+      }
+
+    </style>
+
+    <div id="placeholder"></div>
+    <div id="container">
+     
+      <div class="section grey">
+        <div>
+          <div class="text-center">
+            <h2 class="decorated row title">The Mist.io platform</h2>
+          </div>
+          <div class="padding">
+            <marked-element markdown="[[data.text]]"></marked-element>
+          </div>
+          <div class="text-center">
+            <a aria-label="Get started" href="/sign-up" tabindex="-1">
+              <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started</paper-button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <landing-features-blocks features="[[data.features]]"></landing-features-blocks>
+
+      <div class="section grey">
+        <div class="contains text-center">
+          <div class="row">
+            <h2 class="decorated row">Choose your Mist.io</h2>
+          </div> 
+          <landing-editions editions="[[data.editions]]"></landing-editions>
+        </div>
+      </div>
+
+      <div class="section white">
+        <div class="contains">
+          <div class="row text-center">
+            <h2 class="decorated row">Frequently Asked Questions</h2>
+          </div>
+          <landing-faq faq="[[data.faq]]"></landing-faq>
+        </div>
+      </div>
+
+      <div class="section grey">
+        <div class="contains text-center">
+          <div class="row">
+            <h3><strong>Get started today.</strong></h3>
+            <a aria-label="Get started" href="/sign-up" tabindex="-1">
+              <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
+            </a>
+            <div class="secondary">No credit card required</div>
+          </div>
+        </div>
+      </div>
+
+      <landing-footer></landing-footer>
+
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'landing-product',
+
+      behaviors: [
+        Polymer.NeonSharedElementAnimatableBehavior
+      ],
+
+      properties: {
+        animationConfig: {
+          type: Object
+        },
+
+        categories: {
+          type: Array
+        },
+
+        data: {
+          type: Object,
+          notify: true
+        },
+
+        visible: {
+          type: Boolean,
+          observer: '_visibleChanged'
+        }
+
+      },
+
+      attached: function() {
+        this.animationConfig = {
+          'entry': [],
+          'exit': [{
+            name: 'fade-out-animation',
+            node: this.$.container,
+            timing: {
+              delay: 150,
+              duration: 0
+            }
+          }, {
+            name: 'ripple-animation',
+            id: 'ripple',
+            fromPage: this,
+            node: this.$.signUpBtn1
+          }]
+        };
+        this.sharedElements = {
+          'ripple': this.$.signUpBtn1
+        };
+      },
+
+      _visibleChanged: function(visible) {
+        if (visible) {
+          this.fire('change-section', { title: 'Product' });
+        }
+      },
+
+      _signUpClick: function(event) {
+        window.scrollTo(0, 0);
+        // bring placeholder to fg for animation to work
+        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        this.fire('user-action', 'sign up button 1 click');
+      },
+
+      _signUpClick2: function(event) {
+        window.scrollTo(0, 0);
+        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        this.fire('user-action', 'sign up button 2 click');
+      }
+    });
+
+  </script>
+
+</dom-module>
