@@ -1,0 +1,101 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/social-media-icons/social-media-icons.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="landing-people">  
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+        .person iron-icon {
+            width: 48px;
+            height: 48px;
+        }
+        .person {
+            margin-bottom: 50px;
+            overflow: auto;
+            @apply(--shadow-elevation-4dp);
+            position: relative;
+            background-color: #fff;
+        }
+        .person img {
+            width: 100%;
+        }
+        .name {
+            font-weight: 400;
+        }
+        .details {
+            padding-top: 16px;
+            padding-bottom: 24px; 
+        }
+        .details h5, .details p {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+        h5, p, .social {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+        .social {
+            border-top: 1px solid #eee;
+            padding: 16px 24px;
+            @apply(--layout-horizontal);
+            align-items: center;
+            justify-content: space-around;
+        }
+        .social a {
+            transition: color .3s ease;
+            text-transform: uppercase;
+            padding: 4px;
+        }
+    </style>
+    
+    <div class="grid-row people">
+      <template is="dom-repeat" items="[[people]]" as="person">
+        <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+            <div class="person text-aligned">
+                <img src$="images/people/[[person.photo]]"/>
+                <div class="details">
+                    <h5 class="name">[[person.name]]</h5>
+                    <p class="secondary">[[person.job-description]]</p>
+                </div>
+                <div class="social layout horizontal">
+                    <a href="[[person.linkedin]]" hidden$="[[!person.linkedin]]" target="new">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="[[person.twitter]]" hidden$="[[!person.twitter]]" target="new">
+                        <social-media-icons icon="twitter" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="[[person.github]]" hidden$="[[!person.github]]" target="new">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </template>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+        is: 'landing-people',
+        // behaviors: [
+        //     Polymer.PaperButtonBehavior
+        // ],
+        properties: {
+            people: {
+                type: Array
+            }
+        }
+
+    });
+
+  </script>
+</dom-module>
