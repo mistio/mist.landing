@@ -29,8 +29,6 @@
 
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
-<link rel="import" href="landing-pricing.html">
-<link rel="import" href="landing-about.html">
 <link rel="import" href="landing-sign-in.html">
 <link rel="import" href="landing-sign-up.html">
 <link rel="import" href="landing-forgot-password.html">
@@ -238,7 +236,7 @@
         font-size: 15px;
         font-weight: 400;
         text-decoration: none;
-        color: var(--app-primary-color);
+        color: var(--app-primary-color) !important;
         text-transform: uppercase;
       }
 
@@ -419,6 +417,8 @@
       <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]"></landing-pricing>
 
       <landing-about name="about" categories="[[categories]]" id="about" data="[[category.items]]"></landing-about>
+
+      <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]"></landing-product>
 
       <dom-repeat items="[[categories]]" as="cat">
         <template>

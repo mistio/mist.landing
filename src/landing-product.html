@@ -20,10 +20,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/marked-element/marked-element.html">
 
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="landing-faq.html">
+<link rel="import" href="landing-features-blocks.html">
+<link rel="import" href="landing-editions.html">
 <link rel="import" href="landing-footer.html">
-<link rel="import" href="landing-people.html">
 
-<dom-module id="landing-about">
+<dom-module id="landing-product">
 
   <template>
 
@@ -38,65 +40,95 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
 
-      .text-center {
-        text-align: center;
+      paper-button {
+        background-color: #0099cc;
+        color: #fff;
+        font-size: 18px;
+        height: 54px;
+        padding: 0 50px;
+        margin: 0 40px 40px;
+        font-weight: 500;
       }
 
       a {
         text-decoration: none;
       }
 
-      #placeholder {
-        opacity: 0;
-        background-color: grey;
-        @apply(--layout-fit);
-        z-index: -1;
-      }
-      
-      marked-element {
-        padding-top: 0 !important;
-        margin-bottom: 50px !important;
+      .col {
+        width: 50%;
+        box-sizing: border-box;
       }
 
-      landing-providers ::content .provider {
-        padding: 48px !important;
+      .pad {
+        padding: 16px;
+      }
+
+      img.with-shadow {
+        max-width: 100%;
+        display: block;
+      }
+
+      #placeholder {
+          opacity: 0;
+          background-color: grey;
+          @apply(--layout-fit);
+          z-index: -1;
       }
 
       .title {
         margin-bottom: 0;
       }
+
     </style>
 
     <div id="placeholder"></div>
     <div id="container">
+     
+      <div class="section grey">
+        <div>
+          <div class="text-center">
+            <h2 class="decorated row title">The Mist.io platform</h2>
+          </div>
+          <div class="padding">
+            <marked-element markdown="[[data.text]]"></marked-element>
+          </div>
+          <div class="text-center">
+            <a aria-label="Get started" href="/sign-up" tabindex="-1">
+              <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started</paper-button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <landing-features-blocks features="[[data.features]]"></landing-features-blocks>
 
       <div class="section grey">
-        <div class="text-center">
-          <h2 class="decorated row title">About Mist.io</h2>
-        </div>
-        <marked-element markdown="[[data.text]]"></marked-element>
-      </div>
-      
-      <div class="section white">
-        <div class="contains">
-          <h2 class="decorated row text-center">Who we are</h2>
-          <landing-people people="[[data.people]]"></landing-people>
-        </div>
-      </div>
-
-      <div class="section grey">
-        <div class="contains">
-          <h2 class="decorated row text-center">Our advisors</h2>
-          <landing-people people="[[data.advisors]]"></landing-people>
-        </div>
-      </div>
-
-      <div class="section white">
         <div class="contains text-center">
           <div class="row">
-            <h2 class="decorated row">Our Trusted partners</h2>
+            <h2 class="decorated row">Choose your Mist.io</h2>
           </div> 
-          <landing-providers providers="[[data.partners]]" folder="partners"></landing-providers>
+          <landing-editions editions="[[data.editions]]"></landing-editions>
+        </div>
+      </div>
+
+      <div class="section white">
+        <div class="contains">
+          <div class="row text-center">
+            <h2 class="decorated row">Frequently Asked Questions</h2>
+          </div>
+          <landing-faq faq="[[data.faq]]"></landing-faq>
+        </div>
+      </div>
+
+      <div class="section grey">
+        <div class="contains text-center">
+          <div class="row">
+            <h3><strong>Get started today.</strong></h3>
+            <a aria-label="Get started" href="/sign-up" tabindex="-1">
+              <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
+            </a>
+            <div class="secondary">No credit card required</div>
+          </div>
         </div>
       </div>
 
@@ -110,7 +142,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
 
-      is: 'landing-about',
+      is: 'landing-product',
 
       behaviors: [
         Polymer.NeonSharedElementAnimatableBehavior
@@ -119,6 +151,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
         animationConfig: {
           type: Object
+        },
+
+        categories: {
+          type: Array
         },
 
         data: {
@@ -157,22 +193,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _visibleChanged: function(visible) {
         if (visible) {
-          this.fire('change-section', { title: 'About' });
+          this.fire('change-section', { title: 'Product' });
         }
       },
 
       _signUpClick: function(event) {
         window.scrollTo(0, 0);
         // bring placeholder to fg for animation to work
-        if (ANIMATIONS)
-          this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 1 click');
       },
 
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
-        if (ANIMATIONS)
-          this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 2 click');
       }
     });

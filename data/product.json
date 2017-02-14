@@ -1,10 +1,47 @@
-[
-  {
-    "name":"about",
-    "title":"About Mist.io",
-    "category":"product",
-    "description":"Mist.io makes cloud management simple, setting you free from vendor lock-­in. It abstracts the infrastructure level, to help you easily replicate your entire setup across providers. It works from any web device, including laptops, tablets and phones, to help you take action from anywhere you are.\n It supports all popular computing platforms including public clouds, private clouds, Docker containers and bare metal machines. It provides a unified interface for performing common management tasks like provisioning, orchestration, monitoring and automation. It comes with a RESTful API and command line tools, so you can easily integrate it in your existing workflow. \n You can choose the edition that works best for you. Freemium SaaS, Enteprise on-premises or Community Supported Open Source. It aims to become the de-facto standard for multi­-cloud management and a broker of cloud computing services. It's targeted to developers, system administrators and any organisation that performs on-premises, remote, or hybrid computing.",
-    "image":"/data/images/10-25058B.jpg",
-    "largeImage":"/data/images/10-25058A.jpg"
-  }
-]
+{
+"text": "<p>Managing a mix of public and private clouds, hypervisors, containers, and bare metal is difficult, especially when trying to optimize management and usage across technologies and infrastructure.</p><p>The Mist.io platform solves this problem by providing visibility and control to make it easier to manage heterogeneous infrastructure.</p>",
+"editions": [{
+        "title": "Hosted Edition",
+        "icon": "icons:cloud-circle",
+        "description": "A SaaS of the Mist.io platform. Get started fast."
+    },{
+        "title": "Enterprise Edition",
+        "icon": "icons:account-balance",
+        "description": "Run Mist.io in your data center, under your terms, and behind your firewall."
+    },{
+        "title": "Community Edition",
+        "icon": "social:share",
+        "description": "Mist.io is open source and available to be modified."
+    }],
+"faq": [{
+        "question": "How do I use it?",
+        "answer": "The easiest way to get started with Mist.io is to [sign up](http://localhost/sign-up) to the freemium SaaS version."
+    },{
+        "question": "Can I install it on-premises?",
+        "answer": "Yes! There is an Enterprise edition as well as a [Community Supported Open Source](https://github.com/mistio/mist.io) one."
+    },{
+        "question": "How much does it cost?",
+        "answer": "You can manage unlimited machines and you can enable monitoring and automation for a single machine with 1 week data retention for free."
+    },{
+        "question": "How secure is it?",
+        "answer": "Mist.io can help you enhance security by implementing policies to control and audit access consistently across your entire infrastructure. We're continously hardening our own code and processes, while we use Mist.io ourselves to manage all internal infrastructure. We run a bounty program for responsible disclosures. For more info contact infosec at mist.io"
+    }],
+"features": [{
+		"title": "Control hybrid environments",
+		"description": "Use Mist.io’s unified interface and/or RESTful APIs to manage heterogeneous infrastructure. Create, reboot or destroy virtual machines. View their metadata, tag and search them. Assign keys, run and schedule scripts. Enable monitoring, alerting, and automation. All your infrastructure in one view.",
+		"image": "product-dashboard.png"
+	},{
+		"title": "Enable self service",
+		"description": "Turn your IT organization into an internal broker of cloud services. Create user accounts and control access rights across public and private clouds. Let your users serve themselves by giving them the ability to take actions on machines through pre-defined jobs, scripts, and automated workflows.<br/><br/>[Read more in this page.](/role_based_access)",
+		"image": "product-rbac.png"
+	}, {
+		"title": "Keep track of usage and cost",
+		"comingsoon" : true,
+		"description": "IT and financial managers can get real time visibility of usage to better understand where costs are coming from and find ways to reduce waste and save money. Implement budget alerts , avoid zombie instances, and other waste.",
+		"image": "product-report.png"
+	},{
+		"title" : "Automate your workflows",
+		"description": "Orchestrate repeatable deployments and automate common responses across infrastructure. Our “unopionated” approach means there is no need to migrate machines, you can manage legacy bare-metal and modern cloud infrastructure from a unified interface. Easy to get started.<br/><br/>[Read more in this page.](/orchestration)",
+		"image": "product-automate.png"
+	}]
+}
