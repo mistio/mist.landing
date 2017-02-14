@@ -29,19 +29,19 @@
 "features": [{
 		"title": "Control hybrid environments",
 		"description": "Use Mist.io’s unified interface and/or RESTful APIs to manage heterogeneous infrastructure. Create, reboot or destroy virtual machines. View their metadata, tag and search them. Assign keys, run and schedule scripts. Enable monitoring, alerting, and automation. All your infrastructure in one view.",
-		"image": "product-dashboard.png"
+		"image": "product/product-dashboard.png"
 	},{
 		"title": "Enable self service",
 		"description": "Turn your IT organization into an internal broker of cloud services. Create user accounts and control access rights across public and private clouds. Let your users serve themselves by giving them the ability to take actions on machines through pre-defined jobs, scripts, and automated workflows.<br/><br/>[Read more in this page.](/rbac)",
-		"image": "product-rbac.png"
+		"image": "product/product-rbac.png"
 	}, {
 		"title": "Keep track of usage and cost",
 		"comingsoon" : true,
 		"description": "IT and financial managers can get real time visibility of usage to better understand where costs are coming from and find ways to reduce waste and save money. Implement budget alerts , avoid zombie instances, and other waste.",
-		"image": "product-report.png"
+		"image": "product/product-report.png"
 	},{
 		"title" : "Automate your workflows",
 		"description": "Orchestrate repeatable deployments and automate common responses across infrastructure. Our “unopinionated” approach means there is no need to migrate machines, you can manage legacy bare-metal and modern cloud infrastructure from a unified interface. Easy to get started.<br/><br/>[Read more in this page.](/orchestration)",
-		"image": "product-automate.png"
+		"image": "product/product-automate.png"
 	}]
 }

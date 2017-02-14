@@ -44,7 +44,7 @@
                 </div>
                 <div class="xs12 s6 m4 l4 image">
                     <div class="image-wrapper with-shadow">
-                        <img src$="[[_computeImageUrl(step.image,folder)]]"/>
+                        <img src$="[[_computeImageUrl(step.image)]]"/>
                     </div>
                 </div>
             </div>
@@ -58,14 +58,13 @@
         properties: {
             steps: {
                 type: Array
-            },
-            folder: String,
+            }
         },
 
 
-        _computeImageUrl: function(image, folder){
-            if(image && this.folder) 
-                return "images/" + this.folder + "/" + image;
+        _computeImageUrl: function(image){
+            if(image) 
+                return "images/" + image;
         },
 
         _withShadow: function(index){

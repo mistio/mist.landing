@@ -73,7 +73,7 @@
                     </div>
                     <div class="grid-row feature">
                         <div class="xs12 s6 m6 l6 image" hidden$="[[_computeMod(index)]]">
-                            <img src$="images/[[folder]]/[[feature.image]]" class$="[[_withShadow(index)]]"/>
+                            <img src$="[[_computeImageUrl(feature.image)]]" class$="[[_withShadow(index)]]"/>
                         </div>
                         <div class="xs12 s6 m6 l6 desc">
                             <h3 class="line1" hidden$="[[titleOnTop]]">[[feature.title]]</h3>
@@ -81,7 +81,7 @@
                             <marked-element markdown="[[feature.description]]"></marked-element>
                         </div>
                         <div class="xs12 s6 m6 l6 image" hidden$="[[!_computeMod(index)]]">
-                            <img src$="[[_computeImageUrl(feature.image, folder)]]" class$="[[_withShadow(index)]]"/>
+                            <img src$="[[_computeImageUrl(feature.image)]]" class$="[[_withShadow(index)]]"/>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,6 @@
             features: {
                 type: Array
             },
-            folder: String,
             isProduct: {
                 type: Boolean,
                 value: false
@@ -156,9 +155,9 @@
                 return "with-shadow";
         },
 
-        _computeImageUrl: function(image, folder){
-            if (image && this.folder)
-                return "images/" + this.folder + "/" + image;
+        _computeImageUrl: function(image){
+            if (image)
+                return "images/" + image;
         }
 
     });
