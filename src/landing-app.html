@@ -26,6 +26,7 @@
 <link rel="import" href="landing-category-data.html">
 <link rel="import" href="landing-icons.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="landing-footer.html">
 
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
@@ -82,7 +83,8 @@
         margin: 0 auto;
       }
 
-      landing-pages {
+      landing-pages .iron-selected:not(.neon-animating) {
+        position: relative;
         height: 100%;
       }
 
@@ -262,12 +264,6 @@
       }
 
       footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-        margin-top: 20px;
         line-height: 24px;
       }
 
@@ -445,8 +441,8 @@
       <!--landing-detail name="detail" route="[[subroute]]" offline="[[offline]]"></landing-detail-->
     </landing-pages>
 
-    <footer>
-
+    <footer hidden$="[[!_hasFooter(page)]]">
+      <landing-footer id="footer"></landing-footer>
     </footer>
 
     <!-- a11y announcer -->
@@ -500,6 +496,11 @@
         animated: {
           type: Boolean,
           value: ANIMATIONS
+        },
+        
+        scrollThresholdReached: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -536,6 +537,40 @@
           that.fire('user-action', 'exit from ' + that.page);
         };
         this.fire('user-action', 'entry at ' + that.page);
+
+        document.addEventListener("scroll", function(e) {
+          var scrollPercent = 1 - (document.body.scrollHeight - document.body.scrollTop - window.innerHeight) / document.body.scrollHeight;
+          if (document.body.scrollHeight <= window.innerHeight)
+            return;
+
+          if (scrollPercent > 0.8 && !this.scrollThresholdReached){
+            console.warn('scroll threshold reached', scrollPercent);
+            that.fire('user-action', 'scroll to bottom');
+            this.scrollThresholdReached = true;
+            window.twttr = (function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0],
+                t = window.twttr || {};
+              if (d.getElementById(id)) return t;
+              js = d.createElement(s);
+              js.id = id;
+              js.src = "https://platform.twitter.com/widgets.js";
+              fjs.parentNode.insertBefore(js, fjs);
+
+              t._e = [];
+              t.ready = function(f) {
+                t._e.push(f);
+              };
+
+              return t;
+            }(document, "script", "twitter-wjs"));
+            that.async(function(){
+              window.twttr.widgets.createTimeline({
+                sourceType: 'profile',
+                screenName: 'mist_io'
+              }, that.$.footer.$.tweets);
+            }, 1000);
+          }
+        });
       },
 
       _routePageChanged: function(page) {
@@ -701,6 +736,13 @@
 
       _computePluralizedQuantity: function(quantity) {
         return quantity + ' ' + (quantity === 1 ? 'item' : 'items');
+      },
+
+      _hasFooter: function(page) {
+        var unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password']
+        if (unfootedPages.indexOf(page) > -1)
+          return false;
+        return true;
       },
 
       _signInClick: function(event) {
