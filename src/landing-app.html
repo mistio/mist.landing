@@ -242,6 +242,10 @@
         text-transform: uppercase;
       }
 
+      app-drawer a {
+        color: var(--app-primary-color) !important;
+      }
+
       .drawer-list {
         margin: 0 20px;
       }
@@ -399,7 +403,7 @@
         <iron-selector role="navigation" class="drawer-list" selected="{{page}}" attr-for-selected="name">
           <dom-repeat items="[[categories]]" as="category" initial-count="4">
             <template>
-              <a name="[[category.name]]" href="[[category.href]]">[[category.title]]</a>
+              <a name="[[category.name]]" href="[[category.href]]" hidden$="[[category.hiddenFromMenu]]">[[category.title]]</a>
             </template>
           </dom-repeat>
         </iron-selector>
