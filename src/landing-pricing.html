@@ -172,6 +172,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             clear: both;
             list-style: none;
         }
+        @media screen and (max-width: 580px){
+            .includes > div {
+                text-align: center;
+            }
+            .includes ul, .includes li {
+                margin: 0;
+                padding: 0;
+            }
+        }
         </style>
         <div id="placeholder"></div>
         <div id="container">
@@ -188,7 +197,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <div class="contains">
                     <div class="grid-row items-center">
                         <template is="dom-repeat" items="[[data.plans]]" as="plan">
-                            <div class="col xs12 s6 m6 l3 margin-bottom">
+                            <div class="xs12 s6 m6 l3 margin-bottom">
                                 <div class="plan text-center">
                                     <div class$="[[_computeClass(index)]]">
                                         [[plan.title]]
@@ -210,8 +219,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <div class="row text-center">
                         <h2 class="decorated row">Plans Include</h2>
                     </div>
-                    <div class="grid-row">
-                        <div class="s6 m3 l3 margin-bottom padding-bottom">
+                    <div class="grid-row includes">
+                        <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
                             <ul>
                                 <li>
                                     <iron-icon icon="done"></iron-icon> Cost Projection</li>
@@ -221,7 +230,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     <iron-icon icon="done"></iron-icon> RBAC</li>
                             </ul>
                         </div>
-                        <div class="s6 m3 l3 margin-bottom padding-bottom">
+                        <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
                             <ul>
                                 <li>
                                     <iron-icon icon="done"></iron-icon> Monitoring - limited</li>
@@ -231,7 +240,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     <iron-icon icon="done"></iron-icon> Scheduling</li>
                             </ul>
                         </div>
-                        <div class="s6 m3 l3 margin-bottom padding-bottom">
+                        <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
                             <ul>
                                 <li>
                                     <iron-icon icon="done"></iron-icon> Keys</li>
@@ -241,7 +250,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     <iron-icon icon="done"></iron-icon> Scripting</li>
                             </ul>
                         </div>
-                        <div class="s6 m3 l3 margin-bottom padding-bottom">
+                        <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
                             <ul>
                                 <li>
                                     <iron-icon icon="done"></iron-icon> Audit Logs</li>
@@ -260,15 +269,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <h2 class="decorated">Enterprise Plan</h2>
                     </div>
                     <div class="grid-row">
-                        <div class="col s12 m6 l8">
+                        <div class="xs12 s12 m6 l8">
                             <div class="left">
                                 <h5 class="w400">Do you have more than 300 machines? <br/>Do you want to run Mist.io on premises? </h5>
                                 <p> Mist.io can provide custom pricing for businesses with a lot of infrastructure.
                                     <br/>Also, we can work with you to run Mist.io on premises or to setup a proof of concept. </p>
                             </div>
                         </div>
-                        <div class="col s12 m6 l4">
-                            <h5 class="w400 line1">Contact us if you: </h5>
+                        <div class="xs12 s12 m6 l4">
+                            <h5 class="w400">Contact us if you: </h5>
                             <p>
                                 <iron-icon icon="done"></iron-icon> Have more than 300 machines
                                 <br/>
