@@ -420,6 +420,8 @@
 
       <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]"></landing-product>
 
+      <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]"></landing-orchestration>
+
       <dom-repeat items="[[categories]]" as="cat">
         <template>
           <landing-page name="[[cat.name]]" title="[[cat.title]]" id="[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]"></landing-page>
