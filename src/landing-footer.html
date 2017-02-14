@@ -38,6 +38,12 @@
         text-align: right;
         float: right;
       }
+
+      #tweets {
+        height: 400px !important;
+        display: block;
+        overflow-y: scroll;
+      }
     </style>
     
     <div class="section dark">
@@ -48,13 +54,17 @@
             <p>+1-650-605-3299 </p>
             <p>info@mist.io</p>
             
-            <p>Mist.io Inc, <br/>
+            <p>Mist.io Inc <br/>
             620 Folsom St, <br/>
             San Francisco, CA 94107
             </p>
+            <p>Athens hq<br/>
+            189 Syngrou ave, <br/>
+            17121, Athens, Greece
+            </p>
           </div>
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
-
+            <a id="tweets" class="twitter-timeline" data-dnt="true" href="https://twitter.com/mist_io" data-widget-id="328880614860259329"></a>
           </div>
         </div>
       </div>
@@ -85,8 +95,9 @@
 
         is: 'landing-footer',
 
-        properties: {
-        },
+        attached: function() {
+
+        }
 
     });
 
