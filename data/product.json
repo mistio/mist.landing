@@ -43,5 +43,9 @@
 		"title" : "Automate your workflows",
 		"description": "Orchestrate repeatable deployments and automate common responses across infrastructure. Our “unopinionated” approach means there is no need to migrate machines, you can manage legacy bare-metal and modern cloud infrastructure from a unified interface. Easy to get started.<br/><br/>[Read more in this page.](/orchestration)",
 		"image": "product/product-automate.png"
+	},{
+		"title": "Features",
+		"description": "<ul><li>Integration with over 15 service providers and technologies</li><li>Docker support</li><li>Kubernetes support</li><li>Ansible support</li><li><em class='prod-label'>new!</em> Role based access control. <a href='/rbac' class='blue-link'>Read more here.</a></li><li><em class='prod-label'>coming soon!</em> Reporting - usage and cost</li><li>Monitoring and alerting</li><li>Centralized management:<ul><li>Scripting</li><li>Automation</li><li>Key management</li><li>Image management</li></ul></li></ul>",
+		"image": "product/product-stack.png"
 	}]
 }
