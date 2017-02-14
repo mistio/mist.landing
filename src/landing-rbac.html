@@ -13,18 +13,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/marked-element/marked-element.html">
 
 <link rel="import" href="shared-styles.html">
-<link rel="import" href="landing-faq.html">
-<link rel="import" href="landing-features-blocks.html">
-<link rel="import" href="landing-editions.html">
+<link rel="import" href="landing-steps.html">
 <link rel="import" href="landing-footer.html">
 
-<dom-module id="landing-product">
+<dom-module id="landing-rbac">
 
   <template>
 
@@ -78,6 +76,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin-bottom: 0;
       }
 
+      .icon-bg {
+        background-color: #ccc;
+        border-radius: 50%;
+        width: 95px;
+        margin: 40px auto 20px;
+        height: 95px;
+        box-sizing: border-box;
+      }
+
+      iron-icon {
+        width: 60px;
+        height: 60px;
+        padding: 14px 0 0 0 !important;
+      }
+
+      .offset-m3 {
+        margin-left: 25%; 
+      }
+
     </style>
 
     <div id="placeholder"></div>
@@ -86,12 +103,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="section grey">
         <div>
           <div class="text-center">
-            <h2 class="decorated row title">The Mist.io platform</h2>
+            <h2 class="decorated row title">Role based access case study</h2>
           </div>
-          <div class="padding">
+          <div class="padding-top text-center">
             <marked-element markdown="[[data.text]]"></marked-element>
-          </div>
-          <div class="text-center">
+            <div class="icon-bg valign">
+              <iron-icon icon="social:people"></iron-icon>
+            </div>
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
               <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started</paper-button>
             </a>
@@ -99,34 +117,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </div>
 
-      <landing-features-blocks features="[[data.features]]" folder="product" is-product=true></landing-features-blocks>
+      <div class="section white">
+        <div class="contains">
+          <div class="grid-row">
+            <div class="m6 offset-m3">
+                <marked-element markdown="[[data.usecase]]"></marked-element>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="section grey">
-        <div class="contains text-center">
-          <div class="row">
-            <h2 class="decorated row">Choose your Mist.io</h2>
-          </div> 
-          <landing-editions editions="[[data.editions]]"></landing-editions>
+        <div class="contains">
+          <div class="text-center">
+            <h2 class="decorated row title">How it works</h2>
+            <div class="padding-top text-center">
+              <marked-element markdown="[[data.stepintro]]"></marked-element>
+            </div>
+          </div>
+          <div class="grid-row">
+            <landing-steps steps="[[data.steps]]" folder="product"></landing-steps>
+          </div>
         </div>
       </div>
 
       <div class="section white">
         <div class="contains">
-          <div class="row text-center">
-            <h2 class="decorated row">Frequently Asked Questions</h2>
-          </div>
-          <landing-faq faq="[[data.faq]]"></landing-faq>
-        </div>
-      </div>
-
-      <div class="section grey">
-        <div class="contains text-center">
-          <div class="row">
-            <h3><strong>Get started today.</strong></h3>
-            <a aria-label="Get started" href="/sign-up" tabindex="-1">
-              <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
-            </a>
-            <div class="secondary">No credit card required</div>
+          <h2 class="row">Conclusion</h2>
+          <div class="grid-row">
+            <div class="xs12 s12 m8 l8">
+              <marked-element markdown="[[data.conclusion]]"></marked-element>
+            </div>
           </div>
         </div>
       </div>
@@ -141,7 +162,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     Polymer({
 
-      is: 'landing-product',
+      is: 'landing-rbac',
 
       behaviors: [
         Polymer.NeonSharedElementAnimatableBehavior
@@ -192,7 +213,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _visibleChanged: function(visible) {
         if (visible) {
-          this.fire('change-section', { title: 'Product' });
+          this.fire('change-section', { title: 'Role based access control' });
         }
       },
 
@@ -200,13 +221,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         window.scrollTo(0, 0);
         // bring placeholder to fg for animation to work
         this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-        this.fire('user-action', 'sign up button 1 click in product page');
+        this.fire('user-action', 'sign up button 1 click in rbac page');
       },
 
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
         this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-        this.fire('user-action', 'sign up button 2 click in product page');
+        this.fire('user-action', 'sign up button 2 click in rbac page');
       }
     });
 

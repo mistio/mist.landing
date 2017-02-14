@@ -422,6 +422,8 @@
 
       <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]"></landing-orchestration>
 
+      <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]"></landing-rbac>
+
       <dom-repeat items="[[categories]]" as="cat">
         <template>
           <landing-page name="[[cat.name]]" title="[[cat.title]]" id="[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]"></landing-page>
@@ -550,6 +552,7 @@
       },
 
       _pageChanged: function(page, oldPage) {
+        console.log('_pageChanged', page, oldPage);
         if (page != null) {
           // home route is eagerly loaded
           if (page == 'home') {
@@ -560,6 +563,10 @@
             // eagerly load the 404 page definition
             var cb = this._pageLoaded.bind(this, Boolean(oldPage));
             var category = this.categories && this.categories.find(function(c){ return c.name == page});
+            console.log(category, page)
+            if (!category)
+              category = category && this.categories.find(function(c){ return c.href == "/"+page});
+            console.log(category, page)
             var template = category ? category.template : page;
             if (template)
               this.importHref(

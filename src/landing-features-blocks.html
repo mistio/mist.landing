@@ -81,42 +81,44 @@
                             <marked-element markdown="[[feature.description]]"></marked-element>
                         </div>
                         <div class="xs12 s6 m6 l6 image" hidden$="[[!_computeMod(index)]]">
-                            <img src$="images/[[folder]]/[[feature.image]]" class$="[[_withShadow(index)]]"/>
+                            <img src$="[[_computeImageUrl(feature.image, folder)]]" class$="[[_withShadow(index)]]"/>
                         </div>
                     </div>
                 </div>
             </div>
         </template>
-        <!-- TODO move into product json once marked-element renders better -->
-        <div class="section white" hidden$="[[!isProduct]]">
-            <div class="contains">
-                <div class="grid-row feature">
-                    <div class="xs12 s6 m6 l6 desc">
-                        <h3 class="line1">Features</h3>
-                        <ul>
-                            <li>Integration with over 15 service providers and technologies</li>
-                            <li>Docker support</li>
-                            <li>Kubernetes support</li>
-                            <li>Ansible support</li>
-                            <li><em class="prod-label">new!</em> Role based access control. <a href="/role_based_access" class="blue-link">Read more here.</a></li>
-                            <li><em class="prod-label">coming soon!</em> Reporting - usage and cost</li>
-                            <li>Monitoring and alerting</li>
-                            <li>Centralized management:
-                                <ul>
-                                    <li>Scripting</li>
-                                    <li>Automation</li>
-                                    <li>Key management</li>
-                                    <li>Image management</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="xs12 s6 m6 l6">
-                        <img src$="images/[[folder]]/product-stack.png" class="with-shadow"/>
+        <!-- TODO move into product.json once marked-element renders better -->
+        <template is="dom-if" if="[[isProduct]]" restamp>
+            <div class="section white">
+                <div class="contains">
+                    <div class="grid-row feature">
+                        <div class="xs12 s6 m6 l6 desc">
+                            <h3 class="line1">Features</h3>
+                            <ul>
+                                <li>Integration with over 15 service providers and technologies</li>
+                                <li>Docker support</li>
+                                <li>Kubernetes support</li>
+                                <li>Ansible support</li>
+                                <li><em class="prod-label">new!</em> Role based access control. <a href="/role_based_access" class="blue-link">Read more here.</a></li>
+                                <li><em class="prod-label">coming soon!</em> Reporting - usage and cost</li>
+                                <li>Monitoring and alerting</li>
+                                <li>Centralized management:
+                                    <ul>
+                                        <li>Scripting</li>
+                                        <li>Automation</li>
+                                        <li>Key management</li>
+                                        <li>Image management</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="xs12 s6 m6 l6">
+                            <img src="../images/product/product-stack.png" class="with-shadow"/>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </template>
     </template>
     <script>
     Polymer({
@@ -152,6 +154,11 @@
             //some screenshots dont have own shadow
             if (index != undefined && index != 0 && index != 1)
                 return "with-shadow";
+        },
+
+        _computeImageUrl: function(image, folder){
+            if (image && this.folder)
+                return "images/" + this.folder + "/" + image;
         }
 
     });
