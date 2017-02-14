@@ -1,0 +1,12 @@
+{
+"text": "<p>Mist.io’s Cloudify orchestration service simplifies the provisioning of complex infrastructure and applications across heterogeneous environments.</p>",
+"features": [{
+		"title": "How it works",
+		"description": "<p>The cloud orchestration service is based on Cloudify, the open-source, TOSCA-based orchestration platform. The service is similar to AWS’ OpsWorks but is designed for heterogeneous infrastructure. This means you can create a single, reusable template to provision the same application across different cloud providers, data centers, or colo environments.</p><p>Combine Cloud Orchestration with other Mist.io features such as monitoring, scheduling, RBAC, and/or APIs, to create automated and dynamic workflows and policies that respond to system events in real time.</p>",
+		"image": "add-template.png"
+	},{
+		"title": "Simple Kubernetes Cluster Deployments",
+		"description": "<p>Mist.io’s Cloudify cloud orchestration service offers single-click Kubernetes cluster deployments across public and private clouds. Users can use the cloud orchestration service to automate the deployment, operations, and scaling of containerized applications resulting in accelerate software deployment, development, and simplified IT operations.</p><p>Mist.io with Cloudify offers the simplest way to run Kubernetes on AWS, OpenStack and other clouds through a single management experience. Setting up a Kubernetes cluster is simple and quick.</p><p>With just a few clicks a cluster can be setup in minutes, making it easy to get started. Rule based auto-scaling tools make it easy to scale up and down the cluster when necessary.</p>",
+		"image": "stack-page.png"
+	}]
+}
