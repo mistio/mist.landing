@@ -34,6 +34,7 @@
             width: 220px;
             overflow: hidden;
             cursor: pointer;
+            margin: 0 auto;
         }
 
         paper-dialog {
@@ -44,12 +45,12 @@
         </style>
         <template is="dom-repeat" items="[[steps]]" as="step">
             <div class="grid-row step">
-                <div class="xs12 s6 m8 l8 desc">
+                <div class="xs12 s8 m8 l8 desc">
                     <h3 class="line1">[[step.title]]</h3>
                     <p><strong>[[step.subtitle]]</strong></p>
                     <marked-element markdown="[[step.description]]"></marked-element>
                 </div>
-                <div class="xs12 s6 m4 l4 image">
+                <div class="xs12 s4 m4 l4 image">
                     <div class="image-wrapper with-shadow">
                         <img src$="[[_computeImageUrl(step.image)]]" on-tap="zoomInImage"/>
                     </div>
