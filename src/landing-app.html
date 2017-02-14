@@ -543,36 +543,22 @@
         this.fire('user-action', 'entry at ' + that.page);
 
         document.addEventListener("scroll", function(e) {
-          var scrollPercent = 1 - (document.body.scrollHeight - document.body.scrollTop - window.innerHeight) / document.body.scrollHeight;
+          var scrollPercent = 1 - (document.body.scrollHeight - window.scrollY - window.innerHeight) / document.body.scrollHeight;
+          console.warn('scroll', scrollPercent, document.body.scrollHeight, window.innerHeight, window.scrollY);
+
           if (document.body.scrollHeight <= window.innerHeight)
             return;
-
           if (scrollPercent > 0.8 && !this.scrollThresholdReached){
             console.warn('scroll threshold reached', scrollPercent);
             that.fire('user-action', 'scroll to bottom');
             this.scrollThresholdReached = true;
-            window.twttr = (function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0],
-                t = window.twttr || {};
-              if (d.getElementById(id)) return t;
-              js = d.createElement(s);
-              js.id = id;
-              js.src = "https://platform.twitter.com/widgets.js";
-              fjs.parentNode.insertBefore(js, fjs);
 
-              t._e = [];
-              t.ready = function(f) {
-                t._e.push(f);
-              };
-
-              return t;
-            }(document, "script", "twitter-wjs"));
             that.async(function(){
               window.twttr.widgets.createTimeline({
                 sourceType: 'profile',
                 screenName: 'mist_io'
               }, that.$.footer.$.tweets);
-            }, 1000);
+            }, 50);
           }
         });
       },
