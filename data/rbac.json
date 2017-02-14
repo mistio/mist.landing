@@ -11,37 +11,37 @@
 	"title": "Step 2:",
 	"subtitle": "Create an 'Organization'",
 	"description": "A Mist.io account can have many Organizations. Think of an Organization as a business unit or department.",
-	"image": "rbac-cloud.png"
+	"image": "rbac-org.png"
 },{
 	"title": "Step 3:",
 	"subtitle": "Create a 'Team'",
 	"description": "A Team consists of Members and a Policy. An Organization can have many Teams.",
-	"image": "rbac-cloud.png"
+	"image": "rbac-team.png"
 },{
 	"title": "Step 4:",
 	"subtitle": "Invite 'Members' to join a Team",
 	"description": "The Member will receive an email asking them to join a specific team. Members can belong to more than one team.",
-	"image": "rbac-cloud.png"
+	"image": "rbac-invite.png"
 },{
 	"title": "Step 5:",
 	"subtitle": "Create 'Rules' for the Team.",
 	"description": "Members inherit access controls of a Team.<br/><br/>In the example on the right, any Member of the 'Software Dev' Team has permission to create, destroy, and run scripts in the EC2 Tokyo Region and EC2 N. California Region and 'Read' only access to the VMware private cloud. Rules can be applied to public and private clouds, bare-metal devices, and even containers.",
-	"image": "rbac-cloud.png"
+	"image": "rbac-rules.png"
 },{
 	"title": "Step 6:",
 	"subtitle": "Use the 'Script' section to add scripts",
 	"description": "Permissions can be applied to Scripts. A user can select a script to run when provisioning a virtual server. After a server is provisioned a script can automatically install and configure software to streamline the setup process.",
-	"image": "rbac-cloud.png"
+	"image": "rbac-scripts.png"
 },{
 	"title": "Step 7:",
 	"subtitle": "Orchestrate",
 	"description": "Use the template section to execute a template for provisioning complex topologies and applications. The example on the right shows single-click Kubernetes cluster deployments.",
-	"image": "rbac-cloud.png"
+	"image": "rbac-deploy.png"
 },{
 	"title": "Step 8:",
 	"subtitle": "(In development)",
 	"description": "Soon usage and cost reporting will be possible. Virtual servers, bare-metal devices, and containers can be tagged enabling fine-grain cost and usage analysis across heterogeneous infrastructure.",
-	"image": "rbac-cloud.png"
+	"image": "rbac-report.png"
 }],
 "conclusion": "<p>The Mist.io platform can help turn your IT organization into an internal broker of cloud services. By using RBAC to create user accounts and set access rights across public and private clouds, users can serve themselves through pre-defined jobs, scripts, and automated workflows.</p><p>To test the Mist.io platform, simply [sign up](/sign-up) for a free trial. If you would like to run Mist.io on premises or to learn about call us: <strong>+1-650-605-3299</strong>, or send us an email: [sales@mist.io](mailto:sales@mist.io).</p>"
 }
