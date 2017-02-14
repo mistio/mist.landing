@@ -41,7 +41,7 @@
 		"image": "product-report.png"
 	},{
 		"title" : "Automate your workflows",
-		"description": "Orchestrate repeatable deployments and automate common responses across infrastructure. Our “unopionated” approach means there is no need to migrate machines, you can manage legacy bare-metal and modern cloud infrastructure from a unified interface. Easy to get started.<br/><br/>[Read more in this page.](/orchestration)",
+		"description": "Orchestrate repeatable deployments and automate common responses across infrastructure. Our “unopinionated” approach means there is no need to migrate machines, you can manage legacy bare-metal and modern cloud infrastructure from a unified interface. Easy to get started.<br/><br/>[Read more in this page.](/orchestration)",
 		"image": "product-automate.png"
 	}]
 }
