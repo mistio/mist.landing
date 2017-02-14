@@ -19,7 +19,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="landing-faq.html">
 <link rel="import" href="landing-footer.html">
-
 <dom-module id="landing-pricing">
     <template>
         <style is="custom-style" include="iron-flex"></style>
@@ -82,10 +81,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             overflow: auto;
             @apply(--shadow-elevation-4dp);
         }
+
         .plan, .plan > * {
             box-sizing: border-box;
             margin: 0;
         }
+
         .title {
             color: #fff;
             text-transform: uppercase;
@@ -135,13 +136,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             width: 100%;
         }
         
-        .plan-body-item .valign {
+        .valign {
             display: block;
         }
         
-        .plan-body-item .price {
+        .price {
             font-weight: 700;
-            /*margin-bottom: 30px;*/
+            line-height: 1;
+            padding: 0;
+            margin: 8px;
         }
         
         .price sub,
@@ -180,99 +183,106 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <div class="secondary">No credit card required</div>
                 </div>
             </div>
-
             <div class="section white">
                 <div class="contains">
                     <div class="grid-row items-center">
                         <template is="dom-repeat" items="[[data.plans]]" as="plan">
-                          <div class="col xs12 s6 m6 l3 margin-bottom">
-                            <div class="plan text-center">
-                                <div class$="[[_computeClass(index)]]">
-                                    [[plan.title]] 
-                                </div>
-                                <div class="plan-body">
-                                    <div class="plan-body-item valign-wrapper">
-                                        <div class="valign">
-                                            <h2 class="price"><sup>$</sup>[[plan.cost]]<sub>/mo.</sub></h2>
-                                        </div>
+                            <div class="col xs12 s6 m6 l3 margin-bottom">
+                                <div class="plan text-center">
+                                    <div class$="[[_computeClass(index)]]">
+                                        [[plan.title]]
                                     </div>
-                                    <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">[[plan.description]]</p>
+                                    <div class="plan-body">
+                                        <div class="plan-body-item valign-wrapper">
+                                            <div class="valign">
+                                                <h2 class="price"><sup>$</sup>[[plan.cost]]<sub>/mo.</sub></h2>
+                                            </div>
+                                        </div>
+                                        <div class="plan-body-item valign-wrapper">
+                                            <p class="valign">[[plan.description]]</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </template>
+                    </div>
+                    <div class="row text-center">
+                        <h2 class="decorated row">Plans Include</h2>
+                    </div>
+                    <div class="grid-row">
+                        <div class="s6 m3 l3 margin-bottom padding-bottom">
+                            <ul>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Cost Projection</li>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Inventory Dashboard</li>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> RBAC</li>
+                            </ul>
                         </div>
-                      </template>
+                        <div class="s6 m3 l3 margin-bottom padding-bottom">
+                            <ul>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Monitoring - limited</li>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Alerting</li>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Scheduling</li>
+                            </ul>
+                        </div>
+                        <div class="s6 m3 l3 margin-bottom padding-bottom">
+                            <ul>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Keys</li>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Orchestration</li>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Scripting</li>
+                            </ul>
+                        </div>
+                        <div class="s6 m3 l3 margin-bottom padding-bottom">
+                            <ul>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Audit Logs</li>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> Machine Actions</li>
+                                <li>
+                                    <iron-icon icon="done"></iron-icon> API access</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="contains">
-                  <div class="row text-center">
-                    <h2 class="decorated row">Plans Include</h2>
-                  </div>
-                  <div class="grid-row">
-                    <div class="s6 m3 l3 margin-bottom padding-bottom">
-                      <ul>
-                        <li><iron-icon icon="done"></iron-icon> Cost Projection</li>
-                        <li><iron-icon icon="done"></iron-icon> Inventory Dashboard</li>
-                        <li><iron-icon icon="done"></iron-icon> RBAC</li>
-                      </ul>
-                    </div>
-                    <div class="s6 m3 l3 margin-bottom padding-bottom">
-                      <ul>
-                        <li><iron-icon icon="done"></iron-icon> Monitoring - limited</li>
-                        <li><iron-icon icon="done"></iron-icon> Alerting</li>
-                        <li><iron-icon icon="done"></iron-icon> Scheduling</li>
-                      </ul>
-                    </div>
-                    <div class="s6 m3 l3 margin-bottom padding-bottom">
-                      <ul>
-                        <li><iron-icon icon="done"></iron-icon> Keys</li>
-                        <li><iron-icon icon="done"></iron-icon> Orchestration</li>
-                        <li><iron-icon icon="done"></iron-icon> Scripting</li>
-                      </ul>
-                    </div>
-                    <div class="s6 m3 l3 margin-bottom padding-bottom">
-                      <ul>
-                        <li><iron-icon icon="done"></iron-icon> Audit Logs</li>
-                        <li><iron-icon icon="done"></iron-icon> Machine Actions</li>
-                        <li><iron-icon icon="done"></iron-icon> API access</li>
-                      </ul>
-                    </div>
-                  </div>
                 </div>
             </div>
-
             <div class="section dark">
                 <div class="contains">
-                  <div class="row text-center">
-                    <h2 class="decorated">Enterprise Plan</h2>
-                  </div>
-                  <div class="grid-row">
+                    <div class="row text-center">
+                        <h2 class="decorated">Enterprise Plan</h2>
+                    </div>
+                    <div class="grid-row">
                         <div class="col s12 m6 l8">
                             <div class="left">
                                 <h5 class="w400">Do you have more than 300 machines? <br/>Do you want to run Mist.io on premises? </h5>
-                                
-                                <p> Mist.io can provide custom pricing for businesses with a lot of infrastructure. <br/>Also, we can work with you to run Mist.io on premises or to setup a proof of concept.  </p>
-
+                                <p> Mist.io can provide custom pricing for businesses with a lot of infrastructure.
+                                    <br/>Also, we can work with you to run Mist.io on premises or to setup a proof of concept. </p>
                             </div>
                         </div>
-
                         <div class="col s12 m6 l4">
                             <h5 class="w400 line1">Contact us if you: </h5>
                             <p>
-                                <iron-icon icon="done"></iron-icon> Have more than 300 machines <br/>
-                                <iron-icon icon="done"></iron-icon> Want to run an on-premises POC <br/>
+                                <iron-icon icon="done"></iron-icon> Have more than 300 machines
+                                <br/>
+                                <iron-icon icon="done"></iron-icon> Want to run an on-premises POC
+                                <br/>
                             </p>
-                            <p> 
+                            <p>
                                 <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
-                                  <paper-button raised on-click="_requestInfoEnterprise" id="enterpriseBtn">Request Pricing</paper-button>
-                              </a>
+                                    <paper-button raised on-click="_requestInfoEnterprise" id="enterpriseBtn">Request Pricing</paper-button>
+                                </a>
                             </p>
                         </div>
-                   </div>
+                    </div>
                 </div>
             </div>
-
             <div class="section grey">
                 <div class="contains">
                     <div class="row text-center">
@@ -281,7 +291,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <landing-faq faq="[[data.faq]]"></landing-faq>
                 </div>
             </div>
-
             <div class="section white">
                 <div class="contains text-center">
                     <div class="row margin-top">
@@ -292,9 +301,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </div>
                 </div>
             </div>
-
             <landing-footer></landing-footer>
-
         </div>
     </template>
     <script>
@@ -359,7 +366,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         _signUpClick: function(event) {
             window.scrollTo(0, 0);
-            if (ANIMATIONS){
+            if (ANIMATIONS) {
                 // bring placeholder to fg for animation to work
                 this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
             }
@@ -380,7 +387,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             this.fire('user-action', 'request info for enterprise plan');
         },
         _computeClass: function(index) {
-            return "bg-"+ index +" title";
+            return "bg-" + index + " title";
         }
     });
     </script>
