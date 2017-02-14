@@ -432,6 +432,7 @@
 
       <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"></landing-sign-in>
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"></landing-sign-up>
+      <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
       <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password"></landing-forgot-password>
       <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password"></landing-set-password>
       <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
@@ -729,7 +730,7 @@
       },
 
       _hasFooter: function(page) {
-        var unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password']
+        var unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password', 'request-pricing']
         if (unfootedPages.indexOf(page) > -1)
           return false;
         return true;

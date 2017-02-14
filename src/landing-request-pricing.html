@@ -1,0 +1,293 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/iron-form/iron-form.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<dom-module id="landing-request-pricing">
+    <template>
+        <style>
+            :host {
+                background-color: #fff;
+                padding-top: 100px;
+            }
+
+            [hidden] {
+                display: none !important;
+            }
+
+            h1 {
+                text-align: center;
+                font-weight: 200;
+                font-family: Roboto, sans;
+                font-size: 36px;
+            }
+
+            a {
+                color: #2196F3;
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+            paper-button {
+                width: 100%;
+                margin-top: 8px;
+                color: #bbb;
+                font-weight: 500;
+                font-size: 16px;
+                margin: 24px auto 16px;
+                text-align: center;
+                height: 46px;
+                display: block;
+                width: 300px;
+                padding-left: 4px;
+            }
+
+            paper-button > iron-icon {
+                padding: 7px;
+                background-color: #fff;
+                float: left;
+                margin-top: -7px;
+            }
+
+            paper-button > span {
+                width: 100%;
+            }
+
+            paper-spinner {
+                width: 16px;
+                height: 16px;
+                margin: 0 auto;
+            }
+
+            paper-button:not([disabled]) {
+                background-color: #0099cc;
+                color: #fff;
+            }
+
+            paper-button.white:not([disabled]) {
+                background-color: #fff;
+                color: #424242;
+            }
+
+            div.output {
+                text-align: center;
+                white-space: pre-wrap;
+                margin-top: 16px;
+            }
+
+            div.forgot {
+                text-align: right;
+                font-size: 12px;
+            }
+
+            a#signUpLink {
+                float: left;
+            }
+
+            a#forgotPasswordLink {
+            }
+
+            #placeholder {
+                opacity: 0;
+                background-color: #0099cc;
+                @apply(--layout-fit);
+                z-index: -1;
+            }
+
+            paper-material {
+                background-color: #f7f7f7;
+                display: block;
+                padding: 8px 32px 32px;
+                @apply(--shadow-elevation-2dp);
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            div.sign-up {
+                text-align: center;
+                padding: 32px;
+                font-size: 15px;
+            }
+
+            div.logo-solo {
+                width: 220px;
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            div.logo-solo paper-icon-button {
+                width: 160px;
+                height: 160px;
+                padding: 32px;
+            }
+
+            div.or {
+                margin: 32px auto 0px;
+                width: 100px;
+                text-align: center;
+                text-transform: uppercase;
+                font-size: 15px;
+                font-weight: 500;
+                color: #888;
+                display: block;
+            }
+            #container {
+                padding-bottom: 120px;
+            }
+            #name, #signUp-email {
+                width: 49%;
+                display: inline-block;
+            }
+            @media screen and (max-width: 700px) {
+                #name, #signUp-email {
+                    width: auto;
+                    display: block;
+                }   
+            }
+        </style>
+
+        <div id="placeholder"></div>
+        <div id="container">
+
+            <div class="logo-solo"><a href="/"><paper-icon-button src="../images/logo-vertical.svg" on-click="_logoClicked" id="logoButton"></paper-icon-button></a></div>
+
+            <h1>Request information</h1>
+            <iron-form id="signUpForm">
+                <paper-material elevation="1">
+                    <form method="post" action="/request-info" enctype='application/json' id='form'>
+                        <paper-input name="name" id="name" label="Full name" required auto-validate autofocus></paper-input>
+                        <paper-input name="email" id="signUp-email" label="Email" required auto-validate autofocus type="email"></paper-input>
+                        <paper-input name="details" id="signUp-details" label="Company / Job description" auto-validate autofocus></paper-input>
+                        <paper-textarea name="comments" id="signUp-comments" label="Describe your infrustructure and the problem you want to solve" auto-validate autofocus rows="7"></paper-textarea>
+                        <paper-button raised on-tap="_submitButtonHandler" disabled id="signUpSubmit">
+                            <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
+                            <div hidden$="[[loading]]">Send request</div>
+                        </paper-button>
+                    </form>
+                    <div class="output"></div>
+                </paper-material>
+            </iron-form>
+
+    </template>
+    <script>
+        Polymer({
+            is: 'landing-request-pricing',
+
+            behaviors: [
+                Polymer.NeonSharedElementAnimatableBehavior
+            ],
+
+            listeners: {
+                'neon-animation-finish': '_cleanupAnimation'
+            },
+
+            properties: {
+                animationConfig: Object,
+
+                sharedElements: Object,
+
+                loading: {
+                    type: Boolean,
+                    value: false
+                }
+            },
+
+            attached: function() {
+                if (this.route.__queryParams.invitoken){
+                    var element = document.createElement('input');
+                    element.type = 'hidden';
+                    element.name = 'invitoken';
+                    element.value = this.route.__queryParams.invitoken;
+                    this.$.form.appendChild(element);
+                }
+                if (ANIMATIONS){
+                    this.animationConfig = {
+                        'entry': [{
+                            name: 'ripple-animation',
+                            id: 'ripple',
+                            toPage: this
+                        }, {
+                            name: 'fade-out-animation',
+                            node: this.$.placeholder,
+                            timing: {
+                                delay: 250
+                            }
+                        }, {
+                            name: 'fade-out-animation',
+                            node: document.querySelector('landing-app').$.header,
+                            timing: {
+                                delay: 0
+                            }
+                        }, {
+                            name: 'fade-in-animation',
+                            node: this.$.container,
+                            timing: {
+                                delay: 50
+                            }
+                        }],
+                        'exit': []
+                    };
+
+                    this.sharedElements = {
+                        'ripple': this.$.placeholder,
+                        'reverse-ripple': this.$.placeholder
+                    };
+                }
+
+                var that = this,
+                    validate = function(event) {
+                    // Validate the entire form to see if we should enable the `Submit` button.
+                    var ret = that.$.signUpForm.validate();
+                    that.$.signUpSubmit.disabled = !ret;
+                    return ret;
+                }
+                this.$.signUpForm.addEventListener('keyup', function(event) {
+                    var submitDisabled = that.$.signUpSubmit.disabled;
+                    that.$.signUpForm.querySelector('paper-button > div').innerHTML = "Send request";
+                    if (validate(event) && !submitDisabled && event.key == "Enter")
+                        that._submitButtonHandler();
+                });
+                this.$.signUpForm.addEventListener('change', validate);
+
+                this.$.signUpForm.addEventListener('iron-form-error', function(event) {
+                    console.warn("GOT ERROR!", event.detail);
+                    that.loading = false;
+                    that.$.signUpForm.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
+                });
+                this.$.signUpForm.addEventListener('iron-form-response', function(event) {
+                    console.warn("REQUEST SUCCESS!", event);
+                    that.loading = false;
+                    that.$.signUpForm.querySelector('form').hidden = true;
+                    that.$.signUpForm.querySelector('.output').innerHTML = "Thank you for contacting us! We will soon get back to you. <br/> <a href='/pricing'>Back to pricing page</a>";
+                });
+                this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
+                    that.$.signUpForm.ajax.headers['Csrf-Token'] = CSRF_TOKEN;
+                });
+            },
+            _submitButtonHandler:  function(event) {
+                this.loading = true;
+                this.$.signUpSubmit.disabled = true;
+                this.$.signUpForm.querySelector('.output').innerHTML = '';
+                this.$.signUpForm.submit();
+            },
+            _logoClicked: function(event) {
+                this.fire('user-action', 'logo click');
+            },
+            _signInClicked: function(event) {
+                this.fire('user-action', 'request-pricing click')
+            }
+        });
+    </script>
+</dom-module>
