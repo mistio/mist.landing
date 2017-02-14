@@ -22,7 +22,7 @@
             text-decoration: none !important;
             color: #09c !important;
         }
-        marked-element::content a {
+        .markdown-html a {
             text-decoration: none !important;
             color: #09c !important;
         }
@@ -32,11 +32,9 @@
       <template is="dom-repeat" items="[[faq]]" as="faqitem">
         <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
             <div class="faqitem">
+                <!-- TODO the below does not work as it should https://github.com/PolymerElements/marked-element   -->
                 <h5>[[faqitem.question]]</h5>
-                <marked-element markdown="[[faqitem.answer]]">
-                    <!-- TODO the below does not work as it should https://github.com/PolymerElements/marked-element   -->
-                    <!-- <div class="markdown-html"></div> -->
-                </marked-element>
+                <marked-element markdown="[[faqitem.answer]]"></marked-element>
             </div>
         </div>
       </template>
