@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
@@ -208,37 +209,39 @@
                     this.$.form.appendChild(element);
                 }
 
-                this.animationConfig = {
-                    'entry': [{
-                        name: 'ripple-animation',
-                        id: 'ripple',
-                        toPage: this
-                    }, {
-                        name: 'fade-out-animation',
-                        node: this.$.placeholder,
-                        timing: {
-                            delay: 50
-                        }
-                    }, {
-                        name: 'fade-out-animation',
-                        node: document.querySelector('landing-app').$.header,
-                        timing: {
-                            delay: 0
-                        }
-                    }, {
-                        name: 'fade-in-animation',
-                        node: this.$.container,
-                        timing: {
-                            delay: 50
-                        }
-                    }],
-                    'exit': []
-                };
+                if (ANIMATIONS) {
+                    this.animationConfig = {
+                        'entry': [{
+                            name: 'ripple-animation',
+                            id: 'ripple',
+                            toPage: this
+                        }, {
+                            name: 'fade-out-animation',
+                            node: this.$.placeholder,
+                            timing: {
+                                delay: 50
+                            }
+                        }, {
+                            name: 'fade-out-animation',
+                            node: document.querySelector('landing-app').$.header,
+                            timing: {
+                                delay: 0
+                            }
+                        }, {
+                            name: 'fade-in-animation',
+                            node: this.$.container,
+                            timing: {
+                                delay: 50
+                            }
+                        }],
+                        'exit': []
+                    };
 
-                this.sharedElements = {
-                    'ripple': this.$.placeholder,
-                    'reverse-ripple': this.$.placeholder
-                };
+                    this.sharedElements = {
+                        'ripple': this.$.placeholder,
+                        'reverse-ripple': this.$.placeholder
+                    };
+                }
 
                 var that = this,
                     validate = function(event) {

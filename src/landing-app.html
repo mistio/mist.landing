@@ -10,9 +10,14 @@
 <link rel="import" href="../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-styles/color.html">
 <link rel="import" href="../bower_components/paper-styles/default-theme.html">
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../bower_components/paper-styles/typography.html">
+<link rel="import" href="../bower_components/paper-styles/paper-styles.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
+
 <link rel="import" href="../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 
@@ -486,6 +491,11 @@
 
         _shouldRenderDrawer: {
           computed: '_computeShouldRenderDrawer(smallScreen, loadComplete)'
+        },
+
+        animated: {
+          type: Boolean,
+          value: ANIMATIONS
         }
       },
 
@@ -572,7 +582,7 @@
       _ensureLazyLoaded: function() {
         // load lazy resources after render and set `loadComplete` when done.
         if (!this.loadComplete) {
-          //Polymer.RenderStatus.afterNextRender(this, function() {
+          Polymer.RenderStatus.afterNextRender(this, function() {
             this.importHref(this.resolveUrl('lazy-resources.html'), function() {
               // Register service worker if supported.
               if ('serviceWorker' in navigator) {
@@ -581,7 +591,7 @@
               this._notifyNetworkStatus();
               this.loadComplete = true;
             });
-          //});
+          });
         }
       },
 
@@ -686,15 +696,17 @@
 
       _signInClick: function(event) {
         window.scrollTo(0, 0);
-        this.$.home.sharedElements = {
-          'ripple': event.target,
-          'reverse-ripple': event.target
-        };
-        this.$.pages.querySelector('#sign-in').$.placeholder.style.zIndex = 1;
-        this.$.pages.querySelector('#sign-in').sharedElements = {
-          'ripple': this.$.pages.querySelector('#sign-in').$.placeholder,
-          'reverse-ripple': this.$.pages.querySelector('#sign-in').$.placeholder
-        };
+        if (ANIMATIONS){
+          this.$.home.sharedElements = {
+            'ripple': event.target,
+            'reverse-ripple': event.target
+          };
+          this.$.pages.querySelector('#sign-in').$.placeholder.style.zIndex = 1;
+          this.$.pages.querySelector('#sign-in').sharedElements = {
+            'ripple': this.$.pages.querySelector('#sign-in').$.placeholder,
+            'reverse-ripple': this.$.pages.querySelector('#sign-in').$.placeholder
+          };
+        }
         this.fire('user-action', 'sign in click from ' + this.page);
       },
 

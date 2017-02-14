@@ -164,13 +164,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _signUpClick: function(event) {
         window.scrollTo(0, 0);
         // bring placeholder to fg for animation to work
-        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        if (ANIMATIONS)
+          this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 1 click');
       },
 
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
-        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        if (ANIMATIONS)
+          this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 2 click');
       }
     });
