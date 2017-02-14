@@ -71,6 +71,11 @@ animations to be run when switching to or switching out of the page.
       animateInitialSelection: {
         type: Boolean,
         value: false
+      },
+
+      animated: {
+        type: Boolean,
+        value: true
       }
 
     },
@@ -81,10 +86,7 @@ animations to be run when switching to or switching out of the page.
     },
 
     _onIronSelect: function(event) {
-      // Disable animations in Polyfilled browsers for now
-      if (false || !('registerElement' in document
-            && 'import' in document.createElement('link')
-            && 'content' in document.createElement('template'))) {
+      if (!this.animated) {
         this.async(function(){
             this.notifyResize();
             this.fire('neon-animation-finish');

@@ -33,7 +33,8 @@
     "paper-dialog": "2.0-preview",
     "paper-dialog-scrollable": "2.0-preview",
     "marked-element": "^1.3.1",
-    "social-media-icons": "^1.3.1"
+    "social-media-icons": "^1.3.1",
+    "iron-image": "2.0-preview"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
