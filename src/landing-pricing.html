@@ -370,21 +370,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 // bring placeholder to fg for animation to work
                 this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
             }
-            this.fire('user-action', 'sign up button 1 click');
+            this.fire('user-action', 'sign up button 1 click in pricing page');
         },
 
         _signUpClick2: function(event) {
             window.scrollTo(0, 0);
             if (ANIMATIONS)
                 this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-            this.fire('user-action', 'sign up button 2 click');
+            this.fire('user-action', 'sign up button 2 click in pricing page');
         },
 
         _requestInfoEnterprise: function(event) {
             window.scrollTo(0, 0);
             if (ANIMATIONS)
                 this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-            this.fire('user-action', 'request info for enterprise plan');
+            this.fire('user-action', 'request info for enterprise plan in pricing page');
         },
         _computeClass: function(index) {
             return "bg-" + index + " title";

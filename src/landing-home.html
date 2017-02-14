@@ -324,14 +324,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // bring placeholder to fg for animation to work
         if (ANIMATIONS)
           this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-        this.fire('user-action', 'sign up button 1 click');
+        this.fire('user-action', 'sign up button 1 click in home');
       },
 
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
         if (ANIMATIONS)
           this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-        this.fire('user-action', 'sign up button 2 click');
+        this.fire('user-action', 'sign up button 2 click in home');
       }
     });
 
