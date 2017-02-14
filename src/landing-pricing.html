@@ -37,15 +37,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             display: block;
         }
         
-        
         .text-center {
             text-align: center;
-        }
-        
-        @media (max-width: 767px) {
-            h2 {
-                margin: 24px 0;
-            }
         }
         
         paper-button {
@@ -89,78 +82,76 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             overflow: auto;
             @apply(--shadow-elevation-4dp);
         }
-        .plan, .plan * {
+        .plan, .plan > * {
             box-sizing: border-box;
             margin: 0;
         }
-        .plan .plan-title {
-            background-color: #444;
+        .title {
             color: #fff;
             text-transform: uppercase;
             padding: 20px 0;
             font-size: 24px;
         }
-        
-        .plan .plan-title.bg-0 {
+
+        .bg-0 {
             background-color: #999;
         }
         
-        .plan .plan-title.bg-1 {
+        .bg-1 {
             background-color: #777;
         }
         
-        .plan .plan-title.bg-2 {
+        .bg-2 {
             background-color: #555;
         }
         
-        .plan .plan-title.bg-3 {
+        .bg-3 {
             background-color: #222;
         }
         
-        .plan .plan-body-item {
+        .plan-body-item {
             padding: 20px 10px;
-            min-height: 100px;
         }
         
         @media only screen and (max-width: 600px) {
-            .plan .plan-body-item {
+            .plan-body-item {
                 min-height: 50px;
             }
         }
         
-        .plan .plan-body-item + .plan-body-item {
+        .plan-body-item + .plan-body-item {
             border-top: 1px solid #d4d4d4;
         }
         
-        .plan .plan-body-item:last-child {
+        .plan-body-item:last-child {
             border-bottom: 1px solid #d4d4d4;
         }
         
-        .plan .plan-body-item.highlight {
+        .plan-body-item.highlight {
             background-color: #f2f2f2;
         }
         
-        .plan .plan-body-item * {
+        .plan-body-item * {
             width: 100%;
         }
         
-        .plan .plan-body-item .valign {
+        .plan-body-item .valign {
             display: block;
         }
         
-        .plan .plan-body-item .price {
+        .plan-body-item .price {
             font-weight: 700;
             /*margin-bottom: 30px;*/
         }
         
-        .plan .price sub,
-        .plan .price sup {
+        .price sub,
+        .price sup {
             font-size: 18px;
             font-weight: 300;
             vertical-align: middle;
         }
         
-        .plan .price sup {
+        .price sup {
             font-size: 24px;
             padding: 0 5px;
         }
@@ -195,11 +186,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <div class="grid-row items-center">
                         <template is="dom-repeat" items="[[data.plans]]" as="plan">
                           <div class="col xs12 s6 m6 l3 margin-bottom">
-                            <div class="plan">
-                                <div class$="plan-title text-center bg-[[index]]">
-                                  [[plan.title]] 
+                            <div class="plan text-center">
+                                <div class$="[[_computeClass(index)]]">
+                                    [[plan.title]] 
                                 </div>
-                                <div class="plan-body text-center">
+                                <div class="plan-body">
                                     <div class="plan-body-item valign-wrapper">
                                         <div class="valign">
                                             <h2 class="price"><sup>$</sup>[[plan.cost]]<sub>/mo.</sub></h2>
@@ -388,6 +379,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
             this.fire('user-action', 'request info for enterprise plan');
         },
+        _computeClass: function(index) {
+            return "bg-"+ index +" title";
+        }
     });
     </script>
 </dom-module>
