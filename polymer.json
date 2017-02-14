@@ -3,6 +3,8 @@
   "shell": "src/landing-app.html",
   "fragments": [
     "src/landing-page.html",
+    "src/landing-set-password.html",
+    "src/landing-reset-password.html",
     "src/landing-list.html",
     "src/landing-detail.html",
     "src/lazy-resources.html"
