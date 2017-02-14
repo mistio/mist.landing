@@ -68,24 +68,27 @@
         <template is="dom-repeat" items="[[features]]" as="feature">
             <div class$="section [[_computeBg(index)]]">
                 <div class="contains">
+                    <div class="text-center" hidden$="[[!titleOnTop]]">
+                        <h2 class="decorated row title">[[feature.title]]</h2>
+                    </div>
                     <div class="grid-row feature">
                         <div class="xs12 s6 m6 l6 image" hidden$="[[_computeMod(index)]]">
-                            <img src$="images/product/[[feature.image]]" class$="[[_withShadow(index)]]"/>
+                            <img src$="images/[[folder]]/[[feature.image]]" class$="[[_withShadow(index)]]"/>
                         </div>
                         <div class="xs12 s6 m6 l6 desc">
-                            <h3 class="line1">[[feature.title]]</h3>
+                            <h3 class="line1" hidden$="[[titleOnTop]]">[[feature.title]]</h3>
                             <span class="prod-label" hidden$="[[!feature.comingsoon]]">Coming soon!</span>
                             <marked-element markdown="[[feature.description]]"></marked-element>
                         </div>
                         <div class="xs12 s6 m6 l6 image" hidden$="[[!_computeMod(index)]]">
-                            <img src$="images/product/[[feature.image]]" class$="[[_withShadow(index)]]"/>
+                            <img src$="images/[[folder]]/[[feature.image]]" class$="[[_withShadow(index)]]"/>
                         </div>
                     </div>
                 </div>
             </div>
         </template>
         <!-- TODO move into product json once marked-element renders better -->
-        <div class="section white">
+        <div class="section white" hidden$="[[!isProduct]]">
             <div class="contains">
                 <div class="grid-row feature">
                     <div class="xs12 s6 m6 l6 desc">
@@ -109,7 +112,7 @@
                         </ul>
                     </div>
                     <div class="xs12 s6 m6 l6">
-                        <img src="../images/product/product-stack.png" class="with-shadow"/>
+                        <img src="../images/[[folder]]/product-stack.png" class="with-shadow"/>
                     </div>
                 </div>
             </div>
@@ -123,6 +126,15 @@
         properties: {
             features: {
                 type: Array
+            },
+            folder: String,
+            isProduct: {
+                type: Boolean,
+                value: false
+            },
+            titleOnTop: {
+                type: Boolean,
+                value: false
             }
         },
 
