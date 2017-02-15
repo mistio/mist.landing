@@ -34,6 +34,7 @@
 <link rel="import" href="landing-sign-up.html">
 <link rel="import" href="landing-forgot-password.html">
 
+<script src="../bower_components/fingerprintjs2/fingerprint2.js"></script>
 
 <dom-module id="landing-app">
   <template>
@@ -506,6 +507,11 @@
         scrollThresholdReached: {
           type: Boolean,
           value: false
+        },
+
+        fingerprint: {
+          type: String,
+          value: ''
         }
       },
 
@@ -545,12 +551,11 @@
 
         document.addEventListener("scroll", function(e) {
           var scrollPercent = 1 - (document.body.scrollHeight - window.scrollY - window.innerHeight) / document.body.scrollHeight;
-          console.warn('scroll', scrollPercent, document.body.scrollHeight, window.innerHeight, window.scrollY);
+          //console.debug('scroll', scrollPercent, document.body.scrollHeight, window.innerHeight, window.scrollY);
 
           if (document.body.scrollHeight <= window.innerHeight)
             return;
           if (scrollPercent > 0.8 && !this.scrollThresholdReached){
-            console.warn('scroll threshold reached', scrollPercent);
             that.fire('user-action', 'scroll to bottom');
             this.scrollThresholdReached = true;
 
@@ -560,6 +565,7 @@
                 screenName: 'mist_io'
               }, that.$.footer.$.tweets);
             }, 50);
+
           }
         });
       },
@@ -764,9 +770,56 @@
 
       _onUserAction: function(event) {
         console.warn('user-action', event);
+
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(event.detail));
-        xhr.send();
+
+        if (!this.fingerprint){
+          var that = this;
+          new Fingerprint2().get(function(result, components){
+            // this will use all available fingerprinting sources
+            this.fingerprint = result;
+            var componentMap = {};
+            components.forEach(function(e){componentMap[e.key] = e.value});
+            var payload = {'action': event.detail,
+                           'fingerprint': result,
+                           'resolution': componentMap.resolution,
+                           'platform': componentMap.navigator_platform,
+                           'browser': that._getBrowser(),
+                           'tz': componentMap.timezone_offset};
+            if (document.referrer)
+              payload['referrer'] = document.referrer;
+            xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(JSON.stringify(payload)));
+            xhr.send();
+            console.log('payload', payload);
+          });
+        } else {
+          var payload = {'action': event.detail,
+                         'fingerprint': this.fingerprint};
+          xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(JSON.stringify(payload)));
+          xhr.send();
+        }
+      },
+
+      _getBrowser: function() {
+        var userAgent = navigator.userAgent.toLowerCase();
+        var productSub = navigator.productSub;
+
+        //we extract the browser from the user agent (respect the order of the tests)
+        var browser;
+        if(userAgent.indexOf("firefox") >= 0){
+          browser = "Firefox";
+        } else if(userAgent.indexOf("opera") >= 0 || userAgent.indexOf("opr") >= 0){
+          browser = "Opera";
+        } else if(userAgent.indexOf("chrome") >= 0){
+          browser = "Chrome";
+        } else if(userAgent.indexOf("safari") >= 0){
+          browser = "Safari";
+        } else if(userAgent.indexOf("trident") >= 0){
+          browser = "Internet Explorer";
+        } else {
+          browser = "Other";
+        }
+        return browser;
       },
 
       _tabClicked: function(event) {

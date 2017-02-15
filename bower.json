@@ -34,7 +34,8 @@
     "paper-dialog-scrollable": "2.0-preview",
     "marked-element": "xristina/marked-element#2.0-preview",
     "social-media-icons": "^1.3.1",
-    "iron-image": "2.0-preview"
+    "iron-image": "2.0-preview",
+    "fingerprintjs2": "^1.5.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
