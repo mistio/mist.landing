@@ -24,10 +24,10 @@
       }
       .subfoot {
         background-color: #212121;
+        overflow: hidden;
       }
       .subfoot .contains {
-        padding-top: 8px;
-        padding-bottom: 8px;
+        padding: 1rem;
       }
       a, .a {
         text-decoration: none;
@@ -43,6 +43,12 @@
         height: 400px !important;
         display: block;
         overflow-y: scroll;
+      }
+      @media only screen and (max-width: 600px) {
+        .footer-nav.right {
+          text-align: left;
+          float: none;
+        }
       }
     </style>
     

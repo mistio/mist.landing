@@ -2,7 +2,7 @@
     <template>
         <style>
     :root {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 400;
       -ms-text-size-adjust: 100%;
       -webkit-text-size-adjust: 100%;
@@ -12,21 +12,74 @@
     :root *, :after, :before {
       box-sizing: inherit; 
     }
-    h2 {
-      font-size: 52px;
+    @media only screen and (min-width: 0) {
+      :root {
+        font-size: 14px;
+      }
+    }
+
+    @media only screen and (min-width: 992px) {
+      :root {
+        font-size: 14.5px;
+      }
+    }
+
+    @media only screen and (min-width: 1200px) {
+      :root {
+        font-size: 15px;
+      }
+    }
+    :host > *, .section {
+        font-size: 18px !important;
+        line-height: 1.5;
+    }
+    h1, h2, h3, h4, h5, h6 {
       font-weight: 300;
+      line-height: 1.1;
+    }
+
+    h5, h6, p {
+      font-weight: 400;
+    }
+
+    h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+      font-weight: inherit;
+    }
+
+    h1 {
+      font-size: 4.2rem;
+      line-height: 110%;
+      margin: 2.1rem 0 1.68rem 0;
+    }
+
+    h2 {
+      font-size: 3.56rem;
+      line-height: 110%;
       margin: 1.78rem 0 1.424rem 0;
     }
 
     h3 {
-      font-size: 34px;
-      font-weight: 300;
+      font-size: 2.92rem;
+      line-height: 110%;
+      margin: 1.46rem 0 1.168rem 0;
+    }
+
+    h4 {
+      font-size: 2.28rem;
+      line-height: 110%;
+      margin: 1.14rem 0 0.912rem 0;
     }
 
     h5 {
       font-size: 1.64rem;
-      font-weight: 300;
+      line-height: 110%;
       margin: 0.82rem 0 0.656rem 0;
+    }
+
+    h6 {
+      font-size: 1rem;
+      line-height: 110%;
+      margin: 0.5rem 0 0.4rem 0;
     }
     .with-shadow {
       @apply(--shadow-elevation-2dp);
@@ -128,7 +181,9 @@
     .section > * {
       max-width: 1180px;
       margin: 0 auto;
-      padding: 48px 24px;
+      padding: 48px 0;
+      width: 90%;
+      box-sizing: border-box;
     }
 
     .section.grey {
@@ -211,8 +266,8 @@
       -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-      margin-right: -1rem;
-      margin-left: -1rem;
+      /*margin-right: -1rem;
+      margin-left: -1rem;*/
     }
 
     .grid-row.reverse {
