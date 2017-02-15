@@ -39,7 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .section > .hero {
-        padding: 0 48px !important;
+        padding-bottom: 0 !important;
       }
 
       :host {
@@ -122,7 +122,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #fff;
         font-size: 18px;
         height: 54px;
-        padding: 0 50px;
+        padding: 0 2rem;
         margin: 40px;
         font-weight: 500;
       }
@@ -163,6 +163,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           z-index: -1;
       }
 
+      .image-block {
+        padding: 60px; 
+      }
+
+      /* very small mobile screens */
+      @media only screen and (max-width: 600px) {
+          h2.typed {
+              font-size: 2.56rem !important;
+          }
+      }
+      h5 {
+        line-height: 140%;
+        font-weight: 300 !important;
+      }
     </style>
 
     <div id="placeholder"></div>
@@ -190,7 +204,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="contains">
           <div class="grid-row items-center">
             <div class="xs12 s6 m6 l6">
-              <h3>How it works</h3>
+              <h4>How it works</h4>
 
               <p>Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.</p>
 
@@ -198,7 +212,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
               <p>Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.</p>
             </div>
-            <div class="xs12 s6 m6 l6">
+            <div class="xs12 s6 m6 l6 image-block">
               <img class="with-shadow" src="../images/frontpage/home-dashboard.png"/>
             </div>
           </div>
@@ -214,7 +228,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="section white">
         <div class="contains text-center">
           <div class="row">
-            <h2 class="decorated">See what some of our clients say</h2>
+            <h3 class="decorated">See what some of our clients say</h3>
           </div>
           <landing-testimonials clients="[[data.clients]]"></landing-testimonials>
         </div>
@@ -223,7 +237,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="section grey">
         <div class="contains text-center">
           <div class="row">
-            <h2 class="decorated row">Supported Providers</h2>
+            <h3 class="decorated row">Supported Providers</h3>
           </div> 
           <landing-providers providers="[[data.providers]]" folder="providers" classes="margin-top margin-bottom padding-bottom"></landing-providers>
         </div>
@@ -232,7 +246,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="section white">
         <div class="contains text-center">
           <div class="row">
-            <h2 class="decorated row">Choose your Mist.io</h2>
+            <h3 class="decorated row">Choose your Mist.io</h3>
           </div> 
           <landing-editions editions="[[data.editions]]"></landing-editions>
           <div class="row">
@@ -247,7 +261,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="section grey">
         <div class="contains">
           <div class="row text-center">
-            <h2 class="decorated row">Frequently Asked Questions</h2>
+            <h3 class="decorated row">Frequently Asked Questions</h3>
           </div>
           <landing-faq faq="[[data.faq]]"></landing-faq>
         </div>

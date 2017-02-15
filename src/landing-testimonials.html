@@ -12,7 +12,7 @@
             padding: 24px;
         } 
         .client {
-            font-size: 0.9em;
+            font-size: 16px;
         }
         img.client-image {
             width: 80px;
@@ -27,11 +27,19 @@
             font-weight: 300;
             margin: 0;
         }
-        .client-name {
+        h5.client-name {
             font-weight: 400; 
+        }
+        h6.job-title {
+            line-height: 130%;
+            color: #7f7f7f;
+            font-weight: 400;
         }
         hr {
             max-width: 66%;
+            margin-top: 20px;
+            margin-bottom: 20px; 
+            opacity: .3;
         }
         .client-testimonial {
             max-width: 75%;
@@ -82,7 +90,7 @@
                 <!-- dynamicly generated imge paths should not be relative. $ will resolve it. -->
                 <img alt="[[client.name]]" class="client-image" src$="[[_imagePath(client)]]"/>
                 <h5 class="client-name">[[client.name]]</h5>
-                <h4 class="job-title">[[client.jobtitle]]</h4>
+                <h6 class="job-title">[[client.jobtitle]]</h6>
                 <hr/>
                 <p class="client-testimonial">"[[client.testimonial]]"</p>
             </div>
