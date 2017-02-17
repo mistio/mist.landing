@@ -1,4 +1,10 @@
-{   
+{  
+"fold": {
+        "copy" : "",
+        "subcopy" : "Mist.io gives you total visibility and control of your hybrid infrastructure",
+        "image" : "../images/mockup-imac-n4.png",
+        "alt" : "Mist.io cloud management dashboard",
+        "cta" : "Get Started"}, 
 "clients": [{
         "name": "Iben Rodriguez",
         "jobtitle": "Principal Architect, Cloud and Virtualization - Spirent Communications",
