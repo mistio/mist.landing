@@ -130,18 +130,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div id="placeholder"></div>
     <div id="container">
-      <div class="section grey">
-        <div class="hero text-center"> 
-          <landing-fold section-data="[[data.fold]]"></landing-fold>
-          <!-- Enable below for AB Testing -->
-          <!--<dom-if if="[[_abTestA]]">
-            <landing-fold section-data="[[data.foldA]]"></landing-fold>
-          </dom-if>
-          <dom-if if="[[_abTestB]]">
-            <landing-fold section-data="[[data.foldB]]"></landing-fold>
-          </dom-if>-->
+
+      <dom-if if="[[data.fold]]">
+        <div class="section grey">
+          <landing-fold contents="[[data.fold]]"></landing-fold>
         </div>
-      </div>
+      </dom-if>
 
       <!-- <landing-promo hidden$="[[!data.promo]]" data="[[data.promo]]"></landing-promo> -->
       
@@ -164,53 +158,74 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </div>
 
-      <div class="section grey">
-        <div class="contains text-center">
-          <landing-features features="[[data.features]]"></landing-features>
-        </div>        
-      </div>
-
-      <div class="section white">
-        <div class="contains text-center">
-          <div class="row">
-            <h3 class="decorated">See what some of our clients say</h3>
-          </div>
-          <landing-testimonials clients="[[data.clients]]"></landing-testimonials>
+      <dom-if if="[[data.summary]]">
+        <div class="section white">
+          <div class="contains">
+            <div class="row center">
+              <h3 class="light decorated">What a modern cloud management platform looks like</h3>
+            </div>
+            <landing-summary summary="[[data.summary]]"></landing-summary>
+          </div>        
         </div>
-      </div>
+      </dom-if>
 
-      <div class="section grey">
-        <div class="contains text-center">
-          <div class="row">
-            <h3 class="decorated row">Supported Providers</h3>
-          </div> 
-          <landing-providers providers="[[data.providers]]" folder="providers" classes="margin-top margin-bottom padding-bottom"></landing-providers>
+      <dom-if if="[[data.features]]">
+        <div class="section grey">
+          <div class="contains text-center">
+            <landing-features features="[[data.features]]"></landing-features>
+          </div>        
         </div>
-      </div>
+      </dom-if>
 
-      <div class="section white">
-        <div class="contains text-center">
-          <div class="row">
-            <h3 class="decorated row">Choose your Mist.io</h3>
-          </div> 
-          <landing-editions editions="[[data.editions]]"></landing-editions>
-          <div class="row">
-            <a aria-label="Get started" href="/sign-up" tabindex="-1">
-              <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
-            </a>
-            <div class="secondary">No credit card required</div>
+      <dom-if if="[[data.clients]]">
+        <div class="section white">
+          <div class="contains text-center">
+            <div class="row">
+              <h3 class="decorated">See what some of our clients say</h3>
+            </div>
+            <landing-testimonials clients="[[data.clients]]"></landing-testimonials>
           </div>
         </div>
-      </div>
+      </dom-if>
 
-      <div class="section grey">
-        <div class="contains">
-          <div class="row text-center">
-            <h3 class="decorated row">Frequently Asked Questions</h3>
+      <dom-if if="[[data.providers]]">
+        <div class="section grey">
+          <div class="contains text-center">
+            <div class="row">
+              <h3 class="decorated row">Supported Providers</h3>
+            </div> 
+            <landing-providers providers="[[data.providers]]" folder="providers" classes="margin-top margin-bottom padding-bottom"></landing-providers>
           </div>
-          <landing-faq faq="[[data.faq]]"></landing-faq>
         </div>
-      </div>
+      </dom-if>
+
+      <dom-if if="[[data.editions]]">
+        <div class="section white">
+          <div class="contains text-center">
+            <div class="row">
+              <h3 class="decorated row">Choose your Mist.io</h3>
+            </div> 
+            <landing-editions editions="[[data.editions]]"></landing-editions>
+            <div class="row">
+              <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
+              </a>
+              <div class="secondary">No credit card required</div>
+            </div>
+          </div>
+        </div>
+      </dom-if>
+
+      <dom-if if="[[data.faq]]">
+        <div class="section grey">
+          <div class="contains">
+            <div class="row text-center">
+              <h3 class="decorated row">Frequently Asked Questions</h3>
+            </div>
+            <landing-faq faq="[[data.faq]]"></landing-faq>
+          </div>
+        </div>
+      </dom-if>
 
     </div>
 
@@ -221,7 +236,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
 
       is: 'landing-home',
-
+      ready: function() {
+        console.log(this.data);
+      },
       behaviors: [
         Polymer.NeonSharedElementAnimatableBehavior
       ],
