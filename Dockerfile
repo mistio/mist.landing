@@ -9,6 +9,8 @@ ADD . /landing
 
 WORKDIR /landing
 
+ENV GIT_DIR ''
+
 RUN bower install --config.interactive=false --allow-root && \
     node --max_old_space_size=4096 /usr/local/bin/polymer build
 
