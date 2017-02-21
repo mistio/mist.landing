@@ -779,7 +779,7 @@
           var that = this;
           new Fingerprint2().get(function(result, components){
             // this will use all available fingerprinting sources
-            this.fingerprint = result;
+            that.fingerprint = result;
             var componentMap = {};
             components.forEach(function(e){componentMap[e.key] = e.value});
             var payload = {'action': event.detail,

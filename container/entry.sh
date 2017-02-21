@@ -6,7 +6,7 @@ if [ "$1" = "unison" ];then
 fi
 
 cd /landing
-if ! git diff --quiet --exit-code staging bower.json; then
+if ! git diff --quiet --exit-code master bower.json; then
     echo "bower.json changed"
     echo "Running bower install"
     bower install --config.interactive=false --allow-root 
