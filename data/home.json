@@ -6,6 +6,12 @@
         "alt" : "Mist.io cloud management dashboard",
         "cta" : "Get Started"
     }, 
+"howitworks": {
+        "p1" : "Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.",
+        "p2" : "Invite team members and delegate access. See real time cost and usage reporting. Create, reboot or destroy virtual machines. View their metadata, tag and search them.",
+        "p3" : "Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.",
+        "image" : "images/frontpage/home-dashboard.png"
+    }, 
 "summary": [{
         "icon" : "person_outline",
         "title": "Teams",
