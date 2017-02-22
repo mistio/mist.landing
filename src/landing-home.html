@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="landing-fold.html">
+<link rel="import" href="landing-summary.html">
 <link rel="import" href="landing-features.html">
 <link rel="import" href="landing-testimonials.html">
 <link rel="import" href="landing-providers.html">
@@ -236,9 +237,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
 
       is: 'landing-home',
-      ready: function() {
-        console.log(this.data);
-      },
       behaviors: [
         Polymer.NeonSharedElementAnimatableBehavior
       ],
