@@ -2,9 +2,26 @@
 "fold": {
         "copy" : "",
         "subcopy" : "Mist.io gives you total visibility and control of your hybrid infrastructure",
-        "image" : "../images/mockup-imac-n4.png",
+        "image" : "images/mockup-imac-n4.png",
         "alt" : "Mist.io cloud management dashboard",
-        "cta" : "Get Started"}, 
+        "cta" : "Get Started"
+    }, 
+"summary": [{
+        "icon" : "person_outline",
+        "title": "Teams",
+        "description": "Organize teams and enable self service provisioning for your devs.",
+        "image": "images/frontpage/home-teams-policy.png"
+    },{
+        "icon" : "all_inclusive",
+        "title": "Orchestration",
+        "description": "Automate the provisioning and configuration of simple and complex apps.",
+        "image": "images/frontpage/home-orchestration.png"
+    },{
+        "icon" : "attach_money",
+        "title": "Reduce Costs",
+        "description": "See costs and utilization in one view. Get proactive alerts about under-utilized machines.",
+        "image": "images/frontpage/home-machines-list.png"
+    }],
 "clients": [{
         "name": "Iben Rodriguez",
         "jobtitle": "Principal Architect, Cloud and Virtualization - Spirent Communications",
