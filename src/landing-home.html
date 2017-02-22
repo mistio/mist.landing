@@ -20,6 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="landing-fold.html">
+<link rel="import" href="landing-how-it-works.html">
 <link rel="import" href="landing-summary.html">
 <link rel="import" href="landing-features.html">
 <link rel="import" href="landing-testimonials.html">
@@ -140,26 +141,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <!-- <landing-promo hidden$="[[!data.promo]]" data="[[data.promo]]"></landing-promo> -->
       
-      <div class="section white">
-        <div class="contains">
-          <div class="grid-row items-center">
-            <div class="xs12 s6 m6 l6">
-              <h4>How it works</h4>
-
-              <p>Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.</p>
-
-              <p>Invite team members and delegate access. See real time cost and usage reporting. Create, reboot or destroy virtual machines. View their metadata, tag and search them.</p>
-
-              <p>Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.</p>
-            </div>
-            <div class="xs12 s6 m6 l6 image-block">
-              <img class="with-shadow" src="../images/frontpage/home-dashboard.png"/>
+      <dom-if if="[[data.howitworks]]">
+        <!--It's either this...-->
+        <div class="section white">
+          <div class="contains">
+            <div class="grid-row items-center">
+              <landing-how-it-works contents="[[data.howitworks]]"></landing-how-it-works>
             </div>
           </div>
         </div>
-      </div>
+      </dom-if>
 
       <dom-if if="[[data.summary]]">
+        <!--...or this-->
         <div class="section white">
           <div class="contains">
             <div class="row center">
