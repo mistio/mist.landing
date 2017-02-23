@@ -599,7 +599,7 @@
             var category = this.categories && this.categories.find(function(c){ return c.name == page});
             console.log(category, page)
             if (!category)
-              category = category && this.categories.find(function(c){ return c.href == "/"+page});
+              category = category && this.categories.find(function(c){ return c.href == "/" + page});
             console.log(category, page)
             var template = category ? category.template : page;
             if (template)
@@ -772,9 +772,7 @@
 
       _onUserAction: function(event) {
         console.warn('user-action', event);
-
         var xhr = new XMLHttpRequest();
-
         if (!this.fingerprint){
           var that = this;
           new Fingerprint2().get(function(result, components){
