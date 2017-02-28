@@ -166,7 +166,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return;
         }
         this._getResource({
-          url: 'api/v1/categories/' + category.name,
+          url: '/api/v1/categories/' + category.name,
           onLoad: function(e) {
             this.set('category.items', JSON.parse(e.target.responseText));
           },
