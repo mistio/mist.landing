@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-how-it-works.html">
 <link rel="import" href="landing-summary.html">
 <link rel="import" href="landing-features.html">
+<link rel="import" href="landing-whatsnew.html">
 <link rel="import" href="landing-testimonials.html">
 <link rel="import" href="landing-providers.html">
 <link rel="import" href="landing-editions.html">
@@ -147,13 +148,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       
       <dom-if if="[[data.howitworks]]">
         <template>
-        <div class="section white">
-          <div class="contains">
-            <div class="grid-row items-center">
-              <landing-how-it-works contents="[[data.howitworks]]"></landing-how-it-works>
+          <div class="section white">
+            <div class="contains">
+              <div class="grid-row items-center">
+                <landing-how-it-works contents="[[data.howitworks]]"></landing-how-it-works>
+              </div>
             </div>
           </div>
-        </div>
         </template>
       </dom-if>
 
@@ -170,9 +171,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </template>
       </dom-if>
 
-      <dom-if if="[[data.features]]">
+      <dom-if if="[[data.whatsnew]]">
         <template>
           <div class="section grey">
+            <div class="contains">
+              <div class="row text-center">
+                <h3 class="decorated">What's new with Mist.io?</h3>
+              </div>
+              <landing-whatsnew contents="[[data.whatsnew]]"></landing-whatsnew>
+            </div>        
+          </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[data.features]]">
+        <template>
+          <div class="section white">
             <div class="contains text-center">
               <landing-features features="[[data.features]]"></landing-features>
             </div>        
@@ -182,7 +196,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <dom-if if="[[data.clients]]">
         <template>
-          <div class="section white">
+          <div class="section grey">
             <div class="contains text-center">
               <div class="row">
                 <h3 class="decorated">See what some of our clients say</h3>
@@ -195,7 +209,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <dom-if if="[[data.providers]]">
         <template>
-          <div class="section grey">
+          <div class="section white">
             <div class="contains text-center">
               <div class="row">
                 <h3 class="decorated row">Supported Providers</h3>
