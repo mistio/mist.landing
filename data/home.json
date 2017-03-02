@@ -43,7 +43,7 @@
     }],
 "whatsnew": {
     "title": "Cloud Scheduler",
-    "copy": "Automaticaly stop, start, destory machines or execute scripts across clouds. Learn how to use the cloud scheduler to [reduce your costs](http://blog.mist.io/post/157671715281/how-to-drive-down-dev-infra-cost-by-60-or-more).\n\n[Read more in the mist.io blog](http://blog.mist.io/post/157671715281/how-to-drive-down-dev-infra-cost-by-60-or-more)",
+    "copy": "Automaticaly stop, start, destroy machines or execute scripts across clouds. Learn how to use the cloud scheduler to <a href=\"http:\/\/blog.mist.io\/post\/157671715281\/how-to-drive-down-dev-infra-cost-by-60-or-more\" target=\"_blank\">reduce your costs.<\/a>\r\n\r\n<a href=\"http:\/\/blog.mist.io\/post\/157671715281\/how-to-drive-down-dev-infra-cost-by-60-or-more\" target=\"_blank\">Read more in the mist.io blog.<\/a>",
     "image": "images/frontpage/scheduler-single.png"
 },
 "editions": [{
