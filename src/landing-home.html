@@ -162,7 +162,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template>
           <div class="section white">
             <div class="contains">
-              <div class="row center">
+              <div class="row text-center">
                 <h3 class="light decorated">What a modern cloud management platform looks like</h3>
               </div>
               <landing-summary summary="[[data.summary]]"></landing-summary>
@@ -171,6 +171,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </template>
       </dom-if>
 
+      <!--
       <dom-if if="[[data.whatsnew]]">
         <template>
           <div class="section grey">
@@ -183,10 +184,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
         </template>
       </dom-if>
+      -->
 
       <dom-if if="[[data.features]]">
         <template>
-          <div class="section white">
+          <div class="section grey">
             <div class="contains text-center">
               <landing-features features="[[data.features]]"></landing-features>
             </div>        
@@ -196,7 +198,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <dom-if if="[[data.clients]]">
         <template>
-          <div class="section grey">
+          <div class="section white">
             <div class="contains text-center">
               <div class="row">
                 <h3 class="decorated">See what some of our clients say</h3>
@@ -209,7 +211,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <dom-if if="[[data.providers]]">
         <template>
-          <div class="section white">
+          <div class="section grey">
             <div class="contains text-center">
               <div class="row">
                 <h3 class="decorated row">Supported Providers</h3>
