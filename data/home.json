@@ -61,7 +61,7 @@
     }],
 "faq": [{
         "question": "How do I use it?",
-        "answer": "The easiest way to get started with Mist.io is to [sign up](http://localhost/sign-up) to the freemium SaaS version."
+        "answer": "The easiest way to get started with Mist.io is to [sign up](http://mist.io/sign-up) to the freemium SaaS version."
     },{
         "question": "Can I install it on-premises?",
         "answer": "Yes! There is an Enterprise edition as well as a [Community Supported Open Source](https://github.com/mistio/mist.io) one."
