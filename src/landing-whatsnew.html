@@ -2,7 +2,7 @@
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="shared-styles.html">
-<dom-module id="landing-promo">
+<dom-module id="landing-whatsnew">
     <template>
         <style include="shared-styles"></style>
         <style>
@@ -156,14 +156,10 @@
     <script>
     Polymer({
 
-        is: 'landing-promo',
+        is: 'landing-whatsnew',
 
         properties: {
             data: Object
-        },
-
-        _imagePath: function(person) {
-            return 'images/promo/' + person.image;
         }
 
     });
