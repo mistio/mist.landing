@@ -37,3 +37,176 @@
 
     </script>
 </dom-module>
+
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="shared-styles.html">
+<dom-module id="landing-promo">
+    <template>
+        <style include="shared-styles"></style>
+        <style>
+        :host {
+            display: block;            
+        }
+        
+        :host[hidden] {
+            display: none;
+        }
+
+        :host h4 {
+          font-size: 2.28rem;
+          margin: 1.14rem 0 .912rem;
+        }
+
+        :host h5 {
+          line-height: 140%;
+          font-size: 1.64rem;
+          margin: .82rem 0 .656rem;
+        }
+
+        :host h6 {
+          font-size: 1rem;
+        }
+        
+        paper-button {
+          background-color: #0099cc;
+          color: #fff;
+          font-size: 18px;
+          height: 54px;
+          padding: 0 50px;
+          margin: 40px 0;
+          font-weight: 500;
+        }
+        
+        #promote {
+          /*background-color: #0099cc;*/
+          font-weight: 400 !important;
+          background-color: #444;
+          color: #fff;
+        }
+        #promote h4.title {
+          font-weight: 400 !important;
+          line-height: 110%;
+        }
+
+        .light {
+            font-weight: 400 !important;
+        }
+        #promote .promtext {
+            margin: 8px 0 24px 0;
+        }
+        
+        #promote .promtext.top {
+            margin-top: 1.14em;
+        }
+        
+        #promote .promtext h6 {
+            line-height: 150%;
+            margin: 1rem 0 1rem 0;
+        }
+        
+        #promote .right-alligned {
+            text-align: right;
+        }
+        
+        @media screen and (max-width: 993px) {
+            #promote .right-alligned {
+                text-align: left;
+            }
+            #promote br.widescreens {
+                display: none;
+            }
+        }
+        
+        #promote .emph {
+            /*color: #37B8D2;*/
+            color: #A0DDEB;
+        }
+        
+        #promote h4 {
+            padding: 0.112rem 0 0.912rem 0 !important;
+        }
+        
+        #promote a {
+            color: inherit;
+            cursor: pointer;
+        }
+        
+        .join {
+            display: inline-block;
+        }
+        
+        .join img {
+            vertical-align: middle;
+            margin: 0 8px;
+            height: 30px;
+        }
+        
+        .person {
+            margin-bottom: 8px;
+        }
+        
+        .people > *,
+        .person > * {
+            vertical-align: middle;
+            margin-right: 8px;
+            display: inline-block;
+            line-height: 1.2em;
+        }
+        
+        .person-img {
+            border-style: solid;
+            border-width: 2px;
+            border-color: #fff;
+            border-radius: 69px;
+            width: 60px;
+            height: 60px;
+            float: left;
+        }
+        
+        .people .comp {
+            opacity: 0.54;
+            font-size: .9em;
+        }
+        
+        .people .name {
+            padding-top: 8px;
+        }
+        </style>
+        <div id="promote" class="section dark">
+            <div class="contains">
+                <div class="grid-row">
+                    <h5 class="l12 emph"><a href="[[data.href]]" target="new">[[data.type]]:</a></h5>
+                </div>
+                <div class="grid-row">
+                    <div class="l8 m12 xs12 ">
+                        <h4 class="light title"><a href$="[[data.href]]" target="new">[[data.title]]</a></h4>
+                        <div class="promtext">
+                            <marked-element markdown="[[data.description]]"></marked-element>
+                        </div>
+                    </div>
+                    <div class="xs12 s6 m6 l6 image-block">
+                        <img class="with-shadow" src="[[data.image]]"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+    Polymer({
+
+        is: 'landing-promo',
+
+        properties: {
+            data: Object
+        },
+
+        _imagePath: function(person) {
+            return 'images/promo/' + person.image;
+        }
+
+    });
+    </script>
+</dom-module>
