@@ -1,4 +1,17 @@
 {   
+"fold": {
+        "copy" : "",
+        "subcopy" : "Mist.io gives you total visibility and control of your hybrid infrastructure",
+        "image" : "images/mockup-imac-n4.png",
+        "alt" : "Mist.io cloud management dashboard",
+        "cta" : "Get Started"
+    }, 
+"howitworks": {
+        "p1" : "Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.",
+        "p2" : "Invite team members and delegate access. See real time cost and usage reporting. Create, reboot or destroy virtual machines. View their metadata, tag and search them.",
+        "p3" : "Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.",
+        "image" : "images/frontpage/home-dashboard.png"
+    }, 
 "clients": [{
         "name": "Iben Rodriguez",
         "jobtitle": "Principal Architect, Cloud and Virtualization - Spirent Communications",
@@ -43,7 +56,8 @@
     }],
 "whatsnew": {
     "title": "Cloud Scheduler",
-    "copy": "Automaticaly stop, start, destroy machines or execute scripts across clouds. Learn how to use the cloud scheduler to <a href=\"http:\/\/blog.mist.io\/post\/157671715281\/how-to-drive-down-dev-infra-cost-by-60-or-more\" target=\"_blank\">reduce your costs.<\/a>\r\n\r\n<a href=\"http:\/\/blog.mist.io\/post\/157671715281\/how-to-drive-down-dev-infra-cost-by-60-or-more\" target=\"_blank\">Read more in the mist.io blog.<\/a>",
+    "href": "http:\/\/blog.mist.io\/post\/157671715281\/how-to-drive-down-dev-infra-cost-by-60-or-more",
+    "description": "Automaticaly stop, start, destroy machines or execute scripts across clouds. Learn how to use the cloud scheduler to <a href=\"http:\/\/blog.mist.io\/post\/157671715281\/how-to-drive-down-dev-infra-cost-by-60-or-more\" target=\"_blank\">reduce your costs.<\/a>",
     "image": "images/frontpage/scheduler-single.png"
 },
 "editions": [{
