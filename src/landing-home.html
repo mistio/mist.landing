@@ -23,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="landing-how-it-works.html">
 <link rel="import" href="landing-summary.html">
 <link rel="import" href="landing-features.html">
-<!--<link rel="import" href="landing-whatsnew.html">-->
+<link rel="import" href="landing-whatsnew.html">
 <link rel="import" href="landing-testimonials.html">
 <link rel="import" href="landing-providers.html">
 <link rel="import" href="landing-editions.html">
@@ -171,20 +171,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </template>
       </dom-if>
 
-      <!--
       <dom-if if="[[data.whatsnew]]">
         <template>
-          <div class="section grey">
-            <div class="contains">
-              <div class="row text-center">
-                <h3 class="decorated">What's new with Mist.io?</h3>
-              </div>
-              <landing-whatsnew contents="[[data.whatsnew]]"></landing-whatsnew>
-            </div>        
-          </div>
+          <landing-whatsnew data="[[data.whatsnew]]"></landing-whatsnew> 
         </template>
       </dom-if>
-      -->
 
       <dom-if if="[[data.features]]">
         <template>
