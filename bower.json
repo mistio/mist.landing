@@ -7,7 +7,7 @@
   ],
   "private": true,
   "dependencies": {
-    "polymer": "2.0.0-rc.2",
+    "polymer": "2.0.0-rc.3",
     "app-layout": "polymerelements/app-layout#2.0-preview",
     "app-route": "polymerelements/app-route#2.0-preview",
     "app-storage": "polymerelements/app-storage#2.0-preview",
@@ -25,7 +25,7 @@
     "iron-form": "firmfirm/iron-form#2.0-preview",
     "iron-icons": "2.0-preview",
     "zxcvbn": "^4.4.1",
-    "mist-password": "mistio/mist-password",
+    "mist-password": "1.0.2",
     "typed-text": "typed-text#^1.1.1",
     "neon-animation": "2.0-preview",
     "web-animations-js": "web-animations/web-animations-js#^2.2.0",
@@ -41,7 +41,7 @@
     "web-component-tester": "^4.0.0"
   },
   "resolutions": {
-    "polymer": "2.0.0-rc.2",
+    "polymer": "2.0.0-rc.3",
     "webcomponentsjs": "v1.0.0-rc.5",
     "iron-flex-layout": "2.0-preview",
     "iron-icon": "2.0-preview",
