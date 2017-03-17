@@ -19,7 +19,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="shared-styles.html">
-<link rel="import" href="landing-image.html">
+<link rel="import" href="landing-fold.html">
+<link rel="import" href="landing-how-it-works.html">
+<link rel="import" href="landing-summary.html">
 <link rel="import" href="landing-features.html">
 <link rel="import" href="landing-whatsnew.html">
 <link rel="import" href="landing-testimonials.html">
@@ -49,32 +51,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
 
-      .image-link {
-        outline: none;
-      }
-
-      .image-link > landing-image::after {
-        display: block;
-        content: '';
-        position: absolute;
-        transition-property: opacity;
-        transition-duration: 0s;
-        transition-delay: 90ms;
-        pointer-events: none;
-        opacity: 0;
-        top: 5px;
-        left: 5px;
-        right: 5px;
-        bottom: 5px;
-        outline: #2196F3 auto 5px;
-        outline: -moz-mac-focusring auto 5px;
-        outline: -webkit-focus-ring-color auto 5px;
-      }
-
-      .image-link:focus > landing-image::after {
-        opacity: 1;
-      }
-
       .item {
         display: block;
         text-decoration: none;
@@ -88,36 +64,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .item:nth-of-type(4) {
         display: inline-block;
         width: 50%;
-      }
-
-      landing-image {
-        position: relative;
-        height: 1020px;
-        overflow: hidden;
-        --landing-image-img: {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: -9999px;
-          right: -9999px;
-          max-width: none;
-        };
-        margin-top: 40px;
-      }      
+      } 
 
       .item:nth-of-type(3) > h2,
       .item:nth-of-type(4) > h2 {
         font-size: 1.1em;
-      }
-
-      @media (max-width: 767px) {
-        landing-image {
-          height: 240px;
-        }
-
-        h2 {
-          margin: 24px 0;
-        }
       }
 
       paper-button {
@@ -184,100 +135,115 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div id="placeholder"></div>
     <div id="container">
-      <div class="section grey">
-        <div class="hero text-center"> 
-          <h2 class="typed">How many <typed-text cursor="|" blink noretype="" loop="" strings="[
-            &quot;clouds&quot;,
-            &quot;servers&quot;,
-            &quot;containers&quot;,
-            &quot;keys&quot;,
-            &quot;scripts&quot;]"></typed-text> do you have?</h2>
-          <h5>Mist.io gives you total visibility and control of your hybrid infrastructure</h5>
 
-          <a aria-label="Get started" href="/sign-up" tabindex="-1">
-            <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started</paper-button>
-          </a>
-          <landing-image src="../images/mockup-imac-n4.png" alt="Mist.io cloud management dashboard" placeholder-img=""></landing-image>
-        </div>
-      </div>
+      <dom-if if="[[data.fold]]">
+        <template>
+          <div class="section grey">
+            <landing-fold contents="[[data.fold]]"></landing-fold>
+          </div>
+        </template>
+      </dom-if>
 
       <!-- <landing-promo hidden$="[[!data.promo]]" data="[[data.promo]]"></landing-promo> -->
       
-      <div class="section white">
-        <div class="contains">
-          <div class="grid-row items-center">
-            <div class="xs12 s6 m6 l6">
-              <h4>How it works</h4>
-
-              <p>Add the infrastructure you want to manage - public or private. All your devices will be available from a unified interface.</p>
-
-              <p>Invite team members and delegate access. See real time cost and usage reporting. Create, reboot or destroy virtual machines. View their metadata, tag and search them.</p>
-
-              <p>Assign keys, run and schedule scripts. Enable monitoring, alerting &amp; automation. You'll have a clear picture of all your infrastructure.</p>
-            </div>
-            <div class="xs12 s6 m6 l6 image-block">
-              <img class="with-shadow" src="../images/frontpage/home-dashboard.png"/>
+      <dom-if if="[[data.howitworks]]">
+        <template>
+          <div class="section white">
+            <div class="contains">
+              <div class="grid-row items-center">
+                <landing-how-it-works contents="[[data.howitworks]]"></landing-how-it-works>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </template>
+      </dom-if>
 
-      <div class="section grey">
-        <div class="contains">
-          <div class="row text-center">
-            <h3 class="decorated">What's new with mist.io?</h3>
+      <dom-if if="[[data.summary]]">
+        <template>
+          <div class="section white">
+            <div class="contains">
+              <div class="row text-center">
+                <h3 class="light decorated">What a modern cloud management platform looks like</h3>
+              </div>
+              <landing-summary summary="[[data.summary]]"></landing-summary>
+            </div>        
           </div>
-          <landing-whatsnew contents="[[data.whatsnew]]"></landing-whatsnew>
-        </div>        
-      </div>
+        </template>
+      </dom-if>
 
-      <div class="section white">
-        <div class="contains text-center">
-          <landing-features features="[[data.features]]"></landing-features>
-        </div>        
-      </div>
+      <dom-if if="[[data.whatsnew]]">
+        <template>
+          <landing-whatsnew data="[[data.whatsnew]]"></landing-whatsnew> 
+        </template>
+      </dom-if>
 
-      <div class="section grey">
-        <div class="contains text-center">
-          <div class="row">
-            <h3 class="decorated">See what some of our clients say</h3>
+      <dom-if if="[[data.features]]">
+        <template>
+          <div class="section grey">
+            <div class="contains text-center">
+              <landing-features features="[[data.features]]"></landing-features>
+            </div>        
           </div>
-          <landing-testimonials clients="[[data.clients]]"></landing-testimonials>
-        </div>
-      </div>
+        </template>
+      </dom-if>
 
-      <div class="section white">
-        <div class="contains text-center">
-          <div class="row">
-            <h3 class="decorated row">Supported Providers</h3>
-          </div> 
-          <landing-providers providers="[[data.providers]]" folder="providers" classes="margin-top margin-bottom padding-bottom"></landing-providers>
-        </div>
-      </div>
-
-      <div class="section grey">
-        <div class="contains text-center">
-          <div class="row">
-            <h3 class="decorated row">Choose your Mist.io</h3>
-          </div> 
-          <landing-editions editions="[[data.editions]]"></landing-editions>
-          <div class="row">
-            <a aria-label="Get started" href="/sign-up" tabindex="-1">
-              <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
-            </a>
-            <div class="secondary">No credit card required</div>
+      <dom-if if="[[data.clients]]">
+        <template>
+          <div class="section white">
+            <div class="contains text-center">
+              <div class="row">
+                <h3 class="decorated">See what some of our clients say</h3>
+              </div>
+              <landing-testimonials clients="[[data.clients]]"></landing-testimonials>
+            </div>
           </div>
-        </div>
-      </div>
+          </template>
+      </dom-if>
 
-      <div class="section white">
-        <div class="contains">
-          <div class="row text-center">
-            <h3 class="decorated row">Frequently Asked Questions</h3>
+      <dom-if if="[[data.providers]]">
+        <template>
+          <div class="section grey">
+            <div class="contains text-center">
+              <div class="row">
+                <h3 class="decorated row">Supported Providers</h3>
+              </div> 
+              <landing-providers providers="[[data.providers]]" folder="providers" classes="margin-top margin-bottom padding-bottom"></landing-providers>
+            </div>
           </div>
-          <landing-faq faq="[[data.faq]]"></landing-faq>
-        </div>
-      </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[data.editions]]">
+        <template>
+          <div class="section white">
+            <div class="contains text-center">
+              <div class="row">
+                <h3 class="decorated row">Choose your Mist.io</h3>
+              </div> 
+              <landing-editions editions="[[data.editions]]"></landing-editions>
+              <div class="row">
+                <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                  <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
+                </a>
+                <div class="secondary">No credit card required</div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[data.faq]]">
+        <template>
+          <div class="section grey">
+            <div class="contains">
+              <div class="row text-center">
+                <h3 class="decorated row">Frequently Asked Questions</h3>
+              </div>
+              <landing-faq faq="[[data.faq]]"></landing-faq>
+            </div>
+          </div>
+        </template>
+      </dom-if>
 
     </div>
 
@@ -288,7 +254,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
 
       is: 'landing-home',
-
       behaviors: [
         Polymer.NeonSharedElementAnimatableBehavior
       ],

@@ -16,18 +16,30 @@
    "src/landing-pricing.html"
 
   ],
-  "sourceGlobs": [
+  "sources": [
    "src/**/*",
    "data/**/*",
    "images/**/*",
    "bower.json",
    "app.yaml"
   ],
-  "includeDependencies": [
+  "extraDependencies": [
     "manifest.json",
     "bower_components/webcomponentsjs/**/*",
     "bower_components/custom-elements/**/*",
     "bower_components/shadydom/**/*",
     "bower_components/shadycss/**/*"
-  ]
+  ],
+  "builds": [{
+    "name": "bundled",
+    "bundle": true,
+    "js": {"minify": true},
+    "css": {"minify": true},
+    "html": {"minify": true}
+  },{
+    "name": "unbundled",
+    "js": {"minify": true},
+    "css": {"minify": true},
+    "html": {"minify": true}
+  }]
 }

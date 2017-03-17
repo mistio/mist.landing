@@ -367,7 +367,7 @@
               aria-label="Categories">
           </paper-icon-button>
           <div class="logo">
-            <a href="/" aria-label="Mist.io Home" on-tap="_logoClicked"><img src="../images/logo.svg"></a>
+            <a href="/" aria-label="Mist.io Home" on-tap="_logoClicked"><img src="images/logo.svg"></a>
           </div>
         </div>
 
@@ -707,13 +707,13 @@
 
       // This is for performance logging only.
       _domChange: function(e) {
-        if (window.performance && performance.mark && !this.__loggedDomChange) {
+        /*if (window.performance && performance.mark && !this.__loggedDomChange) {
           var target = Polymer.dom(e).rootTarget;
           if (target.domHost.is.match(this.page)) {
             this.__loggedDomChange = true;
             performance.mark(target.domHost.is + '.domChange');
           }
-        }
+        }*/
       },
 
       _onFallbackSelectionTriggered: function() {
