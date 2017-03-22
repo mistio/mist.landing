@@ -14,80 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
   (function() {
-    var categoryList = [
-      {
-        name: 'home',
-        title: 'Home',
-        href: '/',
-        template: 'home'
-      },
-      {
-        name: 'product',
-        title: 'Product',
-        href: '/product',
-        template: 'product'
-      },
-      {
-        name: 'pricing',
-        title: 'Pricing',
-        href: '/pricing',
-        template: 'pricing'
-      },
-      {
-        name: 'docs',
-        title: 'Docs',
-        href: 'http://docs.mist.io'
-      },
-      {
-        name: 'blog',
-        title: 'Blog',
-        href: 'http://blog.mist.io'
-      },
-      {
-        name: 'about',
-        title: 'About',
-        href: '/about',
-        template: 'about'
-      },
-      {
-        name: 'pledge',
-        title: 'Pledge',
-        href: '/pledge',
-        template: 'page',
-        hiddenFromMenu: true
-      },
-      {
-        name: 'tos',
-        title: 'Terms of Service',
-        href: '/tos',
-        template: 'page',
-        hiddenFromMenu: true
-      },
-      {
-        name: 'privacy-policy',
-        title: 'Privacy Policy',
-        href: '/privacy-policy',
-        template: 'page',
-        hiddenFromMenu: true
-      },
-      {
-        name: 'orchestration',
-        title: 'Orchestration',
-        href: '/orchestration',
-        template: 'orchestration',
-        hiddenFromMenu: true
-      },
-      {
-        name: 'rbac',
-        title: 'Role Based Access Control',
-        href: '/rbac',
-        template: 'rbac',
-        hiddenFromMenu: true
-      }
-    ];
-
     Polymer({
-
       is: 'landing-category-data',
 
       properties: {
@@ -97,10 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         itemName: String,
 
         categories: {
-          type: Array,
-          value: categoryList,
-          readOnly: true,
-          notify: true
+          type: Array
         },
 
         builtinCategories: {

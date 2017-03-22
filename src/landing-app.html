@@ -355,7 +355,7 @@
     <!--
       landing-category-data provides the list of categories.
     -->
-    <landing-category-data categories="{{categories}}" category-name="[[page]]" category="{{category}}"></landing-category-data>
+    <landing-category-data categories=[[categories]] category-name="[[page]]" category="{{category}}"></landing-category-data>
 
     <app-header role="navigation" id="header" effects="waterfall" fixed>
       <app-toolbar>
@@ -514,6 +514,16 @@
         fingerprint: {
           type: String,
           value: ''
+        },
+
+        categories: {
+          type: Array,
+          value: function() {
+            if (typeof(CATEGORIES) == 'undefined')
+              return [{'href': '/', 'name': 'home', 'template': 'home', 'title': 'Home'}]
+            else
+              return CATEGORIES;
+          }
         }
       },
 
