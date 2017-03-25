@@ -197,6 +197,11 @@
                 type: Array,
                 notify: true
             }
+        },
+
+        _signUpClick: function(event) {
+          window.scrollTo(0, 0);
+          this.fire('user-action', 'sign up button 1 click in home');
         }
     });
   </script>
