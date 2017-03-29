@@ -5,15 +5,17 @@ RUN apk add --update --no-cache git nginx
 
 RUN npm install -g polymer-cli@next bower
 
+ENV bower_allow_root=true \
+    bower_interactive= \
+    GIT_DIR=
+
 COPY bower.json /landing/bower.json
 
 WORKDIR /landing
 
-RUN bower install --config.interactive=false --allow-root
+RUN bower install
 
 COPY . /landing
-
-ENV GIT_DIR ''
 
 RUN node --max_old_space_size=4096 /usr/local/bin/polymer build
 
