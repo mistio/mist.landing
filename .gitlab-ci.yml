@@ -14,11 +14,11 @@ stages:
 build_landing_image:
   <<: *docker_build_template
   script:
-    - docker build --rm -t gcr.io/mist-ops/landing:$CI_BUILD_REF .
-    - docker tag gcr.io/mist-ops/landing:$CI_BUILD_REF gcr.io/mist-ops/landing:$CI_BUILD_REF_SLUG
-    - docker tag gcr.io/mist-ops/landing:$CI_BUILD_REF mist/landing:$CI_BUILD_REF
-    - docker tag gcr.io/mist-ops/landing:$CI_BUILD_REF_SLUG mist/landing:$CI_BUILD_REF_SLUG
-    - docker push gcr.io/mist-ops/landing:$CI_BUILD_REF
-    - docker push gcr.io/mist-ops/landing:$CI_BUILD_REF_SLUG
-    - docker push mist/landing:$CI_BUILD_REF
-    - docker push mist/landing:$CI_BUILD_REF_SLUG
+    - docker build --rm -t gcr.io/mist-ops/landing:$CI_COMMIT_SHA .
+    - docker tag gcr.io/mist-ops/landing:$CI_COMMIT_SHA gcr.io/mist-ops/landing:$CI_COMMIT_REF_SLUG
+    - docker tag gcr.io/mist-ops/landing:$CI_COMMIT_SHA mist/landing:$CI_COMMIT_SHA
+    - docker tag gcr.io/mist-ops/landing:$CI_COMMIT_REF_SLUG mist/landing:$CI_COMMIT_REF_SLUG
+    - docker push gcr.io/mist-ops/landing:$CI_COMMIT_SHA
+    - docker push gcr.io/mist-ops/landing:$CI_COMMIT_REF_SLUG
+    - docker push mist/landing:$CI_COMMIT_SHA
+    - docker push mist/landing:$CI_COMMIT_REF_SLUG
