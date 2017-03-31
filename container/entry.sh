@@ -2,7 +2,7 @@
 
 if [ "$1" = "unison" ];then
     rm -rf /landing
-    ln -s /mist.core/landing /landing 
+    ln -s /mist.core/src/mist.io/landing /landing
 fi
 
 cd /landing
