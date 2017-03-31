@@ -1,15 +1,8 @@
-*Dockerfile
-*/Dockerfile
-
-.dockerignore
-*/.dockerignore
-
-.git/
-*/.git/
-*/*/.git/
-
+**/Dockerfile
+**/.dockerignore
+**/.git
+**/.gitignore
+**/.gitlab-ci.yml
 bower_components
 build
-
-.gitlab-ci.yml
 

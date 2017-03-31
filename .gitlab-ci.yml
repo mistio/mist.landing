@@ -1,0 +1,20 @@
+stages:
+  - build
+
+#################### BUILD STAGE ####################
+build_landing_image:
+  stage: build
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  script:
+    - docker build --rm -t gcr.io/mist-ops/landing:$CI_COMMIT_SHA .
+    - docker tag gcr.io/mist-ops/landing:$CI_COMMIT_SHA gcr.io/mist-ops/landing:$CI_COMMIT_REF_SLUG
+    - docker tag gcr.io/mist-ops/landing:$CI_COMMIT_SHA mist/landing:$CI_COMMIT_SHA
+    - docker tag gcr.io/mist-ops/landing:$CI_COMMIT_REF_SLUG mist/landing:$CI_COMMIT_REF_SLUG
+    - docker push gcr.io/mist-ops/landing:$CI_COMMIT_SHA
+    - docker push gcr.io/mist-ops/landing:$CI_COMMIT_REF_SLUG
+    - docker push mist/landing:$CI_COMMIT_SHA
+    - docker push mist/landing:$CI_COMMIT_REF_SLUG
+  tags:
+    - builder
+  dependencies: []
