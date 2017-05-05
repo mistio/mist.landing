@@ -153,7 +153,14 @@
 <body>
 
   <landing-app unresolved
-    tal:attributes="ga-id google_analytics_id"></landing-app>
+    tal:attributes="ga-id google_analytics_id;
+                    show-footer footer;
+                    allow-signin-email allow_signin_email;
+                    allow-signin-google allow_signin_google;
+                    allow-signin-github allow_signin_github;
+                    allow-signup-email allow_signup_email;
+                    allow-signup-google allow_signup_google;
+                    allow-signup-github allow_signup_github"></landing-app>
 
   <script>
     window.performance && performance.mark && performance.mark('index.html');
