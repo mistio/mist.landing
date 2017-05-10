@@ -1,6 +1,6 @@
 # Mist.io landing page
 
-Based on the Polymer 2.0 Shop app
+Based on the Polymer 2.0 Shop app.
 
 ### Setup
 
