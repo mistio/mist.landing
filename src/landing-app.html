@@ -159,10 +159,6 @@
         pointer-events: auto;
       }
 
-      .left-bar-item {
-
-      }
-
       .menu-btn {
         display: none;
       }
@@ -449,9 +445,13 @@
       <!--landing-detail name="detail" route="[[subroute]]" offline="[[offline]]"></landing-detail-->
     </landing-pages>
 
-    <footer hidden$="[[!_hasFooter(page)]]">
-      <landing-footer id="footer"></landing-footer>
-    </footer>
+    <dom-if if="[[showFooter]]">
+      <template>
+        <footer hidden$="[[!_hasFooter(page)]]">
+          <landing-footer id="footer"></landing-footer>
+        </footer>
+      </template>
+    </dom-if>
 
     <!-- a11y announcer -->
     <div class="announcer" aria-live="assertive">[[_a11yLabel]]</div>
@@ -524,6 +524,11 @@
             else
               return CATEGORIES;
           }
+        },
+
+        showFooter: {
+          type: Boolean,
+          value: false
         }
       },
 
