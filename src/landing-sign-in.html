@@ -150,13 +150,13 @@
             <h1>Sign in to your account</h1>
             <iron-form id="signInForm">
                 <paper-material elevation="1">
-                    <paper-button raised class="white" on-click="_socialAuthGoogle" id="signInBtnGoogle"><iron-icon icon="landing:google"></iron-icon>Sign in with Google</paper-button>
-                    <paper-button raised class="white" on-click="_socialAuthGithub" id="signInBtnGithub"><iron-icon icon="landing:github"></iron-icon>Sign in with Github</paper-button>
-                    <div class="or">
+                    <div class="output" hidden$="[[_canSignIn(signInGoogle, signInGithub, signInEmail)]]">Sign In has been disabled.</div>
+                    <paper-button raised class="white" on-click="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon>Sign in with Google</paper-button>
+                    <paper-button raised class="white" on-click="_socialAuthGithub" id="signInBtnGithub" hidden$=[[!signInGithub]]><iron-icon icon="landing:github"></iron-icon>Sign in with Github</paper-button>
+                    <div class="or" hidden$="[[!_hasSeparator(signInGoogle, signInGithub, signInEmail)]]">
                         or
                     </div>
-
-                    <form method="post" action="/login" enctype='application/json' id="form">
+                    <form method="post" action="/login" enctype='application/json' id="form" hidden$=[[!signInEmail]]>
                         <paper-input name="email" id="signin-email" label="Email" required auto-validate autofocus type="email"></paper-input>
                         <paper-input name="password" id="signin-password" label="Password" type="password" required auto-validate></paper-input>
                         <paper-button raised on-tap="_submitButtonHandler" disabled id="signInSubmit">
@@ -188,6 +188,21 @@
                 sharedElements: Object,
 
                 loading: {
+                    type: Boolean,
+                    value: false
+                },
+
+                signInGoogle: {
+                    type: Boolean,
+                    value: false
+                },
+
+                signInGithub: {
+                    type: Boolean,
+                    value: false
+                },
+
+                signInEmail: {
                     type: Boolean,
                     value: false
                 }
@@ -293,6 +308,12 @@
             },
             _forgotPasswordClicked: function(event) {
                 this.fire('user-action', 'forgot password click');
+            },
+            _hasSeparator: function(signInGoogle, signInGithub, signInEmail) {
+                return (signInGoogle || signInGithub) && signInEmail;
+            },
+            _canSignIn: function(signInGoogle, signInGithub, signInEmail) {
+                return signInGoogle || signInGithub || signInEmail;
             }
         });
     </script>

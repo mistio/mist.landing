@@ -40,13 +40,9 @@
   <template>
     <style include="shared-styles"></style>
     <style>
-
       :host {
         display: block;
         position: relative;
-        padding-top: 130px;
-        padding-bottom: 64px;
-        min-height: 100vh;
         color: #444444;
         background-color: #f2f2f2;
         --app-primary-color: #444444;
@@ -429,8 +425,10 @@
         </template>
       </dom-repeat>
 
-      <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"></landing-sign-in>
-      <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"></landing-sign-up>
+      <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
+        sign-in-google=[[allowSigninGoogle]] sign-in-github=[[allowSigninGithub]] sign-in-email=[[allowSigninEmail]]></landing-sign-in>
+      <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
+        sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]]></landing-sign-up>
       <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
       <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password"></landing-forgot-password>
       <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password"></landing-set-password>
@@ -438,20 +436,11 @@
 
       <landing-error name="error" route="[[subroute]]" offline="[[offline]]"></landing-error>
       <landing-not-found name="not-found" id="not-found"></landing-not-found>
-
-      <!-- list view of items in a category -->
-      <!--landing-list name="list" route="[[subroute]]" offline="[[offline]]"></landing-list-->
-      <!-- detail view of one item -->
-      <!--landing-detail name="detail" route="[[subroute]]" offline="[[offline]]"></landing-detail-->
     </landing-pages>
 
-    <dom-if if="[[showFooter]]">
-      <template>
-        <footer hidden$="[[!_hasFooter(page)]]">
-          <landing-footer id="footer"></landing-footer>
-        </footer>
-      </template>
-    </dom-if>
+    <footer hidden$="[[!showFooter]]">
+      <landing-footer id="footer" hidden$="[[!_hasFooter(page)]]"></landing-footer>
+    </footer>
 
     <!-- a11y announcer -->
     <div class="announcer" aria-live="assertive">[[_a11yLabel]]</div>
@@ -459,7 +448,6 @@
   </template>
 
   <script>
-
     // performance logging
     window.performance && performance.mark && performance.mark('landing-app - before register');
 
@@ -529,6 +517,41 @@
         showFooter: {
           type: Boolean,
           value: false
+        },
+
+        enableAb: {
+          type: Boolean,
+          value: false
+        },
+
+        allowSignupGoogle: {
+          type: Boolean,
+          value: false
+        },
+
+        allowSignupGithub: {
+          type: Boolean,
+          value: false
+        },
+
+        allowSignupEmail: {
+          type: Boolean,
+          value: false
+        },
+
+        allowSigninGoogle: {
+          type: Boolean,
+          value: false
+        },
+
+        allowSigninGithub: {
+          type: Boolean,
+          value: false
+        },
+
+        allowSigninEmail: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -568,21 +591,16 @@
 
         document.addEventListener("scroll", function(e) {
           var scrollPercent = 1 - (document.body.scrollHeight - window.scrollY - window.innerHeight) / document.body.scrollHeight;
-          //console.debug('scroll', scrollPercent, document.body.scrollHeight, window.innerHeight, window.scrollY);
-
           if (document.body.scrollHeight <= window.innerHeight)
             return;
           if (scrollPercent > 0.8 && !this.scrollThresholdReached){
             that.fire('user-action', 'scroll to bottom');
             this.scrollThresholdReached = true;
-
-            that.async(function(){
-              window.twttr.widgets.createTimeline({
-                sourceType: 'profile',
-                screenName: 'mist_io'
-              }, that.$.footer.$.tweets, {width: '300', height: '400'});
-            }, 50);
-            that.$.footer.$['tumblr-script'].src = "/core/tumblrBadge-1.1.js";
+            if (that.showFooter){
+              that.async(function(){
+                this.$.footer.finishLoading();
+              }, 50);
+            }
           }
         });
       },
@@ -612,15 +630,14 @@
             // eagerly load the 404 page definition
             var cb = this._pageLoaded.bind(this, Boolean(oldPage));
             var category = this.categories && this.categories.find(function(c){ return c.name == page});
-            console.log(category, page)
             if (!category)
               category = category && this.categories.find(function(c){ return c.href == "/" + page});
-            console.log(category, page)
             var template = category ? category.template : page;
             if (template)
               this.importHref(
                 this.resolveUrl('landing-' + template + '.html'),
-                cb, cb, true);
+                cb, cb, true
+              );
           }
         }
       },
@@ -786,7 +803,9 @@
       },
 
       _onUserAction: function(event) {
-        console.warn('user-action', event);
+        console.debug('user-action', event);
+        if (!this.enableAb)
+          return;
         var xhr = new XMLHttpRequest();
         if (!this.fingerprint){
           var that = this;
@@ -805,7 +824,6 @@
               payload['referrer'] = document.referrer;
             xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(JSON.stringify(payload)));
             xhr.send();
-            console.log('payload', payload);
           });
         } else {
           var payload = {'action': event.detail,
@@ -849,10 +867,7 @@
         console.log(e.detail.content);
           var content = e.detail.content;
           this.$["show-"+content].open();
-      },
-
+      }
     });
-
   </script>
-
 </dom-module>

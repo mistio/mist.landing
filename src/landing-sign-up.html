@@ -152,12 +152,13 @@
             <h1>Create your account</h1>
             <iron-form id="signUpForm">
                 <paper-material elevation="1">
-                    <form method="post" action="/register" enctype='application/json' id='form'>
-                        <paper-button raised class="white" on-click="_socialAuthGoogle" id="signUpBtnGoogle"><iron-icon icon="landing:google"></iron-icon>Sign up with Google</paper-button>
-                        <paper-button raised class="white" on-click="_socialAuthGithub" id="signUpBtnGithub"><iron-icon icon="landing:github"></iron-icon>Sign up with Github</paper-button>
-                        <div class="or">
-                            or
-                        </div>
+                    <div class="output" hidden$="[[_canSignUp(signUpGoogle, signUpGithub, signUpEmail)]]">Account creation has been disabled.</div>
+                    <paper-button raised class="white" on-click="_socialAuthGoogle" id="signUpBtnGoogle" hidden$=[[!signUpGoogle]]><iron-icon icon="landing:google"></iron-icon>Sign up with Google</paper-button>
+                    <paper-button raised class="white" on-click="_socialAuthGithub" id="signUpBtnGithub" hidden$=[[!signUpGithub]]><iron-icon icon="landing:github"></iron-icon>Sign up with Github</paper-button>
+                    <div class="or" hidden$="[[!_hasSeparator(signUpGoogle, signUpGithub, signUpEmail)]]">
+                        or
+                    </div>
+                    <form method="post" action="/register" enctype='application/json' id='form' hidden$=[[!signUpEmail]]>
                         <paper-input name="name" id="name" label="Full name" required auto-validate autofocus></paper-input>
                         <paper-input name="email" id="signUp-email" label="Email" required auto-validate autofocus type="email"></paper-input>
                         <paper-button raised on-tap="_submitButtonHandler" disabled id="signUpSubmit">
@@ -189,6 +190,21 @@
                 sharedElements: Object,
 
                 loading: {
+                    type: Boolean,
+                    value: false
+                },
+
+                signUpGoogle: {
+                    type: Boolean,
+                    value: false
+                },
+
+                signUpGithub: {
+                    type: Boolean,
+                    value: false
+                },
+
+                signUpEmail: {
                     type: Boolean,
                     value: false
                 }
@@ -285,7 +301,13 @@
             },
             _signInClicked: function(event) {
                 this.fire('user-action', 'sign-in click')
-            }
+            },
+            _hasSeparator: function(signUpGoogle, signUpGithub, signUpEmail) {
+                return (signUpGoogle || signUpGithub) && signUpEmail;
+            },
+            _canSignUp: function(signUpGoogle, signUpGithub, signUpEmail) {
+                return signUpGoogle || signUpGithub || signUpEmail;
+            },
         });
     </script>
 </dom-module>

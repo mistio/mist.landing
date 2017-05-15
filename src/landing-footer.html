@@ -172,11 +172,16 @@
 
         is: 'landing-footer',
 
-        attached: function() {
-
+        finishLoading: function() {
+          window.twttr.widgets.createTimeline({
+            sourceType: 'profile',
+            screenName: 'mist_io'
+          }, this.$.tweets, {width: '300', height: '400'});
+          this.$['tumblr-script'].src = "tumblrBadge-1.1.js";
         }
 
     });
+
 
   </script>
 </dom-module>
