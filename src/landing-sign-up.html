@@ -152,7 +152,7 @@
             <h1>Create your account</h1>
             <iron-form id="signUpForm">
                 <paper-material elevation="1">
-                    <div class="output" hidden$="[[_canSignUp(signUpGoogle, signUpGithub, signUpEmail)]]">Account creation has been disabled.</div>
+                    <div hidden$="[[_canSignUp(signUpGoogle, signUpGithub, signUpEmail)]]">Account creation has been disabled.</div>
                     <paper-button raised class="white" on-click="_socialAuthGoogle" id="signUpBtnGoogle" hidden$=[[!signUpGoogle]]><iron-icon icon="landing:google"></iron-icon>Sign up with Google</paper-button>
                     <paper-button raised class="white" on-click="_socialAuthGithub" id="signUpBtnGithub" hidden$=[[!signUpGithub]]><iron-icon icon="landing:github"></iron-icon>Sign up with Github</paper-button>
                     <div class="or" hidden$="[[!_hasSeparator(signUpGoogle, signUpGithub, signUpEmail)]]">
