@@ -145,6 +145,7 @@
 
       landing-image {
         position: relative;
+        margin-bottom: -40px;
         height: 1020px;
         overflow: hidden;
         --landing-image-img: {
@@ -185,11 +186,13 @@
         </h2>
       </template>
       <h5>{{contents.subcopy}}</h5>
+      <slot></slot>
 
-      <a aria-label="{{contents.cta}}" href="/sign-up" tabindex="-1">
-        <paper-button raised on-click="_signUpClick" id="signUpBtn1">{{contents.cta}}</paper-button>
-      </a>
-      <landing-image src="{{contents.image}}" alt="{{contents.alt}}" placeholder-img=""></landing-image>
+      <dom-if if="[[contents.image]]" restamp>
+        <template>
+          <landing-image src="[[contents.image]]" alt="[[contents.alt]]" placeholder-img=""></landing-image>
+        </template>
+      </dom-if>
     </div>
   </template>
 
@@ -198,7 +201,7 @@
         is: 'landing-fold',
         properties: {
             contents: {
-                type: Array,
+                type: Object,
                 notify: true
             },
             printTyped: {

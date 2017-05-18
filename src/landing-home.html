@@ -136,10 +136,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div id="placeholder"></div>
     <div id="container">
 
+
+      <dom-if if="[[!data]]">
+        <template>
+          <div class="section grey">
+              <a aria-label="Sign up" href="/sign-up" tabindex="-1">
+                <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
+              </a>
+          </div>
+        </template>
+      </dom-if>
+
       <dom-if if="[[data.fold]]">
         <template>
           <div class="section fold grey">
-            <landing-fold contents="[[data.fold]]"></landing-fold>
+            <landing-fold contents="[[data.fold]]">
+              <a aria-label="[[data.fold.cta]]" href="/sign-up" tabindex="-1">
+                <paper-button raised on-click="_signUpClick" id="signUpBtn1">[[data.fold.cta]]</paper-button>
+              </a>
+            </landing-fold>
           </div>
         </template>
       </dom-if>
