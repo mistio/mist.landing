@@ -16,10 +16,6 @@
         @apply(--shadow-elevation-2dp);
       }
 
-      .section > .hero {
-        padding-bottom: 0 !important;
-      }
-
       :host {
         display: block;
       }
@@ -175,22 +171,20 @@
 
     </style>
 
-    <div class="hero text-center">
-      <dom-if if="[[contents.copy]]" restamp>
-        <template>
-          <h2>[[contents.copy]]</h2>
-        </template>
-      </dom-if>
-      <dom-if if="[[!contents.copy]]" restamp>
-        <template>
-          <h2 class="typed">How many <typed-text cursor="|" blink noretype="" loop="" strings="[
-            &quot;clouds&quot;,
-            &quot;servers&quot;,
-            &quot;containers&quot;,
-            &quot;keys&quot;,
-            &quot;scripts&quot;]"></typed-text> do you have?</h2>
-        </template>
-      </dom-if>
+    <div class="hero text-center"> 
+      <template is="dom-if" if="{{printTyped}}">
+      <h2 class="typed">How many <typed-text cursor="|" blink noretype="" loop="" strings="[
+        &quot;clouds&quot;,
+        &quot;servers&quot;,
+        &quot;containers&quot;,
+        &quot;keys&quot;,
+        &quot;scripts&quot;]"></typed-text> do you have?</h2>
+      </template>
+      <template is="dom-if" if="{{!printTyped}}">
+        <h2>
+          {{contents.copy}}
+        </h2>
+      </template>
       <h5>{{contents.subcopy}}</h5>
       <slot></slot>
 
@@ -209,7 +203,20 @@
             contents: {
                 type: Object,
                 notify: true
+            },
+            printTyped: {
+              type: Boolean,
+              computed: '_computePrintTyped(contents)'
             }
+        },
+
+        _signUpClick: function(event) {
+          window.scrollTo(0, 0);
+          this.fire('user-action', 'sign up button 1 click in home');
+        },
+
+        _computePrintTyped: function(contents) {
+          return contents && contents.copy ? !contents.copy.length : true;
         }
     });
   </script>
