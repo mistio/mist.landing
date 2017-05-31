@@ -30,8 +30,16 @@ animations to be run when switching to or switching out of the page.
     <style>
       :host {
         display: block;
-        padding-top: 130px;
         padding-bottom: 0px;
+        background-color: #f2f2f2;
+      }
+
+      :host ::slotted(*:not(landing-sign-in):not(landing-sign-up)) {
+        padding-top: 130px;
+      }
+
+      :host ::content > *:not(landing-sign-in):not(landing-sign-up) {
+        padding-top: 130px;
       }
 
       :host > ::content > :not(.iron-selected) {
@@ -40,6 +48,16 @@ animations to be run when switching to or switching out of the page.
 
       :host > ::slotted(:not(.iron-selected)) {
         display: none !important;
+      }
+
+      @media (max-width: 767px) {
+        :host ::slotted(*:not(landing-sign-in):not(landing-sign-up)) {
+          padding-top: 64px;
+        }
+
+        :host ::content > *:not(landing-sign-in):not(landing-sign-up) {
+          padding-top: 64px;
+        }
       }
 
     </style>
