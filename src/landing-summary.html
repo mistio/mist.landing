@@ -65,9 +65,8 @@
 
           .col {
             display: block;
-            float:left;
-            width: 50%;
             box-sizing: border-box;
+            padding-bottom: 80px;
           }
 
           .pad {
@@ -122,56 +121,17 @@
               color: #09c !important;
           }
 
-          .image-link {
-            outline: none;
-          }
-
-          .image-link > landing-image::after {
-            display: block;
-            content: '';
-            position: absolute;
-            transition-property: opacity;
-            transition-duration: 0s;
-            transition-delay: 90ms;
-            pointer-events: none;
-            opacity: 0;
-            top: 5px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            outline: #2196F3 auto 5px;
-            outline: -moz-mac-focusring auto 5px;
-            outline: -webkit-focus-ring-color auto 5px;
-          }
-
-          .image-link:focus > landing-image::after {
-            opacity: 1;
-          }
-
-          landing-image {
-            position: relative;
-            height: 1020px;
-            overflow: hidden;
-            --landing-image-img: {
-              position: absolute;
-              top: 0;
-              bottom: 0;
-              left: -9999px;
-              right: -9999px;
-              max-width: none;
-            };
-            margin-top: 40px;
-          }
-
           .landing-summary-p {
-            height: 81px;
-          }  
+              height: 81px;
+          }
+
+          @media (max-width: 991px) {
+            .landing-summary-p {
+                height: auto;
+            }
+          }
 
           @media (max-width: 767px) {
-            landing-image {
-              height: 240px;
-            }
-
             h2 {
               margin: 24px 0;
             }
@@ -179,9 +139,9 @@
         </style>
 
         <div class="container">
-            <div class="row center">
+            <div class="grid-row center">
                 <template is="dom-repeat" items="[[summary]]" as="item">
-                    <div class="col l4 m12 s12 text-center">
+                    <div class="col xs12 s12 m4 l4 text-center">
                         <h4 class="light">
                           <iron-icon icon="[[item.icon]]"></iron-icon>  [[item.title]]
                         </h4>
