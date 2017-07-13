@@ -3,7 +3,7 @@ MAINTAINER mist.io <support@mist.io>
 
 RUN apk add --update --no-cache git nginx
 
-RUN npm install -g polymer-cli bower
+RUN npm install -g -U polymer-cli bower
 
 ENV bower_allow_root=true \
     bower_interactive= \
@@ -17,7 +17,7 @@ RUN bower install
 
 COPY . /landing
 
-RUN node --max_old_space_size=4096 /usr/local/bin/polymer build
+RUN node /usr/local/bin/polymer build
 
 COPY ./container/nginx.conf /etc/nginx/nginx.conf
 
