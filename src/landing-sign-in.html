@@ -283,7 +283,7 @@
                     window.location = event.detail.response.redirect;
                 });
                 this.$.signInForm.addEventListener('iron-form-presubmit', function(event) {
-                    that.$.signInForm.ajax.headers['Csrf-Token'] = CSRF_TOKEN;
+                    that.$.signInForm.headers['Csrf-Token'] = CSRF_TOKEN;
                 });
             },
             _submitButtonHandler:  function(event) {

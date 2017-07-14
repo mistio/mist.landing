@@ -279,7 +279,7 @@
                     that.$.signUpForm.querySelector('.output').innerHTML = event.detail.response.msg;
                 });
                 this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
-                    that.$.signUpForm.ajax.headers['Csrf-Token'] = CSRF_TOKEN;
+                    that.$.signUpForm.headers['Csrf-Token'] = CSRF_TOKEN;
                 });
             },
             _submitButtonHandler:  function(event) {
