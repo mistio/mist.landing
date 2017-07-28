@@ -748,6 +748,8 @@
         if (this.route.path.match('insights|clouds|machines|images|networks|teams|keys|templates|stacks|tunnels|zones|scripts|schedules|account|incidents')) {
           this.route.__queryParams.return_to = this.route.path;
           this.page = 'sign-in';
+          window.history.pushState({}, null, 'sign-in?return_to='+this.route.path);
+          window.dispatchEvent(new CustomEvent('location-changed'));
         } else
           this.page = 'not-found';
       },
