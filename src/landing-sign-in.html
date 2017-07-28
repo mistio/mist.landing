@@ -140,6 +140,16 @@
                 color: #888;
                 display: block;
             }
+            .error {
+                color: #d96557;
+            }
+            .success {
+                color: #69b46c;
+            }
+            .forbidden-error {
+                font-size: 0.9em;
+                margin-bottom: 24px;
+            }
         </style>
 
         <div id="placeholder"></div>
@@ -163,10 +173,22 @@
                             <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
                             <div class="output" hidden$="[[loading]]">Sign in with your email</div>
                         </paper-button>
+                        <div class="forbidden-error" hidden$="[[!showRequestWhitelist]]">
+                            <span id="forbidden"></span>
+                            <a id="forbiddenlink" href="/request-whitelist-ip" on-tap="_requestWhitelist"></a>
+                            <paper-spinner id="spinner" hidden$="[[!showRequestWhitelist]]" active="[[loadingIp]]"></paper-spinner>
+                        </div>
                         <div class="forgot"><a href="/forgot-password" id="forgotPasswordLink" on-tap="_forgotPasswordClicked"><span>Forgot password?</span></a></div>
                     </form>
                 </paper-material>
             </iron-form>
+
+             <iron-ajax id="requestWhitelist"
+                        url="/request-whitelist-ip"
+                        method="POST"
+                        loading={{loadingIp}}
+                        on-error="_handleRequestError"
+                        on-response="_handleRequestResponse"></iron-ajax>
 
             <div class="sign-up"><a href="/sign-up" on-tap="_createAccountClicked">Create account</a></div></div>
     </template>
@@ -192,6 +214,11 @@
                     value: false
                 },
 
+                loadingIp: {
+                    type: Boolean,
+                    value: false
+                },
+
                 signInGoogle: {
                     type: Boolean,
                     value: false
@@ -205,7 +232,16 @@
                 signInEmail: {
                     type: Boolean,
                     value: false
-                }
+                },
+
+                showRequestWhitelist: {
+                    type: Boolean,
+                    value: false
+                },
+            },
+
+            listeners: {
+                'iron-form-error': 'handleError'
             },
 
             attached: function() {
@@ -286,7 +322,15 @@
                     that.$.signInForm.headers['Csrf-Token'] = CSRF_TOKEN;
                 });
             },
+            handleError: function(event){
+                if (event.detail.request.xhr.statusText == 'Forbidden'){
+                    this.set('showRequestWhitelist', true);
+                    this.$.signInForm.querySelector('#forbidden').innerHTML = '<span class="error"><strong>Error</strong>:</span><br/> Trying to login from a non-whitelisted IP address. You can request '
+                    this.$.signInForm.querySelector('#forbiddenlink').innerHTML = 'whitelisting your current IP via email.';
+                }
+            },
             _submitButtonHandler:  function(event) {
+                // this.set('showRequestWhitelist', false);
                 this.loading = true;
                 this.$.signInSubmit.disabled = true;
                 this.$.signInForm.querySelector('.output').innerHTML = '';
@@ -305,6 +349,24 @@
             },
             _createAccountClicked: function(event) {
                 this.fire('user-action', 'create account click');
+            },
+            _requestWhitelist: function(event) {
+                event.preventDefault();
+
+                var userEmail = this.$['signin-email'].value;
+                this.$.requestWhitelist.headers["Content-Type"] = 'application/json';
+                this.$.requestWhitelist.headers["Csrf-Token"] = CSRF_TOKEN;
+                this.$.requestWhitelist.body = {email: userEmail};
+                this.$.requestWhitelist.generateRequest();
+                this.fire('user-action', 'request whitelist click');
+            },
+            _handleRequestResponse: function(e){
+                this.$.signInForm.querySelector('#forbidden').innerHTML = '<span class="success"><strong>Request Sent</strong></span>:<br/>Check you email to confirm whitelisting of current IP.'
+                this.$.signInForm.querySelector('#forbiddenlink').innerHTML = '';
+            },
+            _handleRequestError: function(e) {
+                this.$.signInForm.querySelector('#forbidden').innerHTML = '<span class="error"><strong>Error</strong>:</span><br/> Service unavailable'
+                this.$.signInForm.querySelector('#forbiddenlink').innerHTML = '';
             },
             _forgotPasswordClicked: function(event) {
                 this.fire('user-action', 'forgot password click');
