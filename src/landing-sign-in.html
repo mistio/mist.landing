@@ -183,7 +183,7 @@
                 </paper-material>
             </iron-form>
 
-             <iron-ajax id="requestWhitelist"
+            <iron-ajax id="requestWhitelist"
                         url="/request-whitelist-ip"
                         method="POST"
                         loading={{loadingIp}}
@@ -325,7 +325,7 @@
             handleError: function(event){
                 if (event.detail.request.xhr.statusText == 'Forbidden'){
                     this.set('showRequestWhitelist', true);
-                    this.$.signInForm.querySelector('#forbidden').innerHTML = '<span class="error"><strong>Error</strong>:</span><br/> Trying to login from a non-whitelisted IP address. You can request '
+                    this.$.signInForm.querySelector('#forbidden').innerHTML = '<span class="error"><strong>Error</strong>:</span><br/> Trying to login from a non-whitelisted IP address. You can request ';
                     this.$.signInForm.querySelector('#forbiddenlink').innerHTML = 'whitelisting your current IP via email.';
                 }
             },
