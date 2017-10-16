@@ -9,13 +9,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 <dom-module id="landing-image">
 
   <template>
 
-    <style>
+    <style include="iron-positioning">
 
       :host {
         display: block;
@@ -37,7 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </style>
 
-    <img id="img" alt$="[[alt]]" on-load="_onImgLoad" on-error="_onImgError">
+    <img id="img" alt$="[[alt]]" class="fit" on-load="_onImgLoad" on-error="_onImgError">
 
   </template>
 
