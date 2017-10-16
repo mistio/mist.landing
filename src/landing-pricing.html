@@ -44,12 +44,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         
         paper-button {
-            background-color: #0099cc !important;
             color: #fff;
+            width: 80% !important;
             font-size: 18px;
             height: 54px;
-            padding: 0 2rem !important;
-            margin: 0 40px 40px !important;
             font-weight: 500;
         }
         
@@ -80,11 +78,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         
         .plan {
+            margin-top: 50px;
             margin-bottom: 50px;
             overflow: auto;
             @apply(--shadow-elevation-4dp);
         }
-
+        .plan .icon {
+            border-radius: 50%;
+            background-color: #fff;
+            width: 48px;
+            padding: 8px;
+            height: 48px;
+        }
+        .plan.green .icon {
+            color: green;
+        }
+        .plan.purple .icon {
+            color: purple;
+        }
+        .plan.blue .icon {
+            color: #3F51B5;
+        }
+        .plan-head.cyan .icon {
+            color: cyan;   
+        }
+        .plan-head {
+            padding: 2rem 0;
+        }
         .plan, .plan > * {
             box-sizing: border-box;
             margin: 0;
@@ -95,6 +115,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             text-transform: uppercase;
             padding: 20px 0;
             font-size: 24px;
+        }
+
+        .green .plan-head, .green paper-button  {
+            background-color: green;
+            color: #fff;
+        }
+
+        .purple .plan-head, .purple paper-button  {
+            background-color: purple;
+            color: #fff;
+        }
+
+        .blue .plan-head , .blue paper-button  {
+            background-color: #3F51B5;
+            color: #fff;
         }
 
         .bg-0 {
@@ -135,7 +170,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             background-color: #f2f2f2;
         }
         
-        .plan-body-item * {
+        .plan-body-item > * {
             width: 100%;
         }
         
@@ -179,6 +214,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             clear: both;
             list-style: none;
         }
+        .bold {
+            font-weight: 500;
+        }
+        ul.feature-list {
+            display: block;
+            /*width: 75%;*/
+            margin: 1em auto;
+        }
+        ul.feature-list li {
+            margin-left: 0;
+            text-align: left;
+        }
+        ul.feature-list li iron-icon {
+            opacity: 0.54;
+            margin: 0 16px;
+            width: 1em;
+            height: 1em;
+        }
         @media screen and (max-width: 768px){
             .includes > div {
                 text-align: center;
@@ -194,16 +247,156 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="section grey">
                 <div class="hero text-center">
                     <h2>Mist.io Pricing</h2>
-                    <a aria-label="Get started" href="/sign-up" tabindex="-1">
+<!--                     <a aria-label="Get started" href="/sign-up" tabindex="-1">
                         <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started for free</paper-button>
                     </a>
-                    <div class="secondary">No credit card required</div>
+                    <div class="secondary">No credit card required</div> -->
                 </div>
             </div>
             <div class="section white">
                 <div class="contains">
                     <div class="grid-row items-center">
-                        <template is="dom-repeat" items="[[data.plans]]" as="plan">
+                        <!-- <template is="dom-repeat" items="[[data.editions]]" as="edition">
+                            <div class="xs12 s6 m6 l4 margin-bottom">
+                                <div class="plan text-center">
+                                    <div class$="[[edition.color]]">
+                                        [[edition.title]]
+                                    </div>
+                                    <iron-icon icon="[[edition.icon]]" class$="[[edition.color]]"></iron-icon>
+                                    <div class="plan-body">
+                                        <div class="plan-body-item valign-wrapper">
+                                            <div class="valign">
+                                                <h2 class="price" hidden$="[[!edition.cost]]"><sup>$</sup>[[edition.cost]]<sub>/mo.</sub></h2>
+                                                <h2 class="price" hidden$="[[edition.cost]]">Free forever</h2>
+                                            </div>
+                                        </div>
+                                        <div class="plan-body-item valign-wrapper">
+                                            <p class="valign">[[edition.description]]</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template> -->
+
+                        <!-- community -->
+                        <div class="xs12 s6 m6 l4 margin-bottom valign-top">
+                            <div class="plan text-center green">
+                                <div class="plan-head">
+                                    <iron-icon icon="social:share" class="icon"></iron-icon>
+                                    <h3>Community</h3>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <div class="valign">
+                                            <h2 class="price"><sup>$</sup>0</h2>
+                                            <h4 class="price"><sub>Free forever<sub></h4>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <p class="valign">Ideal for personal projects and small teams with a DIY approach</p>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="bold">Features:</div>
+                                        <ul class="feature-list">
+                                            <li><iron-icon icon="help"></iron-icon> Unlimited clouds, machines. </li> 
+                                            <li><iron-icon icon="help"></iron-icon> Unlimited users &amp; teams.</li>
+                                            <li><iron-icon icon="help"></iron-icon> Keys &amp; Scripting </li>
+                                            <li><iron-icon icon="help"></iron-icon> Schedule Machine Actions </li>
+                                            <li><iron-icon icon="help"></iron-icon> API access </li>
+                                            <li><iron-icon icon="help"></iron-icon> Audit Logs </li>
+                                        </ul>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold">Community Suport</div>
+                                        <div class="valign">Install on premises</div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div>
+                                            <paper-button raised on-click="_signUpClick">Clone repo</paper-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- enterprise -->
+                        <div class="xs12 s6 m6 l4 margin-bottom valign-top">
+                            <div class="plan text-center purple">
+                                <div class="plan-head">
+                                    <iron-icon icon="social:location-city" class="icon"></iron-icon>
+                                    <h3>Enterprise</h3>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <div class="valign">
+                                            <h2 class="price"><sup>$</sup>1</h2>
+                                            <h4 class="price"><sub>per managed cpu core/mo.</sub></h4>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <p class="valign">Ideal for medium and large teams with advanced needs around orchestration &amp; access control</p>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="bold">Extra Features:</div>
+                                        <ul class="feature-list">
+                                            <li><iron-icon icon="help"></iron-icon> Role based Access Control </li>
+                                            <li><iron-icon icon="help"></iron-icon> Monitoring </li>
+                                            <li><iron-icon icon="help"></iron-icon> Orchestration </li>
+                                            <li><iron-icon icon="help"></iron-icon> Cost Insights </li>
+                                            <li><iron-icon icon="help"></iron-icon> MSP / reseller accounts </li>
+                                        </ul>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold">Premium Suport</div>
+                                        <div class="valign">Install on premises</div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div>
+                                            <paper-button raised on-click="_signUpClick">Buy Licence</paper-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- saas -->
+                        <div class="xs12 s6 m6 l4 margin-bottom valign-top">
+                            <div class="plan text-center blue">
+                                <div class="plan-head">
+                                    <iron-icon icon="social:public" class="icon"></iron-icon>
+                                    <h3>Enterprise SaaS</h3>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <div class="valign">
+                                            <h2 class="price"><sub>FROM</sub><sup>$</sup>10<sub>/mo.</sub></h2>
+                                            <h4 class="price"><sub>with prepaid or pay-as-you-go plans</sub></h4>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <p class="valign">Ideal for highly dynamic infrastructures &amp; teams</p>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="bold">Extra Features:</div>
+                                        <ul class="feature-list">
+                                            <li><iron-icon icon="help"></iron-icon> Recommendation engine </li>
+                                            <li><iron-icon icon="help"></iron-icon> Anomaly detection </li>
+                                        </ul>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold">Premium Suport</div>
+                                        <div class="valign">No installation, get started right away.</div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div>
+                                            <paper-button raised on-click="_signUpClick">Get started</paper-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <template is="dom-repeat" items="[[data.plans]]" as="plan">
                             <div class="xs12 s6 m6 l3 margin-bottom">
                                 <div class="plan text-center">
                                     <div class$="[[_computeClass(index)]]">
@@ -221,7 +414,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     </div>
                                 </div>
                             </div>
-                        </template>
+                        </template> -->
+
                     </div>
                     <div class="row text-center">
                         <h2 class="decorated row">Plans Include</h2>
@@ -308,7 +502,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <landing-faq faq="[[data.faq]]"></landing-faq>
                 </div>
             </div>
-            <div class="section white">
+            <!-- <div class="section white">
                 <div class="contains text-center">
                     <div class="row margin-top">
                         <a aria-label="Get started" href="/sign-up" tabindex="-1">
@@ -317,7 +511,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <div class="secondary">No credit card required</div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </template>
     <script>
