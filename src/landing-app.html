@@ -186,7 +186,9 @@
       :host([page=forgot-password]) > app-header,
       :host([page=sign-in]) > app-header,
       :host([page=sign-up]) > app-header,
-      :host([page=request-pricing]) > app-header {
+      :host([page=request-pricing]) > app-header,
+      :host([page=buy-licence]) > app-header ,
+      :host([page=saas-plans]) > app-header  {
         z-index: -1;
       }
 
@@ -427,6 +429,10 @@
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
         sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]]></landing-sign-up>
       <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+      <landing-saas-plans name="saas-plans" route="[[subroute]]" offline="[[offline]]" id="saas-plans"></landing-saas-plans>
+      <landing-buy-licence name="buy-licence" route="[[subroute]]" offline="[[offline]]" id="buy-licence"></landing-buy-licence>
+      <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+
       <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password"></landing-forgot-password>
       <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password"></landing-set-password>
       <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>

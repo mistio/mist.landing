@@ -321,7 +321,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     </div>
                                     <div class="plan-body-item">
                                         <div>
-                                            <paper-button raised><a target="new" href="https://github.com/mistio/mist.io">Clone repo</a></paper-button>
+                                            <paper-button raised on-click="_signUpClick0"><a target="new" href="https://github.com/mistio/mist.io">Clone repo</a></paper-button>
                                         </div>
                                     </div>
                                 </div>
@@ -361,7 +361,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     </div>
                                     <div class="plan-body-item">
                                         <div>
-                                            <paper-button raised on-click="_signUpClick">Buy Licence</paper-button>
+                                            <paper-button raised on-click="_signUpClick1"><a href="/buy-licence">Buy Licence</a></paper-button>
                                         </div>
                                     </div>
                                 </div>
@@ -401,7 +401,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     </div>
                                     <div class="plan-body-item">
                                         <div>
-                                            <paper-button raised on-click="_signUpClick">Get started</paper-button>
+                                            <paper-button raised on-click="_signUpClick2"><a href="/choose-saas-plan">Get started</a></paper-button>
                                         </div>
                                     </div>
                                 </div>
@@ -547,20 +547,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 li.querySelector('p').classList.toggle("visible");
         },
 
-        _signUpClick: function(event) {
+        _signUpClick0: function(event) {
+            this.fire('user-action', 'clone repo button click in pricing page');
+        },
+
+        _signUpClick1: function(event) {
             window.scrollTo(0, 0);
             if (ANIMATIONS) {
                 // bring placeholder to fg for animation to work
-                this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+                this.parentElement.querySelector('#buy-licence').$.placeholder.style.zIndex = 1;
             }
-            this.fire('user-action', 'sign up button 1 click in pricing page');
+            this.fire('user-action', 'buy licence button click in pricing page');
         },
 
         _signUpClick2: function(event) {
             window.scrollTo(0, 0);
             if (ANIMATIONS)
-                this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-            this.fire('user-action', 'sign up button 2 click in pricing page');
+                this.parentElement.querySelector('#saas-plans').$.placeholder.style.zIndex = 1;
+            this.fire('user-action', 'saas button 2 click in pricing page');
         },
 
         _requestInfoEnterprise: function(event) {
