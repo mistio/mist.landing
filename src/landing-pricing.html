@@ -225,6 +225,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         ul.feature-list li {
             margin-left: 0;
             text-align: left;
+            cursor: pointer;
+        }
+        ul.feature-list li p {
+            height: 0;
+            opacity: 0;
+            margin: 0;
+            font-size: 0.8em;
+            padding-left: 55px;
+            transition: all 100ms ease-in;
+        }
+        ul.feature-list li p.visible {
+            height: auto;
+            margin-top: 4px;
+            margin-bottom: 16px;
+            opacity: 0.87;
+            transition: all 300ms linear;
         }
         ul.feature-list li iron-icon {
             opacity: 0.54;
@@ -298,8 +314,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     <div class="plan-body-item">
                                         <div class="bold">Features:</div>
                                         <ul class="feature-list">
-                                            <li><iron-icon icon="help"></iron-icon> Unlimited clouds, machines. </li> 
-                                            <li><iron-icon icon="help"></iron-icon> Unlimited users &amp; teams.</li>
+                                            <li on-tap="showInfo">
+                                                <iron-icon icon="help"></iron-icon> Unlimited clouds, machines.
+                                                <p>Management of unlimited clouds and machines.</p>
+                                            </li>
+                                            <li on-tap="showInfo">
+                                                <iron-icon icon="help"></iron-icon> Unlimited users &amp; teams.
+                                                <p>Invite unlimited users and organise them in teams.</p>
+                                            </li>
                                             <li><iron-icon icon="help"></iron-icon> Keys &amp; Scripting </li>
                                             <li><iron-icon icon="help"></iron-icon> Schedule Machine Actions </li>
                                             <li><iron-icon icon="help"></iron-icon> API access </li>
@@ -340,7 +362,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <div class="bold">Extra Features:</div>
                                         <ul class="feature-list">
                                             <li><iron-icon icon="help"></iron-icon> Role based Access Control </li>
-                                            <li><iron-icon icon="help"></iron-icon> Monitoring </li>
+                                            <li><iron-icon icon="help"></iron-icon> Monitoring &amp; Alerting</li>
                                             <li><iron-icon icon="help"></iron-icon> Orchestration </li>
                                             <li><iron-icon icon="help"></iron-icon> Cost Insights </li>
                                             <li><iron-icon icon="help"></iron-icon> MSP / reseller accounts </li>
@@ -381,6 +403,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <ul class="feature-list">
                                             <li><iron-icon icon="help"></iron-icon> Recommendation engine </li>
                                             <li><iron-icon icon="help"></iron-icon> Anomaly detection </li>
+                                            <li><iron-icon icon="help"></iron-icon> Hosted Solution </li>
                                         </ul>
                                     </div>
                                     <div class="plan-body-item">
@@ -572,6 +595,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     title: 'Pricing'
                 });
             }
+        },
+
+        showInfo: function(e){
+            console.log("showInfo", e, e.detail);
+            var li = e.path[0];
+            if (li && li.querySelector('p'))
+                li.querySelector('p').classList.toggle("visible");
         },
 
         _signUpClick: function(event) {
