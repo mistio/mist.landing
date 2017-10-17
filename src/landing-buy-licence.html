@@ -14,6 +14,8 @@
 <link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
 <dom-module id="landing-buy-licence">
     <template>
         <style>
@@ -195,14 +197,8 @@
             <iron-form id="signUpForm">
                 <paper-material elevation="1">
                     <form method="post" action="/request-info" enctype='application/json' id='form'>
-                        <paper-input name="name" id="name" label="Full name" required auto-validate autofocus></paper-input>
-                        <paper-input name="email" id="signUp-email" label="Email" required auto-validate autofocus type="email"></paper-input>
-                        <paper-input name="details" id="signUp-details" label="Company / Job description" auto-validate autofocus></paper-input>
-                        <paper-textarea name="comments" id="signUp-comments" label="Describe your infrustructure and the problem you want to solve" auto-validate autofocus rows="7"></paper-textarea>
-                        <paper-button raised on-tap="_submitButtonHandler" disabled id="signUpSubmit">
-                            <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
-                            <div hidden$="[[loading]]">Send request</div>
-                        </paper-button>
+
+                        <paper-button id="customButton" on-tap="handlerOpen">Purchase</paper-button>
                     </form>
                     <div class="output"></div>
                 </paper-material>
@@ -210,6 +206,23 @@
 
     </template>
     <script>
+        var handler = StripeCheckout.configure({
+          key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
+          image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+          locale: 'auto',
+          token: function(token) {
+            // You can access the token ID with `token.id`.
+            // Get the token ID to your server-side code for use.
+          }
+        });
+
+        // Close Checkout on page navigation:
+        window.addEventListener('popstate', function() {
+          handler.close();
+        });
+    </script>
+    <script>
+
         Polymer({
             is: 'landing-buy-licence',
 
@@ -303,6 +316,15 @@
                 this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
                     that.$.signUpForm.request.headers['Csrf-Token'] = CSRF_TOKEN;
                 });
+            },
+            handlerOpen: function(e){
+                handler.open({
+                    name: 'Stripe.com',
+                    description: '2 widgets',
+                    zipCode: true,
+                    amount: 2000
+                });
+                e.preventDefault();
             },
             _submitButtonHandler:  function(event) {
                 this.loading = true;
