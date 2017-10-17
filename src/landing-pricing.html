@@ -598,8 +598,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
 
         showInfo: function(e){
-            console.log("showInfo", e, e.detail);
-            var li = e.path[0];
+            var li = e.path.find(function(el,index){
+                return el.tagName.toLowerCase() == 'li';
+            });
             if (li && li.querySelector('p'))
                 li.querySelector('p').classList.toggle("visible");
         },
