@@ -219,7 +219,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         ul.feature-list {
             display: block;
-            /*width: 75%;*/
             margin: 1em auto;
         }
         ul.feature-list li {
@@ -233,6 +232,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             margin: 0;
             font-size: 0.8em;
             padding-left: 55px;
+            transform: translate3d(-100%, 0);
             transition: all 100ms ease-in;
         }
         ul.feature-list li p.visible {
@@ -240,6 +240,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             margin-top: 4px;
             margin-bottom: 16px;
             opacity: 0.87;
+            transform: translate3d(0, 0);
             transition: all 300ms linear;
         }
         ul.feature-list li iron-icon {
@@ -597,7 +598,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         },
 
-        showInfo: function(e){
+        showInfo: function(e) {
             var li = e.path.find(function(el,index){
                 return el.tagName.toLowerCase() == 'li';
             });
