@@ -38,6 +38,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         :host {
             display: block;
         }
+
+        .center {
+            margin: 0 auto;
+        }
         
         .text-center {
             text-align: center;
@@ -45,10 +49,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         
         paper-button {
             color: #fff;
-            width: 80% !important;
             font-size: 18px;
             height: 54px;
             font-weight: 500;
+        }
+        .plan paper-button {
+            width: 80% !important;
         }
         
         a {
@@ -267,36 +273,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="section grey">
                 <div class="hero text-center">
                     <h2>Mist.io Pricing</h2>
-<!--                     <a aria-label="Get started" href="/sign-up" tabindex="-1">
-                        <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started for free</paper-button>
-                    </a>
-                    <div class="secondary">No credit card required</div> -->
                 </div>
             </div>
             <div class="section white">
                 <div class="contains">
                     <div class="grid-row items-center">
-                        <!-- <template is="dom-repeat" items="[[data.editions]]" as="edition">
-                            <div class="xs12 s6 m6 l4 margin-bottom">
-                                <div class="plan text-center">
-                                    <div class$="[[edition.color]]">
-                                        [[edition.title]]
-                                    </div>
-                                    <iron-icon icon="[[edition.icon]]" class$="[[edition.color]]"></iron-icon>
-                                    <div class="plan-body">
-                                        <div class="plan-body-item valign-wrapper">
-                                            <div class="valign">
-                                                <h2 class="price" hidden$="[[!edition.cost]]"><sup>$</sup>[[edition.cost]]<sub>/mo.</sub></h2>
-                                                <h2 class="price" hidden$="[[edition.cost]]">Free forever</h2>
-                                            </div>
-                                        </div>
-                                        <div class="plan-body-item valign-wrapper">
-                                            <p class="valign">[[edition.description]]</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </template> -->
 
                         <!-- community -->
                         <div class="xs12 s6 m6 l4 margin-bottom valign-top">
@@ -354,8 +335,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                 <div class="plan-body">
                                     <div class="plan-body-item">
                                         <div class="valign">
-                                            <h2 class="price"><sup>$</sup>1</h2>
-                                            <h4 class="price"><sub>per managed cpu core/mo.</sub></h4>
+                                            <h2 class="price"><sup>$</sup>1<sub>/mo.</sub></h2>
+                                            <h4 class="price"><sub>per managed cpu core. <a href="#">Learn more.</a></sub></h4>
                                         </div>
                                     </div>
                                     <div class="plan-body-item">
@@ -397,7 +378,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                             <h2 class="price">
                                                 <!-- <sub>FROM</sub> -->
                                                 <sup>$</sup>100<sub>/mo.</sub></h2>
-                                            <h4 class="price"><sub>with prepaid or pay-as-you-go plans</sub></h4>
+                                            <h4 class="price"><sub>Prepaid or pay-as-you-go plans.</sub></h4>
                                         </div>
                                     </div>
                                     <div class="plan-body-item">
@@ -423,76 +404,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                 </div>
                             </div>
                         </div>
-
-                        <!-- <template is="dom-repeat" items="[[data.plans]]" as="plan">
-                            <div class="xs12 s6 m6 l3 margin-bottom">
-                                <div class="plan text-center">
-                                    <div class$="[[_computeClass(index)]]">
-                                        [[plan.title]]
-                                    </div>
-                                    <div class="plan-body">
-                                        <div class="plan-body-item valign-wrapper">
-                                            <div class="valign">
-                                                <h2 class="price"><sup>$</sup>[[plan.cost]]<sub>/mo.</sub></h2>
-                                            </div>
-                                        </div>
-                                        <div class="plan-body-item valign-wrapper">
-                                            <p class="valign">[[plan.description]]</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </template> -->
-
                     </div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="contains">
                     <div class="row text-center">
-                        <h2 class="decorated row">Plans Include</h2>
+                        <h2 class="decorated">Need more information?</h2>
                     </div>
-                    <div class="grid-row includes">
-                        <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
-                            <ul>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Cost Projection</li>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Inventory Dashboard</li>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> RBAC</li>
-                            </ul>
-                        </div>
-                        <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
-                            <ul>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Monitoring - limited</li>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Alerting</li>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Scheduling</li>
-                            </ul>
-                        </div>
-                        <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
-                            <ul>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Keys</li>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Orchestration</li>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Scripting</li>
-                            </ul>
-                        </div>
-                        <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
-                            <ul>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Audit Logs</li>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> Machine Actions</li>
-                                <li>
-                                    <iron-icon icon="done"></iron-icon> API access</li>
-                            </ul>
+                    <div class="grid-row">
+                        <div class="center xs8 s8 m8 l8">
+                            <p class="text-center">
+                                If you still need more information on Mist.io features, pricing or intergration, send us a quick message and we'll get back to you.
+                            </p>
+                            <p class="text-center">
+                                <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
+                                    <paper-button raised on-click="_requestInfoEnterprise" id="enterpriseBtn">Request Info</paper-button>
+                                </a>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="section dark">
+            <!-- <div class="section dark">
                 <div class="contains">
                     <div class="row text-center">
                         <h2 class="decorated">Enterprise Plan</h2>
@@ -521,15 +455,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="section grey">
+            </div> -->
+            <!-- <div class="section grey">
                 <div class="contains">
                     <div class="row text-center">
                         <h2 class="decorated row">Pricing FAQ</h2>
                     </div>
                     <landing-faq faq="[[data.faq]]"></landing-faq>
                 </div>
-            </div>
+            </div> -->
             <!-- <div class="section white">
                 <div class="contains text-center">
                     <div class="row margin-top">
