@@ -1,0 +1,516 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../bower_components/typed-text/typed-text.html">
+<link rel="import" href="../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="landing-get-started">
+    <template>
+        <custom-style>
+            <style is="custom-style" include="iron-flex"></style>
+        </custom-style>
+        <style include="shared-styles"></style>
+        <style>
+        paper-material {
+            @apply(--shadow-elevation-2dp);
+        }
+        
+        .hero {
+            padding: 48px 0;
+        }
+        
+        :host {
+            display: block;
+        }
+
+        .center {
+            margin: 0 auto;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        paper-button {
+            background-color: #0099cc;
+            color: #fff;
+            font-size: 18px;
+            height: 54px;
+            font-weight: 500;
+        }
+        paper-button a {
+            color: #fff !important;
+        }
+        .plan paper-button {
+            width: 80% !important;
+            margin-bottom: 24px;
+        }
+        
+        a {
+            text-decoration: none;
+        }
+        
+        .col {
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .pad {
+            padding: 16px;
+        }
+        
+        @media only screen and (max-width: 943px) {
+            typed-text {
+                display: block;
+            }
+        }
+
+        .contains > .grid-row {
+            align-items: flex-start;
+        }
+        
+        #placeholder {
+            opacity: 0;
+            background-color: grey;
+            @apply(--layout-fit);
+            z-index: -1;
+        }
+        
+        .plan {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            overflow: auto;
+            @apply(--shadow-elevation-4dp);
+        }
+        .plan .icon {
+            border-radius: 50%;
+            background-color: #fff;
+            width: 48px;
+            padding: 8px;
+            height: 48px;
+        }
+        .plan-head {
+            padding: 2rem 0;
+            border-bottom: 4px solid;
+        }
+
+        .green .plan-head  {
+            border-color: green;
+        }
+
+        .purple .plan-head {
+            border-color: purple;
+        }
+
+        .blue .plan-head {
+            border-color: #3F51B5;
+        }
+        .plan, .plan > * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        .title {
+            color: #fff;
+            text-transform: uppercase;
+            padding: 20px 0;
+            font-size: 24px;
+        }
+        
+        .plan-body-item {
+            padding: 20px 10px;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            .plan-body-item {
+                min-height: 50px;
+            }
+        }
+        
+        .plan-body-item + .plan-body-item {
+            border-top: 1px solid #d4d4d4;
+        }
+        
+        .plan-body-item:last-child {
+            border-bottom: 1px solid #d4d4d4;
+        }
+        
+        .plan-body-item.highlight {
+            background-color: #f2f2f2;
+        }
+
+        .plan-body-item:first-child{
+            min-height: 115px;
+        }
+        
+        .plan-body-item > * {
+            width: 100%;
+        }
+        
+        .valign {
+            display: block;
+        }
+        
+        .price {
+            font-weight: 700;
+            line-height: 1;
+            padding: 0;
+            margin: 8px;
+        }
+        
+        .price sub,
+        .price sup {
+            font-size: 18px;
+            font-weight: 300;
+            vertical-align: middle;
+        }
+        
+        .price sup {
+            font-size: 24px;
+            padding: 0 5px;
+        }
+        
+        paper-button#enterpriseBtn {
+            background-color: #4caf50;
+            /*green*/
+            display: block-inline;
+            line-height: 54px;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+        ul li {
+            margin-left: 15px;
+            clear: both;
+            list-style: none;
+        }
+        .bold {
+            font-weight: 500;
+        }
+        ul.feature-list {
+            display: block;
+            margin: 1em auto;
+        }
+        ul.feature-list li {
+            margin-left: 0;
+            text-align: left;
+            cursor: pointer;
+        }
+        ul.feature-list li p {
+            height: 0;
+            opacity: 0;
+            margin: 0;
+            font-size: 0.8em;
+            padding-left: 55px;
+            transform: translate3d(-100%, 0);
+            transition: all 100ms ease-in;
+        }
+        ul.feature-list li p.visible {
+            height: auto;
+            margin-top: 4px;
+            margin-bottom: 16px;
+            opacity: 0.87;
+            transform: translate3d(0, 0);
+            transition: all 300ms linear;
+        }
+        ul.feature-list li iron-icon {
+            opacity: 0.54;
+            margin: 0 16px;
+            width: 1em;
+            height: 1em;
+        }
+        @media screen and (max-width: 768px){
+            .includes > div {
+                text-align: center;
+            }
+            .includes ul, .includes li {
+                margin: 0;
+                padding: 0;
+            }
+        }
+        h4.pricetext {
+            line-height: 2.36em;
+        }
+        </style>
+        <div id="placeholder"></div>
+        <div id="container">
+            <div class="section grey">
+                <div class="hero text-center">
+                    <h2 class="decorated">Mist.io Editions</h2>
+                </div>
+            </div>
+            <div class="section white">
+                <div class="contains">
+                    <div class="grid-row items-center">
+
+                        <!-- community -->
+                        <div class="xs12 s6 m6 l4 margin-bottom valign-top">
+                            <div class="plan green text-center">
+                                <div class="plan-head">
+                                    <h4>Community Edition<br/><sub>CE</sub></h4>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <p class="valign">Ideal for personal projects and small teams with a DIY approach</p>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign">
+                                            <h4 class="pricetext">Free forever</h4>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div>
+                                            <p>Install on premises</p>
+                                            <a aria-label="Clone github repo" target="new" href="https://github.com/mistio/mist.io" tabindex="-1">
+                                                <paper-button raised on-click="_signUpClick0">Download</paper-button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="bold">Features:</div>
+                                        <ul class="feature-list">
+                                            <li on-tap="showInfo">
+                                                <iron-icon icon="help"></iron-icon> Unlimited clouds, machines.
+                                                <p>Management of unlimited clouds and machines.</p>
+                                            </li>
+                                            <li on-tap="showInfo">
+                                                <iron-icon icon="help"></iron-icon> Unlimited users &amp; teams.
+                                                <p>Invite unlimited users and organise them in teams.</p>
+                                            </li>
+                                            <li><iron-icon icon="help"></iron-icon> Keys &amp; Scripting </li>
+                                            <li><iron-icon icon="help"></iron-icon> Schedule Machine Actions </li>
+                                            <li><iron-icon icon="help"></iron-icon> API access </li>
+                                            <li><iron-icon icon="help"></iron-icon> Audit Logs </li>
+                                        </ul>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold">Community Suport</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- enterprise -->
+                        <div class="xs12 s6 m6 l4 margin-bottom valign-top">
+                            <div class="plan purple text-center">
+                                <div class="plan-head">
+                                    <h4>Enterprise Edition<br/><sub>EE</sub></h4>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <p class="valign">Ideal for medium and large teams with advanced needs around orchestration &amp; access control</p>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign">
+                                            <h2 class="price"><sup>$</sup>1<sub>/mo.</sub></h2>
+                                            <h4 class="price"><sub>per managed cpu core.</sub></h4>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div>
+                                            <p>Install on premises</p>
+                                            <a aria-label="Buy Licence" href="/buy-licence" tabindex="-1">
+                                                <paper-button raised on-click="_signUpClick1">Buy Licence</paper-button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="bold">All features from CE plus:</div>
+                                        <ul class="feature-list">
+                                            <li><iron-icon icon="help"></iron-icon> Role based Access Control </li>
+                                            <li><iron-icon icon="help"></iron-icon> Monitoring &amp; Alerting</li>
+                                            <li><iron-icon icon="help"></iron-icon> Orchestration </li>
+                                            <li><iron-icon icon="help"></iron-icon> Cost Insights </li>
+                                            <li><iron-icon icon="help"></iron-icon> MSP / reseller accounts </li>
+                                        </ul>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold">Premium Suport</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- saas -->
+                        <div class="xs12 s6 m6 l4 margin-bottom valign-top">
+                            <div class="plan blue text-center">
+                                <div class="plan-head">
+                                    <h4>Enterprise SaaS<br/><sub>ES</sub></h4>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <p class="valign">Ideal for highly dynamic infrastructures &amp; teams.</p>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign">
+                                            <div class="valign">
+                                                <h4>With Free tier,</h4>
+                                                <h4 class="price"><sub><a href="/pricing">prepaid</a> or <a href="/pricing">pay-as-you-go</a> plans.</sub></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div>
+                                            <p>No installation, we host it for you.</p>
+                                            <a aria-label="Sign up" href="/sign-up" tabindex="-1">
+                                                <paper-button raised on-click="_signUpClick2">Sign up</paper-button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="bold">Features:</div>
+                                        <ul class="feature-list">
+                                            <li on-tap="showInfo">
+                                                <iron-icon icon="help"></iron-icon> Unlimited clouds, machines.
+                                                <p>Management of unlimited clouds and machines.</p>
+                                            </li>
+                                            <li on-tap="showInfo">
+                                                <iron-icon icon="help"></iron-icon> Unlimited users &amp; teams.
+                                                <p>Invite unlimited users and organise them in teams.</p>
+                                            </li>
+                                            <li><iron-icon icon="help"></iron-icon> Keys &amp; Scripting </li>
+                                            <li><iron-icon icon="help"></iron-icon> Schedule Machine Actions </li>
+                                            <li><iron-icon icon="help"></iron-icon> API access </li>
+                                            <li><iron-icon icon="help"></iron-icon> Audit Logs </li>
+                                            <li><iron-icon icon="help"></iron-icon> VPN </li>
+                                            <li><iron-icon icon="help"></iron-icon> Role based Access Control </li>
+                                            <li><iron-icon icon="help"></iron-icon> Monitoring &amp; Alerting</li>
+                                            <li><iron-icon icon="help"></iron-icon> Orchestration </li>
+                                            <li><iron-icon icon="help"></iron-icon> Cost Insights </li>
+                                            <li><iron-icon icon="help"></iron-icon> MSP / reseller accounts </li>
+                                            <li><iron-icon icon="help"></iron-icon> Recommendation engine </li>
+                                            <li><iron-icon icon="help"></iron-icon> Anomaly detection </li>
+                                            <li><iron-icon icon="help"></iron-icon> Hosted Solution </li>
+                                        </ul>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold">Premium Suport</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </template>
+    <script>
+    Polymer({
+
+        is: 'landing-get-started',
+
+        behaviors: [
+            Polymer.NeonSharedElementAnimatableBehavior
+        ],
+
+        properties: {
+            animationConfig: {
+                type: Object
+            },
+
+            categories: {
+                type: Array
+            },
+
+            data: {
+                type: Object,
+                notify: true
+            },
+
+            visible: {
+                type: Boolean,
+                observer: '_visibleChanged'
+            }
+
+        },
+
+        attached: function() {
+            this.animationConfig = {
+                'entry': [],
+                'exit': [{
+                    name: 'fade-out-animation',
+                    node: this.$.container,
+                    timing: {
+                        delay: 150,
+                        duration: 0
+                    }
+                }, {
+                    name: 'ripple-animation',
+                    id: 'ripple',
+                    fromPage: this,
+                    node: this.$.signUpBtn1
+                }]
+            };
+            this.sharedElements = {
+                'ripple': this.$.signUpBtn1
+            };
+        },
+
+        _visibleChanged: function(visible) {
+            if (visible) {
+                this.fire('change-section', {
+                    title: 'Pricing'
+                });
+            }
+        },
+
+        showInfo: function(e) {
+            var li = e.path.find(function(el,index){
+                return el.tagName.toLowerCase() == 'li';
+            });
+            if (li && li.querySelector('p'))
+                li.querySelector('p').classList.toggle("visible");
+        },
+
+        _signUpClick0: function(event) {
+            this.fire('user-action', 'clone repo button click in pricing page');
+        },
+
+        _signUpClick1: function(event) {
+            window.scrollTo(0, 0);
+            if (ANIMATIONS) {
+                // bring placeholder to fg for animation to work
+                this.parentElement.querySelector('#buy-licence').$.placeholder.style.zIndex = 1;
+            }
+            this.fire('user-action', 'buy licence button click in pricing page');
+        },
+
+        _signUpClick2: function(event) {
+            window.scrollTo(0, 0);
+            if (ANIMATIONS)
+                this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+            this.fire('user-action', 'saas button 2 click in pricing page');
+        },
+
+        _requestInfoEnterprise: function(event) {
+            window.scrollTo(0, 0);
+            if (ANIMATIONS)
+                this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+            this.fire('user-action', 'request info for enterprise plan in pricing page');
+        },
+        _computeClass: function(index) {
+            return "bg-" + index + " title";
+        }
+    });
+    </script>
+</dom-module>

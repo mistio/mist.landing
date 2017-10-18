@@ -140,7 +140,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <dom-if if="[[!data]]">
         <template>
           <div class="section grey">
-              <a aria-label="Sign up" href="/sign-up" tabindex="-1">
+              <a aria-label="Sign up" href="/get-started" tabindex="-1">
                 <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
               </a>
           </div>
@@ -151,7 +151,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template>
           <div class="section fold grey">
             <landing-fold contents="[[data.fold]]">
-              <a aria-label="[[data.fold.cta]]" href="/sign-up" tabindex="-1">
+              <a aria-label="[[data.fold.cta]]" href="/get-started" tabindex="-1">
                 <paper-button raised on-click="_signUpClick" id="signUpBtn1">[[data.fold.cta]]</paper-button>
               </a>
             </landing-fold>
@@ -237,10 +237,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </div> 
               <landing-editions editions="[[data.editions]]"></landing-editions>
               <div class="row">
-                <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                <a aria-label="Get started" href="/get-started" tabindex="-1">
                   <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
                 </a>
-                <div class="secondary">No credit card required</div>
               </div>
             </div>
           </div>
@@ -325,15 +324,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _signUpClick: function(event) {
         window.scrollTo(0, 0);
         // bring placeholder to fg for animation to work
-        if (ANIMATIONS)
-          this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        // if (ANIMATIONS)
+        //   this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 1 click in home');
       },
 
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
-        if (ANIMATIONS)
-          this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        // if (ANIMATIONS)
+        //   this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 2 click in home');
       }
     });

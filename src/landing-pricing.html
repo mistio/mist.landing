@@ -194,14 +194,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="section grey">
                 <div class="hero text-center">
                     <h2>Mist.io Pricing</h2>
+                    <p>You can sign up with free tier and upgrade your plan on the go.</p>
                     <a aria-label="Get started" href="/sign-up" tabindex="-1">
-                        <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started for free</paper-button>
+                        <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up for free</paper-button>
                     </a>
-                    <div class="secondary">No credit card required</div>
                 </div>
             </div>
             <div class="section white">
                 <div class="contains">
+                    <div class="row text-center">
+                        <h2 class="decorated row">Enterprise SaaS  - Prepaid Plans</h2>
+                    </div>
                     <div class="grid-row items-center">
                         <template is="dom-repeat" items="[[data.plans]]" as="plan">
                             <div class="xs12 s6 m6 l3 margin-bottom">
@@ -224,7 +227,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </template>
                     </div>
                     <div class="row text-center">
-                        <h2 class="decorated row">Plans Include</h2>
+                        <h2 class="decorated row">All Plans Include</h2>
                     </div>
                     <div class="grid-row includes">
                         <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
@@ -266,6 +269,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                 <li>
                                     <iron-icon icon="done"></iron-icon> API access</li>
                             </ul>
+                        </div>
+                    </div>
+
+                    <div class="row text-center">
+                        <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                            <paper-button raised on-click="_signUpClick" id="signUpBtn2">Sign up for free</paper-button>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="section grey">
+                <div class="contains">
+                    <div class="row text-center">
+                        <h2 class="decorated">Need On Premise?</h2>
+                    </div>
+                    <div class="grid-row">
+                        <div class="xs12 s12 m12 l12 text-center">
+                            <p>If you are looking for an on premises solution, checkout the Community (CE) and Enterprise (EE) Mist.io editions.</p>
+                            <a aria-label="Mist.io editions" href="/get-started" tabindex="-1">
+                                <paper-button raised>Mist.io editions</paper-button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -314,7 +339,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <a aria-label="Get started" href="/sign-up" tabindex="-1">
                             <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
                         </a>
-                        <div class="secondary">No credit card required</div>
                     </div>
                 </div>
             </div>
