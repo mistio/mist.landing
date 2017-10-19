@@ -256,11 +256,11 @@
                             </span>
                         </paper-checkbox>
 
-                        <div class="total-cost text-center" hidden$="[[!cost]]">
+                        <!-- <div class="total-cost text-center" hidden$="[[!cost]]">
                             <strong><span class="cost">COST</span>: $[[cost]]</strong>/per <span hidden$="[[annualy]]">month</span> <span hidden$="[[!annualy]]">year</span>
-                        </div>
+                        </div> -->
 
-                        <paper-button id="signUpSubmit" on-tap="_handlerOpen">Purchase</paper-button>
+                        <paper-button id="signUpSubmit" on-tap="_handlerOpen">Purchase for $[[cost]] <span hidden$="[[annualy]]">for 1 month</span> <span hidden$="[[!annualy]]">for 1 year</span></paper-button>
                     </form>
                     <div class="output"></div>
                 </paper-material>
@@ -414,9 +414,14 @@
                 // });
             },
             updatedCost: function(cost){
+                var period;
+                if (this.annualy)
+                    period = "for 1 month";
+                else 
+                    period = "for 1 year";
                 this.set('stripePayload', {
                     name: 'Mist.io',
-                    description: 'Licence for '+this.cores+' cores',
+                    description: 'Licence for '+this.cores+' cores '+period,
                     zipCode: true,
                     amount: this.cost * 100
                 })
@@ -424,7 +429,7 @@
             _computeCost: function(cores, annualy){
                 console.log('_computeCost', cores, annualy);
                 if (cores && annualy)
-                    return (cores * this.annualCost).toFixed(2);
+                    return (cores * 12 * this.annualCost).toFixed(2);
                 else if (cores && !annualy)
                     return (cores * this.monthlyCost).toFixed(2);
             },
