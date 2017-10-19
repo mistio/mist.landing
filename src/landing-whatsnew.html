@@ -30,6 +30,15 @@
         :host h6 {
           font-size: 1rem;
         }
+
+        paper-material {
+            @apply(--shadow-elevation-2dp);
+            display: block;
+        }
+
+        paper-material img {
+            display: block;
+        }
         
         paper-button {
           background-color: #0099cc;
@@ -152,7 +161,9 @@
                         </div>
                     </div>
                     <div class="xs12 s4 m6 l6 image-block">
-                        <img class="with-shadow" src="[[data.image]]"/>
+                        <paper-material class="icon-block center">
+                            <img class="with-shadow" src="[[data.image]]"/>
+                        </paper-material>
                     </div>
                 </div>
             </div>

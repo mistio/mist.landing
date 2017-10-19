@@ -14,34 +14,17 @@
 
         paper-material {
             @apply(--shadow-elevation-2dp);
+            width: 80%;
+            display: block;
+            margin: 0 auto;
           }
 
-          .section > .hero {
-            padding-bottom: 0 !important;
+          paper-material img {
+            display: block;
           }
 
           :host {
             display: block;
-          }
-
-          .item {
-            display: block;
-            text-decoration: none;
-          }
-
-          .text-center {
-            text-align: center;
-          }
-
-          .item:nth-of-type(3),
-          .item:nth-of-type(4) {
-            display: inline-block;
-            width: 50%;
-          } 
-
-          .item:nth-of-type(3) > h2,
-          .item:nth-of-type(4) > h2 {
-            font-size: 1.1em;
           }
 
           paper-button {
@@ -58,67 +41,15 @@
             text-decoration: none;
           }
 
-          typed-text {
-            display: inline-block;
-            font-weight: 500;
-          }
-
           .col {
             display: block;
             box-sizing: border-box;
             padding-bottom: 80px;
           }
 
-          .pad {
-            padding: 16px;
-          }
-
           img.with-shadow {
             max-width: 100%;
             display: block;
-          }
-
-          @media only screen and (max-width: 943px) {
-            typed-text {
-              display: block;
-            }
-          }
-
-          #placeholder {
-              opacity: 0;
-              background-color: grey;
-              @apply(--layout-fit);
-              z-index: -1;
-          }
-
-          .image-block {
-            padding: 60px; 
-          }
-
-          /* very small mobile screens */
-          @media only screen and (max-width: 600px) {
-              h2.typed {
-                  font-size: 2.56rem !important;
-              }
-          }
-          h5 {
-            line-height: 140%;
-            font-weight: 300 !important;
-            font-size: 1.64rem;
-            margin: .82rem 0 .656rem;
-          }
-
-          .faqitem {
-              margin: 0 auto;
-              position: relative;
-          }
-          .markdown-html a {
-              text-decoration: none !important;
-              color: #09c !important;
-          }
-          .markdown-html a {
-              text-decoration: none !important;
-              color: #09c !important;
           }
 
           .landing-summary-p {
@@ -146,9 +77,9 @@
                           <iron-icon icon="[[item.icon]]"></iron-icon>  [[item.title]]
                         </h4>
                         <p class="light landing-summary-p">[[item.description]]</p>
-                        <div class="icon-block center">
+                        <paper-material class="icon-block center">
                             <img src="[[item.image]]" alt="welcome screen" class="materialboxed card wow fadeIn responsive-img"/>
-                        </div>
+                        </paper-material>
                     </div>
                 </template>
             </div>
