@@ -30,6 +30,7 @@
 
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
+<link rel="import" href="landing-buy-licence.html">
 <link rel="import" href="landing-sign-in.html">
 <link rel="import" href="landing-sign-up.html">
 <link rel="import" href="landing-forgot-password.html">
@@ -607,7 +608,6 @@
       },
 
       _routePageChanged: function(page) {
-        console.log('pageChanged', this.page, page);
         // HACK(keanulee): Need to check if `page` actually changed due to polymer#3935.
         if (this.page === 'list' && this.page !== page) {
           this._listScrollTop = window.pageYOffset;
@@ -620,7 +620,6 @@
       },
 
       _pageChanged: function(page, oldPage) {
-        console.log('_pageChanged', page, oldPage);
         if (page != null) {
           // home route is eagerly loaded
           if (page == 'home') {
