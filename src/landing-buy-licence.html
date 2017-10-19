@@ -4,6 +4,7 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
@@ -13,6 +14,8 @@
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+
+<link rel="import" href="shared-styles.html">
 
 <script src="https://checkout.stripe.com/checkout.js"></script>
 
@@ -168,6 +171,16 @@
                 color: #888;
                 display: block;
             }
+            .total-cost {
+                border-top: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                background-color: #eee;
+                padding: 8px;
+                text-align: center;
+            }
+            .cost {
+                font-size: 0.9em;
+            }
             #container {
                 padding-bottom: 120px;
             }
@@ -181,6 +194,40 @@
                     display: block;
                 }   
             }
+            paper-input#cores {
+                width: 200px;
+            }
+
+            paper-input#dockerhubid {
+                width: 50%;
+            }
+
+            paper-checkbox {
+              display: block;
+              align-self: center;
+              --paper-checkbox-checked-color: #0099cc;
+              --paper-checkbox-checked-ink-color: #0099cc;
+              /*--paper-checkbox-unchecked-color: var(--paper-green-900);
+              --paper-checkbox-unchecked-ink-color: var(--paper-green-900);
+              --paper-checkbox-label-color: var(--paper-green-500);*/
+              --paper-checkbox-label-spacing: 0;
+              --paper-checkbox-margin: 8px 16px 8px 0;
+              --paper-checkbox-vertical-align: top;
+            }
+
+            paper-checkbox .subtitle {
+              display: block;
+              font-size: 0.8em;
+              margin-top: 2px;
+              max-width: 150px;
+              opacity: 0.54;
+            }
+
+            .field {
+                padding-right: 24px;
+                display: inline-block;
+                margin-bottom: 24px;
+            }
         </style>
 
         <div id="placeholder"></div>
@@ -189,16 +236,31 @@
             <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-click="_logoClicked" id="logoButton"></paper-icon-button></a></div>
 
             <div class="head">
-                <!-- <div class="back">
+                <div class="back">
                     <a href="/pricing"><iron-icon icon="icons:arrow-back"></iron-icon></a>
-                </div> -->
+                </div>
                 <h1>Purchase Licence</h1>
             </div>
-            <iron-form id="signUpForm">
+            <iron-form id="buyLicence">
                 <paper-material elevation="1">
+                    <p>The licence costs $1/per core per month if payed annually and $1.2/per core if payed per month.</p>
                     <form method="post" action="/request-info" enctype='application/json' id='form'>
+                        <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field" required auto-validate always-float-label pattern="^[+]?\d+([.]\d+)?$" error-message="Number of cores is wrong"></paper-input>
 
-                        <paper-button id="customButton" on-tap="handlerOpen">Purchase</paper-button>
+                        <paper-input name="dockerhubid" id="dockerhubid" label="Dockerhub ID" class="field" required auto-validate autofocus always-float-label></paper-input>
+
+                        <paper-checkbox name="annualy" id="annualy" class="field" autofocus checked="{{annualy}}">
+                            Pay Annually
+                            <span class="subtitle">
+                                $1/per core per month
+                            </span>
+                        </paper-checkbox>
+
+                        <div class="total-cost text-center" hidden$="[[!cost]]">
+                            <strong><span class="cost">COST</span>: $[[cost]]</strong>/per <span hidden$="[[annualy]]">month</span> <span hidden$="[[!annualy]]">year</span>
+                        </div>
+
+                        <paper-button id="signUpSubmit" on-tap="_handlerOpen">Purchase</paper-button>
                     </form>
                     <div class="output"></div>
                 </paper-material>
@@ -242,8 +304,42 @@
                 loading: {
                     type: Boolean,
                     value: false
+                },
+                stripePayload: {
+                    type: Object,
+                    value: function(){
+                        return
+                    }
+                },
+
+                cores: {
+                    type: Number,
+                    value: 10
+                },
+
+                cost: {
+                    type: Number,
+                    computed: '_computeCost(cores, annualy)'
+                },
+
+                annualy: {
+                    type: Boolean,
+                    value: true
+                },
+
+                annualCost: {
+                    type: Number,
+                    value: 1
+                },
+                monthlyCost: {
+                    type: Number,
+                    value: 1.2
                 }
             },
+
+            observers: [
+                'updatedCost(cost)'
+            ],
 
             attached: function() {
                 if (this.route.__queryParams.invitoken){
@@ -290,40 +386,50 @@
                 var that = this,
                     validate = function(event) {
                     // Validate the entire form to see if we should enable the `Submit` button.
-                    var ret = that.$.signUpForm.validate();
+                    var ret = that.$.buyLicence.validate();
                     that.$.signUpSubmit.disabled = !ret;
                     return ret;
                 }
-                this.$.signUpForm.addEventListener('keyup', function(event) {
-                    var submitDisabled = that.$.signUpSubmit.disabled;
-                    that.$.signUpForm.querySelector('paper-button > div').innerHTML = "Send request";
-                    if (validate(event) && !submitDisabled && event.key == "Enter")
-                        that._submitButtonHandler();
-                });
-                this.$.signUpForm.addEventListener('change', validate);
+                // this.$.buyLicence.addEventListener('keyup', function(event) {
+                //     var submitDisabled = that.$.signUpSubmit.disabled;
+                //     that.$.buyLicence.querySelector('paper-button > div').innerHTML = "Send request";
+                //     if (validate(event) && !submitDisabled && event.key == "Enter")
+                //         that._submitButtonHandler();
+                // });
+                // this.$.buyLicence.addEventListener('change', validate);
 
-                this.$.signUpForm.addEventListener('iron-form-error', function(event) {
-                    console.warn("GOT ERROR!", event.detail);
-                    that.loading = false;
-                    that.$.signUpForm.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
-                });
-                this.$.signUpForm.addEventListener('iron-form-response', function(event) {
-                    console.warn("REQUEST SUCCESS!", event);
-                    that.loading = false;
-                    that.$.signUpForm.querySelector('form').hidden = true;
-                    that.$.signUpForm.querySelector('.output').innerHTML = "Thank you for contacting us! We will get back to you as soon as possible. <br/> <a href='/pricing'>Back to pricing page</a>";
-                });
-                this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
-                    that.$.signUpForm.request.headers['Csrf-Token'] = CSRF_TOKEN;
-                });
+                // this.$.buyLicence.addEventListener('iron-form-error', function(event) {
+                //     console.warn("GOT ERROR!", event.detail);
+                //     that.loading = false;
+                //     that.$.buyLicence.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
+                // });
+                // this.$.buyLicence.addEventListener('iron-form-response', function(event) {
+                //     console.warn("REQUEST SUCCESS!", event);
+                //     that.loading = false;
+                //     that.$.buyLicence.querySelector('form').hidden = true;
+                //     that.$.buyLicence.querySelector('.output').innerHTML = "Thank you for contacting us! We will get back to you as soon as possible. <br/> <a href='/pricing'>Back to pricing page</a>";
+                // });
+                // this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
+                //     that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
+                // });
             },
-            handlerOpen: function(e){
-                handler.open({
-                    name: 'Stripe.com',
-                    description: '2 widgets',
+            updatedCost: function(cost){
+                this.set('stripePayload', {
+                    name: 'Mist.io',
+                    description: 'Licence for '+this.cores+' cores',
                     zipCode: true,
-                    amount: 2000
-                });
+                    amount: this.cost * 100
+                })
+            },
+            _computeCost: function(cores, annualy){
+                console.log('_computeCost', cores, annualy);
+                if (cores && annualy)
+                    return (cores * this.annualCost).toFixed(2);
+                else if (cores && !annualy)
+                    return (cores * this.monthlyCost).toFixed(2);
+            },
+            _handlerOpen: function(e){
+                handler.open(this.stripePayload);
                 e.preventDefault();
             },
             _submitButtonHandler:  function(event) {
