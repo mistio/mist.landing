@@ -4,7 +4,8 @@
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../bower_components/iron-form/iron-form.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
@@ -202,25 +203,31 @@
                 width: 50%;
             }
 
-            paper-checkbox {
+            paper-radio-button {
               display: block;
-              align-self: center;
-              --paper-checkbox-checked-color: #0099cc;
-              --paper-checkbox-checked-ink-color: #0099cc;
+              --paper-radio-button-checked-color: #0099cc;
+              --paper-radio-button-checked-ink-color: #0099cc;
               /*--paper-checkbox-unchecked-color: var(--paper-green-900);
               --paper-checkbox-unchecked-ink-color: var(--paper-green-900);
               --paper-checkbox-label-color: var(--paper-green-500);*/
-              --paper-checkbox-label-spacing: 0;
-              --paper-checkbox-margin: 8px 16px 8px 0;
-              --paper-checkbox-vertical-align: top;
+              --paper-radio-button-label-spacing: 0;
+              /*--paper-radio-button-margin: 8px 16px 8px 0;*/
+              --paper-radio-button-vertical-align: top;
+              --paper-radio-button-radio-container: {
+                    margin-right: 16px !important;
+              }
             }
 
-            paper-checkbox .subtitle {
+            paper-radio-button .subtitle {
               display: block;
               font-size: 0.8em;
               margin-top: 2px;
               max-width: 150px;
               opacity: 0.54;
+            }
+
+            paper-radio-button {
+                vertical-align: text-top;
             }
 
             .field {
@@ -243,24 +250,31 @@
             </div>
             <iron-form id="buyLicence">
                 <paper-material elevation="1">
-                    <p>The licence costs $1/per core per month if payed annually and $1.2/per core if payed per month.</p>
                     <form method="post" action="/request-info" enctype='application/json' id='form'>
                         <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field" required auto-validate always-float-label pattern="^[+]?\d+([.]\d+)?$" error-message="Number of cores is wrong"></paper-input>
 
                         <paper-input name="dockerhubid" id="dockerhubid" label="Dockerhub ID" class="field" required auto-validate autofocus always-float-label></paper-input>
 
-                        <paper-checkbox name="annualy" id="annualy" class="field" autofocus checked="{{annualy}}">
-                            Pay Annually
-                            <span class="subtitle">
-                                $1/per core per month
-                            </span>
-                        </paper-checkbox>
+                        <paper-radio-group>
+                            <paper-radio-button checked="{{annualy}}" class="field">
+                                Pay Annually
+                                <span class="subtitle">
+                                    $1/per core per month
+                                </span>
+                            </paper-radio-button>
+                            <paper-radio-button checked="{{!annualy}}" class="field">
+                                Pay Monthly
+                                <span class="subtitle">
+                                    $1.2/per core per month
+                                </span>
+                            </paper-radio-button>
+                        </paper-radio-group>
 
                         <!-- <div class="total-cost text-center" hidden$="[[!cost]]">
                             <strong><span class="cost">COST</span>: $[[cost]]</strong>/per <span hidden$="[[annualy]]">month</span> <span hidden$="[[!annualy]]">year</span>
                         </div> -->
 
-                        <paper-button id="signUpSubmit" on-tap="_handlerOpen">Purchase for $[[cost]] <span hidden$="[[annualy]]">for 1 month</span> <span hidden$="[[!annualy]]">for 1 year</span></paper-button>
+                        <paper-button id="signUpSubmit" on-tap="_handlerOpen">Purchase for $[[cost]] <span hidden$="[[annualy]]">/month</span> <span hidden$="[[!annualy]]">/year</span></paper-button>
                     </form>
                     <div class="output"></div>
                 </paper-material>
