@@ -11,6 +11,11 @@
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/gold-cc-input/gold-cc-input.html">
+<link rel="import" href="../bower_components/gold-cc-cvc-input/gold-cc-cvc-input.html">
+<link rel="import" href="../bower_components/gold-cc-expiration-input/gold-cc-expiration-input.html">
+<link rel="import" href="../bower_components/gold-zip-input/gold-zip-input.html">
+<link rel="import" href="../bower_components/gold-phone-input/gold-phone-input.html">
 
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
@@ -214,7 +219,8 @@
               /*--paper-radio-button-margin: 8px 16px 8px 0;*/
               --paper-radio-button-vertical-align: top;
               --paper-radio-button-radio-container: {
-                    margin-right: 16px !important;
+                    margin-right: 24px;
+                    float: left;
               }
             }
 
@@ -251,9 +257,30 @@
             <iron-form id="buyLicence">
                 <paper-material elevation="1">
                     <form method="post" action="/request-info" enctype='application/json' id='form'>
-                        <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field" required auto-validate always-float-label pattern="/^\d+$/" error-message="Number of cores is wrong"></paper-input>
 
+                        <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field" required auto-validate always-float-label pattern="/^\d+$/" error-message="Number of cores is wrong"></paper-input>
                         <paper-input name="dockerhubid" id="dockerhubid" label="Dockerhub ID" class="field" required auto-validate autofocus always-float-label></paper-input>
+
+                        <h4>Contact Information</h4>
+
+                        <paper-input name="name" label="Name" required auto-validate autocomplete="cc-name" always-float-label></paper-input>
+                        <paper-input name="address" label="Address" required auto-validate autocomplete="street-address" always-float-label></paper-input>
+                        <paper-input label="Email" type="email" always-float-label type="email" value="{{email}}"></paper-input>
+                        <paper-input label="Phone number" pattern="/^\d+$/" always-float-label type="email" value="{{phone}}"></paper-input>
+
+                        <h4>Payment</h4>
+
+                        <gold-cc-input name="cc" required auto-validate
+                          value=""
+                          label="Credid Card number"
+                          card-type="{{cardType}}">
+                        </gold-cc-input>
+
+                        <div class="horizontal layout wrap">
+                            <gold-cc-expiration-input name="cc-expiration" value="11/15" required auto-validate></gold-cc-expiration-input>
+                            <gold-cc-cvc-input name="cc-cvc" required auto-validate card-type="[[cardType]]"></gold-cc-cvc-input>
+                            <gold-zip-input name="zip" required auto-validate></gold-zip-input>
+                        </div>
 
                         <paper-radio-group>
                             <paper-radio-button checked="{{annualy}}" class="field">
