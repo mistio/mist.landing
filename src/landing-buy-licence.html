@@ -251,7 +251,7 @@
             <iron-form id="buyLicence">
                 <paper-material elevation="1">
                     <form method="post" action="/request-info" enctype='application/json' id='form'>
-                        <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field" required auto-validate always-float-label pattern="^[+]?\d+([.]\d+)?$" error-message="Number of cores is wrong"></paper-input>
+                        <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field" required auto-validate always-float-label pattern="/^\d+$/" error-message="Number of cores is wrong"></paper-input>
 
                         <paper-input name="dockerhubid" id="dockerhubid" label="Dockerhub ID" class="field" required auto-validate autofocus always-float-label></paper-input>
 
@@ -442,10 +442,12 @@
             },
             _computeCost: function(cores, annualy){
                 console.log('_computeCost', cores, annualy);
-                if (cores && annualy)
+                if (cores > 0 && annualy)
                     return (cores * 12 * this.annualCost).toFixed(2);
-                else if (cores && !annualy)
+                else if (cores > 0 && !annualy)
                     return (cores * this.monthlyCost).toFixed(2);
+                else
+                    return 0;
             },
             _handlerOpen: function(e){
                 handler.open(this.stripePayload);
