@@ -442,12 +442,16 @@
             },
             _computeCost: function(cores, annualy){
                 console.log('_computeCost', cores, annualy);
-                if (cores > 0 && annualy)
+                if (cores > 0 && annualy) {
                     return (cores * 12 * this.annualCost).toFixed(2);
-                else if (cores > 0 && !annualy)
+                }
+                else if (cores > 0 && !annualy) {
                     return (cores * this.monthlyCost).toFixed(2);
-                else
+                }
+                else {
+                    this.set("cores", 0);
                     return 0;
+                }
             },
             _handlerOpen: function(e){
                 handler.open(this.stripePayload);
