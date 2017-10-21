@@ -14,7 +14,6 @@
 <link rel="import" href="../bower_components/iron-icons/communication-icons.html">
 <link rel="import" href="../bower_components/gold-cc-input/gold-cc-input.html">
 <link rel="import" href="../bower_components/gold-cc-cvc-input/gold-cc-cvc-input.html">
-<link rel="import" href="../bower_components/gold-cc-expiration-input/gold-cc-expiration-input.html">
 <link rel="import" href="../bower_components/gold-zip-input/gold-zip-input.html">
 <link rel="import" href="../bower_components/gold-phone-input/gold-phone-input.html">
 
@@ -24,7 +23,8 @@
 
 <link rel="import" href="shared-styles.html">
 
-<script src="https://checkout.stripe.com/checkout.js"></script>
+<!-- <script src="https://checkout.stripe.com/checkout.js"></script> -->
+<script src="https://js.stripe.com/v3/"></script>
 
 <dom-module id="landing-buy-licence">
     <template>
@@ -251,7 +251,7 @@
 
             <div class="head">
                 <div class="back">
-                    <a href="/pricing"><iron-icon icon="icons:arrow-back"></iron-icon></a>
+                    <a href="/get-started"><iron-icon icon="icons:arrow-back"></iron-icon></a>
                 </div>
                 <h1>Purchase Licence</h1>
             </div>
@@ -259,17 +259,17 @@
                 <paper-material elevation="1">
                     <form method="post" action="/request-info" enctype='application/json' id='form'>
 
-                        <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field" required auto-validate always-float-label pattern="/^\d+$/" error-message="Number of cores is wrong"></paper-input>
-                        <paper-input name="dockerhubid" id="dockerhubid" label="Dockerhub ID" class="field" required auto-validate autofocus always-float-label></paper-input>
+                        <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of cores is wrong"></paper-input>
+                        <paper-input name="dockerhubid" id="dockerhubid" label="Dockerhub ID" class="field" allowed-pattern="[a-zA-Z0-9]+" required auto-validate autofocus always-float-label></paper-input>
 
                         <h4>Contact Information</h4>
 
-                        <paper-input name="name" label="Name" pattern="[a-zA-Z]*" required auto-validate autocomplete="cc-name" always-float-label></paper-input>
+                        <paper-input name="name" label="Name" pattern="[a-zA-Z0-9/.]*" required auto-validate autocomplete="cc-name" always-float-label error-message="Alphanumerics allowed only."></paper-input>
                         <paper-input name="address" label="Address" required auto-validate autocomplete="street-address" always-float-label></paper-input>
                         <paper-input label="Email" always-float-label type="email" value="{{email}}" auto-validate>
                             <iron-icon icon="mail" slot="prefix"></iron-icon>
                         </paper-input>
-                        <paper-input label="Phone number" always-float-label type="email" value="{{phone}}" auto-validate>
+                        <paper-input label="Phone number" pattern="[0-9 /+/(/)]+" always-float-label value="{{phone}}" auto-validate>
                             <iron-icon icon="communication:phone" slot="prefix"></iron-icon>
                         </paper-input>
 
@@ -339,7 +339,8 @@
             ],
 
             listeners: {
-                'neon-animation-finish': '_cleanupAnimation'
+                'neon-animation-finish': '_cleanupAnimation',
+                blur: 'formCheck'
             },
 
             properties: {
@@ -354,7 +355,7 @@
                 stripePayload: {
                     type: Object,
                     value: function(){
-                        return
+                        return {}
                     }
                 },
 
@@ -463,20 +464,23 @@
                 //     that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
                 // });
             },
+            formCheck: function(e) {
+                var form_ready = this.$.buyLicence.validate();
+                console.log('formCheck',form_ready);
+                this.set('formReady', form_ready);
+            },
             updatedCost: function(cost){
-                var period;
-                if (this.annualy)
-                    period = "for 1 month";
-                else 
-                    period = "for 1 year";
-                this.set('stripePayload', {
-                    name: 'Mist.io',
-                    description: 'Licence for '+this.cores+' cores '+period,
-                    zipCode: true,
-                    amount: this.cost * 100
-                });
-                console.log('cost', cost, cost>0);
-                this.set("formReady", cost>0)
+                // var period;
+                // if (this.annualy)
+                //     period = "for 1 month";
+                // else 
+                //     period = "for 1 year";
+                // this.set('stripePayload', {
+                //     name: 'Mist.io',
+                //     description: 'Licence for '+this.cores+' cores '+period,
+                //     zipCode: true,
+                //     amount: this.cost * 100
+                // });
             },
             _computeCost: function(cores, annualy){
                 console.log('_computeCost', cores, annualy);
