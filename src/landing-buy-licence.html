@@ -452,20 +452,6 @@
                     };
                 }
 
-                var that = this,
-                    validate = function(event) {
-                    // Validate the entire form to see if we should enable the `Submit` button.
-                    var ret = that.formReady;
-                    if (that.formReady)
-                        ret = that.$.buyLicence.validate();
-                    return ret;
-                }
-                this.$.buyLicence.addEventListener('keyup', function(event) {
-                    if (validate(event) && event.key == "Enter")
-                        that._submitButtonHandler();
-                });
-                this.$.buyLicence.addEventListener('change', validate);
-
                 this.$.buyLicence.addEventListener('iron-form-error', function(event) {
                     console.warn("GOT ERROR!", event.detail);
                     that.loading = false;
@@ -483,6 +469,9 @@
             },
 
             submit: function() {
+                var stripe = Stripe(STRIPE_PUBLIC_APIKEY);
+                var elements = stripe.elements();
+
                 if (this.formReady) {
                     //extra stripe validation
                     var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
@@ -526,8 +515,6 @@
             },
 
             _computeFormReady: function(cores, dockerhubid, contact, stripePayload) {
-                console.log('contact', contact);
-                console.log('payload', stripePayload);
                 // if cores or dockerhubid empty not ready
                 if (this.cores<=0 || !this.dockerhubid || !this.dockerhubid.trim().length){
                     return false;
@@ -546,7 +533,6 @@
                     }
                 }
                 // if any of the fields is invalid, form is not ready
-                console.log(this.$.buyLicence.querySelectorAll(".form-input"))
                 var fields = this.$.buyLicence.querySelectorAll(".form-input");
                 for (var i=0;i<fields.length;i++){
                     console.log(fields[i].name, fields[i].invalid)
@@ -556,10 +542,9 @@
                 }
                 // else form is ready
                 console.log('form ready');
-                return true;
+                return this.$.buyLicence.validate();
             },
             _computeCost: function(cores, annualy){
-                console.log('_computeCost', cores, annualy);
                 if (cores > 0 && annualy) {
                     return (cores * 12 * this.annualCost).toFixed(2);
                 }
