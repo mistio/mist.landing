@@ -484,16 +484,15 @@
             },
 
             submit: function() {
-                this.formCheck();
                 if (this.formReady) {
                     //extra stripe validation
-                    var isValid = Stripe.card.validateCardNumber(this.payload.number) &&
-                        Stripe.card.validateExpiry(this.payload.exp_month, this.payload.exp_year) &&
-                        Stripe.card.validateCVC(this.payload.cvc) && this.payload.address_zip != '';
+                    var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
+                        Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
+                        Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip != '';
 
                     if (isValid){
                         Stripe.setPublishableKey(STRIPE_PUBLIC_APIKEY);
-                        Stripe.card.createToken(this.payload, stripeResponseHandler);
+                        Stripe.card.createToken(this.stripePayload, stripeResponseHandler);
                         this.set('sendingData', true);
                         var that = this;
                         function stripeResponseHandler(status, response){
@@ -508,16 +507,16 @@
                     }
                     else {
                         var errorText = 'There seems to be an error in';
-                        if (!Stripe.card.validateCardNumber(this.payload.number))
+                        if (!Stripe.card.validateCardNumber(this.stripePayload.number))
                             errorText += ' card number';
 
-                        if (!Stripe.card.validateExpiry(this.payload.exp_month, this.payload.exp_year))
+                        if (!Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year))
                             errorText += ' expiration';
 
-                        if (!Stripe.card.validateCVC(this.payload.cvc))
+                        if (!Stripe.card.validateCVC(this.stripePayload.cvc))
                             errorText += ' cvc';
 
-                        if (this.payload.address_zip == '')
+                        if (this.stripePayload.address_zip == '')
                             errorText += ' zip code';
 
                         errorText += '.';
@@ -573,6 +572,13 @@
                     return 0;
                 }
             },
+
+            showError: function(error){
+                this.set('sendingData', false);
+                this.set('formError', true);
+                this.$.errormsg.textContent = error;
+            },
+
             _handlerOpen: function(e){
                 handler.open(this.stripePayload);
                 e.preventDefault();
