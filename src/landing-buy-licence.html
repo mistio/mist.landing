@@ -22,8 +22,7 @@
 
 <link rel="import" href="shared-styles.html">
 
-<!-- <script src="https://checkout.stripe.com/checkout.js"></script> -->
-<script src="https://js.stripe.com/v3/"></script>
+<script src="https://js.stripe.com/v2/"></script>
 
 <dom-module id="landing-buy-licence">
     <template>
@@ -275,7 +274,7 @@
             </div>
             <iron-form id="buyLicence">
                 <paper-material elevation="1">
-                    <form method="post" action="/request-info" enctype='application/json' id='form'>
+                    <form method="post" action="/purchase-licence" enctype='application/json' id='form'>
 
                         <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of cores is wrong"></paper-input>
                         <paper-input name="dockerhubid" id="dockerhubid" value="{{dockerhubid}}" label="Dockerhub ID" class="field form-input" allowed-pattern="[a-zA-Z0-9]+" required auto-validate autofocus always-float-label></paper-input>
@@ -300,13 +299,13 @@
                         </gold-cc-input>
 
                         <div class="horizontal layout wrap">
-                            <paper-input name="month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Month is wrong." auto-validate></paper-input>
+                            <paper-input id="exp_month" name="month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Month is wrong." auto-validate></paper-input>
                             <span class="exp">/</span>
-                            <paper-input name="year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Use 2 digits format." auto-validate></paper-input>
+                            <paper-input id="exp_year" name="year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Use 2 digits format." auto-validate></paper-input>
 
                             <gold-cc-cvc-input name="cc-cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
 
-                            <paper-input name="address_zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
+                            <paper-input id="address_zip" name="address_zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
                         </div>
 
                         <paper-radio-group>
@@ -354,6 +353,7 @@
                     type: Boolean,
                     value: false
                 },
+
                 contact: {
                     type: Object,
                     value: function(){
@@ -365,6 +365,7 @@
                         }
                     }
                 },
+
                 stripePayload: {
                     type: Object,
                     value: function(){
@@ -399,10 +400,12 @@
                     type: Number,
                     value: 1
                 },
+
                 monthlyCost: {
                     type: Number,
                     value: 1.2
                 },
+
                 formReady: {
                     type: Boolean,
                     computed: '_computeFormReady(cores, dockerhubid, contact.*, stripePayload.*)',
@@ -411,13 +414,6 @@
             },
 
             attached: function() {
-                if (this.route.__queryParams.invitoken){
-                    var element = document.createElement('input');
-                    element.type = 'hidden';
-                    element.name = 'invitoken';
-                    element.value = this.route.__queryParams.invitoken;
-                    this.$.form.appendChild(element);
-                }
                 if (ANIMATIONS){
                     this.animationConfig = {
                         'entry': [{
@@ -452,28 +448,25 @@
                     };
                 }
 
-                this.$.buyLicence.addEventListener('iron-form-error', function(event) {
-                    console.warn("GOT ERROR!", event.detail);
-                    that.loading = false;
-                    that.$.buyLicence.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
-                });
-                this.$.buyLicence.addEventListener('iron-form-response', function(event) {
-                    console.warn("REQUEST SUCCESS!", event);
-                    that.loading = false;
-                    that.$.buyLicence.querySelector('form').hidden = true;
-                    that.$.buyLicence.querySelector('.output').innerHTML = "Thank you! We will be now sent the licence key. <br/> <a href='/get-started'>Back to Editions page</a>";
-                });
+                // this.$.buyLicence.addEventListener('iron-form-error', function(event) {
+                //     console.warn("GOT ERROR!", event.detail);
+                //     that.loading = false;
+                //     that.$.buyLicence.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
+                // });
+                // this.$.buyLicence.addEventListener('iron-form-response', function(event) {
+                //     console.warn("REQUEST SUCCESS!", event);
+                //     that.loading = false;
+                //     that.$.buyLicence.querySelector('form').hidden = true;
+                //     that.$.buyLicence.querySelector('.output').innerHTML = "Thank you! You will be now sent the licence key. <br/> <a href='/get-started'>Back to Editions page</a>";
+                // });
                 this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
                     that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
                 });
             },
 
-            submit: function() {
-                var stripe = Stripe(STRIPE_PUBLIC_APIKEY);
-                var elements = stripe.elements();
-
+            submit: function(e) {
                 if (this.formReady) {
-                    //extra stripe validation
+                    // extra stripe validation
                     var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
                         Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
                         Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip != '';
@@ -514,9 +507,22 @@
                 }
             },
 
+            sumbmitPayment: function(status, response){
+                var mistPayload = {
+                    token: response.id,
+                };
+                this.$.buyLicence.headers["Csrf-Token"] = CSRF_TOKEN;
+                this.$.buyLicence.params = mistPayload;
+                this.$.buyLicence.submit();
+            },
+
             _computeFormReady: function(cores, dockerhubid, contact, stripePayload) {
+                // move input focus for month/year if length == 2
+                if (stripePayload.path.startsWith("stripePayload."))
+                    this.moveFocus(stripePayload)
+
                 // if cores or dockerhubid empty not ready
-                if (this.cores<=0 || !this.dockerhubid || !this.dockerhubid.trim().length){
+                if (this.cores <= 0 || !this.dockerhubid || !this.dockerhubid.trim().length){
                     return false;
                 }
                 // if any of contact or payload is empty, form not ready
@@ -544,6 +550,7 @@
                 console.log('form ready');
                 return this.$.buyLicence.validate();
             },
+
             _computeCost: function(cores, annualy){
                 if (cores > 0 && annualy) {
                     return (cores * 12 * this.annualCost).toFixed(2);
@@ -557,27 +564,37 @@
                 }
             },
 
-            showError: function(error){
-                this.set('sendingData', false);
-                this.set('formError', true);
-                this.$.errormsg.textContent = error;
+            moveFocus: function(stripePayload){
+                // if exp_mont has 2 digits move to year
+                if (stripePayload.path == "stripePayload.exp_month" && stripePayload.value.length == 2){
+                    console.log("stripePayload", stripePayload.path, stripePayload.value.length, this.$.form.querySelector("paper-input[name=exp_year]"));
+                    this.$.form.querySelector("paper-input#exp_year").focus()
+                }
+                // if exp_year has 2 digits move to cvc
+                if (stripePayload.path == "stripePayload.exp_year" && stripePayload.value.length == 2){
+                    console.log("stripePayload", stripePayload.path, stripePayload.value.length, this.$.form.querySelector("gold-cc-cvc-input"));
+                    this.$.form.querySelector("gold-cc-cvc-input").focus()
+                }
+                // if exp_year has 2 digits move to cvc
+                if (stripePayload.path == "stripePayload.cvc" && stripePayload.value.length == 3){
+                    console.log("stripePayload", stripePayload.path, stripePayload.value.length, this.$.form.querySelector("gold-cc-cvc-input"));
+                    this.$.form.querySelector("paper-input#address_zip").focus()
+                }
             },
 
-            _handlerOpen: function(e){
-                handler.open(this.stripePayload);
-                e.preventDefault();
+            showError: function(result){
+                this.set('sendingData', false);
+                this.set('formError', true);
+                console.log(result)
+                this.$.errormsg.textContent = result.error.message;
             },
-            _submitButtonHandler:  function(event) {
-                this.loading = true;
-                this.$.submitButton.disabled = true;
-                this.$.buyLicence.querySelector('.output').innerHTML = '';
-                this.$.buyLicence.submit();
-            },
+
             _logoClicked: function(event) {
                 this.fire('user-action', 'logo click');
             },
+
             _signInClicked: function(event) {
-                this.fire('user-action', 'request-pricing click')
+                this.fire('user-action', 'purchase-licence click')
             }
         });
     </script>
