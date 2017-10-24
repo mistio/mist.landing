@@ -91,9 +91,11 @@
             }
 
             div.output {
-                text-align: center;
+                color: var(--red-color);
                 white-space: pre-wrap;
                 margin-top: 16px;
+                margin-bottom: 16px;
+                color: var(--error-color);
             }
 
             div.forgot {
@@ -259,6 +261,11 @@
                 display: inline-block;
                 margin-bottom: 24px;
             }
+
+            iron-icon[slot="prefix"] {
+                margin-right: 16px;
+            }
+
         </style>
 
         <div id="placeholder"></div>
@@ -276,34 +283,34 @@
                 <paper-material elevation="1">
                     <form method="post" action="/purchase-licence" enctype='application/json' id='form'>
 
-                        <paper-input name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of cores is wrong"></paper-input>
+                        <paper-input id="cores" name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of cores is wrong"></paper-input>
                         <paper-input name="dockerhubid" id="dockerhubid" value="{{dockerhubid}}" label="Dockerhub ID" class="field form-input" allowed-pattern="[a-zA-Z0-9]+" required auto-validate autofocus always-float-label></paper-input>
 
                         <h4>Contact Information</h4>
 
-                        <paper-input name="name" label="Name" value="{{contact.name}}" pattern="[a-zA-Z0-9/.]*" required auto-validate autocomplete="cc-name" always-float-label error-message="Alphanumerics allowed only." class="form-input"></paper-input>
-                        <paper-input name="address" label="Address" value="{{contact.address}}" required auto-validate autocomplete="street-address" class="form-input" always-float-label></paper-input>
-                        <paper-input name="email" label="Email" always-float-label type="email" value="{{contact.email}}" class="form-input" auto-validate>
+                        <paper-input id="name" name="name" label="Name" value="{{contact.name}}" pattern="[a-zA-Z0-9\. ]*" required auto-validate autocomplete="cc-name" always-float-label error-message="Alphanumerics allowed only." class="form-input"></paper-input>
+                        <paper-input id="address" name="address" label="Address" value="{{contact.address}}" required auto-validate autocomplete="street-address" class="form-input" always-float-label></paper-input>
+                        <paper-input id="address" name="email" label="Email" always-float-label type="email" value="{{contact.email}}" class="form-input" auto-validate>
                             <iron-icon icon="mail" slot="prefix"></iron-icon>
                         </paper-input>
-                        <paper-input name="phone" label="Phone number" pattern="[0-9 \+\(\)]+" always-float-label class="form-input" value="{{contact.phone}}" auto-validate>
+                        <paper-input id="address" name="phone" label="Phone number" pattern="[0-9 \+\(\)]+" always-float-label class="form-input" value="{{contact.phone}}" auto-validate>
                             <iron-icon icon="communication:phone" slot="prefix"></iron-icon>
                         </paper-input>
 
                         <h4>Payment</h4>
 
-                        <gold-cc-input name="cc" required auto-validate class="form-input"
+                        <gold-cc-input id="cc" name="cc" required auto-validate class="form-input"
                           value="{{stripePayload.number}}"
                           label="Credid Card number"
                           card-type="{{cardType}}">
                         </gold-cc-input>
 
                         <div class="horizontal layout wrap">
-                            <paper-input id="exp_month" name="month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Month is wrong." auto-validate></paper-input>
+                            <paper-input id="exp_month" name="month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Wrong month." auto-validate></paper-input>
                             <span class="exp">/</span>
-                            <paper-input id="exp_year" name="year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Use 2 digits format." auto-validate></paper-input>
+                            <paper-input id="exp_year" name="year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Error in expiration" auto-validate></paper-input>
 
-                            <gold-cc-cvc-input name="cc-cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
+                            <gold-cc-cvc-input id="cc-cvc" name="cc-cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
 
                             <paper-input id="address_zip" name="address_zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
                         </div>
@@ -323,10 +330,11 @@
                             </paper-radio-button>
                         </paper-radio-group>
 
+                        <div id="output" class="output"></div>
+
                         <paper-button id="submitButton" on-tap="submit" disabled="[[!formReady]]">Purchase for $[[cost]] <span hidden$="[[annualy]]">/month</span> <span hidden$="[[!annualy]]">/year</span></paper-button>
 
                     </form>
-                    <div class="output"></div>
                 </paper-material>
             </iron-form>
 
@@ -488,17 +496,20 @@
                     }
                     else {
                         var errorText = 'There seems to be an error in';
-                        if (!Stripe.card.validateCardNumber(this.stripePayload.number))
+                        if (!Stripe.card.validateCardNumber(this.stripePayload.number)){
                             errorText += ' card number';
+                            this.$["cc-cvc"].invalid = true;
+                        }
 
-                        if (!Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year))
+                        if (!Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year)){
                             errorText += ' expiration';
+                            this.$["exp_year"].invalid = true;
+                        }
 
-                        if (!Stripe.card.validateCVC(this.stripePayload.cvc))
+                        if (!Stripe.card.validateCVC(this.stripePayload.cvc)){
                             errorText += ' cvc';
-
-                        if (this.stripePayload.address_zip == '')
-                            errorText += ' zip code';
+                            this.$["cc-cvc"].invalid = true;
+                        }
 
                         errorText += '.';
 
@@ -586,7 +597,12 @@
                 this.set('sendingData', false);
                 this.set('formError', true);
                 console.log(result)
-                this.$.errormsg.textContent = result.error.message;
+                if (result.error)
+                    this.$.output.textContent = result.error.message;
+                else if (!result)
+                    this.$.output.textContent = "";
+                else
+                    this.$.output.textContent = result;
             },
 
             _logoClicked: function(event) {
