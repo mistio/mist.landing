@@ -502,7 +502,65 @@
           type: Array,
           value: function() {
             if (typeof(CATEGORIES) == 'undefined')
-              return [{'href': '/', 'name': 'home', 'template': 'home', 'title': 'Home'}]
+              return [{
+                          'href': '/', 'name': 'home', 'template': 'home', 'title': 'Home'
+                      },
+                      {
+                          'href': '/product',
+                          'name': 'product',
+                          'template': 'product',
+                          'title': 'Product'
+                      },
+                      {
+                          'href': '/pricing',
+                          'name': 'pricing',
+                          'template': 'pricing',
+                          'title': 'Pricing'
+                      },
+                      {
+                          'href': 'http://docs.mist.io', 'name': 'docs', 'title': 'Docs'
+                      },
+                      {
+                          'href': 'http://blog.mist.io', 'name': 'blog', 'title': 'Blog'
+                      },
+                      {
+                          'href': '/about', 'name': 'about', 'template': 'about', 'title': 'About'
+                      },
+                      {
+                          'hiddenFromMenu': 1,
+                          'href': '/pledge',
+                          'name': 'pledge',
+                          'template': 'page',
+                          'title': 'Pledge'
+                      },
+                      {
+                          'hiddenFromMenu': 1,
+                          'href': '/tos',
+                          'name': 'tos',
+                          'template': 'page',
+                          'title': 'Terms of Service'
+                      },
+                      {
+                          'hiddenFromMenu': 1,
+                          'href': '/privacy-policy',
+                          'name': 'privacy-policy',
+                          'template': 'page',
+                          'title': 'Privacy Policy'
+                      },
+                      {
+                          'hiddenFromMenu': 1,
+                          'href': '/orchestration',
+                          'name': 'orchestration',
+                          'template': 'orchestration',
+                          'title': 'Orchestration'
+                      },
+                      {
+                          'hiddenFromMenu': 1,
+                          'href': '/rbac',
+                          'name': 'rbac',
+                          'template': 'rbac',
+                          'title': 'Role Based Access Control'
+                      }]
             else
               return CATEGORIES;
           }
