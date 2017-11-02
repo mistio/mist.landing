@@ -362,21 +362,17 @@
 
         <!-- Lazy-create the tabs for larger screen sizes. -->
         <div id="tabContainer" sticky$="[[_shouldShowTabs]]" hidden$="[[!_shouldShowTabs]]">
-          <dom-if if="[[_shouldRenderTabs]]" restamp>
-            <template>
+          <template is="dom-if" if="[[_shouldRenderTabs]]" restamp>
               <landing-tabs
                   selected="{{page}}"
                   attr-for-selected="name">
-                <dom-repeat items="[[categories]]" as="category" initial-count="4">
-                  <template>
+                <template is="dom-repeat" items="[[categories]]" as="category" initial-count="4">
                     <landing-tab name="[[category.name]]" on-click="_tabClicked" hidden$="[[category.hiddenFromMenu]]">
                       <a name="[[category.name]]" href="[[category.href]]" target="new">[[category.title]]</a>
                     </landing-tab>
-                  </template>
-                </dom-repeat>
+                </template>
               </landing-tabs>
-            </template>
-          </dom-if>
+          </template>
         </div>
 
         <div class$="signin-btn-container [[_shouldShowTabs]]">
