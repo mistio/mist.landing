@@ -482,18 +482,19 @@
                     this.moveFocus(stripePayload)
 
                 // if cores or dockerhubid empty not ready
-                if (this.cores <= 0 || !this.dockerhubid || !this.dockerhubid.trim().length){
+                // TODO when dockerhubid used, add: || !this.dockerhubid || !this.dockerhubid.trim().length
+                if (this.cores <= 0){
                     return false;
                 }
                 // if any of contact or payload is empty, form not ready
                 for (var prop in this.contact){
-                    if (this.contact.hasOwnProperty(prop) && this.contact[prop] == "" || this.contact[prop] == undefined){
+                    if (this.contact.hasOwnProperty(prop) && (this.contact[prop] == "" || this.contact[prop] == undefined)){
                         console.log(prop, "empty 1");
                         return false;
                     }
                 }
                 for (var prop in this.stripePayload){
-                    if (this.stripePayload.hasOwnProperty(prop) && this.stripePayload[prop] == "" || this.stripePayload[prop] == undefined){
+                    if (this.stripePayload.hasOwnProperty(prop) && (this.stripePayload[prop] == "" || this.stripePayload[prop] == undefined)){
                         console.log(prop, "empty 2");
                         return false;
                     }
@@ -527,17 +528,14 @@
             moveFocus: function(stripePayload){
                 // if exp_mont has 2 digits move to year
                 if (stripePayload.path == "stripePayload.exp_month" && stripePayload.value.length == 2){
-                    console.log("stripePayload", stripePayload.path, stripePayload.value.length, this.$.form.querySelector("paper-input[name=exp_year]"));
                     this.$.form.querySelector("paper-input#exp_year").focus()
                 }
                 // if exp_year has 2 digits move to cvc
                 if (stripePayload.path == "stripePayload.exp_year" && stripePayload.value.length == 2){
-                    console.log("stripePayload", stripePayload.path, stripePayload.value.length, this.$.form.querySelector("gold-cc-cvc-input"));
                     this.$.form.querySelector("gold-cc-cvc-input").focus()
                 }
                 // if exp_year has 2 digits move to cvc
                 if (stripePayload.path == "stripePayload.cvc" && stripePayload.value.length == 3){
-                    console.log("stripePayload", stripePayload.path, stripePayload.value.length, this.$.form.querySelector("gold-cc-cvc-input"));
                     this.$.form.querySelector("paper-input#address_zip").focus()
                 }
             },
