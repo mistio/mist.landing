@@ -138,10 +138,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <dom-if if="[[!data]]">
         <template>
-          <div class="section grey">
+          <div class="section fold grey">
+            <landing-fold>
               <a aria-label="Sign up" href="/sign-up" tabindex="-1">
-                <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
+                <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get Started</paper-button>
               </a>
+            </landing-fold>
           </div>
         </template>
       </dom-if>

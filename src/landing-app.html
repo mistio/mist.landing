@@ -307,6 +307,7 @@
         font-weight: 400;
         margin-top: 12px;
         line-height: 36px;
+        white-space: nowrap;
       }
 
       a {
@@ -329,6 +330,12 @@
         }
 
         .logo {
+          display: none;
+        }
+      }
+
+      @media (min-width: 766px) and (max-width: 876px) {
+        landing-tab:first-child {
           display: none;
         }
       }
