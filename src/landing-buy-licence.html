@@ -17,7 +17,6 @@
 <link rel="import" href="../bower_components/gold-phone-input/gold-phone-input.html">
 
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="shared-styles.html">
@@ -277,31 +276,27 @@
                 <div class="back">
                     <a href="/get-started"><iron-icon icon="icons:arrow-back"></iron-icon></a>
                 </div>
-                <h1>Purchase Licence</h1>
+                <h1>Purchase Enterprise Edition Licence</h1>
             </div>
             <iron-form id="buyLicence">
                 <paper-material elevation="1">
                     <form method="post" action="/purchase-licence" enctype='application/json' id='form'>
-
-                        <paper-input id="cores" name="cores" id="cores" label="Number of cores" type="number" value={{cores}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of cores is wrong"></paper-input>
-                        <paper-input name="dockerhubid" id="dockerhubid" value="{{dockerhubid}}" label="Dockerhub ID" class="field form-input" allowed-pattern="[a-zA-Z0-9]+" required auto-validate autofocus always-float-label></paper-input>
-
                         <h4>Contact Information</h4>
 
                         <paper-input id="name" name="name" label="Name" value="{{contact.name}}" pattern="[a-zA-Z0-9\. ]*" required auto-validate autocomplete="cc-name" always-float-label error-message="Alphanumerics allowed only." class="form-input"></paper-input>
                         <paper-input id="address" name="address" label="Address" value="{{contact.address}}" required auto-validate autocomplete="street-address" class="form-input" always-float-label></paper-input>
-                        <paper-input id="address" name="email" label="Email" always-float-label type="email" value="{{contact.email}}" class="form-input" auto-validate>
+                        <paper-input id="email" name="email" label="Email" always-float-label type="email" value="{{contact.email}}" class="form-input" auto-validate>
                             <iron-icon icon="mail" slot="prefix"></iron-icon>
                         </paper-input>
-                        <paper-input id="address" name="phone" label="Phone number" pattern="[0-9 \+\(\)]+" always-float-label class="form-input" value="{{contact.phone}}" auto-validate>
+                        <!--paper-input id="address" name="phone" label="Phone number" pattern="[0-9 \+\(\)]+" always-float-label class="form-input" value="{{contact.phone}}" auto-validate>
                             <iron-icon icon="communication:phone" slot="prefix"></iron-icon>
-                        </paper-input>
+                        </paper-input-->
 
-                        <h4>Payment</h4>
+                        <h4>Payment information</h4>
 
                         <gold-cc-input id="cc" name="cc" required auto-validate class="form-input"
                           value="{{stripePayload.number}}"
-                          label="Credid Card number"
+                          label="Credit Card number"
                           card-type="{{cardType}}">
                         </gold-cc-input>
 
@@ -314,6 +309,8 @@
 
                             <paper-input id="address_zip" name="address_zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
                         </div>
+                        <h4>Order details</h4>
+                        <paper-input id="cores" name="cores" id="cores" label="Number of vcpus" type="number" value={{cores}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of cores is wrong"></paper-input>
 
                         <paper-radio-group>
                             <paper-radio-button checked="{{annualy}}" class="field">
@@ -344,18 +341,7 @@
         Polymer({
             is: 'landing-buy-licence',
 
-            behaviors: [
-                Polymer.NeonSharedElementAnimatableBehavior
-            ],
-
-            listeners: {
-                'neon-animation-finish': '_cleanupAnimation'
-            },
-
             properties: {
-                animationConfig: Object,
-
-                sharedElements: Object,
 
                 loading: {
                     type: Boolean,
@@ -368,8 +354,7 @@
                         return {
                             name: undefined,
                             address: undefined,
-                            email: "",
-                            phone: ""
+                            email: ""
                         }
                     }
                 },
@@ -422,40 +407,6 @@
             },
 
             attached: function() {
-                if (ANIMATIONS){
-                    this.animationConfig = {
-                        'entry': [{
-                            name: 'ripple-animation',
-                            id: 'ripple',
-                            toPage: this
-                        }, {
-                            name: 'fade-out-animation',
-                            node: this.$.placeholder,
-                            timing: {
-                                delay: 250
-                            }
-                        }, {
-                            name: 'fade-out-animation',
-                            node: document.querySelector('landing-app').$.header,
-                            timing: {
-                                delay: 0
-                            }
-                        }, {
-                            name: 'fade-in-animation',
-                            node: this.$.container,
-                            timing: {
-                                delay: 50
-                            }
-                        }],
-                        'exit': []
-                    };
-
-                    this.sharedElements = {
-                        'ripple': this.$.placeholder,
-                        'reverse-ripple': this.$.placeholder
-                    };
-                }
-
                 // this.$.buyLicence.addEventListener('iron-form-error', function(event) {
                 //     console.warn("GOT ERROR!", event.detail);
                 //     that.loading = false;
@@ -488,13 +439,11 @@
                             if (response.error) {
                                 console.log('stripeResponseHandler failed', response.error.message);
                                 that.showError(response.error.message);
-                            }
-                            else {
+                            } else {
                                 that.sumbmitPayment(status, response);
                             }
                         }
-                    }
-                    else {
+                    } else {
                         var errorText = 'There seems to be an error in';
                         if (!Stripe.card.validateCardNumber(this.stripePayload.number)){
                             errorText += ' card number';

@@ -1,4 +1,3 @@
-<!--
 @license
 Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -14,8 +13,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
-<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
 
 <link rel="import" href="shared-styles.html">
 
@@ -38,6 +37,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             display: block;
         }
 
+        :host {
+            --paper-tooltip: {
+                font-size: 16px;
+                line-height: 24px;
+            }
+        }
         .center {
             margin: 0 auto;
         }
@@ -58,7 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         .plan paper-button {
             width: 80% !important;
-            margin-bottom: 80px;
+            margin-top: 24px;
         }
         
         a {
@@ -96,6 +101,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             margin-top: 50px;
             margin-bottom: 50px;
             overflow: auto;
+            background-color: #fff;
             @apply(--shadow-elevation-4dp);
         }
         .plan .icon {
@@ -134,7 +140,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         
         .plan-body-item {
-            padding: 20px 10px;
+            padding: 20px 20px;
         }
         
         @media only screen and (max-width: 600px) {
@@ -180,10 +186,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             font-weight: 300;
             vertical-align: middle;
         }
+
+        sub > sub {
+            font-size: 12px !important;
+            display: block;
+            margin-top: 8px;
+        }
         
         .price sup {
             font-size: 24px;
             padding: 0 5px;
+        }
+
+        .price sub.month {
+            margin-left: -54px;
+            top: 6px;
+        }
+
+        .price sup.vcpu {
+            top: -15px;
+        }
+
+        .plan-head sub iron-icon {
+            width: 32px;
+            height: 32px;
+            top: -2px;
+            left: -2px;
         }
         
         paper-button#enterpriseBtn {
@@ -247,18 +275,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 padding: 0;
             }
         }
+
         h4.pricetext {
             line-height: 2.36em;
+        }
+
+        .grey {
+            background-color: #f2f2f2;
+        }
+
+        div.back {
+            float: left;
+            margin-top: 24px;
+            text-transform: uppercase;
+            font-size: 0.8em;
+        }
+
+        div.back a {
+            line-height: 4.5em;
+            vertical-align: middle;
+            color: #000 !important;
+        }
+
+        h2.decorated {
+            margin-left: 32px;
+            margin-right: 32px;
         }
         </style>
         <div id="placeholder"></div>
         <div id="container">
             <div class="section grey">
                 <div class="hero text-center">
-                    <h2 class="decorated">Mist.io Editions</h2>
+                    <div class="back">
+                        <a href="/"><iron-icon icon="icons:arrow-back"></iron-icon></a>
+                    </div>
+                    <h2 class="decorated">Choose your Mist.io</h2>
                 </div>
             </div>
-            <div class="section white">
+            <div class="section grey">
                 <div class="contains">
                     <div class="grid-row items-center">
 
@@ -266,40 +320,58 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <div class="xs12 s6 m4 l4 margin-bottom valign-top">
                             <div class="plan green text-center">
                                 <div class="plan-head">
-                                    <h4>Community Edition<br/><sub>CE</sub></h4>
+                                    <h4>Community Edition<br/><sub><iron-icon icon="social:share"></iron-icon>CE</sub></h4>
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
-                                        <p class="valign">Ideal for personal projects and small teams with a DIY approach</p>
+                                        <p class="valign">Ideal for personal projects and small teams with a DIY approach.</p>
                                     </div>
                                     <div class="plan-body-item">
                                         <div class="valign">
-                                            <h4 class="pricetext">Free forever</h4>
+                                            <h4>Free forever</h4>
+                                            <h4 class="price"><sub><a href="https://github.com/mistio/mist.io/blob/master/LICENSE" target="new">AGPL</a> licensed</sub></h4>
                                         </div>
                                     </div>
-                                    <div class="plan-body-item">
+                                    <div class="plan-body-item grey">
                                         <div>
-                                            <p>Install on premises</p>
-                                            <a aria-label="Clone github repo" target="new" href="https://github.com/mistio/mist.io" tabindex="-1">
+                                            <a aria-label="Clone github repo" target="new" href="https://github.com/mistio/mist.io/releases/latest" tabindex="-1">
                                                 <paper-button raised on-click="_signUpClick0">Download</paper-button>
                                             </a>
+                                            <p>Install on premises</p>
                                         </div>
                                     </div>
                                     <div class="plan-body-item">
                                         <div class="bold">Features:</div>
                                         <ul class="feature-list">
-                                            <li on-tap="showInfo">
-                                                <iron-icon icon="help"></iron-icon> Unlimited clouds, machines.
-                                                <p>Management of unlimited clouds and machines.</p>
+                                            <li id="unlimited-machines">
+                                                <iron-icon icon="help"></iron-icon> Unlimited clouds &amp; machines
+                                                <paper-tooltip for="unlimited-machines" animation-delay="0" position="top">Manage all of you infrastructure.</paper-tooltip>
                                             </li>
-                                            <li on-tap="showInfo">
-                                                <iron-icon icon="help"></iron-icon> Unlimited users &amp; teams.
-                                                <p>Invite unlimited users and organise them in teams.</p>
+                                            <li id="unlimited-users">
+                                                <iron-icon icon="help"></iron-icon> Unlimited users &amp; teams
+                                                <paper-tooltip for="unlimited-users" animation-delay="0" position="top">Invite unlimited users and organize them in teams.</paper-tooltip>
                                             </li>
-                                            <li><iron-icon icon="help"></iron-icon> Keys &amp; Scripting </li>
-                                            <li><iron-icon icon="help"></iron-icon> Schedule Machine Actions </li>
-                                            <li><iron-icon icon="help"></iron-icon> API access </li>
-                                            <li><iron-icon icon="help"></iron-icon> Audit Logs </li>
+                                            <li id="script-key-management">
+                                                <iron-icon icon="help"></iron-icon> Script &amp; Key management 
+                                                <paper-tooltip for="script-key-management" animation-delay="0" position="top">
+                                                    Generate and store SSH keys associated to machines.<br/>Use them to run your scripts and playbooks.
+                                                </paper-tooltip>
+                                            </li>
+                                            <li id="scheduled-actions">
+                                                <iron-icon icon="help"></iron-icon> Scheduled actions
+                                                <paper-tooltip for="scheduled-actions" animation-delay="0" position="top">Multi-cloud crontab to schedule script runs and machine actions.</paper-tooltip>
+                                            </li>
+                                            <li id="web-shell">
+                                                <iron-icon icon="help"></iron-icon> Web shell
+                                                <paper-tooltip for="web-shell" animation-delay="0" position="top">Connect interactively to machines through the browser.<br/> Record all shell sessions.</paper-tooltip>
+                                            </li>
+                                            <li id="rest-api">
+                                                <iron-icon icon="help"></iron-icon> REST API 
+                                                <paper-tooltip for="rest-api" animation-delay="0" position="top">Issue revokable tokens and build robust automations.<br/> The Mist.io API provides a uniform abstraction on top of the cloud provider API's.<br /> </paper-tooltip>
+                                            </li>
+                                            <li id="audit-logs"><iron-icon icon="help"></iron-icon> Audit logs
+                                                <paper-tooltip for="audit-logs" animation-delay="0" position="top">All actions leave audit trails. All infrastructure changes observed are being logged.</paper-tooltip>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="plan-body-item">
@@ -313,38 +385,60 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <div class="xs12 s6 m4 l4 margin-bottom valign-top">
                             <div class="plan purple text-center">
                                 <div class="plan-head">
-                                    <h4>Enterprise Edition<br/><sub>EE</sub></h4>
+                                    <h4>Enterprise Edition<br/><sub><iron-icon icon="icons:account-balance"></iron-icon>EE</sub></h4>
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
-                                        <p class="valign">Ideal for medium and large teams with advanced needs around orchestration &amp; access control</p>
+                                        <p class="valign">Ideal for medium and large teams with advanced needs around orchestration &amp; access control.</p>
                                     </div>
                                     <div class="plan-body-item">
                                         <div class="valign">
-                                            <h2 class="price"><sup>$</sup>1<sub>/mo.</sub></h2>
-                                            <h4 class="price"><sub>per managed core.</sub></h4>
+                                            <h2 class="price" id="vcpus-ee">
+                                                <sup>$</sup>1<sup class="vcpu">/vcpu</sup><sub class="month">/month</sub>
+                                            </h2>
+                                            <paper-tooltip for="vcpus-ee" animation-delay="0" position="top">high water mark of physical and virtual cores under management</paper-tooltip>
+                                            <h4 class="price"><sub>if paid annually</sub></h4>
                                         </div>
                                     </div>
-                                    <div class="plan-body-item">
+                                    <div class="plan-body-item grey">
                                         <div>
-                                            <p>Install on premises</p>
                                             <a aria-label="Buy Licence" href="/buy-licence" tabindex="-1">
                                                 <paper-button raised on-click="_signUpClick1">Purchase Licence</paper-button>
                                             </a>
+                                            <p>Install on premises</p>
                                         </div>
                                     </div>
                                     <div class="plan-body-item">
                                         <div class="bold">All features from CE plus:</div>
                                         <ul class="feature-list">
-                                            <li><iron-icon icon="help"></iron-icon> Role based Access Control </li>
-                                            <li><iron-icon icon="help"></iron-icon> Monitoring &amp; Alerting</li>
-                                            <li><iron-icon icon="help"></iron-icon> Orchestration </li>
-                                            <li><iron-icon icon="help"></iron-icon> Cost Insights </li>
-                                            <li><iron-icon icon="help"></iron-icon> MSP / reseller accounts </li>
+                                            <li id="rbac">
+                                                <iron-icon icon="help"></iron-icon> Role based Access Control
+                                                <paper-tooltip for="rbac" animation-delay="0" position="top">Delegate access with fine grained control using tags.</paper-tooltip>
+                                            </li>
+                                            <li id="monitoring-alerting">
+                                                <iron-icon icon="help"></iron-icon> Monitoring &amp; Alerting
+                                                <paper-tooltip for="monitoring-alerting" animation-delay="0" position="top">Gather system, application &amp; custom business metrics.<br/> Configure rules that trigger alerts &amp; automated responses.</paper-tooltip>
+                                            </li>
+                                            <li id="cost-insights">
+                                                <iron-icon icon="help"></iron-icon> Cost Insights
+                                                <paper-tooltip for="cost-insights" animation-delay="0" position="top">Understand your infrastructure costs, broken down by tags and clouds. <br/>Corellate with utilization to start optimizing performance vs money spent.</paper-tooltip>
+                                            </li>
+                                            <li id="orchestration">
+                                                <iron-icon icon="help"></iron-icon> Orchestration<sup>beta</sup>
+                                                <paper-tooltip for="orchestration" animation-delay="0" position="top">Streamline the deployment and lifecycle of complex architectures across clouds. <br/>Define topologies and workflows with TOSCA blueprints. Use Mist.io to deploy and manage your stacks.</paper-tooltip>
+                                                
+                                            </li>
+                                            <li id="msp-reseller">
+                                                <iron-icon icon="help"></iron-icon> MSP / reseller accounts<sup>beta</sup>
+                                                <paper-tooltip for="msp-reseller" animation-delay="0" position="top">Resell hybrid infrastructure to your customers. Contact us for more informations.</paper-tooltip>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="plan-body-item">
-                                        <div class="valign bold">Premium Support</div>
+                                        <div class="valign bold" id="premium-support">
+                                            Premium Support
+                                            <paper-tooltip for="premium-support" animation-delay="0" position="top">Next business day.</paper-tooltip>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -354,56 +448,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <div class="xs12 s6 m4 l4 margin-bottom valign-top">
                             <div class="plan blue text-center">
                                 <div class="plan-head">
-                                    <h4>Enterprise SaaS<br/><sub>ES</sub></h4>
+                                    <h4>Hosted Edition<br/><sub><iron-icon icon="icons:cloud-circle"></iron-icon>HE</sub></h4>
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
-                                        <p class="valign">Ideal for highly dynamic infrastructures &amp; teams.</p>
+                                        <p class="valign">Mist.io as a Service. Ideal for highly dynamic infrastructures &amp; teams.</p>
                                     </div>
                                     <div class="plan-body-item">
                                         <div class="valign">
                                             <div class="valign">
-                                                <h4>With Free tier,</h4>
-                                                <h4 class="price"><sub><a href="/pricing">prepaid or pay-as-you-go</a> plans.</sub></h4>
+                                                <h4><a href="/pricing">Pay-As-You-Go</a></h4>
+                                                <h4 class="price"><sub>with free tier and <a href="/pricing">prepaid</a> plans.</sub></h4>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="plan-body-item">
+                                    <div class="plan-body-item grey">
                                         <div>
-                                            <p>No installation, we host it for you.</p>
                                             <a aria-label="Sign up" href="/sign-up" tabindex="-1">
                                                 <paper-button raised on-click="_signUpClick2">Sign up</paper-button>
                                             </a>
+                                            <p>No installation. Start right away.</p>
                                         </div>
                                     </div>
                                     <div class="plan-body-item">
-                                        <div class="bold">Features:</div>
+                                        <div class="bold">All features from EE plus:</div>
                                         <ul class="feature-list">
-                                            <li on-tap="showInfo">
-                                                <iron-icon icon="help"></iron-icon> Unlimited clouds, machines.
-                                                <p>Management of unlimited clouds and machines.</p>
+                                            <li id="vpn-tunnels">
+                                                <iron-icon icon="help"></iron-icon> VPN tunnels
+                                                <paper-tooltip for="vpn-tunnels" animation-delay="0" position="top">Manage infrastructure residing in private networks by establishing point-to-point VPN connections.</paper-tooltip>
                                             </li>
-                                            <li on-tap="showInfo">
-                                                <iron-icon icon="help"></iron-icon> Unlimited users &amp; teams.
-                                                <p>Invite unlimited users and organise them in teams.</p>
+                                            <li id="recommendation-engine">
+                                                <iron-icon icon="help"></iron-icon> Recommendation engine<sup>beta</sup>
+                                                <paper-tooltip for="recommendation-engine" animation-delay="0" position="top">Generates automatic recommendations to optimize QoS, security and cost.</paper-tooltip>
                                             </li>
-                                            <li><iron-icon icon="help"></iron-icon> Keys &amp; Scripting </li>
-                                            <li><iron-icon icon="help"></iron-icon> Schedule Machine Actions </li>
-                                            <li><iron-icon icon="help"></iron-icon> API access </li>
-                                            <li><iron-icon icon="help"></iron-icon> Audit Logs </li>
-                                            <li><iron-icon icon="help"></iron-icon> VPN </li>
-                                            <li><iron-icon icon="help"></iron-icon> Role based Access Control </li>
-                                            <li><iron-icon icon="help"></iron-icon> Monitoring &amp; Alerting</li>
-                                            <li><iron-icon icon="help"></iron-icon> Orchestration </li>
-                                            <li><iron-icon icon="help"></iron-icon> Cost Insights </li>
-                                            <li><iron-icon icon="help"></iron-icon> MSP / reseller accounts </li>
-                                            <li><iron-icon icon="help"></iron-icon> Recommendation engine </li>
-                                            <li><iron-icon icon="help"></iron-icon> Anomaly detection </li>
-                                            <li><iron-icon icon="help"></iron-icon> Hosted Solution </li>
+                                            <li id="anomaly-detection">
+                                                <iron-icon icon="help"></iron-icon> Anomaly detection<sup>beta</sup>
+                                                <paper-tooltip for="anomaly-detection" animation-delay="0" position="top">Get alerted of irregularities before they affect your uptime. Contact us for more info.</paper-tooltip>
+                                            </li>
                                         </ul>
                                     </div>
                                     <div class="plan-body-item">
-                                        <div class="valign bold">Premium Support</div>
+                                        <div class="valign bold" id="premium-support-saas">
+                                            Premium Support
+                                            <paper-tooltip for="premium-support-saas" animation-delay="0" position="top">Next business day.<br/>24/7 for service emergencies.</paper-tooltip>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -418,7 +506,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="section grey">
             <div class="contains">
                 <div class="row text-center">
-                    <h2 class="decorated">Help with POC?</h2>
+                    <h2 class="decorated">Help with custom needs?</h2>
                 </div>
                 <div class="grid-row">
                     <div class="xs12 s12 m6 l8">
@@ -431,9 +519,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <div class="xs12 s12 m6 l4">
                         <h5 class="w400">Contact us if you: </h5>
                         <p>
-                            <iron-icon icon="done"></iron-icon> Have more than 300 machines
+                            <iron-icon icon="check"></iron-icon> Have more than 300 machines
                             <br/>
-                            <iron-icon icon="done"></iron-icon> Want to run an on-premises POC
+                            <iron-icon icon="check"></iron-icon> Want to run an on-premises POC
+                            <br/>
+                            <iron-icon icon="check"></iron-icon> Want help to optimize your infrastructure
+                            <br/>
+                            <iron-icon icon="check"></iron-icon> Require HA or 24/7 support
                             <br/>
                         </p>
                         <p>
@@ -452,15 +544,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         is: 'landing-get-started',
 
-        behaviors: [
-            Polymer.NeonSharedElementAnimatableBehavior
-        ],
-
         properties: {
-            animationConfig: {
-                type: Object
-            },
-
             categories: {
                 type: Array
             },
@@ -475,28 +559,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 observer: '_visibleChanged'
             }
 
-        },
-
-        attached: function() {
-            this.animationConfig = {
-                'entry': [],
-                'exit': [{
-                    name: 'fade-out-animation',
-                    node: this.$.container,
-                    timing: {
-                        delay: 150,
-                        duration: 0
-                    }
-                }, {
-                    name: 'ripple-animation',
-                    id: 'ripple',
-                    fromPage: this,
-                    node: this.$.signUpBtn1
-                }]
-            };
-            this.sharedElements = {
-                'ripple': this.$.signUpBtn1
-            };
         },
 
         _visibleChanged: function(visible) {
@@ -521,24 +583,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         _signUpClick1: function(event) {
             window.scrollTo(0, 0);
-            if (ANIMATIONS) {
-                // bring placeholder to fg for animation to work
-                this.parentElement.querySelector('#buy-licence').$.placeholder.style.zIndex = 1;
-            }
             this.fire('user-action', 'buy licence button click in pricing page');
         },
 
         _signUpClick2: function(event) {
             window.scrollTo(0, 0);
-            if (ANIMATIONS)
-                this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
             this.fire('user-action', 'saas button 2 click in pricing page');
         },
 
         _requestInfoEnterprise: function(event) {
             window.scrollTo(0, 0);
-            if (ANIMATIONS)
-                this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
             this.fire('user-action', 'request info for enterprise plan in pricing page');
         },
         _computeClass: function(index) {
