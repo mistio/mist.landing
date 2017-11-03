@@ -553,7 +553,7 @@
 
       observers: [
         '_routePageChanged(routeData.page)',
-        '_cat(categories)'
+        '_cat(categories, _shouldRenderTabs)'
       ],
 
       listeners: {
@@ -573,8 +573,8 @@
         this.removeAttribute('unresolved');
       },
 
-      _cat: function(c){
-        console.log('CATEGORIES', CATEGORIES, c);
+      _cat: function(c, should){
+        console.log('CATEGORIES', _shouldRenderTabs, CATEGORIES, c);
       },
 
       attached: function() {
