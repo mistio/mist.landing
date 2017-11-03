@@ -126,10 +126,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ],
 
       properties: {
-        animationConfig: {
-          type: Object
-        },
-
         categories: {
           type: Array
         },
@@ -147,25 +143,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       attached: function() {
-        this.animationConfig = {
-          'entry': [],
-          'exit': [{
-            name: 'fade-out-animation',
-            node: this.$.container,
-            timing: {
-              delay: 150,
-              duration: 0
-            }
-          }, {
-            name: 'ripple-animation',
-            id: 'ripple',
-            fromPage: this,
-            node: this.$.signUpBtn1
-          }]
-        };
-        this.sharedElements = {
-          'ripple': this.$.signUpBtn1
-        };
+
       },
 
       _visibleChanged: function(visible) {
@@ -176,14 +154,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _signUpClick: function(event) {
         window.scrollTo(0, 0);
-        // bring placeholder to fg for animation to work
-        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 1 click in orchestration page');
       },
 
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
-        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 2 click in orchestration page');
       }
     });

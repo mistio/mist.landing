@@ -10,7 +10,6 @@
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <dom-module id="landing-sign-in">
@@ -196,19 +195,7 @@
         Polymer({
             is: 'landing-sign-in',
 
-            behaviors: [
-                Polymer.NeonSharedElementAnimatableBehavior
-            ],
-
-            listeners: {
-                'neon-animation-finish': '_cleanupAnimation'
-            },
-
             properties: {
-                animationConfig: Object,
-
-                sharedElements: Object,
-
                 loading: {
                     type: Boolean,
                     value: false
@@ -245,7 +232,7 @@
             },
 
             attached: function() {
-                if (this.route.__queryParams.invitoken){
+                /*if (this.route.__queryParams.invitoken){
                     var element = document.createElement('input');
                     element.type = 'hidden';
                     element.name = 'invitoken';
@@ -258,49 +245,16 @@
                     element.name = 'return_to';
                     element.value = this.route.__queryParams.return_to;
                     this.$.form.appendChild(element);
-                }
-
-                if (ANIMATIONS) {
-                    this.animationConfig = {
-                        'entry': [{
-                            name: 'ripple-animation',
-                            id: 'ripple',
-                            toPage: this
-                        }, {
-                            name: 'fade-out-animation',
-                            node: this.$.placeholder,
-                            timing: {
-                                delay: 50
-                            }
-                        }, {
-                            name: 'fade-out-animation',
-                            node: document.querySelector('landing-app').$.header,
-                            timing: {
-                                delay: 0
-                            }
-                        }, {
-                            name: 'fade-in-animation',
-                            node: this.$.container,
-                            timing: {
-                                delay: 50
-                            }
-                        }],
-                        'exit': []
-                    };
-
-                    this.sharedElements = {
-                        'ripple': this.$.placeholder,
-                        'reverse-ripple': this.$.placeholder
-                    };
-                }
+                }*/
 
                 var that = this,
                     validate = function(event) {
-                    // Validate the entire form to see if we should enable the `Submit` button.
-                    var ret = that.$.signInForm.validate();
-                    that.$.signInSubmit.disabled = !ret;
-                    return ret;
-                }
+                        console.warn('validating');
+                        // Validate the entire form to see if we should enable the `Submit` button.
+                        var ret = that.$.signInForm.validate();
+                        that.$.signInSubmit.disabled = !ret;
+                        return ret;
+                    };
                 this.$.signInForm.addEventListener('change', validate);
                 this.$.signInForm.addEventListener('keyup', function(event) {
                     var submitDisabled = that.$.signInSubmit.disabled;

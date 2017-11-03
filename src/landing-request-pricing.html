@@ -11,7 +11,6 @@
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <dom-module id="landing-request-pricing">
@@ -185,19 +184,7 @@
         Polymer({
             is: 'landing-request-pricing',
 
-            behaviors: [
-                Polymer.NeonSharedElementAnimatableBehavior
-            ],
-
-            listeners: {
-                'neon-animation-finish': '_cleanupAnimation'
-            },
-
             properties: {
-                animationConfig: Object,
-
-                sharedElements: Object,
-
                 loading: {
                     type: Boolean,
                     value: false
@@ -211,39 +198,6 @@
                     element.name = 'invitoken';
                     element.value = this.route.__queryParams.invitoken;
                     this.$.form.appendChild(element);
-                }
-                if (ANIMATIONS){
-                    this.animationConfig = {
-                        'entry': [{
-                            name: 'ripple-animation',
-                            id: 'ripple',
-                            toPage: this
-                        }, {
-                            name: 'fade-out-animation',
-                            node: this.$.placeholder,
-                            timing: {
-                                delay: 250
-                            }
-                        }, {
-                            name: 'fade-out-animation',
-                            node: document.querySelector('landing-app').$.header,
-                            timing: {
-                                delay: 0
-                            }
-                        }, {
-                            name: 'fade-in-animation',
-                            node: this.$.container,
-                            timing: {
-                                delay: 50
-                            }
-                        }],
-                        'exit': []
-                    };
-
-                    this.sharedElements = {
-                        'ripple': this.$.placeholder,
-                        'reverse-ripple': this.$.placeholder
-                    };
                 }
 
                 var that = this,

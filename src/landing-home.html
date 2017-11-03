@@ -15,7 +15,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
-<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="shared-styles.html">
@@ -140,7 +139,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <dom-if if="[[!data]]">
         <template>
           <div class="section grey">
-              <a aria-label="Sign up" href="/get-started" tabindex="-1">
+              <a aria-label="Sign up" href="/sign-up" tabindex="-1">
                 <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
               </a>
           </div>
@@ -234,7 +233,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="contains text-center">
               <div class="row">
                 <h3 class="decorated row">Choose your Mist.io</h3>
-              </div> 
+              </div>
               <landing-editions editions="[[data.editions]]"></landing-editions>
               <div class="row">
                 <a aria-label="Get started" href="/get-started" tabindex="-1">
@@ -268,15 +267,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
 
       is: 'landing-home',
-      behaviors: [
-        Polymer.NeonSharedElementAnimatableBehavior
-      ],
 
       properties: {
-        animationConfig: {
-          type: Object
-        },
-
         categories: {
           type: Array
         },
@@ -290,29 +282,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           observer: '_visibleChanged'
         }
-
       },
 
       attached: function() {
-        this.animationConfig = {
-          'entry': [],
-          'exit': [{
-            name: 'fade-out-animation',
-            node: this.$.container,
-            timing: {
-              delay: 150,
-              duration: 0
-            }
-          }, {
-            name: 'ripple-animation',
-            id: 'ripple',
-            fromPage: this,
-            node: this.$.signUpBtn1
-          }]
-        };
-        this.sharedElements = {
-          'ripple': this.$.signUpBtn1
-        };
+
       },
 
       _visibleChanged: function(visible) {
@@ -322,17 +295,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _signUpClick: function(event) {
-        window.scrollTo(0, 0);
-        // bring placeholder to fg for animation to work
-        // if (ANIMATIONS)
-        //   this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-        this.fire('user-action', 'sign up button 1 click in home');
+        event.preventDefault();
+        new Wave(event.clientX, event.clientY, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+        this.async(
+          function() {
+            this.fire('go-to', '/get-started');
+            waves.forEach(function(wave) { wave.up(); });
+            window.scrollTo(0, 0);
+          }, 200 );
+          this.fire('user-action', 'sign up button 1 click in home');
       },
 
       _signUpClick2: function(event) {
-        window.scrollTo(0, 0);
-        // if (ANIMATIONS)
-        //   this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
+        event.preventDefault();
+        new Wave(event.clientX, event.clientY, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+        this.async(
+          function() {
+            this.fire('go-to', '/get-started');
+            waves.forEach(function(wave) { wave.up(); })
+            window.scrollTo(0, 0);
+          }, 200 );
         this.fire('user-action', 'sign up button 2 click in home');
       }
     });

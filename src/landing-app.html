@@ -31,6 +31,7 @@
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
 <link rel="import" href="landing-buy-licence.html">
+<link rel="import" href="landing-get-started.html">
 <link rel="import" href="landing-sign-in.html">
 <link rel="import" href="landing-sign-up.html">
 <link rel="import" href="landing-forgot-password.html">
@@ -188,6 +189,7 @@
       :host([page=sign-in]) > app-header,
       :host([page=sign-up]) > app-header,
       :host([page=request-pricing]) > app-header,
+      :host([page=get-started]) > app-header,
       :host([page=buy-licence]) > app-header {
         z-index: -1;
       }
@@ -328,6 +330,7 @@
           display: none;
         }
       }
+
     </style>
 
     <landing-analytics key="[[gaId]]"></landing-analytics>
@@ -408,7 +411,6 @@
       <!-- home view -->
       <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]"></landing-home>
 
-      <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
 
       <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]"></landing-pricing>
 
@@ -428,10 +430,13 @@
 
       <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
         sign-in-google=[[allowSigninGoogle]] sign-in-github=[[allowSigninGithub]] sign-in-email=[[allowSigninEmail]]></landing-sign-in>
-      <landing-buy-licence name="buy-licence" route="[[subroute]]" offline="[[offline]]" id="buy-licence"></landing-buy-licence>
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
         sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]]></landing-sign-up>
+
+      <landing-buy-licence name="buy-licence" route="[[subroute]]" offline="[[offline]]" id="buy-licence"></landing-buy-licence>
+      <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
       <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+
       <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password"></landing-forgot-password>
       <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password"></landing-set-password>
       <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
@@ -566,10 +571,9 @@
         'announce': '_onAnnounce',
         'dom-change': '_domChange',
         'show-invalid-url-warning': '_onFallbackSelectionTriggered',
-        'neon-animation-start': '_prepareAnimation',
-        'neon-animation-finish': '_cleanupAnimation',
         'user-action': '_onUserAction',
-        'open-dialog': '_openDialog'
+        'open-dialog': '_openDialog',
+        'go-to': '_goToPage'
       },
 
       created: function() {
@@ -599,12 +603,16 @@
             that.fire('user-action', 'scroll to bottom');
             this.scrollThresholdReached = true;
             if (that.showFooter){
-              that.async(function(){
+              that.async(function() {
                 this.$.footer.finishLoading();
               }, 50);
             }
           }
         });
+      },
+
+      _goToPage: function(event) {
+        this.$.appLocation.set('path', event.detail);
       },
 
       _routePageChanged: function(page) {
@@ -693,13 +701,7 @@
       // Elements in the app can notify section changes.
       // Response by a11y announcing the section and syncronizing the category.
       _onChangeSection: function(event) {
-        var currentPage = this.$.pages.querySelector('#' + this.page);
-        if (currentPage) {
-          currentPage.sharedElements = {
-            'ripple': event.target
-          };
-        }
-
+        console.warn('change section', event);
         var detail = event.detail;
 
         // Scroll to the top of the page when navigating to a non-list page. For list view,
@@ -783,29 +785,15 @@
       },
 
       _signInClick: function(event) {
-        window.scrollTo(0, 0);
-        if (ANIMATIONS){
-          this.$.home.sharedElements = {
-            'ripple': event.target,
-            'reverse-ripple': event.target
-          };
-          this.$.pages.querySelector('#sign-in').$.placeholder.style.zIndex = 1;
-          this.$.pages.querySelector('#sign-in').sharedElements = {
-            'ripple': this.$.pages.querySelector('#sign-in').$.placeholder,
-            'reverse-ripple': this.$.pages.querySelector('#sign-in').$.placeholder
-          };
-        }
         this.fire('user-action', 'sign in click from ' + this.page);
-      },
-
-      _cleanupAnimation: function(event) {
-        // move placeholder to bg after page animation finish
-        var page = this.$.pages.querySelector('#' + this.page);
-        var placeholder;
-        if (page && page.$)
-          placeholder = page.$.placeholder;
-        if (placeholder)
-          placeholder.style.zIndex = -1;
+        event.preventDefault();
+        new Wave(event.clientX, event.clientY, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+        this.async(
+          function() {
+            this.fire('go-to', '/sign-in');
+            waves.forEach(function(wave) { wave.up(); })
+            window.scrollTo(0, 0);
+          }, 200 );
       },
 
       _onUserAction: function(event) {
@@ -875,5 +863,56 @@
           this.$["show-"+content].open();
       }
     });
+
+    var waves = [];
+    var duration = 300;
+    function Wave(x, y, color, opacity) {
+      waves.push(this);
+      this.element = document.createElement('div');
+      this.element.style.left = 'calc(' + x + 'px - 2000px)';
+      this.element.style.top = 'calc(' + y + 'px - 2000px)';
+      this.element.style.backgroundColor = color;
+      this.element.style.opacity = opacity;
+      this.element.setAttribute('touch-action', 'none');
+      this.element.setAttribute('class', 'wave');
+      this.element.addEventListener('up', up);
+
+      //var hue = Math.random() * 360;
+      //this.element.style.backgroundColor = 'hsl(' + hue + ', 85%, 67%)';
+
+      document.body.appendChild(this.element);
+
+      this.scale = this.element.animate([
+        {transform: 'scale(0)'},
+        {transform: 'scale(1)'},
+      ], {
+        duration: duration,
+        easing: 'cubic-bezier(0.3, 0.2, 1.0, 0.2)',
+        fill: 'forwards',
+      });
+    }
+    Wave.prototype = {
+      up: function() {
+        this.up = function() {};
+        this.opacity = this.element.animate([
+          {opacity: 0.66},
+          {opacity: 0},
+        ], {
+          duration: duration,
+          fill: 'forwards',
+        });
+        this.opacity.onfinish = function() {
+          this.element.remove();
+          waves.splice(waves.indexOf(this), 1);
+        }.bind(this);
+      }
+    };
+
+    function up() {
+      waves.forEach(function(wave) { wave.up(); });
+    }
+
+    document.body.addEventListener('up', up);
+
   </script>
 </dom-module>

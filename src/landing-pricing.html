@@ -14,7 +14,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
-<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="shared-styles.html">
@@ -370,15 +369,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         is: 'landing-pricing',
 
-        behaviors: [
-            Polymer.NeonSharedElementAnimatableBehavior
-        ],
-
         properties: {
-            animationConfig: {
-                type: Object
-            },
-
             categories: {
                 type: Array
             },
@@ -396,25 +387,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
 
         attached: function() {
-            this.animationConfig = {
-                'entry': [],
-                'exit': [{
-                    name: 'fade-out-animation',
-                    node: this.$.container,
-                    timing: {
-                        delay: 150,
-                        duration: 0
-                    }
-                }, {
-                    name: 'ripple-animation',
-                    id: 'ripple',
-                    fromPage: this,
-                    node: this.$.signUpBtn1
-                }]
-            };
-            this.sharedElements = {
-                'ripple': this.$.signUpBtn1
-            };
+
         },
 
         _visibleChanged: function(visible) {
@@ -427,24 +400,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         _signUpClick: function(event) {
             window.scrollTo(0, 0);
-            if (ANIMATIONS) {
-                // bring placeholder to fg for animation to work
-                this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-            }
             this.fire('user-action', 'sign up button 1 click in pricing page');
         },
 
         _signUpClick2: function(event) {
             window.scrollTo(0, 0);
-            if (ANIMATIONS)
-                this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
             this.fire('user-action', 'sign up button 2 click in pricing page');
         },
 
         _requestInfoEnterprise: function(event) {
             window.scrollTo(0, 0);
-            if (ANIMATIONS)
-                this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
             this.fire('user-action', 'request info for enterprise plan in pricing page');
         },
         _computeClass: function(index) {
