@@ -89,7 +89,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <h2 class="decorated row title">The Mist.io platform</h2>
           </div>
           <div class="padding">
-            <marked-element markdown="[[data.text]]"></marked-element>
+            <marked-element markdown="[[data.text]]">
+              <div slot="markdown-html"></div>
+            </marked-element>
           </div>
           <div class="text-center">
             <a aria-label="Get started" href="/sign-up" tabindex="-1">

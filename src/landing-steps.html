@@ -48,7 +48,9 @@
                 <div class="xs12 s8 m8 l8 desc">
                     <h3 class="line1">[[step.title]]</h3>
                     <p><strong>[[step.subtitle]]</strong></p>
-                    <marked-element markdown="[[step.description]]"></marked-element>
+                    <marked-element markdown="[[step.description]]">
+                        <div slot="markdown-html"></div>
+                    </marked-element>
                 </div>
                 <div class="xs12 s4 m4 l4 image">
                     <div class="image-wrapper with-shadow">

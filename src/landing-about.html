@@ -75,7 +75,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="text-center">
           <h2 class="decorated row title">About Mist.io</h2>
         </div>
-        <marked-element markdown="[[data.text]]"></marked-element>
+        <marked-element markdown="[[data.text]]">
+          <div slot="markdown-html"></div>
+        </marked-element>
       </div>
       
       <div class="section white">

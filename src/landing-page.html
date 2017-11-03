@@ -63,7 +63,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <h2 class="decorated row title">[[title]]</h2>
             </div>
             <div id="content">
-              <marked-element markdown="[[data.body]]"></marked-element>
+              <marked-element markdown="[[data.body]]">
+                <div slot="markdown-html"></div>
+              </marked-element>
             </div>
           </div>
         </div>

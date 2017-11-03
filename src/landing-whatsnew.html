@@ -156,7 +156,9 @@
                         <h5>What's new with Mist.io?</h5>
                         <h4 class="light title"><a href$="[[data.href]]" target="new">[[data.title]]</a></h4>
                         <div class="promtext">
-                            <marked-element markdown="[[data.description]]"></marked-element>
+                            <marked-element markdown="[[data.description]]">
+                                <div slot="markdown-html"></div>
+                            </marked-element>
                             <a href="[[data.href]]">Read more &raquo;</a>
                         </div>
                     </div>

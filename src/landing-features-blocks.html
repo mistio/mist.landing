@@ -78,7 +78,9 @@
                         <div class="xs12 s6 m6 l6 desc">
                             <h3 class="line1" hidden$="[[titleOnTop]]">[[feature.title]]</h3>
                             <span class="prod-label" hidden$="[[!feature.comingsoon]]">Coming soon!</span>
-                            <marked-element markdown="[[feature.description]]"></marked-element>
+                            <marked-element markdown="[[feature.description]]">
+                                <div slot="markdown-html"></div>
+                            </marked-element>
                         </div>
                         <div class="xs12 s6 m6 l6 image" hidden$="[[!_computeMod(index)]]">
                             <img src$="[[_computeImageUrl(feature.image)]]" class$="[[_withShadow(index)]]"/>
