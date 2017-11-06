@@ -44,7 +44,8 @@
     "gold-phone-input": "PolymerElements/gold-phone-input#^2.0.2",
     "paper-radio-button": "^2.0.0",
     "paper-radio-group": "^2.0.0",
-    "paper-tooltip": "^2.0.1"
+    "paper-tooltip": "^2.0.1",
+    "paper-checkbox": "^2.0.1"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

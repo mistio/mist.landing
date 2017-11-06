@@ -1,4 +1,3 @@
-
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
@@ -235,6 +234,7 @@
             margin-left: 0;
             text-align: left;
             cursor: pointer;
+            line-height: 1.8em;
         }
         ul.feature-list li p {
             height: 0;
@@ -352,7 +352,7 @@
                                             </li>
                                             <li id="scheduled-actions">
                                                 <iron-icon icon="help"></iron-icon> Scheduled actions
-                                                <paper-tooltip for="scheduled-actions" animation-delay="0" position="top">Multi-cloud crontab to schedule script runs and machine actions.</paper-tooltip>
+                                                <paper-tooltip for="scheduled-actions" animation-delay="0" position="top">Multi-cloud crontab to schedule script executions and machine actions.</paper-tooltip>
                                             </li>
                                             <li id="web-shell">
                                                 <iron-icon icon="help"></iron-icon> Web shell
@@ -406,7 +406,7 @@
                                         <ul class="feature-list">
                                             <li id="rbac">
                                                 <iron-icon icon="help"></iron-icon> Role based Access Control
-                                                <paper-tooltip for="rbac" animation-delay="0" position="top">Delegate access with fine grained control using tags.</paper-tooltip>
+                                                <paper-tooltip for="rbac" animation-delay="0" position="top">Delegate access with fine grained controls. Use tags to enforce policies across clouds.</paper-tooltip>
                                             </li>
                                             <li id="monitoring-alerting">
                                                 <iron-icon icon="help"></iron-icon> Monitoring &amp; Alerting
@@ -417,13 +417,13 @@
                                                 <paper-tooltip for="cost-insights" animation-delay="0" position="top">Understand your infrastructure costs, broken down by tags and clouds. <br/>Corellate with utilization to start optimizing performance vs money spent.</paper-tooltip>
                                             </li>
                                             <li id="orchestration">
-                                                <iron-icon icon="help"></iron-icon> Orchestration<sup>beta</sup>
+                                                <iron-icon icon="help"></iron-icon> Orchestration
                                                 <paper-tooltip for="orchestration" animation-delay="0" position="top">Streamline the deployment and lifecycle of complex architectures across clouds. <br/>Define topologies and workflows with TOSCA blueprints. Use Mist.io to deploy and manage your stacks.</paper-tooltip>
                                                 
                                             </li>
                                             <li id="msp-reseller">
                                                 <iron-icon icon="help"></iron-icon> MSP / reseller accounts<sup>beta</sup>
-                                                <paper-tooltip for="msp-reseller" animation-delay="0" position="top">Resell hybrid infrastructure to your customers. Contact us for more informations.</paper-tooltip>
+                                                <paper-tooltip for="msp-reseller" animation-delay="0" position="top">Resell hybrid infrastructure to your customers. Contact us to join private beta.</paper-tooltip>
                                             </li>
                                         </ul>
                                     </div>
@@ -468,7 +468,7 @@
                                         <ul class="feature-list">
                                             <li id="vpn-tunnels">
                                                 <iron-icon icon="help"></iron-icon> VPN tunnels
-                                                <paper-tooltip for="vpn-tunnels" animation-delay="0" position="top">Manage infrastructure residing in private networks by establishing point-to-point VPN connections.</paper-tooltip>
+                                                <paper-tooltip for="vpn-tunnels" animation-delay="0" position="top">Manage infrastructure that's only addressable through private networks by establishing point-to-point VPN connections.</paper-tooltip>
                                             </li>
                                             <li id="recommendation-engine">
                                                 <iron-icon icon="help"></iron-icon> Recommendation engine<sup>beta</sup>

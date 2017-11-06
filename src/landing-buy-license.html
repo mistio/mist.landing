@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
@@ -21,7 +22,8 @@
 
 <link rel="import" href="shared-styles.html">
 
-<script src="https://js.stripe.com/v2/"></script>
+<!--script src="https://js.stripe.com/v2/"></script-->
+
 
 <dom-module id="landing-buy-license">
     <template>
@@ -190,10 +192,6 @@
             #container {
                 padding-bottom: 120px;
             }
-            #name, #signUp-email {
-                width: 49%;
-                display: inline-block;
-            }
             @media screen and (max-width: 700px) {
                 #name, #signUp-email {
                     width: auto;
@@ -201,16 +199,16 @@
                 }   
             }
             paper-input#cores {
-                width: 200px;
+                width: 100px;
+                text-align: center;
+                --paper-input-container-input: {
+                    font-size: 18px;
+                    padding-top: 8px;
+                };
             }
 
             paper-input#dockerhubid {
                 width: 50%;
-            }
-
-            paper-input.exp {
-                width: 70px !important;
-                display: inline-block;
             }
 
             span.exp {
@@ -222,9 +220,12 @@
             }
 
             gold-cc-cvc-input {
-                width: 400px;
                 display: inline-block;
                 padding-left: 29px;
+            }
+
+            gold-cc-input {
+                width: 250px;
             }
 
             paper-radio-button {
@@ -265,6 +266,48 @@
                 margin-right: 16px;
             }
 
+            #exp-month, #exp-year {
+                width: 54px;
+                display: inline-block;
+            }
+
+            #cc-cvc {
+                width: 80px;
+                display: inline-block;
+            }
+
+            #address-zip {
+                width: 100px;
+            }
+
+            #contact-info {
+                width: 250px;
+                display: inline-block;
+                margin-right: 64px;
+                margin-bottom: 32px;
+            }
+
+            #payment-info {
+                width: 250px;
+                display: inline-block;
+                position: relative;
+                vertical-align: top;
+                margin-bottom: 32px;
+            }
+
+            #order-details {
+                margin-top: 32px;
+                margin-bottom: 32px;
+            }
+
+            paper-checkbox {
+                --paper-checkbox-ink-size: 48px;
+                --paper-checkbox-label-color: #666;
+                --paper-checkbox-checked-color: #0099cc;
+                text-align: center;
+                width: 100%;
+                font-size: 12px;
+            }
         </style>
 
         <div id="placeholder"></div>
@@ -276,59 +319,62 @@
                 <div class="back">
                     <a href="/get-started"><iron-icon icon="icons:arrow-back"></iron-icon></a>
                 </div>
-                <h1>Purchase Enterprise Edition Licence</h1>
+                <h1>Purchase Enterprise Edition License</h1>
             </div>
             <iron-form id="buyLicence">
                 <paper-material elevation="1">
-                    <form method="post" action="/purchase-license" enctype='application/json' id='form'>
-                        <h4>Contact Information</h4>
+                    <form method="post" action="/api/v1/license" enctype='application/json' id='form'>
+                        <div id="contact-info">
+                            <h4>Contact Information</h4>
 
-                        <paper-input id="name" name="name" label="Name" value="{{contact.name}}" pattern="[a-zA-Z0-9\. ]*" required auto-validate autocomplete="cc-name" always-float-label error-message="Alphanumerics allowed only." class="form-input"></paper-input>
-                        <paper-input id="address" name="address" label="Address" value="{{contact.address}}" required auto-validate autocomplete="street-address" class="form-input" always-float-label></paper-input>
-                        <paper-input id="email" name="email" label="Email" always-float-label type="email" value="{{contact.email}}" class="form-input" auto-validate>
-                            <iron-icon icon="mail" slot="prefix"></iron-icon>
-                        </paper-input>
-                        <!--paper-input id="address" name="phone" label="Phone number" pattern="[0-9 \+\(\)]+" always-float-label class="form-input" value="{{contact.phone}}" auto-validate>
-                            <iron-icon icon="communication:phone" slot="prefix"></iron-icon>
-                        </paper-input-->
-
-                        <h4>Payment information</h4>
-
-                        <gold-cc-input id="cc" name="cc" required auto-validate class="form-input"
-                          value="{{stripePayload.number}}"
-                          label="Credit Card number"
-                          card-type="{{cardType}}">
-                        </gold-cc-input>
-
-                        <div class="horizontal layout wrap">
-                            <paper-input id="exp_month" name="month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Wrong month." auto-validate></paper-input>
-                            <span class="exp">/</span>
-                            <paper-input id="exp_year" name="year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Error in expiration" auto-validate></paper-input>
-
-                            <gold-cc-cvc-input id="cc-cvc" name="cc-cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
-
-                            <paper-input id="address_zip" name="address_zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
+                            <paper-input id="name" name="name" label="Name" value="{{contact.name}}" pattern="[a-zA-Z0-9\. ]*" required auto-validate autocomplete="cc-name" always-float-label error-message="Alphanumerics allowed only." class="form-input" autofocus></paper-input>
+                            <paper-input id="email" name="email" label="Email" always-float-label type="email" value="{{contact.email}}" class="form-input" auto-validate>
+                                <iron-icon icon="mail" slot="prefix"></iron-icon>
+                            </paper-input>
+                            <paper-textarea id="address" name="address" label="Address" value="{{contact.address}}" required auto-validate autocomplete="street-address" class="form-input" always-float-label></paper-textarea>
+                            <!--paper-input id="address" name="phone" label="Phone number" pattern="[0-9 \+\(\)]+" always-float-label class="form-input" value="{{contact.phone}}" auto-validate>
+                                <iron-icon icon="communication:phone" slot="prefix"></iron-icon>
+                            </paper-input-->
                         </div>
-                        <h4>Order details</h4>
-                        <paper-input id="cores" name="cores" id="cores" label="Number of vcpus" type="number" value={{cores}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of cores is wrong"></paper-input>
+                        <div id="payment-info">
+                            <h4>Payment information</h4>
 
-                        <paper-radio-group>
-                            <paper-radio-button checked="{{annualy}}" class="field">
-                                Pay Annually
-                                <span class="subtitle">
-                                    $1/per core per month
-                                </span>
-                            </paper-radio-button>
-                            <paper-radio-button checked="{{!annualy}}" class="field">
-                                Pay Monthly
-                                <span class="subtitle">
-                                    $1.2/per core per month
-                                </span>
-                            </paper-radio-button>
-                        </paper-radio-group>
+                            <gold-cc-input id="cc" name="cc" required auto-validate class="form-input"
+                                value="{{stripePayload.number}}"
+                                label="Credit Card number"
+                                card-type="{{cardType}}">
+                            </gold-cc-input>
 
+                            <paper-input id="exp-month" name="month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Wrong month." auto-validate></paper-input>
+                            <span class="exp">/</span>
+                            <paper-input id="exp-year" name="year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Error in expiration" auto-validate></paper-input>
+
+                            <gold-cc-cvc-input id="cc-cvc" name="cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
+
+                            <paper-input id="address-zip" name="address_zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
+
+                        </div>
+                        <div id="order-details">
+                            <h4>Order details</h4>
+                            <paper-input id="cores" name="cores" id="cores" label="Number of vcpus" type="number" min=10 value={{cores}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of cores is wrong"></paper-input>
+
+                            <paper-radio-group>
+                                <paper-radio-button checked="{{annualy}}" class="field">
+                                    Annual payment
+                                    <span class="subtitle">
+                                        $1/vcpu per month
+                                    </span>
+                                </paper-radio-button>
+                                <paper-radio-button checked="{{!annualy}}" class="field">
+                                    Monthly payment
+                                    <span class="subtitle">
+                                        $1.2/vcpu per month
+                                    </span>
+                                </paper-radio-button>
+                            </paper-radio-group>
+                        </div>
                         <div id="output" class="output"></div>
-
+                        <paper-checkbox>I accept the Privacy Policy and the Terms of Service</paper-checkbox>
                         <paper-button id="submitButton" on-tap="submit" disabled="[[!formReady]]">Purchase for $[[cost]] <span hidden$="[[annualy]]">/month</span> <span hidden$="[[!annualy]]">/year</span></paper-button>
 
                     </form>
@@ -418,6 +464,7 @@
                 //     that.$.buyLicence.querySelector('form').hidden = true;
                 //     that.$.buyLicence.querySelector('.output').innerHTML = "Thank you! You will be now sent the license key. <br/> <a href='/get-started'>Back to Editions page</a>";
                 // });
+                var that = this;
                 this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
                     that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
                 });
@@ -425,7 +472,8 @@
 
             submit: function(e) {
                 if (this.formReady) {
-                    // extra stripe validation
+                    this.sumbmitPayment();
+                    /*// extra stripe validation
                     var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
                         Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
                         Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip != '';
@@ -452,7 +500,7 @@
 
                         if (!Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year)){
                             errorText += ' expiration';
-                            this.$["exp_year"].invalid = true;
+                            this.$["exp-year"].invalid = true;
                         }
 
                         if (!Stripe.card.validateCVC(this.stripePayload.cvc)){
@@ -463,16 +511,16 @@
                         errorText += '.';
 
                         this.showError(errorText);
-                    }
+                    }*/
                 }
             },
 
-            sumbmitPayment: function(status, response){
-                var mistPayload = {
-                    token: response.id,
-                };
+            sumbmitPayment: function(status, response) {
+                //var mistPayload = {
+                //    token: response.id,
+                //};
                 this.$.buyLicence.headers["Csrf-Token"] = CSRF_TOKEN;
-                this.$.buyLicence.params = mistPayload;
+                //this.$.buyLicence.params = mistPayload;
                 this.$.buyLicence.submit();
             },
 
@@ -483,7 +531,7 @@
 
                 // if cores or dockerhubid empty not ready
                 // TODO when dockerhubid used, add: || !this.dockerhubid || !this.dockerhubid.trim().length
-                if (this.cores <= 0){
+                if (this.cores < 10){
                     return false;
                 }
                 // if any of contact or payload is empty, form not ready
@@ -528,7 +576,7 @@
             moveFocus: function(stripePayload){
                 // if exp_mont has 2 digits move to year
                 if (stripePayload.path == "stripePayload.exp_month" && stripePayload.value.length == 2){
-                    this.$.form.querySelector("paper-input#exp_year").focus()
+                    this.$.form.querySelector("paper-input#exp-year").focus()
                 }
                 // if exp_year has 2 digits move to cvc
                 if (stripePayload.path == "stripePayload.exp_year" && stripePayload.value.length == 2){
@@ -536,7 +584,7 @@
                 }
                 // if exp_year has 2 digits move to cvc
                 if (stripePayload.path == "stripePayload.cvc" && stripePayload.value.length == 3){
-                    this.$.form.querySelector("paper-input#address_zip").focus()
+                    this.$.form.querySelector("paper-input#address-zip").focus()
                 }
             },
 
