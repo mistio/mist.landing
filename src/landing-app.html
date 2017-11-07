@@ -420,7 +420,6 @@
       <!-- home view -->
       <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]"></landing-home>
 
-
       <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]"></landing-pricing>
 
       <landing-about name="about" categories="[[categories]]" id="about" data="[[category.items]]"></landing-about>
@@ -438,16 +437,16 @@
       </dom-repeat>
 
       <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
-        sign-in-google=[[allowSigninGoogle]] sign-in-github=[[allowSigninGithub]] sign-in-email=[[allowSigninEmail]]></landing-sign-in>
+        sign-in-google=[[allowSigninGoogle]] sign-in-github=[[allowSigninGithub]] sign-in-email=[[allowSigninEmail]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in>
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
-        sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]]></landing-sign-up>
+        sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]] invitoken="[[invitoken]]"></landing-sign-up>
 
       <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license"></landing-buy-license>
       <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
-      <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+      <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing" invitoken="[[invitoken]]"></landing-request-pricing>
 
       <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password"></landing-forgot-password>
-      <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password"></landing-set-password>
+      <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
       <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
 
       <landing-error name="error" route="[[subroute]]" offline="[[offline]]"></landing-error>
@@ -568,11 +567,14 @@
         allowSigninEmail: {
           type: Boolean,
           value: false
-        }
+        },
+
+        invitoken: String,
+        returnTo: String
       },
 
       observers: [
-        '_routePageChanged(routeData.page)'
+        '_routePageChanged(routeData.page, route.__queryParams)'
       ],
 
       listeners: {
@@ -624,7 +626,11 @@
         this.$.appLocation.set('path', event.detail);
       },
 
-      _routePageChanged: function(page) {
+      _routePageChanged: function(page, params) {
+        if (params){
+          this.set('invitoken', params.invitoken);
+          this.set('returnTo', params.return_to);
+        }
         // HACK(keanulee): Need to check if `page` actually changed due to polymer#3935.
         if (this.page === 'list' && this.page !== page) {
           this._listScrollTop = window.pageYOffset;

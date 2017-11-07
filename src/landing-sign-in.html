@@ -225,28 +225,20 @@
                     type: Boolean,
                     value: false
                 },
+                invitoken: String,
+                returnTo: String
             },
+
+            observers: [
+                '_invitokenExists(invitoken)',
+                '_returntoExists(returnTo)'
+            ],
 
             listeners: {
                 'iron-form-error': 'handleError'
             },
 
             attached: function() {
-                /*if (this.route.__queryParams.invitoken){
-                    var element = document.createElement('input');
-                    element.type = 'hidden';
-                    element.name = 'invitoken';
-                    element.value = this.route.__queryParams.invitoken;
-                    this.$.form.appendChild(element);
-                }
-                if (this.route.__queryParams.return_to){
-                    var element = document.createElement('input');
-                    element.type = 'hidden';
-                    element.name = 'return_to';
-                    element.value = this.route.__queryParams.return_to;
-                    this.$.form.appendChild(element);
-                }*/
-
                 var that = this,
                     validate = function(event) {
                         console.warn('validating');
@@ -330,6 +322,23 @@
             },
             _canSignIn: function(signInGoogle, signInGithub, signInEmail) {
                 return signInGoogle || signInGithub || signInEmail;
+            },
+            _invitokenExists: function(tok){
+                if (tok) {
+                    this._createHiddenFormElement('invitoken', this.invitoken);
+                }
+            },
+            _returntoExists: function(ret){
+                if (ret) {
+                    this._createHiddenFormElement('return_to', this.returnTo);
+                }
+            },
+            _createHiddenFormElement: function(name, value){
+                var element = document.createElement('input');
+                    element.type = 'hidden';
+                    element.name = name;
+                    element.value = value;
+                    this.$.form.appendChild(element);
             }
         });
     </script>

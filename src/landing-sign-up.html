@@ -194,18 +194,15 @@
                 signUpEmail: {
                     type: Boolean,
                     value: false
-                }
+                },
+                invitoken: String
             },
 
-            attached: function() {
-                /*if (this.route.__queryParams.invitoken){
-                    var element = document.createElement('input');
-                    element.type = 'hidden';
-                    element.name = 'invitoken';
-                    element.value = this.route.__queryParams.invitoken;
-                    this.$.form.appendChild(element);
-                }*/
+            observers: [
+                '_invitokenExists(invitoken)'
+            ],
 
+            attached: function() {
                 var that = this,
                     validate = function(event) {
                     // Validate the entire form to see if we should enable the `Submit` button.
@@ -262,6 +259,16 @@
             _canSignUp: function(signUpGoogle, signUpGithub, signUpEmail) {
                 return signUpGoogle || signUpGithub || signUpEmail;
             },
+            _invitokenExists: function(tok){
+                console.log('tok', tok);
+                if (tok) {
+                    var element = document.createElement('input');
+                    element.type = 'hidden';
+                    element.name = 'invitoken';
+                    element.value = this.invitoken;
+                    this.$.form.appendChild(element);
+                }
+            }
         });
     </script>
 </dom-module>
