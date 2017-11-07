@@ -628,7 +628,7 @@
 
       _routePageChanged: function(page, params) {
         if (params){
-          this.set('invitoken', params.invitoken);
+          this.set('invitoken', params.invitoken || this.invitoken);
           this.set('returnTo', params.return_to);
         }
         // HACK(keanulee): Need to check if `page` actually changed due to polymer#3935.
