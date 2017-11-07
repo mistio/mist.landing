@@ -1,6 +1,6 @@
 <!--
 @license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
@@ -79,6 +79,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         
         .plan {
+            background-color: #fff;
             margin-bottom: 50px;
             overflow: auto;
             @apply(--shadow-elevation-4dp);
@@ -113,7 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         
         .plan-body-item {
-            padding: 20px 10px;
+            padding: 30px 10px 50px 10px;
         }
         
         @media only screen and (max-width: 600px) {
@@ -136,6 +137,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         
         .plan-body-item * {
             width: 100%;
+        }
+
+        .plan-body-item:not(:first-child) {
+            padding: 0 10px;
+        }
+
+        .plan-body-item:last-child p {
+            font-weight: bold;
         }
         
         .valign {
@@ -178,6 +187,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             clear: both;
             list-style: none;
         }
+        .block-center {
+            margin: 0 auto;
+        }
+        .payg-rates {
+
+        }
+        .payg-rate {
+            justify-content: center;
+        }
+        .plus-rate > span {
+            background-color: #424242;
+            color: #fff;
+            border-radius: 50%;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            flex: none;
+            display: block;
+            margin: 0 auto;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+        }
+        .plus-rate .plus {
+            font-weight: normal;
+            font-size: 0.8em;
+        }
+        .plus-per {
+            text-align: center;
+        }
         @media screen and (max-width: 768px){
             .includes > div {
                 text-align: center;
@@ -203,10 +243,37 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="section white">
                 <div class="contains">
                     <div class="row text-center">
+                        <h2 class="decorated row">Pay As You Go rates</h2>
+                    </div>
+
+                    <div class="grid-row payg-rates">
+                        <div class="xs12 s6 m6 l3 margin-bottom payg-rate">
+                            <div class="plus-rate"><span><span class="plus">+</span><sup>$</sup>2</span></div>
+                            <div class="plus-per"><sub>per additional</sub> <br/>CPU core/mo</div>
+                        </div>
+                        <div class="xs12 s6 m6 l3 margin-bottom payg-rate">
+                            <div class="plus-rate"><span><span class="plus">+</span><sup>$</sup>5</span></div>
+                            <div class="plus-per"><sub>per additional</sub> <br/>1k datapoints/sec</div>
+                        </div>
+                        <div class="xs12 s6 m6 l3 margin-bottom payg-rate">
+                            <div class="plus-rate"><span><span class="plus">+</span><sup>$</sup>5</span></div>
+                            <div class="plus-per"><sub>per additional</sub> <br/>100k rule checks/day</div>
+                        </div>
+                        <div class="xs12 s6 m6 l3 margin-bottom payg-rate">
+                            <div class="plus-rate"><span><span class="plus">+</span><sup>$</sup>5</span></div>
+                            <div class="plus-per"><sub>per additional</sub> <br/>1M API requests/day</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section grey">
+                <div class="contains">
+                    <div class="row text-center">
                         <h2 class="decorated row">SaaS Prepaid Plans</h2>
                     </div>
-                    <div class="grid-row items-center">
-                        <template is="dom-repeat" items="[[data.plans]]" as="plan">
+                    <div class="grid-row">
+                        <!-- <template is="dom-repeat" items="[[data.plans]]" as="plan">
                             <div class="xs12 s6 m6 l3 margin-bottom">
                                 <div class="plan text-center">
                                     <div class$="[[_computeClass(index)]]">
@@ -224,26 +291,137 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     </div>
                                 </div>
                             </div>
-                        </template>
+                        </template> -->
+                        <div class="xs12 s6 m6 l3 margin-bottom">
+                            <div class="plan text-center">
+                                <div class$="[[_computeClass(0)]]">
+                                    Free Tier
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item valign-wrapper">
+                                        <div class="valign">
+                                            <h2 class="price"><sup>$</sup>0<sub>/mo.</sub></h2>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">up to 10 CPU cores <br/><sub>max concurrent per day</sub></p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">100 datapoints/sec</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">10k rule checks/day</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">100k API requests/day</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">1 month retention</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="xs12 s6 m6 l3 margin-bottom">
+                            <div class="plan text-center">
+                                <div class$="[[_computeClass(1)]]">
+                                    Small
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item valign-wrapper">
+                                        <div class="valign">
+                                            <h2 class="price"><sup>$</sup>200<sub>/mo.</sub></h2>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">200 CPU cores <br/><sub>max concurrent per day</sub></p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">2k datapoints/sec</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">100k rule checks/day</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">100k API requests/day</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">3 month retention</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="xs12 s6 m6 l3 margin-bottom">
+                            <div class="plan text-center">
+                                <div class$="[[_computeClass(2)]]">
+                                    Medium
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item valign-wrapper">
+                                        <div class="valign">
+                                            <h2 class="price"><sup>$</sup>900<sub>/mo.</sub></h2>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">1k CPU cores <br/><sub>max concurrent per day</sub></p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">10k datapoints/sec</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">1M rule checks/day</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">100k API requests/day</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">1 year retention</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="xs12 s6 m6 l3 margin-bottom">
+                            <div class="plan text-center">
+                                <div class$="[[_computeClass(3)]]">
+                                    Large
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item valign-wrapper">
+                                        <div class="valign">
+                                            <h2 class="price"><sup>$</sup>3,000<sub>/mo.</sub></h2>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">10k CPU cores <br/><sub>max concurrent per day</sub></p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">100k datapoints/sec</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">10M rule checks/day</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">100k API requests/day</p>
+                                    </div>
+                                    <div class="plan-body-item valign-wrapper">
+                                        <p class="valign">3 year retention</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- <div class="row text-center">
-                        Pay As You Go rates apply if limits exceeded 
-                    </div> -->
-
-                    <!-- <div class="row text-center">
-                        <h2 class="decorated row">Pay-As-You-Go Plan</h2>
+                    <div class="row text-center">
+                       <sub> * Pay As You Go rates apply if limits exceeded </sub>
                     </div>
-                    <div class="grid-row items-center">
-                        <p>
-                            Free for up to 10 cpu cores*, 100 datapoints/sec, 10k rule checks/day, 100k API requests/day, 1 month retention
-                            + $2 per additional cpu core/mo
-                            + $5 per additional 1k datapoints/sec
-                            + $5 per additional 100k rule checks/day
-                            + $5 per additional 1M API requests/day
-                            * Max concurrent per day
-                        </p>
-                    </div> -->
+
+                </div>
+            </div>
+
+            <div class="section white">
+                <div class="contains">
 
                     <div class="row text-center">
                         <h2 class="decorated row">All Plans Include</h2>
