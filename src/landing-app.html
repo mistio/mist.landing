@@ -439,7 +439,7 @@
       <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
         sign-in-google=[[allowSigninGoogle]] sign-in-github=[[allowSigninGithub]] sign-in-email=[[allowSigninEmail]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in>
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
-        sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]] invitoken="[[invitoken]]"></landing-sign-up>
+        sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
 
       <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license"></landing-buy-license>
       <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
@@ -630,6 +630,7 @@
         if (params){
           this.set('invitoken', params.invitoken || this.invitoken);
           this.set('returnTo', params.return_to);
+          this.set('plan', params.plan);
         }
         // HACK(keanulee): Need to check if `page` actually changed due to polymer#3935.
         if (this.page === 'list' && this.page !== page) {

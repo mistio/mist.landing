@@ -65,12 +65,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             padding: 16px;
         }
         
-        @media only screen and (max-width: 943px) {
-            typed-text {
-                display: block;
-            }
-        }
-        
         #placeholder {
             opacity: 0;
             background-color: grey;
@@ -94,7 +88,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             color: #fff;
             text-transform: uppercase;
             padding: 20px 0;
-            font-size: 24px;
+            font-size: 18px;
+        }
+
+        .plan paper-button {
+            margin: 0 !important;
+            font-size: 14px;
+            height: 2rem;
+            width: auto;
+            padding: 0 1rem !important;
         }
 
         .bg-0 {
@@ -233,7 +235,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="section grey">
                 <div class="hero text-center">
                     <h2>Mist.io Pricing</h2>
-                    <p>You can sign up in SaaS with free tier and upgrade your plan on the go.</p>
+                    <p>Free for up to 10 cpu cores, 100 datapoints/sec, 1000 rule checks/day, 10k API requests/day, with 1 month retention.</p>
                     <a aria-label="Get started" href="/sign-up" tabindex="-1">
                         <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up for free</paper-button>
                     </a>
@@ -274,59 +276,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="section grey">
                 <div class="contains">
                     <div class="row text-center">
-                        <h2 class="decorated row">SaaS Free Tier and Prepaid Plans</h2>
+                        <h2 class="decorated row">Prepaid Plans</h2>
                     </div>
                     <div class="grid-row">
-                        <!-- <template is="dom-repeat" items="[[data.plans]]" as="plan">
-                            <div class="xs12 s6 m6 l3 margin-bottom">
-                                <div class="plan text-center">
-                                    <div class$="[[_computeClass(index)]]">
-                                        [[plan.title]]
-                                    </div>
-                                    <div class="plan-body">
-                                        <div class="plan-body-item valign-wrapper">
-                                            <div class="valign">
-                                                <h2 class="price"><sup>$</sup>[[plan.cost]]<sub>/mo.</sub></h2>
-                                            </div>
-                                        </div>
-                                        <div class="plan-body-item valign-wrapper">
-                                            <p class="valign">[[plan.description]]</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </template> -->
-                        <div class="xs12 s6 m6 l3 margin-bottom">
-                            <div class="plan text-center">
-                                <div class$="[[_computeClass(0)]]">
-                                    Free Tier
-                                </div>
-                                <div class="plan-body">
-                                    <div class="plan-body-item valign-wrapper">
-                                        <div class="valign">
-                                            <h2 class="price"><sup>$</sup>0<sub>/mo.</sub></h2>
-                                        </div>
-                                    </div>
-                                    <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">up to 10 CPU cores <br/><sub>max concurrent per day</sub></p>
-                                    </div>
-                                    <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">100 datapoints/sec</p>
-                                    </div>
-                                    <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">10k rule checks/day</p>
-                                    </div>
-                                    <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">100k API requests/day</p>
-                                    </div>
-                                    <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">1 month retention</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="xs12 s6 m6 l3 margin-bottom">
+                        <div class="xs12 s6 m4 l4 margin-bottom">
                             <div class="plan text-center">
                                 <div class$="[[_computeClass(1)]]">
                                     Small
@@ -335,10 +289,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     <div class="plan-body-item valign-wrapper">
                                         <div class="valign">
                                             <h2 class="price"><sup>$</sup>200<sub>/mo.</sub></h2>
+                                            <a aria-label="Purchase small" href="/sign-up?plan=Small" tabindex="-1">
+                                                <paper-button on-click="_purchaseSmall">Purchase</paper-button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">200 CPU cores <br/><sub>max concurrent per day</sub></p>
+                                        <p class="valign">200 CPU cores</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
                                         <p class="valign">2k datapoints/sec</p>
@@ -347,16 +304,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <p class="valign">100k rule checks/day</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">100k API requests/day</p>
-                                    </div>
-                                    <div class="plan-body-item valign-wrapper">
                                         <p class="valign">3 month retention</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="xs12 s6 m6 l3 margin-bottom">
+                        <div class="xs12 s6 m4 l4 margin-bottom">
                             <div class="plan text-center">
                                 <div class$="[[_computeClass(2)]]">
                                     Medium
@@ -365,10 +319,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     <div class="plan-body-item valign-wrapper">
                                         <div class="valign">
                                             <h2 class="price"><sup>$</sup>900<sub>/mo.</sub></h2>
+                                            <a aria-label="Purchase small" href="/sign-up?plan=Medium" tabindex="-1">
+                                                <paper-button on-click="_purchaseMedium">Purchase</paper-button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">1k CPU cores <br/><sub>max concurrent per day</sub></p>
+                                        <p class="valign">1k CPU cores</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
                                         <p class="valign">10k datapoints/sec</p>
@@ -377,16 +334,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <p class="valign">1M rule checks/day</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">100k API requests/day</p>
-                                    </div>
-                                    <div class="plan-body-item valign-wrapper">
                                         <p class="valign">1 year retention</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="xs12 s6 m6 l3 margin-bottom">
+                        <div class="xs12 s6 m4 l4 margin-bottom">
                             <div class="plan text-center">
                                 <div class$="[[_computeClass(3)]]">
                                     Large
@@ -395,19 +349,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                     <div class="plan-body-item valign-wrapper">
                                         <div class="valign">
                                             <h2 class="price"><sup>$</sup>3,000<sub>/mo.</sub></h2>
+                                            <a aria-label="Purchase small" href="/sign-up?plan=Large" tabindex="-1">
+                                                <paper-button on-click="_purchaseLarge">Purchase</paper-button>
+                                            </a>
                                         </div>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">10k CPU cores <br/><sub>max concurrent per day</sub></p>
+                                        <p class="valign">10k CPU cores</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
                                         <p class="valign">100k datapoints/sec</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
                                         <p class="valign">10M rule checks/day</p>
-                                    </div>
-                                    <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">100k API requests/day</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
                                         <p class="valign">3 year retention</p>
