@@ -429,9 +429,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     <div class="row text-center">
                         <a aria-label="Get started" href="/sign-up" tabindex="-1">
-                            <paper-button raised on-click="_signUpClick" id="signUpBtn2">Sign up for free</paper-button>
+                            <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up for free</paper-button>
                         </a>
-                        <!-- <div class="secondary">Choose your plan later.</div> -->
                     </div>
 
                 </div>
@@ -451,36 +450,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </div>
                 </div>
             </div>
-            <!-- <div class="section dark">
-                <div class="contains">
-                    <div class="row text-center">
-                        <h2 class="decorated">Help with POC?</h2>
-                    </div>
-                    <div class="grid-row">
-                        <div class="xs12 s12 m6 l8">
-                            <div class="left">
-                                <h5 class="w400">Do you have more than 300 machines? <br/>Do you want to run Mist.io on premises? </h5>
-                                <p> Mist.io can provide custom pricing for businesses with a lot of infrastructure.
-                                    <br/>Also, we can work with you to run Mist.io on premises or to setup a proof of concept. </p>
-                            </div>
-                        </div>
-                        <div class="xs12 s12 m6 l4">
-                            <h5 class="w400">Contact us if you: </h5>
-                            <p>
-                                <iron-icon icon="done"></iron-icon> Have more than 300 machines
-                                <br/>
-                                <iron-icon icon="done"></iron-icon> Want to run an on-premises POC
-                                <br/>
-                            </p>
-                            <p>
-                                <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
-                                    <paper-button raised on-click="_requestInfoEnterprise" id="enterpriseBtn">Request Pricing</paper-button>
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+
             <div class="section grey">
                 <div class="contains">
                     <div class="row text-center">
@@ -489,15 +459,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <landing-faq faq="[[data.faq]]"></landing-faq>
                 </div>
             </div>
-            <!-- <div class="section white">
-                <div class="contains text-center">
-                    <div class="row margin-top">
-                        <a aria-label="Get started" href="/sign-up" tabindex="-1">
-                            <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
-                        </a>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </template>
     <script>
@@ -548,6 +509,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             window.scrollTo(0, 0);
             this.fire('user-action', 'request info for enterprise plan in pricing page');
         },
+
+        _purchaseSmall: function(event) {
+            window.scrollTo(0, 0);
+            this.fire('user-action', 'purchase Small prepaid plan');
+        },
+
+        _purchaseMedium: function(event) {
+            window.scrollTo(0, 0);
+            this.fire('user-action', 'purchase Medium prepaid plan');
+        },
+
+        _purchaseLarge: function(event) {
+            window.scrollTo(0, 0);
+            this.fire('user-action', 'purchase Large prepaid plan');
+        },
+
         _computeClass: function(index) {
             return "bg-" + index + " title";
         }
