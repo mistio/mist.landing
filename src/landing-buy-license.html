@@ -76,8 +76,8 @@
             }
 
             paper-spinner {
-                width: 16px;
-                height: 16px;
+                width: 24px;
+                height: 24px;
                 margin: 0 auto;
             }
 
@@ -309,6 +309,22 @@
                 width: 100%;
                 font-size: 12px;
             }
+
+            textarea#instructions {
+                background-color: rgb(40, 44, 52);
+                color: rgb(226, 229, 233);
+                overflow: auto;
+                padding: 12px;
+                font-size: 12px;
+                font-family: monospace;
+                text-align: left;
+                white-space: pre;
+            }
+
+            div#success {
+                margin-top: 16px;
+                margin-bottom: 16px;
+            }
         </style>
 
         <div id="placeholder"></div>
@@ -324,7 +340,7 @@
             </div>
             <iron-form id="buyLicence">
                 <paper-material elevation="1">
-                    <form method="post" action="/api/v1/license" enctype='application/json' id='form'>
+                    <form method="post" action="/api/v1/license" enctype='application/json' id='form' hidden=[[licenseKey]]>
                         <div id="contact-info">
                             <h4>Contact Information</h4>
 
@@ -375,10 +391,24 @@
                             </paper-radio-group>
                         </div>
                         <paper-checkbox id="accept" checked={{accept}}>I accept the <a href="/privacy-policy" target="new">Privacy Policy</a> and the <a href="/tos" target="new">Terms of Service</a></paper-checkbox>
+                        <paper-button id="submitButton" on-tap="submit" disabled="[[_isSubmitDisabled(formReady, loading)]]">
+                            <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
+                            <div hidden$="[[loading]]">
+                                Purchase for $[[cost]] <span hidden$="[[annualy]]">/month</span> <span hidden$="[[!annualy]]">/year</span>
+                            </div>
+                        </paper-button>
                         <div id="output" class="output"></div>
-                        <paper-button id="submitButton" on-tap="submit" disabled="[[!formReady]]">Purchase for $[[cost]] <span hidden$="[[annualy]]">/month</span> <span hidden$="[[!annualy]]">/year</span></paper-button>
-                        <paper-spinner hidden=[[!loading]]></paper-spinner>
                     </form>
+                    <div id="success" hidden=[[!licenseKey]]><h2>Transaction successful</h2>
+                        <p>Congratulations for purchasing your Mist.io Enterprise Edition License!</p> <p>In order to install Mist.io EE, you will need a Linux machine with at least 6GB of free RAM. Docker and Docker Compose need to be preinstalled and port 80 needs to be available.</p>
+                        <p>Provided the above, use the following steps to complete the installation.</p>
+                        <textarea id="instructions" rows="7" cols="80" onclick="this.focus();this.select()" readonly="readonly">[[instructions]]</textarea>
+                        <p hidden=[[registryPassword]]>
+                            Your registry.ops.mist.io password was not changed. <a href="https://gitlab.ops.mist.io/users/password/new">Forgot password?</a>
+                        </p>
+                        <p>Also check out the <a href="https://github.com/mistio/mist.ee/#configuring-mistio" target="new">configuration guide</a>.</p>
+                    </div>
+                </div>
                 </paper-material>
             </iron-form>
 
@@ -460,16 +490,39 @@
                 stripePublicApikey: {
                     type: String,
                     value: ""
+                },
+
+                instructions: {
+                    type: String,
+                    value: ""
+                },
+
+                registryUsername: {
+                    type: String,
+                    value: ""
+                },
+
+                licenseKey: {
+                    type: String,
+                    value: ""
+                },
+
+                registryPassword: {
+                    type: String,
+                    value: ""
                 }
             },
 
             attached: function() {
-                // this.$.buyLicence.addEventListener('iron-form-response', function(event) {
-                //     console.warn("REQUEST SUCCESS!", event);
-                //     that.loading = false;
-                //     that.$.buyLicence.querySelector('form').hidden = true;
-                //     that.$.buyLicence.querySelector('.output').innerHTML = "Thank you! You will be now sent the license key. <br/> <a href='/get-started'>Back to Editions page</a>";
-                // });
+                this.$.buyLicence.addEventListener('iron-form-response', function(event) {
+                    console.warn("REQUEST SUCCESS!", event);
+                    that.loading = false;
+                    that.registryUsername = event.detail.xhr.response.username;
+                    that.registryPassword = event.detail.xhr.response.password;
+                    that.licenseKey = event.detail.xhr.response.license_key;
+                    that.instructions = event.detail.xhr.response.instructions;
+                    //that.$.buyLicence.querySelector('.output').innerHTML = event.detail.xhr.response.instructions;
+                });
                 var that = this;
                 this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
                     that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
@@ -485,6 +538,7 @@
             submit: function(e) {
                 if (this.formReady) {
                     this.formReady = false;
+                    this.loading = true;
                     // extra stripe validation
                     var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
                         Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
@@ -504,14 +558,14 @@
                             }
                         }
                     } else {
-                        var errorText = 'There seems to be an error in';
+                        var errorText = 'There seems to be an error with the';
                         if (!Stripe.card.validateCardNumber(this.stripePayload.number)){
                             errorText += ' card number';
                             this.$["cc-cvc"].invalid = true;
                         }
 
                         if (!Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year)){
-                            errorText += ' expiration';
+                            errorText += ' expiration date';
                             this.$["exp-year"].invalid = true;
                         }
 
@@ -611,6 +665,7 @@
                     this.$.output.textContent = "";
                 else
                     this.$.output.textContent = result;
+                this.loading = false;
             },
 
             _logoClicked: function(event) {
@@ -619,6 +674,10 @@
 
             _signInClicked: function(event) {
                 this.fire('user-action', 'purchase-license click')
+            },
+
+            _isSubmitDisabled: function(formReady, loading) {
+                return !formReady || loading;
             }
         });
     </script>
