@@ -172,7 +172,8 @@
                     allow-signup-email allow_signup_email;
                     allow-signup-google allow_signup_google;
                     allow-signup-github allow_signup_github;
-                    enable-ab enable_ab"></landing-app>
+                    allow-purchase-license stripe_public_apikey|nothing;
+                    enable-ab enable_ab;"></landing-app>
 
   <script>
     window.performance && performance.mark && performance.mark('index.html');
