@@ -55,6 +55,21 @@
               height: 81px;
           }
 
+          .icon {
+            background-color: #424242;
+            color: #fff;
+            border-radius: 50%;
+            padding: 8px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            flex: none;
+            display: block;
+            margin: 0 auto 24px auto;
+            width: 24px;
+            height: 24px;
+          }
+
           @media (max-width: 991px) {
             .landing-summary-p {
                 height: auto;
@@ -73,7 +88,8 @@
                 <template is="dom-repeat" items="[[summary]]" as="item">
                     <div class="col xs12 s12 m4 l4 text-center">
                         <h4 class="light">
-                          <iron-icon icon="[[item.icon]]"></iron-icon>  [[item.title]]
+                          <iron-icon class="icon" icon="[[item.icon]]"></iron-icon>
+                          [[item.title]]
                         </h4>
                         <p class="light landing-summary-p">[[item.description]]</p>
                         <paper-material class="icon-block center">
