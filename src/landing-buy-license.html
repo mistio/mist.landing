@@ -390,7 +390,7 @@
                                 </paper-radio-button>
                             </paper-radio-group>
                         </div>
-                        <paper-checkbox id="accept" checked={{accept}}>I accept the <a href="/privacy-policy" target="new">Privacy Policy</a> and the <a href="/tos" target="new">Terms of Service</a></paper-checkbox>
+                        <paper-checkbox id="accept" checked={{accept}}>I accept the <a href="/privacy-policy" target="_blank">Privacy Policy</a> and the <a href="/tos" target="_blank">Terms of Service</a></paper-checkbox>
                         <paper-button id="submitButton" on-tap="submit" disabled="[[_isSubmitDisabled(formReady, loading)]]">
                             <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
                             <div hidden$="[[loading]]">
