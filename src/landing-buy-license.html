@@ -22,7 +22,7 @@
 
 <link rel="import" href="shared-styles.html">
 
-<!--script src="https://js.stripe.com/v2/"></script-->
+<script src="https://js.stripe.com/v2/"></script>
 
 
 <dom-module id="landing-buy-license">
@@ -97,6 +97,7 @@
                 margin-top: 16px;
                 margin-bottom: 16px;
                 color: var(--error-color);
+                text-align: center;
             }
 
             div.forgot {
@@ -198,7 +199,7 @@
                     display: block;
                 }   
             }
-            paper-input#cores {
+            paper-input#vcpus {
                 width: 100px;
                 text-align: center;
                 --paper-input-container-input: {
@@ -339,33 +340,33 @@
                         <div id="payment-info">
                             <h4>Payment information</h4>
 
-                            <gold-cc-input id="cc" name="cc" required auto-validate class="form-input"
+                            <gold-cc-input id="cc" required auto-validate class="form-input"
                                 value="{{stripePayload.number}}"
                                 label="Credit Card number"
                                 card-type="{{cardType}}">
                             </gold-cc-input>
 
-                            <paper-input id="exp-month" name="month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Wrong month." auto-validate></paper-input>
+                            <paper-input id="exp-month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Wrong month." auto-validate></paper-input>
                             <span class="exp">/</span>
-                            <paper-input id="exp-year" name="year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Error in expiration" auto-validate></paper-input>
+                            <paper-input id="exp-year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Error in expiration" auto-validate></paper-input>
 
-                            <gold-cc-cvc-input id="cc-cvc" name="cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
+                            <gold-cc-cvc-input id="cc-cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
 
-                            <paper-input id="address-zip" name="address_zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
-
+                            <paper-input id="address-zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
+                            <input type="hidden" name="token" id="token" />
                         </div>
                         <div id="order-details">
                             <h4>Order details</h4>
-                            <paper-input id="cores" name="cores" id="cores" label="Number of vcpus" type="number" min=10 value={{cores}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of cores is wrong"></paper-input>
+                            <paper-input id="vcpus" name="vcpus" id="vcpus" label="Number of vcpus" type="number" min=10 value={{vcpus}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of vcpus is wrong"></paper-input>
 
-                            <paper-radio-group>
-                                <paper-radio-button checked="{{annualy}}" class="field">
+                            <paper-radio-group name="interval">
+                                <paper-radio-button checked="{{annualy}}" class="field" name="annual" value="annual">
                                     Annual payment
                                     <span class="subtitle">
                                         $1/vcpu per month
                                     </span>
                                 </paper-radio-button>
-                                <paper-radio-button checked="{{!annualy}}" class="field">
+                                <paper-radio-button checked="{{!annualy}}" class="field" name="monthly" value="monthly">
                                     Monthly payment
                                     <span class="subtitle">
                                         $1.2/vcpu per month
@@ -373,10 +374,10 @@
                                 </paper-radio-button>
                             </paper-radio-group>
                         </div>
+                        <paper-checkbox id="accept" checked={{accept}}>I accept the <a href="/privacy-policy" target="new">Privacy Policy</a> and the <a href="/tos" target="new">Terms of Service</a></paper-checkbox>
                         <div id="output" class="output"></div>
-                        <paper-checkbox>I accept the Privacy Policy and the Terms of Service</paper-checkbox>
                         <paper-button id="submitButton" on-tap="submit" disabled="[[!formReady]]">Purchase for $[[cost]] <span hidden$="[[annualy]]">/month</span> <span hidden$="[[!annualy]]">/year</span></paper-button>
-
+                        <paper-spinner hidden=[[!loading]]></paper-spinner>
                     </form>
                 </paper-material>
             </iron-form>
@@ -396,7 +397,7 @@
 
                 contact: {
                     type: Object,
-                    value: function(){
+                    value: function() {
                         return {
                             name: undefined,
                             address: undefined,
@@ -407,7 +408,7 @@
 
                 stripePayload: {
                     type: Object,
-                    value: function(){
+                    value: function() {
                         return {
                             number: "",
                             exp_month: "",
@@ -418,7 +419,7 @@
                     }
                 },
 
-                cores: {
+                vcpus: {
                     type: Number,
                     value: 10
                 },
@@ -427,7 +428,7 @@
 
                 cost: {
                     type: Number,
-                    computed: '_computeCost(cores, annualy)'
+                    computed: '_computeCost(vcpus, annualy)'
                 },
 
                 annualy: {
@@ -447,17 +448,22 @@
 
                 formReady: {
                     type: Boolean,
-                    computed: '_computeFormReady(cores, dockerhubid, contact.*, stripePayload.*)',
+                    computed: '_computeFormReady(vcpus, dockerhubid, contact.*, stripePayload.*, accept)',
                     value: true
+                },
+
+                accept: {
+                    type: Boolean,
+                    value: false
+                },
+
+                stripePublicApikey: {
+                    type: String,
+                    value: ""
                 }
             },
 
             attached: function() {
-                // this.$.buyLicence.addEventListener('iron-form-error', function(event) {
-                //     console.warn("GOT ERROR!", event.detail);
-                //     that.loading = false;
-                //     that.$.buyLicence.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
-                // });
                 // this.$.buyLicence.addEventListener('iron-form-response', function(event) {
                 //     console.warn("REQUEST SUCCESS!", event);
                 //     that.loading = false;
@@ -468,18 +474,24 @@
                 this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
                     that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
                 });
+                this.$.buyLicence.addEventListener('iron-form-error', function(event) {
+                    console.warn("GOT ERROR!", event.detail);
+                    that.loading = false;
+                    that.$.buyLicence.querySelector('div.output').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
+                });
+
             },
 
             submit: function(e) {
                 if (this.formReady) {
-                    this.sumbmitPayment();
-                    /*// extra stripe validation
+                    this.formReady = false;
+                    // extra stripe validation
                     var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
                         Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
                         Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip != '';
 
-                    if (isValid){
-                        Stripe.setPublishableKey(STRIPE_PUBLIC_APIKEY);
+                    if (isValid) {
+                        Stripe.setPublishableKey(this.stripePublicApikey);
                         Stripe.card.createToken(this.stripePayload, stripeResponseHandler);
                         this.set('sendingData', true);
                         var that = this;
@@ -511,27 +523,23 @@
                         errorText += '.';
 
                         this.showError(errorText);
-                    }*/
+                    }
                 }
             },
 
             sumbmitPayment: function(status, response) {
-                //var mistPayload = {
-                //    token: response.id,
-                //};
                 this.$.buyLicence.headers["Csrf-Token"] = CSRF_TOKEN;
-                //this.$.buyLicence.params = mistPayload;
+                this.$.token.value = response.id;
                 this.$.buyLicence.submit();
             },
 
-            _computeFormReady: function(cores, dockerhubid, contact, stripePayload) {
+            _computeFormReady: function(vcpus, dockerhubid, contact, stripePayload, accept) {
                 // move input focus for month/year if length == 2
                 if (stripePayload.path.startsWith("stripePayload."))
                     this.moveFocus(stripePayload)
 
-                // if cores or dockerhubid empty not ready
-                // TODO when dockerhubid used, add: || !this.dockerhubid || !this.dockerhubid.trim().length
-                if (this.cores < 10){
+                // if vcpus empty not ready
+                if (this.vcpus < 10){
                     return false;
                 }
                 // if any of contact or payload is empty, form not ready
@@ -555,20 +563,25 @@
                         return false;
                     }
                 }
+
+                // if user does not accept terms, form is not ready
+                if (!this.accept)
+                    return false;
+
                 // else form is ready
                 console.log('form ready');
                 return this.$.buyLicence.validate();
             },
 
-            _computeCost: function(cores, annualy){
-                if (cores > 0 && annualy) {
-                    return (cores * 12 * this.annualCost).toFixed(2);
+            _computeCost: function(vcpus, annualy){
+                if (vcpus > 0 && annualy) {
+                    return (vcpus * 12 * this.annualCost).toFixed(2);
                 }
-                else if (cores > 0 && !annualy) {
-                    return (cores * this.monthlyCost).toFixed(2);
+                else if (vcpus > 0 && !annualy) {
+                    return (vcpus * this.monthlyCost).toFixed(2);
                 }
                 else {
-                    this.set("cores", 0);
+                    this.set("vcpus", 0);
                     return 0;
                 }
             },

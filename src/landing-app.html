@@ -441,9 +441,13 @@
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
         sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
 
-      <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license"></landing-buy-license>
-      <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
-      <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing" invitoken="[[invitoken]]"></landing-request-pricing>
+      <dom-if if="[[allowPurchaseLicense]]">
+        <template>
+          <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey=[[allowPurchaseLicense]]></landing-buy-license>
+          <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
+          <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+        </template>
+      </dom-if>
 
       <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password"></landing-forgot-password>
       <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
@@ -568,9 +572,18 @@
           type: Boolean,
           value: false
         },
-
-        invitoken: String,
-        returnTo: String
+        invitoken: {
+          type: String,
+          value: ''
+        },
+        returnTo: {
+          type: String,
+          value: ''
+        },
+        allowPurchaseLicense: {
+          type: String,
+          value: ''
+        }
       },
 
       observers: [
