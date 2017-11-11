@@ -95,7 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           <div class="text-center">
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
-              <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started</paper-button>
+              <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
             </a>
           </div>
         </div>
@@ -109,6 +109,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <h3 class="decorated row">Choose your Mist.io</h3>
           </div> 
           <landing-editions editions="[[data.editions]]"></landing-editions>
+          <div class="row">
+            <a aria-label="Get started" href="/get-started" tabindex="-1">
+              <paper-button raised on-click="_getStartedClick" id="_getStartedBtn">Choose Mist.io edition</paper-button>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -175,7 +180,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
         this.fire('user-action', 'sign up button 2 click in product page');
-      }
+      },
+
+      _getStartedClick: function(event) {
+        window.scrollTo(0, 0);
+        this.fire('user-action', 'view editions button click in product page');
+      },
     });
 
   </script>
