@@ -238,6 +238,13 @@
             text-align: left;
             cursor: pointer;
             line-height: 1.8em;
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            font-size: 0.9em;
+        }
+        ul.feature-list li .li-text {
+            line-height: 1.4em
         }
         ul.feature-list li p {
             height: 0;
@@ -258,7 +265,7 @@
         }
         ul.feature-list li iron-icon {
             opacity: 0.54;
-            margin: 0 16px;
+            margin: 0 16px 0 0;
             width: 1em;
             height: 1em;
         }
@@ -340,32 +347,40 @@
                                         <div class="bold">Features:</div>
                                         <ul class="feature-list">
                                             <li id="unlimited-machines">
-                                                <iron-icon icon="help"></iron-icon> Unlimited clouds &amp; machines
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text">Unlimited clouds &amp; machines</span>
                                                 <paper-tooltip for="unlimited-machines" animation-delay="0" position="top">Manage all of you infrastructure.</paper-tooltip>
                                             </li>
                                             <li id="unlimited-users">
-                                                <iron-icon icon="help"></iron-icon> Unlimited users &amp; teams
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Unlimited users &amp; teams</span>
                                                 <paper-tooltip for="unlimited-users" animation-delay="0" position="top">Invite unlimited users and organize them in teams.</paper-tooltip>
                                             </li>
                                             <li id="script-key-management">
-                                                <iron-icon icon="help"></iron-icon> Script &amp; Key management 
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Script &amp; Key management</span>
                                                 <paper-tooltip for="script-key-management" animation-delay="0" position="top">
                                                     Generate and store SSH keys associated to machines.<br/>Use them to run your scripts and playbooks.
                                                 </paper-tooltip>
                                             </li>
                                             <li id="scheduled-actions">
-                                                <iron-icon icon="help"></iron-icon> Scheduled actions
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Scheduled actions</span>
                                                 <paper-tooltip for="scheduled-actions" animation-delay="0" position="top">Multi-cloud crontab to schedule script executions and machine actions.</paper-tooltip>
                                             </li>
                                             <li id="web-shell">
-                                                <iron-icon icon="help"></iron-icon> Web shell
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Web shell</span>
                                                 <paper-tooltip for="web-shell" animation-delay="0" position="top">Connect interactively to machines through the browser. Record all shell sessions.</paper-tooltip>
                                             </li>
                                             <li id="rest-api">
-                                                <iron-icon icon="help"></iron-icon> REST API 
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> REST API </span>
                                                 <paper-tooltip for="rest-api" animation-delay="0" position="top">Issue revokable tokens and build robust automations.<br/> The Mist.io API provides a uniform abstraction on top of the cloud provider API's.<br /> </paper-tooltip>
                                             </li>
-                                            <li id="audit-logs"><iron-icon icon="help"></iron-icon> Audit logs
+                                            <li id="audit-logs">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Audit logs</span>
                                                 <paper-tooltip for="audit-logs" animation-delay="0" position="top">All actions leave audit trails. All infrastructure changes observed are being logged.</paper-tooltip>
                                             </li>
                                         </ul>
@@ -408,24 +423,29 @@
                                         <div class="bold">All features from CE plus:</div>
                                         <ul class="feature-list">
                                             <li id="rbac">
-                                                <iron-icon icon="help"></iron-icon> Role based Access Control
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Role based Access Control</span>
                                                 <paper-tooltip for="rbac" animation-delay="0" position="top">Delegate access with fine grained controls. Use tags to enforce policies across clouds.</paper-tooltip>
                                             </li>
                                             <li id="monitoring-alerting">
-                                                <iron-icon icon="help"></iron-icon> Monitoring &amp; Alerting
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Monitoring &amp; Alerting</span>
                                                 <paper-tooltip for="monitoring-alerting" animation-delay="0" position="top">Gather system, application &amp; custom business metrics. Configure rules that trigger alerts &amp; automated responses.</paper-tooltip>
                                             </li>
                                             <li id="cost-insights">
-                                                <iron-icon icon="help"></iron-icon> Cost Insights
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Cost Insights</span>
                                                 <paper-tooltip for="cost-insights" animation-delay="0" position="top">Understand your infrastructure costs, broken down by tags and clouds. Corellate with utilization to start optimizing performance vs money spent.</paper-tooltip>
                                             </li>
                                             <li id="orchestration">
-                                                <iron-icon icon="help"></iron-icon> Orchestration
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Orchestration</span>
                                                 <paper-tooltip for="orchestration" animation-delay="0" position="top">Streamline the deployment and lifecycle of complex architectures across clouds. <br/>Define topologies and workflows with TOSCA blueprints. Use Mist.io to deploy and manage your stacks.</paper-tooltip>
                                                 
                                             </li>
                                             <li id="msp-reseller">
-                                                <iron-icon icon="help"></iron-icon> MSP / reseller accounts<sup>beta</sup>
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> MSP / reseller accounts<sup>beta</sup></span>
                                                 <paper-tooltip for="msp-reseller" animation-delay="0" position="top">Resell hybrid infrastructure to your customers. Contact us to join private beta.</paper-tooltip>
                                             </li>
                                         </ul>
@@ -470,15 +490,18 @@
                                         <div class="bold">All features from EE plus:</div>
                                         <ul class="feature-list">
                                             <li id="vpn-tunnels">
-                                                <iron-icon icon="help"></iron-icon> VPN tunnels
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> VPN tunnels</span>
                                                 <paper-tooltip for="vpn-tunnels" animation-delay="0" position="top">Manage infrastructure that's only addressable through private networks by establishing point-to-point VPN connections.</paper-tooltip>
                                             </li>
                                             <li id="recommendation-engine">
-                                                <iron-icon icon="help"></iron-icon> Recommendation engine<sup>beta</sup>
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Recommendation engine<sup>beta</sup></span>
                                                 <paper-tooltip for="recommendation-engine" animation-delay="0" position="top">Generates automatic recommendations to optimize QoS, security and cost.</paper-tooltip>
                                             </li>
                                             <li id="anomaly-detection">
-                                                <iron-icon icon="help"></iron-icon> Anomaly detection<sup>beta</sup>
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Anomaly detection<sup>beta</sup></span>
                                                 <paper-tooltip for="anomaly-detection" animation-delay="0" position="top">Get alerted of irregularities before they affect your uptime. Contact us for more info.</paper-tooltip>
                                             </li>
                                         </ul>
