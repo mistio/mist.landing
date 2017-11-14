@@ -24,7 +24,8 @@
     "bower_components/webcomponentsjs/**/*",
     "bower_components/custom-elements/**/*",
     "bower_components/shadydom/**/*",
-    "bower_components/shadycss/**/*"
+    "bower_components/shadycss/**/*",
+    "bower_components/gold-cc-cvc-input/*.png"
   ],
   "builds": [{
     "name": "bundled",
