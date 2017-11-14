@@ -45,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-size: 18px;
         height: 54px;
         padding: 0 2rem !important;
-        margin: 0 40px 40px !important;
+        margin: 0 8px 40px !important;
         font-weight: 500;
       }
 
@@ -94,8 +94,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
           </div>
           <div class="text-center">
+            <a aria-label="Get started" href="/get-started" tabindex="-1">
+              <paper-button raised on-click="_getStartedClick" id="_getStartedBtn">Choose edition</paper-button>
+            </a>
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
-              <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started</paper-button>
+              <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
             </a>
           </div>
         </div>
@@ -162,6 +165,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
         this.fire('user-action', 'sign up button 2 click in orchestration page');
+      },
+
+      _getStartedClick: function(event) {
+        window.scrollTo(0, 0);
+        this.fire('user-action', 'choose edition button click in orchestration page');
       }
     });
 
