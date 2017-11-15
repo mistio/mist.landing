@@ -125,7 +125,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <iron-icon icon="social:people"></iron-icon>
             </div>
             <a aria-label="Get started" href="/get-started" tabindex="-1">
-              <paper-button raised on-tap="_getStartedClick" id="_getStartedBtn">Choose edition</paper-button>
+              <paper-button raised on-tap="_downloadClick" id="_getStartedBtn">Download</paper-button>
             </a>
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
               <paper-button raised on-tap="_signUpClick" id="signUpBtn1">Sign up</paper-button>
@@ -220,9 +220,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.fire('user-action', 'sign up button 2 click in rbac');
       },
 
-      _getStartedClick: function(event) {
+      _downloadClick: function(event) {
         window.scrollTo(0, 0);
-        this.fire('user-action', 'choose edition button click in rbac');
+        this.fire('user-action', 'download button click in rbac');
       }
     });
 

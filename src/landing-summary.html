@@ -93,7 +93,14 @@
                         </h4>
                         <p class="light landing-summary-p">[[item.description]]</p>
                         <paper-material class="icon-block center">
-                            <img src="[[item.image]]" alt="welcome screen" class="materialboxed card wow fadeIn responsive-img"/>
+                            <template is="dom-if" if="[[item.href]]">
+                              <a href="[[item.href]]">
+                                <img src="[[item.image]]" alt="welcome screen" class="materialboxed card wow fadeIn responsive-img"/>
+                              </a>
+                            </template>
+                            <template is="dom-if" if="[[!item.href]]">
+                              <img src="[[item.image]]" alt="welcome screen" class="materialboxed card wow fadeIn responsive-img"/>
+                            </template>
                         </paper-material>
                     </div>
                 </template>

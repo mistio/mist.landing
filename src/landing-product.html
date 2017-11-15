@@ -95,7 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           <div class="text-center">
             <a aria-label="Get started" href="/get-started" tabindex="-1">
-              <paper-button raised on-tap="_getStartedClick" id="_getStartedBtn">Choose edition</paper-button>
+              <paper-button raised on-tap="_downloadClick" id="_getStartedBtn">Download</paper-button>
             </a>
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
               <paper-button raised on-tap="_signUpClick" id="signUpBtn1">Sign up</paper-button>
@@ -114,7 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <landing-editions editions="[[data.editions]]"></landing-editions>
           <div class="row">
             <a aria-label="Get started" href="/get-started" tabindex="-1">
-              <paper-button raised on-tap="_getStartedClick" id="_getStartedBtn">Choose Mist.io edition</paper-button>
+              <paper-button raised on-tap="_chooseEditionClick" id="_getStartedBtn">Choose Mist.io edition</paper-button>
             </a>
           </div>
         </div>
@@ -177,17 +177,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _signUpClick: function(event) {
         window.scrollTo(0, 0);
-        this.fire('user-action', 'sign up button 1 click in product page');
+        this.fire('user-action', 'sign up button 1 click in product');
       },
 
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
-        this.fire('user-action', 'sign up button 2 click in product page');
+        this.fire('user-action', 'sign up button 2 click in product');
       },
 
-      _getStartedClick: function(event) {
+      _downloadClick: function(event) {
         window.scrollTo(0, 0);
-        this.fire('user-action', 'view editions button click in product page');
+        this.fire('user-action', 'download button click in product');
+      },
+
+      _chooseEditionClick: function(event) {
+        window.scrollTo(0, 0);
+        this.fire('user-action', 'choose edition button click in product');
       }
     });
 

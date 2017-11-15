@@ -443,7 +443,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <div class="xs12 s12 m12 l12 text-center">
                             <p>If you are looking for an on premises solution, checkout the <strong>Community (CE)</strong> and <strong>Enterprise (EE)</strong> Mist.io editions.</p>
                             <a aria-label="Mist.io editions" href="/get-started" tabindex="-1">
-                                <paper-button raised>Mist.io editions</paper-button>
+                                <paper-button raised on-tap="_getStartedClick">Mist.io editions</paper-button>
                             </a>
                         </div>
                     </div>
@@ -502,6 +502,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         _signUpClick2: function(event) {
             window.scrollTo(0, 0);
             this.fire('user-action', 'sign up button 2 click in pricing');
+        },
+
+        _getStartedClick: function() {
+            window.scrollTo(0, 0);
+            this.fire('user-action', 'Mist.io editions button in pricing page');
         },
 
         _requestInfoEnterprise: function(event) {
