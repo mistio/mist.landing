@@ -366,7 +366,7 @@
           <paper-icon-button
               class="menu-btn"
               icon="menu"
-              on-click="_toggleDrawer"
+              on-tap="_toggleDrawer"
               aria-label="Categories">
           </paper-icon-button>
           <div class="logo">
@@ -383,7 +383,7 @@
                   attr-for-selected="name">
                 <dom-repeat items="[[categories]]" as="category" initial-count="4">
                   <template>
-                    <landing-tab name="[[category.name]]" on-click="_tabClicked" hidden$="[[category.hiddenFromMenu]]">
+                    <landing-tab name="[[category.name]]" on-tap="_tabClicked" hidden$="[[category.hiddenFromMenu]]">
                       <a name="[[category.name]]" href="[[category.href]]" target="new">[[category.title]]</a>
                     </landing-tab>
                   </template>
@@ -395,7 +395,7 @@
 
         <div class$="signin-btn-container [[_shouldShowTabs]]">
           <a href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io">
-            <paper-button raised on-click="_signInClick">Sign In</paper-button>
+            <paper-button raised on-tap="_signInClick">Sign In</paper-button>
           </a>
         </div>
       </app-toolbar>

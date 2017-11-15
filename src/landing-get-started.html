@@ -347,7 +347,7 @@
                                     <div class="plan-body-item grey">
                                         <div>
                                             <a aria-label="Clone github repo" target="new" href="https://github.com/mistio/mist.io/releases/latest" tabindex="-1">
-                                                <paper-button raised on-click="_signUpClick0">Download</paper-button>
+                                                <paper-button raised on-tap="_downloadClick">Download</paper-button>
                                             </a>
                                             <p>Install on premises.</p>
                                         </div>
@@ -423,7 +423,7 @@
                                     <div class="plan-body-item grey">
                                         <div>
                                             <a aria-label="Buy Licence" href="/buy-license" tabindex="-1">
-                                                <paper-button raised on-click="_signUpClick1">Purchase Licence</paper-button>
+                                                <paper-button raised on-tap="_purchaseClick">Purchase Licence</paper-button>
                                             </a>
                                             <p>Install on premises.</p>
                                         </div>
@@ -490,7 +490,7 @@
                                     <div class="plan-body-item grey">
                                         <div>
                                             <a aria-label="Sign up" href="/sign-up" tabindex="-1">
-                                                <paper-button raised on-click="_signUpClick2">Sign up</paper-button>
+                                                <paper-button raised on-tap="_signUpClick2">Sign up</paper-button>
                                             </a>
                                             <p>No installation. Start right away.</p>
                                         </div>
@@ -558,7 +558,7 @@
                         </p>
                         <p>
                             <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
-                                <paper-button raised on-click="_requestInfoEnterprise" id="enterpriseBtn">Request Pricing</paper-button>
+                                <paper-button raised on-tap="_requestInfoClick" id="enterpriseBtn">Request Pricing</paper-button>
                             </a>
                         </p>
                     </div>
@@ -611,26 +611,28 @@
                 history.back();
             else
                 this.fire('go-to','/');
+            this.fire('user-action', 'back click in get-started');
         },
 
-        _signUpClick0: function(event) {
-            this.fire('user-action', 'clone repo button click in pricing page');
+        _downloadClick: function(event) {
+            this.fire('user-action', 'download ce button click in get-started');
         },
 
-        _signUpClick1: function(event) {
+        _purchaseClick: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'buy license button click in pricing page');
+            this.fire('user-action', 'purchase license button click in get-started');
         },
 
-        _signUpClick2: function(event) {
+        _signUpClick: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'saas button 2 click in pricing page');
+            this.fire('user-action', 'sign-in button click in get-started');
         },
 
-        _requestInfoEnterprise: function(event) {
+        _requestInfoClick: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'request info for enterprise plan in pricing page');
+            this.fire('user-action', 'request info button click in get-started');
         },
+
         _computeClass: function(index) {
             return "bg-" + index + " title";
         }

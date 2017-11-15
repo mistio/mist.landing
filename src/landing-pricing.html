@@ -236,7 +236,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <h2>Mist.io Pricing</h2>
                     <p><strong>FREE</strong> for up to 10 vCPUs, 100 datapoints/sec, 1000 rule checks/day, 10k API requests/day, with 1 month retention.</p>
                     <a aria-label="Get started" href="/sign-up" tabindex="-1">
-                        <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up for free</paper-button>
+                        <paper-button raised on-tap="_signUpClick" id="signUpBtn1">Sign up for free</paper-button>
                     </a>
                 </div>
             </div>
@@ -289,7 +289,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <div class="valign">
                                             <h2 class="price"><sup>$</sup>200<sub>/mo.</sub></h2>
                                             <!-- <a aria-label="Purchase small" href="/sign-up?plan=Small" tabindex="-1">
-                                                <paper-button raised on-click="_purchaseSmall">Purchase</paper-button>
+                                                <paper-button raised on-tap="_purchaseSmallClick">Purchase</paper-button>
                                             </a> -->
                                         </div>
                                     </div>
@@ -319,7 +319,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <div class="valign">
                                             <h2 class="price"><sup>$</sup>900<sub>/mo.</sub></h2>
                                             <!-- <a aria-label="Purchase small" href="/sign-up?plan=Medium" tabindex="-1">
-                                                <paper-button raised on-click="_purchaseMedium">Purchase</paper-button>
+                                                <paper-button raised on-tap="_purchaseMediumClick">Purchase</paper-button>
                                             </a> -->
                                         </div>
                                     </div>
@@ -349,7 +349,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <div class="valign">
                                             <h2 class="price"><sup>$</sup>3,000<sub>/mo.</sub></h2>
                                             <!-- <a aria-label="Purchase small" href="/sign-up?plan=Large" tabindex="-1">
-                                                <paper-button raised on-click="_purchaseLarge">Purchase</paper-button>
+                                                <paper-button raised on-tap="_purchaseLargeClick">Purchase</paper-button>
                                             </a> -->
                                         </div>
                                     </div>
@@ -428,7 +428,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     <div class="row text-center">
                         <a aria-label="Get started" href="/sign-up" tabindex="-1">
-                            <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up for free</paper-button>
+                            <paper-button raised on-tap="_signUpClick2" id="signUpBtn2">Sign up for free</paper-button>
                         </a>
                     </div>
 
@@ -496,32 +496,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         _signUpClick: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'sign up button 1 click in pricing page');
+            this.fire('user-action', 'sign up button 1 click in pricing');
         },
 
         _signUpClick2: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'sign up button 2 click in pricing page');
+            this.fire('user-action', 'sign up button 2 click in pricing');
         },
 
         _requestInfoEnterprise: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'request info for enterprise plan in pricing page');
+            this.fire('user-action', 'request info for enterprise plan in pricing');
         },
 
-        _purchaseSmall: function(event) {
+        _purchaseSmallClick: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'purchase Small prepaid plan');
+            this.fire('user-action', 'purchase small plan click in pricing');
         },
 
-        _purchaseMedium: function(event) {
+        _purchaseMediumClick: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'purchase Medium prepaid plan');
+            this.fire('user-action', 'purchase medium plan click in pricing');
         },
 
-        _purchaseLarge: function(event) {
+        _purchaseLargeClick: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'purchase Large prepaid plan');
+            this.fire('user-action', 'purchase large plan click in pricing');
         },
 
         _computeClass: function(index) {

@@ -154,14 +154,14 @@
         <div id="placeholder"></div>
         <div id="container">
 
-            <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-click="_logoClicked"></paper-icon-button></a></div>
+            <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-tap="_logoClicked"></paper-icon-button></a></div>
 
             <h1>Sign in to your account</h1>
             <iron-form id="signInForm">
                 <paper-material elevation="1">
                     <div hidden$="[[_canSignIn(signInGoogle, signInGithub, signInEmail)]]">Sign In has been disabled.</div>
-                    <paper-button raised class="white" on-click="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon>Sign in with Google</paper-button>
-                    <paper-button raised class="white" on-click="_socialAuthGithub" id="signInBtnGithub" hidden$=[[!signInGithub]]><iron-icon icon="landing:github"></iron-icon>Sign in with Github</paper-button>
+                    <paper-button raised class="white" on-tap="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon>Sign in with Google</paper-button>
+                    <paper-button raised class="white" on-tap="_socialAuthGithub" id="signInBtnGithub" hidden$=[[!signInGithub]]><iron-icon icon="landing:github"></iron-icon>Sign in with Github</paper-button>
                     <div class="or" hidden$="[[!_hasSeparator(signInGoogle, signInGithub, signInEmail)]]">
                         or
                     </div>
@@ -283,7 +283,7 @@
                 this.$.signInForm.submit();
             },
             _logoClicked: function(event) {
-                this.fire('user-action', 'logo click');
+                this.fire('user-action', 'logo click on sign-in');
             },
             _socialAuthGoogle: function(event){
                 this.fire('user-action', 'google sign in');

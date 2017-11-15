@@ -141,7 +141,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div class="section fold grey">
             <landing-fold>
               <a aria-label="Sign up" href="/sign-up" tabindex="-1">
-                <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get Started</paper-button>
+                <paper-button raised on-tap="_signUpClick" id="signUpBtn1">Get Started</paper-button>
               </a>
             </landing-fold>
           </div>
@@ -153,7 +153,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div class="section fold grey">
             <landing-fold contents="[[data.fold]]">
               <a aria-label="[[data.fold.cta]]" href$="[[_computeCtaPath()]]" tabindex="-1">
-                <paper-button raised on-click="_signUpClick" id="signUpBtn1">[[data.fold.cta]]</paper-button>
+                <paper-button raised on-tap="_signUpClick" id="signUpBtn1">[[data.fold.cta]]</paper-button>
               </a>
             </landing-fold>
           </div>
@@ -239,7 +239,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <landing-editions editions="[[data.editions]]"></landing-editions>
               <div class="row">
                 <a aria-label="Get started" href$="[[_computeCtaPath()]]" tabindex="-1">
-                  <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Get Started with Mist.io</paper-button>
+                  <paper-button raised on-tap="_signUpClick2" id="signUpBtn2">Get Started with Mist.io</paper-button>
                 </a>
               </div>
             </div>
