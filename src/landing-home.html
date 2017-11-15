@@ -152,7 +152,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template>
           <div class="section fold grey">
             <landing-fold contents="[[data.fold]]">
-              <a aria-label="[[data.fold.cta]]" href="/get-started" tabindex="-1">
+              <a aria-label="[[data.fold.cta]]" href$="[[_computeCtaPath()]]" tabindex="-1">
                 <paper-button raised on-click="_signUpClick" id="signUpBtn1">[[data.fold.cta]]</paper-button>
               </a>
             </landing-fold>
@@ -238,7 +238,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </div>
               <landing-editions editions="[[data.editions]]"></landing-editions>
               <div class="row">
-                <a aria-label="Get started" href="/get-started" tabindex="-1">
+                <a aria-label="Get started" href$="[[_computeCtaPath()]]" tabindex="-1">
                   <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Get Started with Mist.io</paper-button>
                 </a>
               </div>
@@ -301,7 +301,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         new Wave(event.clientX, event.clientY, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
         this.async(
           function() {
-            this.fire('go-to', '/get-started');
+            this.fire('go-to', this._computeCtaPath());
             waves.forEach(function(wave) { wave.up(); });
             window.scrollTo(0, 0);
           }, 200 );
@@ -313,11 +313,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         new Wave(event.clientX, event.clientY, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
         this.async(
           function() {
-            this.fire('go-to', '/get-started');
+            this.fire('go-to', this._computeCtaPath());
             waves.forEach(function(wave) { wave.up(); })
             window.scrollTo(0, 0);
           }, 200 );
         this.fire('user-action', 'sign up button 2 click in home');
+      },
+
+      _computeCtaPath: function(){
+        if (this.allowPurchaseLicense)
+          return '/get-started';
+        return '/sign-up';
       }
     });
 
