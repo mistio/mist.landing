@@ -95,7 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </div>
           <div class="text-center">
             <a aria-label="Get started" href="/get-started" tabindex="-1">
-              <paper-button raised on-click="_getStartedClick" id="_getStartedBtn">Choose edition</paper-button>
+              <paper-button raised on-click="_getStartedClick" id="_getStartedBtn">Download</paper-button>
             </a>
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
               <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
@@ -169,7 +169,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _getStartedClick: function(event) {
         window.scrollTo(0, 0);
-        this.fire('user-action', 'choose edition button click in orchestration page');
+        this.fire('user-action', 'download button click in orchestration page');
       }
     });
 
