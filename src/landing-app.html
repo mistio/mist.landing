@@ -819,7 +819,7 @@
       _signInClick: function(event) {
         this.fire('user-action', 'sign in click from ' + this.page);
         event.preventDefault();
-        new Wave(event.clientX, event.clientY, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+        new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
         this.async(
           function() {
             this.fire('go-to', '/sign-in');

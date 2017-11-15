@@ -298,7 +298,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _signUpClick: function(event) {
         event.preventDefault();
-        new Wave(event.clientX, event.clientY, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+        new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
         this.async(
           function() {
             this.fire('go-to', this._computeCtaPath());
@@ -310,7 +310,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _signUpClick2: function(event) {
         event.preventDefault();
-        new Wave(event.clientX, event.clientY, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+        new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
         this.async(
           function() {
             this.fire('go-to', this._computeCtaPath());
