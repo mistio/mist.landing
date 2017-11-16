@@ -225,6 +225,7 @@
                 });
                 this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
                     that.$.signUpForm.request.headers['Csrf-Token'] = CSRF_TOKEN;
+                    that.fire('user-action', 'request-pricing submit')
                 });
             },
             _submitButtonHandler:  function(event) {

@@ -491,6 +491,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         is: 'landing-pricing',
 
         properties: {
+
             categories: {
                 type: Array
             },
@@ -504,10 +505,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 type: Boolean,
                 observer: '_visibleChanged'
             }
-
-        },
-
-        attached: function() {
 
         },
 
@@ -531,7 +528,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         _getStartedClick: function() {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'Mist.io editions button in pricing page');
+            this.fire('user-action', 'editions button in pricing page');
         },
 
         _requestInfoEnterprise: function(event) {

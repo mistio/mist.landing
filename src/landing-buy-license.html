@@ -337,7 +337,7 @@
         <div id="placeholder"></div>
         <div id="container">
 
-            <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-click="_logoClicked" id="logoButton"></paper-icon-button></a></div>
+            <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-tap="_logoClicked" id="logoButton"></paper-icon-button></a></div>
 
             <div class="head">
                 <div class="back">
@@ -523,20 +523,18 @@
 
             attached: function() {
                 this.$.buyLicence.addEventListener('iron-form-response', function(event) {
-                    console.warn("REQUEST SUCCESS!", event);
                     that.loading = false;
                     that.registryUsername = event.detail.xhr.response.username;
                     that.registryPassword = event.detail.xhr.response.password;
                     that.licenseKey = event.detail.xhr.response.license_key;
                     that.instructions = event.detail.xhr.response.instructions;
-                    //that.$.buyLicence.querySelector('.output').innerHTML = event.detail.xhr.response.instructions;
+                    this.fire('user-action', 'purchase license sucess');
                 });
                 var that = this;
                 this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
                     that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
                 });
                 this.$.buyLicence.addEventListener('iron-form-error', function(event) {
-                    console.warn("GOT ERROR!", event.detail);
                     that.loading = false;
                     that.$.buyLicence.querySelector('div.output').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
                 });
@@ -544,6 +542,7 @@
             },
 
             submit: function(e) {
+                this.fire('user-action', 'purchase license submit');
                 if (this.formReady) {
                     this.formReady = false;
                     this.loading = true;
@@ -607,20 +606,17 @@
                 // if any of contact or payload is empty, form not ready
                 for (var prop in this.contact){
                     if (this.contact.hasOwnProperty(prop) && (this.contact[prop] == "" || this.contact[prop] == undefined)){
-                        console.log(prop, "empty 1");
                         return false;
                     }
                 }
                 for (var prop in this.stripePayload){
                     if (this.stripePayload.hasOwnProperty(prop) && (this.stripePayload[prop] == "" || this.stripePayload[prop] == undefined)){
-                        console.log(prop, "empty 2");
                         return false;
                     }
                 }
                 // if any of the fields is invalid, form is not ready
                 var fields = this.$.buyLicence.querySelectorAll(".form-input");
                 for (var i=0;i<fields.length;i++){
-                    console.log(fields[i].name, fields[i].invalid)
                     if (fields[i].invalid){
                         return false;
                     }
