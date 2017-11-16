@@ -327,6 +327,11 @@
                 margin-top: 16px;
                 margin-bottom: 16px;
             }
+
+            div#notice {
+                font-size: 13px;
+                color: #444;
+            }
         </style>
 
         <div id="placeholder"></div>
@@ -400,11 +405,12 @@
                             </div>
                         </paper-button>
                         <div id="output" class="output"></div>
+                        <div id="notice">You will receive an email with your license key and download instructions after submitting this form.</div>
                     </form>
                     <div id="success" hidden=[[!licenseKey]]><h2>Transaction successful</h2>
                         <p>Congratulations for purchasing your Mist.io Enterprise Edition License!</p> <p>In order to install Mist.io EE, you will need a Linux machine with at least 6GB of free RAM. Docker and Docker Compose need to be preinstalled and port 80 needs to be available.</p>
                         <p>Provided the above, use the following steps to complete the installation.</p>
-                        <textarea id="instructions" rows="7" cols="80" onclick="this.focus();if (typeof(textareaSelected) == 'undefined') { textareaSelected = true; this.select() }" readonly="readonly">[[instructions]]</textarea>
+                        <textarea id="instructions" rows="8" cols="80" onclick="this.focus();if (typeof(textareaSelected) == 'undefined') { textareaSelected = true; this.select() }" readonly="readonly">[[instructions]]</textarea>
                         <p hidden=[[registryPassword]]>
                             Your registry.ops.mist.io password was not changed. <a href="https://gitlab.ops.mist.io/users/password/new">Forgot password?</a>
                         </p>

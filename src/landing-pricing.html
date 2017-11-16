@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../bower_components/typed-text/typed-text.html">
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
+<link rel="import" href="../bower_components/paper-tooltip/paper-tooltip.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
@@ -26,6 +27,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </custom-style>
         <style include="shared-styles"></style>
         <style>
+        :host {
+            --paper-tooltip: {
+                font-size: 14px;
+                line-height: 24px;
+            }
+        }
+        :host paper-tooltip {
+            max-width: 500px;
+        }
+
+        span#vcpus, span#datapoints, span#rulechecks, span#apirequests, span#retention {
+            border-bottom: 1px dashed #999;
+        }
+
         paper-material {
             @apply(--shadow-elevation-2dp);
         }
@@ -228,13 +243,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 padding: 0;
             }
         }
+
+        p.free {
+            max-width: 540px;
+            margin: 32px auto;
+        }
         </style>
         <div id="placeholder"></div>
         <div id="container">
             <div class="section grey">
                 <div class="hero text-center">
-                    <h2>Mist.io Pricing</h2>
-                    <p><strong>FREE</strong> for up to 10 vCPUs, 100 datapoints/sec, 1000 rule checks/day, 10k API requests/day, with 1 month retention.</p>
+                    <h2>Hosted Edition Pricing</h2>
+                    <p class="free"><strong>FREE</strong> for up to 10 <span id="vcpus">vCPUs</span>, 1M <span id="datapoints">datapoints/day</span>, 10k <span id="rulechecks">rule checks/day</span>, 10k <span id="apirequests">API requests/day</span>, 1 month <span id="retention">retention</span>.</p>
+                    <paper-tooltip for="vcpus" animation-delay="0" position="top">Total sum of physical and virtual processor cores under management.</paper-tooltip>
+                    <paper-tooltip for="datapoints" animation-delay="0" position="top">Incoming metric samples and log entries.</paper-tooltip>
+                    <paper-tooltip for="rulechecks" animation-delay="0" position="top">Evaluations of conditions that trigger alerts or automated actions.</paper-tooltip>
+                    <paper-tooltip for="apirequests" animation-delay="0" position="top">Invokations of the Mist.io API by any member of your organization.</paper-tooltip>
+                    <paper-tooltip for="retention" animation-delay="0" position="top">Historic data within the retention window will be accesible.</paper-tooltip>
                     <a aria-label="Get started" href="/sign-up" tabindex="-1">
                         <paper-button raised on-tap="_signUpClick" id="signUpBtn1">Sign up for free</paper-button>
                     </a>
@@ -258,7 +283,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </div>
                         <div class="xs6 s3 m3 l3 margin-bottom payg-rate">
                             <div class="plus-rate"><span><sup>$</sup>5<span class="plus"><sub>/mo</span></sub></span></div>
-                            <div class="plus-per"><sub>per additional</sub><br/>1k datapoints/sec</div>
+                            <div class="plus-per"><sub>per additional</sub><br/>1M datapoints/day</div>
                         </div>
                         <div class="xs6 s3 m3 l3 margin-bottom payg-rate">
                             <div class="plus-rate"><span><sup>$</sup>5<span class="plus"><sub>/mo</span></sub></span></div>
@@ -297,7 +322,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <p class="valign">200 vCPUs</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">2k datapoints/sec</p>
+                                        <p class="valign">20M datapoints/day</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
                                         <p class="valign">100k rule checks/day</p>
@@ -327,7 +352,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <p class="valign">1k vCPUs</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">10k datapoints/sec</p>
+                                        <p class="valign">100M datapoints/day</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
                                         <p class="valign">1M rule checks/day</p>
@@ -357,7 +382,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                                         <p class="valign">10k vCPUs</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
-                                        <p class="valign">100k datapoints/sec</p>
+                                        <p class="valign">1B datapoints/day</p>
                                     </div>
                                     <div class="plan-body-item valign-wrapper">
                                         <p class="valign">10M rule checks/day</p>
@@ -441,7 +466,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     </div>
                     <div class="grid-row">
                         <div class="xs12 s12 m12 l12 text-center">
-                            <p>If you are looking for an on premises solution, checkout the <strong>Community (CE)</strong> and <strong>Enterprise (EE)</strong> Mist.io editions.</p>
+                            <p>If you are looking for an on premises solution, check out the <strong>Community Edition (CE)</strong> and the <strong>Enterprise Edition (EE)</strong>.</p>
                             <a aria-label="Mist.io editions" href="/get-started" tabindex="-1">
                                 <paper-button raised on-tap="_getStartedClick">Mist.io editions</paper-button>
                             </a>
