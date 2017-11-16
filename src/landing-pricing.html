@@ -466,10 +466,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <h2 class="decorated">Need it On Premises?</h2>
                     </div>
                     <div class="grid-row">
-                        <div class="xs12 s12 m12 l12 text-center">
+                        <div class="xs12 s12 m12 l12 text-center" hidden$="[[!allowPurchaseLicense.length]]">
                             <p>If you are looking for an on premises solution, check out the <strong>Community Edition (CE)</strong> and the <strong>Enterprise Edition (EE)</strong>.</p>
                             <a aria-label="Mist.io editions" href="/get-started" tabindex="-1">
                                 <paper-button raised on-tap="_getStartedClick">Mist.io editions</paper-button>
+                            </a>
+                        </div>
+                        <div class="xs12 s12 m12 l12 text-center" hidden$="[[allowPurchaseLicense.length]]">
+                            <p>If you are looking for an on premises solution, contact us at <a href="mailto:sales@mist.io">sales@mist.io</a> or send us a request for pricing.</p>
+                            <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
+                                <paper-button raised on-tap="_requestInfoClick" id="enterpriseBtn">Request Pricing</paper-button>
                             </a>
                         </div>
                     </div>
@@ -550,6 +556,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         _purchaseLargeClick: function(event) {
             window.scrollTo(0, 0);
             this.fire('user-action', 'purchase large plan click in pricing');
+        },
+
+        _requestInfoClick: function(event) {
+            window.scrollTo(0, 0);
+            this.fire('user-action', 'request pricing click in pricing');
         },
 
         _computeClass: function(index) {
