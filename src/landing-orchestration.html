@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
           </div>
           <div class="text-center">
-            <a aria-label="Get started" href="/get-started" tabindex="-1">
+            <a aria-label="Get started" href="/get-started" tabindex="-1" hidden$="[[!allowPurchaseLicense.length]]">
               <paper-button raised on-click="_getStartedClick" id="_getStartedBtn">Download</paper-button>
             </a>
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
