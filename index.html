@@ -13,6 +13,19 @@
   <meta name="theme-color" content="#fff">
   <link rel="manifest" href="manifest.json">
 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async tal:condition="google_analytics_id"
+          src="https://www.googletagmanager.com/gtag/js?id=${google_analytics_id}"></script>
+  <script tal:condition="google_analytics_id">
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '${google_analytics_id}', {
+      'custom_map': {'app': 'landing'}
+    });
+  </script>
+
   <script tal:condition="csrf_token|nothing" tal:content="string: var CSRF_TOKEN=${csrf_token}"></script>
   <script tal:condition="categories|nothing" tal:content="string: var CATEGORIES=${categories}"></script>
 
@@ -164,8 +177,7 @@
 <body>
 
   <landing-app unresolved
-    tal:attributes="ga-id google_analytics_id;
-                    show-footer footer|nothing;
+    tal:attributes="show-footer footer|nothing;
                     allow-signin-email allow_signin_email;
                     allow-signin-google allow_signin_google;
                     allow-signin-github allow_signin_github;

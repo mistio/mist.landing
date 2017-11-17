@@ -342,7 +342,6 @@
 
     </style>
 
-    <landing-analytics key="[[gaId]]"></landing-analytics>
     <!--
       app-location and app-route elements provide the state of the URL for the app.
     -->
@@ -830,6 +829,11 @@
 
       _onUserAction: function(event) {
         console.debug('user-action', event);
+        if (typeof gtag == 'function') {
+          gtag('event', event.detail, {
+            'event_category': 'landing'
+          });
+        }
         if (!this.enableAb)
           return;
         var xhr = new XMLHttpRequest();
