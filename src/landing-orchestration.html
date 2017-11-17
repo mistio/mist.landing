@@ -45,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-size: 18px;
         height: 54px;
         padding: 0 2rem !important;
-        margin: 0 40px 40px !important;
+        margin: 0 8px 40px !important;
         font-weight: 500;
       }
 
@@ -88,12 +88,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div class="text-center">
             <h2 class="decorated row title">Cloud Orchestration</h2>
             <div class="padding">
-              <marked-element markdown="[[data.text]]"></marked-element>
+              <marked-element markdown="[[data.text]]">
+                <div slot="markdown-html"></div>
+              </marked-element>
             </div>
           </div>
           <div class="text-center">
+            <a aria-label="Get started" href="/get-started" tabindex="-1" hidden$="[[!allowPurchaseLicense.length]]">
+              <paper-button raised on-click="_getStartedClick" id="_getStartedBtn">Download</paper-button>
+            </a>
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
-              <paper-button raised on-click="_signUpClick" id="signUpBtn1">Get started</paper-button>
+              <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
             </a>
           </div>
         </div>
@@ -108,7 +113,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <a aria-label="Get started" href="/sign-up" tabindex="-1">
               <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
             </a>
-            <div class="secondary">No credit card required</div>
           </div>
         </div>
       </div>
@@ -127,10 +131,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ],
 
       properties: {
-        animationConfig: {
-          type: Object
-        },
-
         categories: {
           type: Array
         },
@@ -148,25 +148,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       attached: function() {
-        this.animationConfig = {
-          'entry': [],
-          'exit': [{
-            name: 'fade-out-animation',
-            node: this.$.container,
-            timing: {
-              delay: 150,
-              duration: 0
-            }
-          }, {
-            name: 'ripple-animation',
-            id: 'ripple',
-            fromPage: this,
-            node: this.$.signUpBtn1
-          }]
-        };
-        this.sharedElements = {
-          'ripple': this.$.signUpBtn1
-        };
+
       },
 
       _visibleChanged: function(visible) {
@@ -177,15 +159,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _signUpClick: function(event) {
         window.scrollTo(0, 0);
-        // bring placeholder to fg for animation to work
-        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 1 click in orchestration page');
       },
 
       _signUpClick2: function(event) {
         window.scrollTo(0, 0);
-        this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
         this.fire('user-action', 'sign up button 2 click in orchestration page');
+      },
+
+      _getStartedClick: function(event) {
+        window.scrollTo(0, 0);
+        this.fire('user-action', 'download button click in orchestration page');
       }
     });
 

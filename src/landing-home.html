@@ -15,7 +15,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-styles/shadow.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
-<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <link rel="import" href="shared-styles.html">
@@ -139,10 +138,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <dom-if if="[[!data]]">
         <template>
-          <div class="section grey">
+          <div class="section fold grey">
+            <landing-fold>
               <a aria-label="Sign up" href="/sign-up" tabindex="-1">
-                <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
+                <paper-button raised on-tap="_signUpClick" id="signUpBtn1">Get Started</paper-button>
               </a>
+            </landing-fold>
           </div>
         </template>
       </dom-if>
@@ -151,8 +152,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <template>
           <div class="section fold grey">
             <landing-fold contents="[[data.fold]]">
-              <a aria-label="[[data.fold.cta]]" href="/sign-up" tabindex="-1">
-                <paper-button raised on-click="_signUpClick" id="signUpBtn1">[[data.fold.cta]]</paper-button>
+              <a aria-label="[[data.fold.cta]]" href$="[[_computeCtaPath()]]" tabindex="-1">
+                <paper-button raised on-tap="_signUpClick" id="signUpBtn1">[[data.fold.cta]]</paper-button>
               </a>
             </landing-fold>
           </div>
@@ -234,13 +235,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <div class="contains text-center">
               <div class="row">
                 <h3 class="decorated row">Choose your Mist.io</h3>
-              </div> 
+              </div>
               <landing-editions editions="[[data.editions]]"></landing-editions>
               <div class="row">
-                <a aria-label="Get started" href="/sign-up" tabindex="-1">
-                  <paper-button raised on-click="_signUpClick2" id="signUpBtn2">Sign up to Mist.io</paper-button>
+                <a aria-label="Get started" href$="[[_computeCtaPath()]]" tabindex="-1">
+                  <paper-button raised on-tap="_signUpClick2" id="signUpBtn2">Get Started with Mist.io</paper-button>
                 </a>
-                <div class="secondary">No credit card required</div>
               </div>
             </div>
           </div>
@@ -269,15 +269,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
 
       is: 'landing-home',
-      behaviors: [
-        Polymer.NeonSharedElementAnimatableBehavior
-      ],
 
       properties: {
-        animationConfig: {
-          type: Object
-        },
-
         categories: {
           type: Array
         },
@@ -291,29 +284,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           observer: '_visibleChanged'
         }
-
       },
 
       attached: function() {
-        this.animationConfig = {
-          'entry': [],
-          'exit': [{
-            name: 'fade-out-animation',
-            node: this.$.container,
-            timing: {
-              delay: 150,
-              duration: 0
-            }
-          }, {
-            name: 'ripple-animation',
-            id: 'ripple',
-            fromPage: this,
-            node: this.$.signUpBtn1
-          }]
-        };
-        this.sharedElements = {
-          'ripple': this.$.signUpBtn1
-        };
+
       },
 
       _visibleChanged: function(visible) {
@@ -323,18 +297,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       _signUpClick: function(event) {
-        window.scrollTo(0, 0);
-        // bring placeholder to fg for animation to work
-        if (ANIMATIONS)
-          this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-        this.fire('user-action', 'sign up button 1 click in home');
+        event.preventDefault();
+        new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+        this.async(
+          function() {
+            this.fire('go-to', this._computeCtaPath());
+            waves.forEach(function(wave) { wave.up(); });
+            window.scrollTo(0, 0);
+          }, 200 );
+          this.fire('user-action', 'get started button 1 click in home');
       },
 
       _signUpClick2: function(event) {
-        window.scrollTo(0, 0);
-        if (ANIMATIONS)
-          this.parentElement.querySelector('#sign-up').$.placeholder.style.zIndex = 1;
-        this.fire('user-action', 'sign up button 2 click in home');
+        event.preventDefault();
+        new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+        this.async(
+          function() {
+            this.fire('go-to', this._computeCtaPath());
+            waves.forEach(function(wave) { wave.up(); })
+            window.scrollTo(0, 0);
+          }, 200 );
+        this.fire('user-action', 'get started button 2 click in home');
+      },
+
+      _computeCtaPath: function(){
+        if (this.allowPurchaseLicense)
+          return '/get-started';
+        return '/sign-up';
       }
     });
 

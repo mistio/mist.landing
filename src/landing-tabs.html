@@ -49,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _onSelectedItemChanged: function(selectedItem) {
         if (selectedItem === undefined && this.selected) return;
-
+        if (['docs', 'blog'].indexOf(this.selected) > -1) return;
         this.$.overlay.target = selectedItem;
       }
     });

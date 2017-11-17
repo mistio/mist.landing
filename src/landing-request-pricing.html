@@ -11,7 +11,6 @@
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/neon-animation/neon-shared-element-animatable-behavior.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <dom-module id="landing-request-pricing">
@@ -161,12 +160,12 @@
         <div id="placeholder"></div>
         <div id="container">
 
-            <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-click="_logoClicked" id="logoButton"></paper-icon-button></a></div>
+            <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-tap="_logoClicked" id="logoButton"></paper-icon-button></a></div>
 
             <h1>Request information</h1>
             <iron-form id="signUpForm">
                 <paper-material elevation="1">
-                    <form method="post" action="/request-info" enctype='application/json' id='form'>
+                    <form method="post" action="/api/v1/request-info" enctype='application/json' id='form'>
                         <paper-input name="name" id="name" label="Full name" required auto-validate autofocus></paper-input>
                         <paper-input name="email" id="signUp-email" label="Email" required auto-validate autofocus type="email"></paper-input>
                         <paper-input name="details" id="signUp-details" label="Company / Job description" auto-validate autofocus></paper-input>
@@ -185,67 +184,19 @@
         Polymer({
             is: 'landing-request-pricing',
 
-            behaviors: [
-                Polymer.NeonSharedElementAnimatableBehavior
-            ],
-
-            listeners: {
-                'neon-animation-finish': '_cleanupAnimation'
-            },
-
             properties: {
-                animationConfig: Object,
-
-                sharedElements: Object,
-
                 loading: {
                     type: Boolean,
                     value: false
-                }
+                },
+                invitoken: String
             },
 
+            observers: [
+                '_invitokenExists(invitoken)'
+            ],
+
             attached: function() {
-                if (this.route.__queryParams.invitoken){
-                    var element = document.createElement('input');
-                    element.type = 'hidden';
-                    element.name = 'invitoken';
-                    element.value = this.route.__queryParams.invitoken;
-                    this.$.form.appendChild(element);
-                }
-                if (ANIMATIONS){
-                    this.animationConfig = {
-                        'entry': [{
-                            name: 'ripple-animation',
-                            id: 'ripple',
-                            toPage: this
-                        }, {
-                            name: 'fade-out-animation',
-                            node: this.$.placeholder,
-                            timing: {
-                                delay: 250
-                            }
-                        }, {
-                            name: 'fade-out-animation',
-                            node: document.querySelector('landing-app').$.header,
-                            timing: {
-                                delay: 0
-                            }
-                        }, {
-                            name: 'fade-in-animation',
-                            node: this.$.container,
-                            timing: {
-                                delay: 50
-                            }
-                        }],
-                        'exit': []
-                    };
-
-                    this.sharedElements = {
-                        'ripple': this.$.placeholder,
-                        'reverse-ripple': this.$.placeholder
-                    };
-                }
-
                 var that = this,
                     validate = function(event) {
                     // Validate the entire form to see if we should enable the `Submit` button.
@@ -274,6 +225,7 @@
                 });
                 this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
                     that.$.signUpForm.request.headers['Csrf-Token'] = CSRF_TOKEN;
+                    that.fire('user-action', 'request-pricing submit')
                 });
             },
             _submitButtonHandler:  function(event) {
@@ -283,11 +235,21 @@
                 this.$.signUpForm.submit();
             },
             _logoClicked: function(event) {
-                this.fire('user-action', 'logo click');
+                this.fire('user-action', 'logo click on request-pricing');
             },
             _signInClicked: function(event) {
                 this.fire('user-action', 'request-pricing click')
-            }
+            },
+            _invitokenExists: function(tok){
+                console.log('tok', tok);
+                if (tok) {
+                    var element = document.createElement('input');
+                    element.type = 'hidden';
+                    element.name = 'invitoken';
+                    element.value = this.invitoken;
+                    this.$.form.appendChild(element);
+                }
+            },
         });
     </script>
 </dom-module>

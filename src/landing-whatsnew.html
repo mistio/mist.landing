@@ -30,6 +30,15 @@
         :host h6 {
           font-size: 1rem;
         }
+
+        paper-material {
+            @apply(--shadow-elevation-2dp);
+            display: block;
+        }
+
+        paper-material img {
+            display: block;
+        }
         
         paper-button {
           background-color: #0099cc;
@@ -143,16 +152,20 @@
         <div id="whatsnew" class="section dark">
             <div class="contains">
                 <div class="grid-row">
-                    <div class="l6 m12 xs12 ">
+                    <div class="xs12 s6 m6 l6">
                         <h5>What's new with Mist.io?</h5>
                         <h4 class="light title"><a href$="[[data.href]]" target="new">[[data.title]]</a></h4>
                         <div class="promtext">
-                            <marked-element markdown="[[data.description]]"></marked-element>
-                            <a href="[[data.href]]">Read more &raquo;</a>
+                            <marked-element markdown="[[data.description]]">
+                                <div slot="markdown-html"></div>
+                            </marked-element>
+                            <a href="[[data.href]]" target="_blank">Read more &raquo;</a>
                         </div>
                     </div>
                     <div class="xs12 s4 m6 l6 image-block">
-                        <img class="with-shadow" src="[[data.image]]"/>
+                        <paper-material class="icon-block center">
+                            <img class="with-shadow" src="[[data.image]]"/>
+                        </paper-material>
                     </div>
                 </div>
             </div>

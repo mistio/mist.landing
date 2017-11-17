@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
 <link rel="import" href="../bower_components/marked-element/marked-element.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 
 <link rel="import" href="shared-styles.html">
 
@@ -21,7 +22,8 @@
         }
         
         .image-wrapper > img {
-            max-width: 100%;
+            margin: 20px auto;
+            transform: scale(2);
         }
         
         h3 {
@@ -32,6 +34,7 @@
         .image-wrapper {
             border-radius: 50%;
             width: 220px;
+            height: 220px;
             overflow: hidden;
             cursor: pointer;
             margin: 0 auto;
@@ -40,6 +43,24 @@
         paper-dialog {
             display: block;
             overflow: hidden;
+            background-color: #424242;
+        }
+
+        paper-dialog iron-icon {
+            background-color: #424242;
+            position: absolute;
+            right: 0;
+            top: -24px;
+            width: 24px;
+            height: 24px;
+            color: #fff;
+            padding: 16px;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        paper-dialog img {
+            max-width: 100%;
         }
 
         </style>
@@ -48,7 +69,9 @@
                 <div class="xs12 s8 m8 l8 desc">
                     <h3 class="line1">[[step.title]]</h3>
                     <p><strong>[[step.subtitle]]</strong></p>
-                    <marked-element markdown="[[step.description]]"></marked-element>
+                    <marked-element markdown="[[step.description]]">
+                        <div slot="markdown-html"></div>
+                    </marked-element>
                 </div>
                 <div class="xs12 s4 m4 l4 image">
                     <div class="image-wrapper with-shadow">
@@ -58,7 +81,10 @@
             </div>
         </template>
         <paper-dialog id="zoomArea" with-backdrop>
-            <img id="zoomimage"/>
+            <iron-icon icon="close" dialog-dismiss></iron-icon>
+            <paper-dialog-scrollable>
+                <img id="zoomimage"/>
+            </paper-dialog-scrollable>
         </paper-dialog>
     </template>
     <script>
@@ -91,6 +117,10 @@
                 this.$.zoomimage.setAttribute('src', e.path[0].src);
                 this.$.zoomArea.open();
             }
+        },
+
+        closeZoomIn: function() {
+            this.$.zoomArea.close();
         }
 
     });

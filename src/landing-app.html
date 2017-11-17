@@ -30,6 +30,7 @@
 
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
+<link rel="import" href="landing-get-started.html">
 <link rel="import" href="landing-sign-in.html">
 <link rel="import" href="landing-sign-up.html">
 <link rel="import" href="landing-forgot-password.html">
@@ -38,8 +39,7 @@
 
 <dom-module id="landing-app">
   <template>
-    <style include="shared-styles"></style>
-    <style>
+    <style include="shared-styles">
       :host {
         display: block;
         position: relative;
@@ -85,6 +85,10 @@
       landing-pages .iron-selected:not(.neon-animating) {
         position: relative;
         height: 100%;
+      }
+
+      landing-pages {
+        min-height: 100vh;
       }
 
       .large {
@@ -186,7 +190,9 @@
       :host([page=forgot-password]) > app-header,
       :host([page=sign-in]) > app-header,
       :host([page=sign-up]) > app-header,
-      :host([page=request-pricing]) > app-header {
+      :host([page=request-pricing]) > app-header,
+      :host([page=get-started]) > app-header,
+      :host([page=buy-license]) > app-header {
         z-index: -1;
       }
 
@@ -301,6 +307,7 @@
         font-weight: 400;
         margin-top: 12px;
         line-height: 36px;
+        white-space: nowrap;
       }
 
       a {
@@ -326,9 +333,15 @@
           display: none;
         }
       }
+
+      @media (min-width: 766px) and (max-width: 876px) {
+        landing-tab:first-child {
+          display: none;
+        }
+      }
+
     </style>
 
-    <landing-analytics key="[[gaId]]"></landing-analytics>
     <!--
       app-location and app-route elements provide the state of the URL for the app.
     -->
@@ -352,7 +365,7 @@
           <paper-icon-button
               class="menu-btn"
               icon="menu"
-              on-click="_toggleDrawer"
+              on-tap="_toggleDrawer"
               aria-label="Categories">
           </paper-icon-button>
           <div class="logo">
@@ -369,7 +382,7 @@
                   attr-for-selected="name">
                 <dom-repeat items="[[categories]]" as="category" initial-count="4">
                   <template>
-                    <landing-tab name="[[category.name]]" on-click="_tabClicked" hidden$="[[category.hiddenFromMenu]]">
+                    <landing-tab name="[[category.name]]" on-tap="_tabClicked" hidden$="[[category.hiddenFromMenu]]">
                       <a name="[[category.name]]" href="[[category.href]]" target="new">[[category.title]]</a>
                     </landing-tab>
                   </template>
@@ -381,7 +394,7 @@
 
         <div class$="signin-btn-container [[_shouldShowTabs]]">
           <a href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io">
-            <paper-button raised on-click="_signInClick">Sign In</paper-button>
+            <paper-button raised on-tap="_signInClick">Sign In</paper-button>
           </a>
         </div>
       </app-toolbar>
@@ -404,17 +417,17 @@
     </dom-if>
     <landing-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="not-found">
       <!-- home view -->
-      <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]"></landing-home>
+      <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]" allow-purchase-license=[[allowPurchaseLicense]]></landing-home>
 
-      <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]"></landing-pricing>
+      <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]" allow-purchase-license=[[allowPurchaseLicense]]></landing-pricing>
 
       <landing-about name="about" categories="[[categories]]" id="about" data="[[category.items]]"></landing-about>
 
-      <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]"></landing-product>
+      <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]"  allow-purchase-license=[[allowPurchaseLicense]]></landing-product>
 
-      <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]"></landing-orchestration>
+      <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]" allow-purchase-license=[[allowPurchaseLicense]]></landing-orchestration>
 
-      <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]"></landing-rbac>
+      <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]" allow-purchase-license=[[allowPurchaseLicense]]></landing-rbac>
 
       <dom-repeat items="[[categories]]" as="cat">
         <template>
@@ -423,12 +436,20 @@
       </dom-repeat>
 
       <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
-        sign-in-google=[[allowSigninGoogle]] sign-in-github=[[allowSigninGithub]] sign-in-email=[[allowSigninEmail]]></landing-sign-in>
+        sign-in-google=[[allowSigninGoogle]] sign-in-github=[[allowSigninGithub]] sign-in-email=[[allowSigninEmail]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in>
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
-        sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]]></landing-sign-up>
-      <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+        sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
+
+      <dom-if if="[[allowPurchaseLicense]]">
+        <template>
+          <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey=[[allowPurchaseLicense]]></landing-buy-license>
+          <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
+          <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+        </template>
+      </dom-if>
+
       <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password"></landing-forgot-password>
-      <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password"></landing-set-password>
+      <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
       <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
 
       <landing-error name="error" route="[[subroute]]" offline="[[offline]]"></landing-error>
@@ -549,11 +570,23 @@
         allowSigninEmail: {
           type: Boolean,
           value: false
+        },
+        invitoken: {
+          type: String,
+          value: ''
+        },
+        returnTo: {
+          type: String,
+          value: ''
+        },
+        allowPurchaseLicense: {
+          type: String,
+          value: ''
         }
       },
 
       observers: [
-        '_routePageChanged(routeData.page)'
+        '_routePageChanged(routeData.page, route.__queryParams)'
       ],
 
       listeners: {
@@ -561,10 +594,9 @@
         'announce': '_onAnnounce',
         'dom-change': '_domChange',
         'show-invalid-url-warning': '_onFallbackSelectionTriggered',
-        'neon-animation-start': '_prepareAnimation',
-        'neon-animation-finish': '_cleanupAnimation',
         'user-action': '_onUserAction',
-        'open-dialog': '_openDialog'
+        'open-dialog': '_openDialog',
+        'go-to': '_goToPage'
       },
 
       created: function() {
@@ -594,7 +626,7 @@
             that.fire('user-action', 'scroll to bottom');
             this.scrollThresholdReached = true;
             if (that.showFooter){
-              that.async(function(){
+              that.async(function() {
                 this.$.footer.finishLoading();
               }, 50);
             }
@@ -602,8 +634,16 @@
         });
       },
 
-      _routePageChanged: function(page) {
-        console.log('pageChanged', this.page, page);
+      _goToPage: function(event) {
+        this.$.appLocation.set('path', event.detail);
+      },
+
+      _routePageChanged: function(page, params) {
+        if (params){
+          this.set('invitoken', params.invitoken || this.invitoken);
+          this.set('returnTo', params.return_to);
+          this.set('plan', params.plan);
+        }
         // HACK(keanulee): Need to check if `page` actually changed due to polymer#3935.
         if (this.page === 'list' && this.page !== page) {
           this._listScrollTop = window.pageYOffset;
@@ -616,10 +656,12 @@
       },
 
       _pageChanged: function(page, oldPage) {
-        console.log('_pageChanged', page, oldPage);
         if (page != null) {
+          // in docs and blog case reset page to the oldPage
+          if (['docs', 'blog'].indexOf(page) > -1){
+            this.set('page', oldPage);
           // home route is eagerly loaded
-          if (page == 'home') {
+          } else if (page == 'home') {
             this._pageLoaded(Boolean(oldPage));
           // other routes are lazy loaded
           } else {
@@ -690,13 +732,7 @@
       // Elements in the app can notify section changes.
       // Response by a11y announcing the section and syncronizing the category.
       _onChangeSection: function(event) {
-        var currentPage = this.$.pages.querySelector('#' + this.page);
-        if (currentPage) {
-          currentPage.sharedElements = {
-            'ripple': event.target
-          };
-        }
-
+        console.warn('change section', event);
         var detail = event.detail;
 
         // Scroll to the top of the page when navigating to a non-list page. For list view,
@@ -780,33 +816,24 @@
       },
 
       _signInClick: function(event) {
-        window.scrollTo(0, 0);
-        if (ANIMATIONS){
-          this.$.home.sharedElements = {
-            'ripple': event.target,
-            'reverse-ripple': event.target
-          };
-          this.$.pages.querySelector('#sign-in').$.placeholder.style.zIndex = 1;
-          this.$.pages.querySelector('#sign-in').sharedElements = {
-            'ripple': this.$.pages.querySelector('#sign-in').$.placeholder,
-            'reverse-ripple': this.$.pages.querySelector('#sign-in').$.placeholder
-          };
-        }
         this.fire('user-action', 'sign in click from ' + this.page);
-      },
-
-      _cleanupAnimation: function(event) {
-        // move placeholder to bg after page animation finish
-        var page = this.$.pages.querySelector('#' + this.page);
-        var placeholder;
-        if (page && page.$)
-          placeholder = page.$.placeholder;
-        if (placeholder)
-          placeholder.style.zIndex = -1;
+        event.preventDefault();
+        new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+        this.async(
+          function() {
+            this.fire('go-to', '/sign-in');
+            waves.forEach(function(wave) { wave.up(); })
+            window.scrollTo(0, 0);
+          }, 200 );
       },
 
       _onUserAction: function(event) {
         console.debug('user-action', event);
+        if (typeof gtag == 'function') {
+          gtag('event', event.detail, {
+            'event_category': 'landing'
+          });
+        }
         if (!this.enableAb)
           return;
         var xhr = new XMLHttpRequest();
@@ -872,5 +899,56 @@
           this.$["show-"+content].open();
       }
     });
+
+    var waves = [];
+    var duration = 300;
+    function Wave(x, y, color, opacity) {
+      waves.push(this);
+      this.element = document.createElement('div');
+      this.element.style.left = 'calc(' + x + 'px - 2000px)';
+      this.element.style.top = 'calc(' + y + 'px - 2000px)';
+      this.element.style.backgroundColor = color;
+      this.element.style.opacity = opacity;
+      this.element.setAttribute('touch-action', 'none');
+      this.element.setAttribute('class', 'wave');
+      this.element.addEventListener('up', up);
+
+      //var hue = Math.random() * 360;
+      //this.element.style.backgroundColor = 'hsl(' + hue + ', 85%, 67%)';
+
+      document.body.appendChild(this.element);
+
+      this.scale = this.element.animate([
+        {transform: 'scale(0)'},
+        {transform: 'scale(1)'},
+      ], {
+        duration: duration,
+        easing: 'cubic-bezier(0.3, 0.2, 1.0, 0.2)',
+        fill: 'forwards',
+      });
+    }
+    Wave.prototype = {
+      up: function() {
+        this.up = function() {};
+        this.opacity = this.element.animate([
+          {opacity: 0.66},
+          {opacity: 0},
+        ], {
+          duration: duration,
+          fill: 'forwards',
+        });
+        this.opacity.onfinish = function() {
+          this.element.remove();
+          waves.splice(waves.indexOf(this), 1);
+        }.bind(this);
+      }
+    };
+
+    function up() {
+      waves.forEach(function(wave) { wave.up(); });
+    }
+
+    document.body.addEventListener('up', up);
+
   </script>
 </dom-module>

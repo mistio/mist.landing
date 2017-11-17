@@ -9,6 +9,7 @@
       -webkit-font-smoothing: antialiased;
       box-sizing: border-box;
     }
+
     :root *, :after, :before {
       box-sizing: inherit; 
     }
@@ -97,6 +98,11 @@
     marked-element::content a {
       text-decoration: none !important;
       color: #09c !important; 
+    }
+
+    [slot="marked-element"] a {
+      text-decoration: none;
+      color: #0099cc !important;
     }
 
     sub,
