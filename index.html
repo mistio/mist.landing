@@ -24,6 +24,7 @@
     gtag('config', '${google_analytics_id}', {
       'custom_map': {'app': 'landing'}
     });
+    gtag('set', {'content_group1': 'landing'});
   </script>
 
   <script tal:condition="csrf_token|nothing" tal:content="string: var CSRF_TOKEN=${csrf_token}"></script>

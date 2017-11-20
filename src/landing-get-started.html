@@ -483,7 +483,7 @@
                                         <div class="valign">
                                             <div class="valign">
                                                 <h4>Pay As You Go</h4>
-                                                <h4 class="price"><sub>with <a href="/pricing">free tier and prepaid</a> plans.</sub></h4>
+                                                <h4 class="price"><sub>with <a href="/pricing" on-tap="_pricingClick">free tier and prepaid</a> plans.</sub></h4>
                                             </div>
                                         </div>
                                     </div>
@@ -625,7 +625,12 @@
 
         _signUpClick: function(event) {
             window.scrollTo(0, 0);
-            this.fire('user-action', 'sign-in button click in get-started');
+            this.fire('user-action', 'sign-up button click in get-started');
+        },
+
+        _pricingClick: function(event) {
+            window.scrollTo(0, 0);
+            this.fire('user-action', 'pricing click in get-started');
         },
 
         _requestInfoClick: function(event) {
