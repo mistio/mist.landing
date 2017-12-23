@@ -162,16 +162,16 @@
     }
 
     div.wave {
-        border-radius: 50%;
-        background: black;
-        width: 4000px;
-        height: 4000px;
-        position: fixed;
-        -webkit-user-select: none;
-        user-select: none;
-        overflow: hidden;
-        z-index: 10;
-      }
+      border-radius: 50%;
+      background: black;
+      width: 4000px;
+      height: 4000px;
+      position: fixed;
+      -webkit-user-select: none;
+      user-select: none;
+      overflow: hidden;
+      z-index: 10;
+    }
   </style>
 
 </head>
@@ -186,7 +186,9 @@
                     allow-signup-google allow_signup_google;
                     allow-signup-github allow_signup_github;
                     allow-purchase-license stripe_public_apikey|nothing;
-                    enable-ab enable_ab;"></landing-app>
+                    enable-ab enable_ab;">
+                    <!-- <link slot="theme" href="src/styles/clear-glass-theme.html"> -->
+                  </landing-app>
 
   <script>
     window.performance && performance.mark && performance.mark('index.html');

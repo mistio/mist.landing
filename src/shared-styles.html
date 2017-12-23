@@ -193,16 +193,18 @@
     }
 
     .section.grey {
-      background-color: #f2f2f2;
+      background-color: var(--app-background-color);
+      color: var(--app-section-primary-color);
     }
 
     .section.white {
-      background-color: #fff;
+      background-color: var(--app-background-secondary-color);
+      color: var(--app-section-secondary-color);
     }
 
     .section.dark {
-      background-color: #424242;
-      color: rgba(255,255,255,0.87);
+      background-color: var(--app-background-highlight-color);
+      color: var(--app-highlight-color);
     }
 
     .row {
@@ -224,7 +226,8 @@
       position: absolute;
       display: inline-block;
       width: 80px;
-      border-bottom: 2px solid #7f7f7f;
+      border-bottom: 2px solid;
+      border-color: inherit;
       bottom: -20px;
       margin: 0 auto;
       left: 0;
