@@ -1,7 +1,7 @@
 <dom-module id="shared-styles">
     <template>
         <style>
-    :root {
+    :host > * {
       font-size: 16px;
       font-weight: 400;
       -ms-text-size-adjust: 100%;
@@ -10,23 +10,23 @@
       box-sizing: border-box;
     }
 
-    :root *, :after, :before {
+    :host > *, :after, :before {
       box-sizing: inherit; 
     }
     @media only screen and (min-width: 0) {
-      :root {
+      :host > * {
         font-size: 14px;
       }
     }
 
     @media only screen and (min-width: 992px) {
-      :root {
+      :host > * {
         font-size: 14.5px;
       }
     }
 
     @media only screen and (min-width: 1200px) {
-      :root {
+      :host > * {
         font-size: 15px;
       }
     }
@@ -102,7 +102,7 @@
 
     [slot="marked-element"] a {
       text-decoration: none;
-      color: #0099cc !important;
+      color: var(--app-accent-color) !important;
     }
 
     sub,

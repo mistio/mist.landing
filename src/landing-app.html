@@ -34,16 +34,13 @@
 <link rel="import" href="landing-sign-up.html">
 <link rel="import" href="landing-forgot-password.html">
 
+<link rel="import" href="styles/mist-theme.html">
 
 <script src="../bower_components/fingerprintjs2/fingerprint2.js"></script>
 
 <dom-module id="landing-app">
   <template>
-  <slot name="theme">
-    <link rel="import" href="styles/mist-theme.html">
-    <!-- <link rel="import" href="styles/clear-glass-theme.html"> -->
-  </slot>
-    <style include="custom-style shared-styles">
+    <style include="shared-styles">
       :host {
         display: block;
         position: relative;
@@ -115,8 +112,8 @@
 
       .button-container {
         @apply --layout-flex;
-        @apply(--layout-horizontal);
-        @apply(--layout-around-justified);
+        @apply --layout-horizontal;
+        @apply --layout-around-justified;
       }
 
 
