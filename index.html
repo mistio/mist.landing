@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <base href="/" tal:attributes="href string:/landing/${build_path}"></base>
+  <base tal:attributes="href string:/landing/${build_path}"></base>
 
-  <title>mist.io :: hybrid cloud management platform</title>
+  <title><tal tal:replace="portal_name|nothing">mist.io</tal> :: hybrid cloud management platform</title>
   <meta name="description" content="A secure cloud management platform for automation, orchestration, cost and usage monitoring of public and private clouds. Provides multi-cloud RBAC. Enables self service provisioning. Cost analysis and cloud spending optimization">
 
   <link rel="shortcut icon" sizes="32x32" href="images/mist-icon-32.png">
@@ -59,15 +59,17 @@
           && 'content' in document.createElement('template'))
           ANIMATIONS = true;
   </script>
+
   <link rel="import" href="src/landing-app.html">
+  
   <!-- CUSTOM THEME -->
-  <link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">
-  <custom-style>
-      <link rel="import" href="src/styles/clear-glass-theme.html">
+  <link rel="import" tal:condition="theme|nothing" href="bower_components/polymer/lib/elements/custom-style.html">
+  <custom-style tal:condition="theme|nothing">
+      <link slot="theme" rel="import"  tal:attributes="href string:/static/landing/${theme}-theme.html">
   </custom-style>
   <!-- CUSTOM THEME END-->
-  <style>
 
+  <style>
     body {
       margin: 0;
       padding: 0;
@@ -191,8 +193,9 @@
                     allow-signup-google allow_signup_google;
                     allow-signup-github allow_signup_github;
                     allow-purchase-license stripe_public_apikey|nothing;
-                    enable-ab enable_ab;">
-                  </landing-app>
+                    enable-ab enable_ab;
+                    portal-name portal_name|nothing">
+    </landing-app>
 
   <script>
     window.performance && performance.mark && performance.mark('index.html');
