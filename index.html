@@ -60,7 +60,12 @@
           ANIMATIONS = true;
   </script>
   <link rel="import" href="src/landing-app.html">
-
+  <!-- CUSTOM THEME -->
+  <link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">
+  <custom-style>
+      <link rel="import" href="src/styles/clear-glass-theme.html">
+  </custom-style>
+  <!-- CUSTOM THEME END-->
   <style>
 
     body {
@@ -187,7 +192,6 @@
                     allow-signup-github allow_signup_github;
                     allow-purchase-license stripe_public_apikey|nothing;
                     enable-ab enable_ab;">
-                    <link slot="theme" href="src/styles/clear-glass-theme.html">
                   </landing-app>
 
   <script>
