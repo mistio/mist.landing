@@ -26,7 +26,7 @@
 
             h1 {
                 text-align: center;
-                font-weight: 200;
+                font-weight: var(--form-h1-weight);
                 font-family: Roboto, sans;
                 font-size: 36px;
             }
@@ -149,12 +149,22 @@
                 font-size: 0.9em;
                 margin-bottom: 24px;
             }
+            paper-button#logo {
+                background-image: var(--vertical-logo);
+                background-color: transparent !important;
+                background-repeat: no-repeat;
+                background-position: center center;
+                width: 160px;
+                height: 160px;
+                padding: 32px;
+                border-radius: 50%;
+            }
         </style>
 
         <div id="placeholder"></div>
         <div id="container">
 
-            <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-tap="_logoClicked"></paper-icon-button></a></div>
+            <div class="logo-solo"><a href="/"><paper-button id="logo" on-tap="_logoClicked"></paper-button></a></div>
 
             <h1>Sign in to your account</h1>
             <iron-form id="signInForm">
