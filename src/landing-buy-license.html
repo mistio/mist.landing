@@ -45,7 +45,7 @@
             }
 
             a {
-                color: #2196F3;
+                color: var(--link-color);
                 cursor: pointer;
                 text-decoration: none;
             }
@@ -82,7 +82,7 @@
             }
 
             paper-button:not([disabled]) {
-                background-color: #0099cc;
+                background-color: var(--app-accent-color);
                 color: #fff;
             }
 
@@ -114,7 +114,7 @@
 
             #placeholder {
                 opacity: 0;
-                background-color: #0099cc;
+                background-color: var(--app-accent-color);
                 @apply(--layout-fit);
                 z-index: -1;
             }
@@ -231,8 +231,8 @@
 
             paper-radio-button {
               display: block;
-              --paper-radio-button-checked-color: #0099cc;
-              --paper-radio-button-checked-ink-color: #0099cc;
+              --paper-radio-button-checked-color: var(--app-accent-color);
+              --paper-radio-button-checked-ink-color: var(--app-accent-color);
               /*--paper-checkbox-unchecked-color: var(--paper-green-900);
               --paper-checkbox-unchecked-ink-color: var(--paper-green-900);
               --paper-checkbox-label-color: var(--paper-green-500);*/
@@ -304,7 +304,7 @@
             paper-checkbox {
                 --paper-checkbox-ink-size: 48px;
                 --paper-checkbox-label-color: #666;
-                --paper-checkbox-checked-color: #0099cc;
+                --paper-checkbox-checked-color: var(--app-accent-color);
                 text-align: center;
                 width: 100%;
                 font-size: 12px;

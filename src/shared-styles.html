@@ -1,7 +1,7 @@
 <dom-module id="shared-styles">
     <template>
         <style>
-    :root {
+    :host > * {
       font-size: 16px;
       font-weight: 400;
       -ms-text-size-adjust: 100%;
@@ -10,23 +10,23 @@
       box-sizing: border-box;
     }
 
-    :root *, :after, :before {
+    :host > *, :after, :before {
       box-sizing: inherit; 
     }
     @media only screen and (min-width: 0) {
-      :root {
+      :host > * {
         font-size: 14px;
       }
     }
 
     @media only screen and (min-width: 992px) {
-      :root {
+      :host > * {
         font-size: 14.5px;
       }
     }
 
     @media only screen and (min-width: 1200px) {
-      :root {
+      :host > * {
         font-size: 15px;
       }
     }
@@ -102,7 +102,7 @@
 
     [slot="marked-element"] a {
       text-decoration: none;
-      color: #0099cc !important;
+      color: var(--app-accent-color) !important;
     }
 
     sub,
@@ -193,16 +193,18 @@
     }
 
     .section.grey {
-      background-color: #f2f2f2;
+      background-color: var(--app-background-color);
+      color: var(--app-section-primary-color);
     }
 
     .section.white {
-      background-color: #fff;
+      background-color: var(--app-background-secondary-color);
+      color: var(--app-section-secondary-color);
     }
 
     .section.dark {
-      background-color: #424242;
-      color: rgba(255,255,255,0.87);
+      background-color: var(--app-background-highlight-color);
+      color: var(--app-highlight-color);
     }
 
     .row {
@@ -224,7 +226,8 @@
       position: absolute;
       display: inline-block;
       width: 80px;
-      border-bottom: 2px solid #7f7f7f;
+      border-bottom: 2px solid;
+      border-color: inherit;
       bottom: -20px;
       margin: 0 auto;
       left: 0;
