@@ -26,6 +26,7 @@
 <link rel="import" href="landing-icons.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="landing-footer.html">
+<link rel="import" href="landing-social.html">
 
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
@@ -440,6 +441,7 @@
       <landing-not-found name="not-found" id="not-found"></landing-not-found>
     </landing-pages>
 
+    <landing-social id="social" categories="[[categories]]" data="[[category.items]]" hidden$="[[!_hasFooter(page)]]"></landing-social>
     <footer hidden$="[[!showFooter]]">
       <landing-footer id="footer" hidden$="[[!_hasFooter(page)]]"></landing-footer>
     </footer>
