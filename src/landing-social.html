@@ -1,0 +1,62 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/social-media-icons/social-media-icons.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="landing-social">  
+  <template>
+    <style include="shared-styles">
+        .social {
+            text-align: center;
+            justify-content: center;
+        }
+        .social-link {
+            display: inline-block;
+        }
+        social-media-icons {
+            display: var(--social-icons-display);
+            width: var(--social-icons-size);
+            height: var(--social-icons-size);
+            line-height: var(--social-icons-line-height);
+            border-radius: var(--social-icons-border-radius);
+            border: var(--social-icons-border);
+            background: var(--app-accent-color);
+            color: var(--app-primary-color);
+        }
+    </style>
+    
+    <div class="section grey">
+        <div class="contains">
+            <div class="grid-row social">
+                <div class="margin-top margin-bottom padding-bottom">
+                    <template is="dom-repeat" items="[[data.social]]" as="item">
+                        <div class="social-link">
+                            <a href="[[item.href]]" target="_blank" rel="noopener noreferrer">
+                                <social-media-icons icon="[[item.icon]]" size="[[item.size]]" color="[[item.color]]" href="[[item.href]]" new-tab></social-media-icons>
+                            </a>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+        is: 'landing-social',
+
+        properties: {
+            data: {
+                type: Array,
+                notify: true
+            }
+        }
+
+    });
+
+  </script>
+</dom-module>

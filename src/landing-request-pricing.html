@@ -69,6 +69,10 @@
                 margin: 0 auto;
             }
 
+            paper-button[disabled] {
+                opacity: var(--form-button-opacity-disabled, 1);
+            }
+
             paper-button:not([disabled]) {
                 background-color: var(--app-accent-color);
                 color: #fff;
@@ -106,7 +110,7 @@
             }
 
             paper-material {
-                background-color: #f7f7f7;
+                background-color: var(--form-background);
                 display: block;
                 padding: 8px 32px 32px;
                 @apply(--shadow-elevation-2dp);
