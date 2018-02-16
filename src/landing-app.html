@@ -433,7 +433,7 @@
         </template>
       </dom-if>
 
-      <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password"></landing-forgot-password>
+      <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password" product="[[product]]"></landing-forgot-password>
       <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
       <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
 
@@ -448,6 +448,9 @@
 
     <!-- a11y announcer -->
     <div class="announcer" aria-live="assertive">[[_a11yLabel]]</div>
+
+    <span id="productName" class="product-name" hidden></span>
+    <span id="supportEmail" class="support-email" hidden></span>
 
   </template>
 
@@ -572,7 +575,8 @@
         portalName: {
           type: String,
           value: 'Mist.io'
-        }
+        },
+        product: Object
       },
 
       observers: [
@@ -622,6 +626,17 @@
             }
           }
         });
+
+        this.async(function(){
+          console.log(document.querySelector('#productName'));
+          var name = window.getComputedStyle(this.$.productName,':after').getPropertyValue('content').replace(/"/g,'');
+          var support = window.getComputedStyle(this.$.supportEmail,':after').getPropertyValue('content').replace(/"/g,'');
+          var product = {
+              name: name,
+              support: support
+          }
+          this.set('product', product);
+        }.bind(this),300);
       },
 
       _goToPage: function(event) {
