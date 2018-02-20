@@ -15,6 +15,8 @@ WORKDIR /landing
 
 RUN bower install
 
+RUN cp bower.json /opt/bower.json
+
 COPY . /landing
 
 RUN node /usr/local/bin/polymer build
