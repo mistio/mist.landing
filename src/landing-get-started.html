@@ -607,7 +607,7 @@
 
         goBack: function(e){
             e.stopImmediatePropagation();
-            if (history)
+            if (history && history.length > 2)
                 history.back();
             else
                 this.fire('go-to','/');
