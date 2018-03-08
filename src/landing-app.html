@@ -421,9 +421,9 @@
       </dom-repeat>
 
       <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
-        sign-in-google=[[allowSigninGoogle]] sign-in-github=[[allowSigninGithub]] sign-in-email=[[allowSigninEmail]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in>
+        sign-in-google=[[config.features.signin_google]] sign-in-github=[[config.features.signin_github]] sign-in-email=[[config.features.signin_email]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in>
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
-        sign-up-google=[[allowSignupGoogle]] sign-up-github=[[allowSignupGithub]] sign-up-email=[[allowSignupEmail]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
+        sign-up-google=[[config.features.signup_google]] sign-up-github=[[config.features.signup_github]] sign-up-email=[[config.features.signup_email]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
 
       <dom-if if="[[allowPurchaseLicense]]">
         <template>
@@ -433,7 +433,7 @@
         </template>
       </dom-if>
 
-      <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password" product="[[product]]"></landing-forgot-password>
+      <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password" support-email="[[config.email.support]]"></landing-forgot-password>
       <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
       <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
 
@@ -442,15 +442,12 @@
     </landing-pages>
 
     <landing-social id="social" categories="[[categories]]" data="[[category.items]]" hidden$="[[!_hasFooter(page)]]"></landing-social>
-    <footer hidden$="[[!showFooter]]">
+    <footer hidden$="[[!config.features.landing_footer]]">
       <landing-footer id="footer" hidden$="[[!_hasFooter(page)]]"></landing-footer>
     </footer>
 
     <!-- a11y announcer -->
     <div class="announcer" aria-live="assertive">[[_a11yLabel]]</div>
-
-    <span id="productName" class="product-name" hidden></span>
-    <span id="supportEmail" class="support-email" hidden></span>
 
   </template>
 
@@ -520,46 +517,6 @@
               return CATEGORIES;
           }
         },
-
-        showFooter: {
-          type: Boolean,
-          value: false
-        },
-
-        enableAb: {
-          type: Boolean,
-          value: false
-        },
-
-        allowSignupGoogle: {
-          type: Boolean,
-          value: false
-        },
-
-        allowSignupGithub: {
-          type: Boolean,
-          value: false
-        },
-
-        allowSignupEmail: {
-          type: Boolean,
-          value: false
-        },
-
-        allowSigninGoogle: {
-          type: Boolean,
-          value: false
-        },
-
-        allowSigninGithub: {
-          type: Boolean,
-          value: false
-        },
-
-        allowSigninEmail: {
-          type: Boolean,
-          value: false
-        },
         invitoken: {
           type: String,
           value: ''
@@ -572,11 +529,7 @@
           type: String,
           value: ''
         },
-        portalName: {
-          type: String,
-          value: 'Mist.io'
-        },
-        product: Object
+        config: Object
       },
 
       observers: [
@@ -619,24 +572,13 @@
           if (scrollPercent > 0.8 && !this.scrollThresholdReached){
             that.fire('user-action', 'scroll to bottom');
             this.scrollThresholdReached = true;
-            if (that.showFooter){
+            if (that.config.features && that.config.features.landing_footer){
               that.async(function() {
                 this.$.footer.finishLoading();
               }, 50);
             }
           }
         });
-
-        this.async(function(){
-          console.log(document.querySelector('#productName'));
-          var name = window.getComputedStyle(this.$.productName,':after').getPropertyValue('content').replace(/"/g,'');
-          var support = window.getComputedStyle(this.$.supportEmail,':after').getPropertyValue('content').replace(/"/g,'');
-          var product = {
-              name: name,
-              support: support
-          }
-          this.set('product', product);
-        }.bind(this),300);
       },
 
       _goToPage: function(event) {
@@ -839,7 +781,7 @@
             'event_category': 'landing'
           });
         }
-        if (!this.enableAb)
+        if (!this.config.features || !this.config.features.ab)
           return;
         var xhr = new XMLHttpRequest();
         if (!this.fingerprint){
