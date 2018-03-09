@@ -81,6 +81,9 @@
     "paper-dialog-behavior": "^2.0.0",
     "paper-dialog-scrollable": "^2.0.0",
     "shadycss": "v1.0.6",
-    "paper-button": "^2.0.0"
+    "paper-button": "^2.0.0",
+    "iron-media-query": "^2.0.0",
+    "iron-scroll-target-behavior": "1 - 2",
+    "iron-location": "1 - 2"
   }
 }
