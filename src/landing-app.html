@@ -781,7 +781,7 @@
             'event_category': 'landing'
           });
         }
-        if (!this.config.features || !this.config.features.ab)
+        if (!this.config || !this.config.features || !this.config.features.ab)
           return;
         var xhr = new XMLHttpRequest();
         if (!this.fingerprint){
