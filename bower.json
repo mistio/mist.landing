@@ -23,7 +23,7 @@
     "paper-spinner": "^2.0.0",
     "paper-input": "^2.0.0",
     "paper-button": "PolymerElements/paper-button#^2.0.0",
-    "iron-form": "firmfirm/iron-form#^2.0.1",
+    "iron-form": "PolymerElements/iron-form#^2.2.1",
     "iron-icons": "^2.0.0",
     "zxcvbn": "^4.4.1",
     "mist-password": "1.0.3",
