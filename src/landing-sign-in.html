@@ -272,13 +272,11 @@
                 this.$.signInForm.addEventListener('iron-form-error', function(event) {
                     console.warn("GOT ERROR!", event.detail);
                     that.loading = false;
-                    var msg;
+                    var msg = event.detail.error.msg;
                     if (event.detail.request.xhr.status == 401)
                         msg = 'Unauthorized';
                     else if (event.detail.request.xhr.status == 403)
                         msg = 'Forbidden';
-                    else
-                        msg = event.detail.request.xhr.response.indexOf(':') > 0 && event.detail.request.xhr.response.split(':')[0] || event.detail.request.xhr.response || event.detail.request.xhr.statusText || event.detail.error.message;
                     that.$.signInForm.querySelector('.output').innerHTML = msg;
                 });
                 this.$.signInForm.addEventListener('iron-form-response', function(event) {
@@ -288,7 +286,6 @@
                 });
                 this.$.signInForm.addEventListener('iron-form-presubmit', function(event) {
                     that.$.signInForm.headers['Csrf-Token'] = CSRF_TOKEN;
-                    this.request.handleAs = 'text';
                 });
             },
             handleError: function(event){

@@ -247,7 +247,9 @@
                 this.$.signUpForm.addEventListener('iron-form-error', function(event) {
                     console.warn("GOT ERROR!", event.detail);
                     that.loading = false;
-                    var msg = event.detail.request.xhr.response.indexOf(':') > 0 && event.detail.request.xhr.response.split(':')[0] || event.detail.request.xhr.response || event.detail.request.xhr.statusText || event.detail.error.message;
+                    var msg = event.detail.error.msg;
+                    if (event.detail.request.xhr.status == 409)
+                        msg = 'Conflict';
                     that.$.signUpForm.querySelector('paper-button > div').innerHTML = msg;
                 });
                 this.$.signUpForm.addEventListener('iron-form-response', function(event) {
@@ -258,7 +260,6 @@
                 });
                 this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
                     that.$.signUpForm.headers['Csrf-Token'] = CSRF_TOKEN;
-                    this.request.handleAs = 'text';
                 });
             },
             _submitButtonHandler:  function(event) {
