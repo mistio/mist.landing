@@ -679,6 +679,8 @@
       // Elements in the app can notify section changes.
       // Response by a11y announcing the section and syncronizing the category.
       _onChangeSection: function(event) {
+        if (this.page == 'home' && this.config.features.signin_home)
+          this.page = 'sign-in';
         console.warn('change section', event);
         var detail = event.detail;
 
@@ -699,7 +701,7 @@
 
         // Announce the page's title
         if (detail.title) {
-          document.title = detail.title + ' - ' + this.portalName;
+          document.title = detail.title + ' - ' + this.config.portalName;
           this._announce(detail.title + ', loaded');
         }
       },
@@ -859,9 +861,6 @@
       this.element.setAttribute('touch-action', 'none');
       this.element.setAttribute('class', 'wave');
       this.element.addEventListener('up', up);
-
-      //var hue = Math.random() * 360;
-      //this.element.style.backgroundColor = 'hsl(' + hue + ', 85%, 67%)';
 
       document.body.appendChild(this.element);
 

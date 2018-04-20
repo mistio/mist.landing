@@ -30,7 +30,7 @@
 
   <script tal:condition="csrf_token|nothing" tal:content="string: var CSRF_TOKEN=${csrf_token}"></script>
   <script tal:condition="categories|nothing" tal:content="string: var CATEGORIES=${categories}"></script>
-  <script tal:content="string: var True = true, False = false, CONFIG = {'features': ${structure:features}, 'email': ${email}}">
+  <script tal:content="string: var True = true, False = false, CONFIG = {'features': ${structure:features}, 'email': ${email}, 'portalName': '${portal_name}', 'stripeKey': '${stripe_public_apikey|nothing}'}">
       var CONFIG = false;
   </script>
   <script src="/landing/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
@@ -62,9 +62,6 @@
           && 'content' in document.createElement('template'))
           ANIMATIONS = true;
   </script>
-
-  <link rel="import" href="src/landing-app.html">
-  
   <!-- CUSTOM THEME -->
   <link rel="import" tal:condition="theme|nothing" href="bower_components/polymer/lib/elements/custom-style.html">
   <custom-style tal:condition="theme|nothing">
@@ -187,15 +184,14 @@
 </head>
 <body>
 
-  <landing-app unresolved
-    tal:attributes="portal-name portal_name|nothing;
-                    allow-purchase-license stripe_public_apikey|nothing">
-    </landing-app>
+  <landing-app unresolved>
+  </landing-app>
 
   <script>
     window.performance && performance.mark && performance.mark('index.html');
     if (CONFIG) document.querySelector('landing-app').config = CONFIG;
   </script>
+  <link rel="import" href="src/landing-app.html">
 
   <!-- mixpanel-->
   <script tal:condition="mixpanel_id|nothing" tal:content="string: var MIXPANEL_ID='${mixpanel_id}'"></script>
