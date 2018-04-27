@@ -402,17 +402,17 @@
     </dom-if>
     <landing-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="not-found">
       <!-- home view -->
-      <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]" allow-purchase-license=[[allowPurchaseLicense]]></landing-home>
+      <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-home>
 
-      <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]" allow-purchase-license=[[allowPurchaseLicense]]></landing-pricing>
+      <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-pricing>
 
       <landing-about name="about" categories="[[categories]]" id="about" data="[[category.items]]"></landing-about>
 
-      <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]"  allow-purchase-license=[[allowPurchaseLicense]]></landing-product>
+      <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-product>
 
-      <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]" allow-purchase-license=[[allowPurchaseLicense]]></landing-orchestration>
+      <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-orchestration>
 
-      <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]" allow-purchase-license=[[allowPurchaseLicense]]></landing-rbac>
+      <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-rbac>
 
       <dom-repeat items="[[categories]]" as="cat">
         <template>
@@ -425,9 +425,9 @@
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
         sign-up-google=[[config.features.signup_google]] sign-up-github=[[config.features.signup_github]] sign-up-email=[[config.features.signup_email]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
 
-      <dom-if if="[[allowPurchaseLicense]]">
+      <dom-if if="[[config.features.billing]]" restamp>
         <template>
-          <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey=[[allowPurchaseLicense]]></landing-buy-license>
+          <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey=[[config.stripeKey]]></landing-buy-license>
           <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
           <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
         </template>
@@ -522,10 +522,6 @@
           value: ''
         },
         returnTo: {
-          type: String,
-          value: ''
-        },
-        allowPurchaseLicense: {
           type: String,
           value: ''
         },
