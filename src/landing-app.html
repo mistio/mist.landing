@@ -425,10 +425,10 @@
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
         sign-up-google=[[config.features.signup_google]] sign-up-github=[[config.features.signup_github]] sign-up-email=[[config.features.signup_email]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
 
+      <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
       <dom-if if="[[config.features.billing]]" restamp>
         <template>
           <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey=[[config.stripeKey]]></landing-buy-license>
-          <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
           <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
         </template>
       </dom-if>
@@ -727,6 +727,7 @@
       },
 
       _onFallbackSelectionTriggered: function() {
+        debugger;
         if (this.route.path.match('insights|clouds|machines|images|networks|teams|keys|templates|stacks|tunnels|zones|scripts|schedules|account|incidents')) {
           this.route.__queryParams.return_to = this.route.path;
           this.page = 'sign-in';
