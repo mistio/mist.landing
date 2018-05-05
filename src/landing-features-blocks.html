@@ -73,7 +73,7 @@
                     </div>
                     <div class="grid-row feature">
                         <div class="xs12 s6 m6 l6 image" hidden$="[[_computeMod(index)]]">
-                            <img src$="[[_computeImageUrl(feature.image)]]" class$="[[_withShadow(index)]]"/>
+                            <img src$="[[_computeImageUrl(feature.image)]]" class="with-shadow"/>
                         </div>
                         <div class="xs12 s6 m6 l6 desc">
                             <h3 class="line1" hidden$="[[titleOnTop]]">[[feature.title]]</h3>
@@ -83,7 +83,7 @@
                             </marked-element>
                         </div>
                         <div class="xs12 s6 m6 l6 image" hidden$="[[!_computeMod(index)]]">
-                            <img src$="[[_computeImageUrl(feature.image)]]" class$="[[_withShadow(index)]]"/>
+                            <img src$="[[_computeImageUrl(feature.image)]]" class="with-shadow"/>
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
 
         _withShadow: function(index){
             //some screenshots dont have own shadow
-            if (index != undefined && index != 0 && index != 1)
+            // if (index != undefined && index != 0 && index != 1)
                 return "with-shadow";
         },
 
