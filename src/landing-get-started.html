@@ -620,11 +620,13 @@
         _purchaseClick: function(event) {
             window.scrollTo(0, 0);
             this.fire('user-action', 'purchase license button click in get-started');
+            this.fire('go-to', '/buy-license');
         },
 
         _signUpClick: function(event) {
             window.scrollTo(0, 0);
             this.fire('user-action', 'sign-up button click in get-started');
+            this.fire('go-to', '/sign-up');
         },
 
         _pricingClick: function(event) {
@@ -635,6 +637,7 @@
         _requestInfoClick: function(event) {
             window.scrollTo(0, 0);
             this.fire('user-action', 'request info button click in get-started');
+            this.fire('go-to','/request-pricing')
         },
 
         _computeClass: function(index) {
