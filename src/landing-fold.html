@@ -169,6 +169,16 @@
         }
       } 
 
+      .framed-image {
+        position: relative;
+        margin-bottom: -54px;
+      }
+
+      .framed-image .image-frame {
+        position: relative;
+        z-index: 0;
+      }
+
     </style>
 
     <div class="hero text-center"> 
@@ -190,7 +200,19 @@
 
       <dom-if if="[[contents.image]]" restamp>
         <template>
-          <landing-image src="[[contents.image]]" alt="[[contents.alt]]" placeholder-img=""></landing-image>
+          <dom-if if="[[!contents.frame]]" restamp>
+            <template>
+              <landing-image src="[[contents.image]]" alt="[[contents.alt]]" placeholder-img=""></landing-image>
+            </template>
+          </dom-if>
+          <dom-if if="[[contents.frame]]" restamp>
+            <template>
+              <div class="framed-image" hidden$="[[!contents.frame]]">
+                <img src="[[contents.image]]" class="image-content" style$="[[contents.style]]">
+                <img src="[[contents.frame]]" class="image-frame">
+              </div>
+            </template>
+          </dom-if>
         </template>
       </dom-if>
     </div>
