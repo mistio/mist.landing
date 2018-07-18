@@ -91,7 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           return;
         }
         this._getResource({
-          url: '/static/landing/sections/' + category.name + '.json',
+          url: '/api/v1/section/landing--' + category.name,
           onLoad: function(e) {
             this.set('category.items', JSON.parse(e.target.responseText));
           },
