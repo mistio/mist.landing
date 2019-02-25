@@ -3,35 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <base tal:attributes="href string:/landing/${build_path}"></base>
+  <base href="/landing/{{ build_path }}"></base>
 
-  <title><tal tal:replace="portal_name|nothing">mist.io</tal> :: hybrid cloud management platform</title>
+  <title>{{ portal_name }} :: hybrid cloud management platform</title>
   <meta name="description" content="A secure cloud management platform for automation, orchestration, cost and usage monitoring of public and private clouds. Provides multi-cloud RBAC. Enables self service provisioning. Cost analysis and cloud spending optimization">
 
-  <link tal:condition="theme|nothing" rel="shortcut icon" sizes="32x32" tal:attributes="href string:/static/${theme}-favicon.ico">
-  <link tal:condition="not theme" rel="shortcut icon" sizes="32x32" tal:attributes="href string:images/mist-icon-32.png">
+  {% if theme %}
+  <link rel="shortcut icon" sizes="32x32" href="/static/{{ theme }}-favicon.ico">
+  {% else %}
+  <link rel="shortcut icon" sizes="32x32" href="images/mist-icon-32.png">
+  {% endif %}
 
   <meta name="theme-color" content="#fff">
   <link rel="manifest" href="manifest.json">
 
+  {% if google_analytics_id %}
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async tal:condition="google_analytics_id"
-          src="https://www.googletagmanager.com/gtag/js?id=${google_analytics_id}"></script>
-  <script tal:condition="google_analytics_id">
+  <script async
+          src="https://www.googletagmanager.com/gtag/js?id={{ google_analytics_id }}"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', '${google_analytics_id}', {
+    gtag('config', '{{ google_analytics_id }}', {
       'custom_map': {'app': 'landing'}
     });
     gtag('set', {'content_group1': 'landing'});
   </script>
+  {% endif %}
 
-  <script tal:condition="csrf_token|nothing" tal:content="string: var CSRF_TOKEN=${csrf_token}"></script>
-  <script tal:condition="categories|nothing" tal:content="string: var CATEGORIES=${categories}"></script>
-  <script tal:content="string: var True = true, False = false, CONFIG = {'features': ${structure:features}, 'email': ${email}, 'portalName': '${portal_name}', 'stripeKey': '${stripe_public_apikey|nothing}'}">
-      var CONFIG = false;
+  {% if csrf_token %}
+  <script>var CSRF_TOKEN={{ csrf_token|safe }};</script>
+  {% endif %}
+
+  {% if categories %}
+  <script>var CATEGORIES={{ categories|safe }};</script>
+  {% endif %}
+
+  <script>
+      var True = true, False = false, CONFIG = {'features': {{ features|safe }}, 'email': {{ email|safe }}, 'portalName': '{{ portal_name|safe }}', 'stripeKey': '{{ stripe_public_apikey|safe }}'};
   </script>
   <script src="/landing/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
@@ -162,6 +173,10 @@
       overflow: visible;
     }
 
+    landing-app[unresolved] > * {
+      display: none;
+    }
+
     div.wave {
       border-radius: 50%;
       background: black;
@@ -173,35 +188,75 @@
       overflow: hidden;
       z-index: 10;
     }
+
+    landing-tab a {
+      display: inline-block;
+      outline: none;
+      padding: 27px 9px;
+      margin: 0 5px;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--tab-color) !important;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
   </style>
 
 </head>
 <body>
-
   <landing-app unresolved>
+    <div slot="tabs">
+      <dom-repeat>
+        <template>
+          <landing-tab hidden="[[item.hiddenFromMenu]]">
+              <a name="[[item.name]]" href="[[item.href]]" target="new">[[item.title]]</a>
+          </landing-tab>
+        </template>
+      </dom-repeat>
+    </div>
+    {% for sec in section %}
+    <landing-{{ sec }} slot="{{ sec }}">
+      {% for ssec in section[sec] %}
+      {% autoescape false %}
+      {{ ssec|safe }}
+      {% endautoescape %}
+      {% endfor %}
+    </landing-{{ sec }}>
+    {% endfor %}
   </landing-app>
 
   <script>
     window.performance && performance.mark && performance.mark('index.html');
-    if (CONFIG) document.querySelector('landing-app').config = CONFIG;
+    if (CONFIG) {
+      document.querySelector('landing-app').config = CONFIG;
+      var repeater = document.querySelector('dom-repeat');
+      repeater.items = CATEGORIES;
+    }
   </script>
   <link rel="import" href="src/landing-app.html">
+
+  {% if theme %}
   <!-- CUSTOM THEME -->
-  <link rel="import" tal:condition="theme|nothing" href="bower_components/polymer/lib/elements/custom-style.html">
-  <custom-style tal:condition="theme|nothing">
-      <link slot="theme" rel="import"  tal:attributes="href string:/static/landing/${theme}-theme.html">
+  <link rel="import" href="bower_components/polymer/lib/elements/custom-style.html">
+  <custom-style>
+      <link slot="theme" rel="import" href="/static/landing/{{ theme }}-theme.html">
   </custom-style>
   <!-- CUSTOM THEME END-->
+  {% endif %}
+
+  {% if mixpanel_id %}
   <!-- mixpanel-->
-  <script tal:condition="mixpanel_id|nothing" tal:content="string: var MIXPANEL_ID='${mixpanel_id}'"></script>
-  <script type="text/javascript" tal:condition="mixpanel_id|nothing">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+  <script>var MIXPANEL_ID='{{ mixpanel_id|safe }}';</script>
+  <script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
     for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
     mixpanel.init(MIXPANEL_ID);
   </script>
+  {% endif %}
 
+  {% if fb_id %}
   <!-- Facebook Pixel Code -->
-  <script tal:condition="fb_id|nothing" tal:content="string: var FB_ID='${fb_id}'"></script>
-  <script tal:condition="fb_id|nothing">
+  <script>var FB_ID='{{ fb_id|safe }}';</script>
+  <script>
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
   n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -214,10 +269,12 @@
   src="https://www.facebook.com/tr?id=1647503578815528&ev=PageView&noscript=1"
   /></noscript>
   <!-- End Facebook Pixel Code -->
+  {% endif %}
 
+  {% if olark_id %}
   <!-- begin olark code -->
-  <script tal:condition="olark_id|nothing" tal:content="string: var OLARK_ID='${olark_id}'"></script>
-  <script tal:condition="olark_id|nothing" data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
+  <script>var OLARK_ID='{{ olark_id|safe }}';</script>
+  <script data-cfasync="false" type='text/javascript'>/*<![CDATA[*/window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){
   f[z]=function(){
   (a.s=a.s||[]).push(arguments)};var a=f[z]._={
   },q=c.methods.length;while(q--){(function(n){f[z][n]=function(){
@@ -236,6 +293,6 @@
   /* custom configuration goes here (www.olark.com/documentation) */
   olark.identify(OLARK_ID);/*]]>*/</script><noscript><a href="https://www.olark.com/site/5179-329-10-7357/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
   <!-- end olark code -->
-
+  {% endif %}
 </body>
 </html>

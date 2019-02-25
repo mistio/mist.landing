@@ -362,17 +362,7 @@
         <div id="tabContainer" sticky$="[[_shouldShowTabs]]" hidden$="[[!_shouldShowTabs]]">
           <dom-if if="[[_shouldRenderTabs]]" restamp>
             <template>
-              <landing-tabs
-                  selected="{{page}}"
-                  attr-for-selected="name">
-                <dom-repeat items="[[categories]]" as="category" initial-count="4">
-                  <template>
-                    <landing-tab name="[[category.name]]" on-tap="_tabClicked" hidden$="[[category.hiddenFromMenu]]">
-                      <a name="[[category.name]]" href="[[category.href]]" target="new">[[category.title]]</a>
-                    </landing-tab>
-                  </template>
-                </dom-repeat>
-              </landing-tabs>
+              <slot name="tabs"></slot>
             </template>
           </dom-if>
         </div>
