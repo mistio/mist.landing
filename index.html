@@ -192,7 +192,218 @@
       </dom-repeat>
     </div>
 
-    <div class="page about" slot="content">
+    <!-- PRODUCT PAGE -->
+    <div class="page product" slot="content">
+      <div id="placeholder"></div>
+        <div id="container">
+
+          <div class="section grey">
+            <div class="text-center">
+              <h2 class="decorated row title">The Mist.io platform</h2>
+            </div>
+            <div class="description padding">
+              <p>Managing a mix of public and private clouds, hypervisors, containers, and bare metal is difficult, especially when trying to optimize costs and policies across platforms.</p>
+              <p>Mist.io solves this problem by providing visibility and control that makes it easier to consistently govern heterogeneous infrastructure.</p>
+              <div class="text-center">
+                <a id="downloadButton" aria-label="Get started" href="/get-started" tabindex="-1">
+                  <paper-button raised on-tap="_downloadClick" id="_getStartedBtn">Download</paper-button>
+                </a>
+                <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                  <paper-button raised on-tap="_signUpClick" id="signUpBtn1">Sign up</paper-button>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="section white">
+            <div class="contains">
+              <div class="grid-row feature">
+                  <div class="xs12 s6 m6 l6 desc">
+                      <h3 class="line1">Control hybrid environments</h3>
+                      <div class="feature-description">
+                        <p>Use Mist.io's unified interface and/or RESTful APIs to manage heterogeneous infrastructure. Create, reboot or destroy virtual machines. View their metadata, tag and search them. Assign keys, run and schedule scripts. Enable monitoring, alerting, and automation. All your infrastructure in one view.
+                          <br><br>
+                          <a href="http://docs.mist.io/article/76-setting-up-mistio" target="_blank">View the Quick Start guide in docs.</a>
+                        </p>
+                      </div>
+                  </div>
+                  <div class="xs12 s6 m6 l6 image">
+                      <img class="with-shadow" src="images/product/product-dashboard.png" />
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section grey">
+            <div class="contains">
+              <div class="grid-row feature">
+                <div class="xs12 s6 m6 l6 image">
+                  <img class="with-shadow" src="images/product/product-rbac.png">
+                </div>
+                <div class="xs12 s6 m6 l6 desc">
+                  <h3 class="line1">Enable self service</h3>
+                  <div class="feature-description">
+                      <p>Turn your IT organization into an internal broker of cloud services. Create user accounts and control access rights across public and private clouds. Let your users serve themselves by giving them the ability to take actions on machines through pre-defined jobs, scripts, and automated workflows.<br><br>
+                        <a href="/rbac">Read the Role Based Access case study.</a><br><a href="http://docs.mist.io/category/125-role-based-access-control" target="_blank">View the RBAC instructions in docs.</a>
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section white">
+            <div class="contains">
+              <div class="grid-row feature">
+                <div class="xs12 s6 m6 l6 desc">
+                  <h3 class="line1">Keep track of usage and cost</h3>
+                  <div class="feature-description">
+                      <p>IT and financial managers can get real time visibility of usage to better understand where costs are coming from and find ways to reduce waste and save money. Implement budget alerts, avoid zombie instances, and other waste.<br><br>
+                        <a href="https://docs.mist.io/article/152-insights-overview">View the Insights overview in docs.</a>
+                      </p>
+                  </div>
+                </div>
+                <div class="xs12 s6 m6 l6 image">
+                  <img class="with-shadow" src="images/product/product-report.png">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section grey">
+            <div class="contains">
+              <div class="grid-row feature">
+                <div class="xs12 s6 m6 l6 image">
+                  <img class="with-shadow" src="images/product/product-automate.png">
+                </div>
+                <div class="xs12 s6 m6 l6 desc">
+                  <h3 class="line1">Automate your workflows</h3>
+                  <div class="feature-description">
+                      <p>Orchestrate repeatable deployments and automate common responses across infrastructure. Our "unopinionated" approach means there is no need to migrate machines, you can manage legacy bare-metal and modern cloud infrastructure from a unified interface. Easy to get started.<br><br>
+                        <a href="/orchestration">Read more in the Orchestration section.</a>
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section white">
+            <div class="contains">
+              <div class="grid-row feature">
+                <div class="xs12 s6 m6 l6 desc">
+                  <h3 class="line1">Features</h3>
+                  <div class="feature-description">
+                    <ul>
+                      <li>Integration with over 15 service providers and technologies</li>
+                      <li>Docker support</li>
+                      <li>Kubernetes support</li>
+                      <li>Ansible support</li>
+                      <li>Role based access control. <a href="/rbac" class="blue-link">Use case.</a></li>
+                      <li><em class="prod-label">new!</em> Reporting - usage and cost insights</li>
+                      <li>Monitoring and alerting</li>
+                      <li>Centralized management:
+                        <ul>
+                          <li>Scripting</li>
+                          <li>Automation</li>
+                          <li>Key management</li>
+                          <li>Image management</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="xs12 s6 m6 l6 image">
+                  <img class="with-shadow" src="images/product/product-stack.png">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section grey">
+            <div class="contains text-center">
+              <div class="row">
+                <h3 class="decorated row">Choose your Mist.io</h3>
+              </div>
+              <div class="grid-row editions">
+                  <div class="xs12 s4 m4 l4 margin-top margin-bottom padding-bottom">
+                      <div class="edition">
+                          <h5>Hosted Service</h5>
+                          <iron-icon icon="icons:cloud-circle"></iron-icon>
+                          <p>A SaaS of the Mist.io platform. Get started fast.</p>
+                      </div>
+                  </div>
+                  <div class="xs12 s4 m4 l4 margin-top margin-bottom padding-bottom">
+                      <div class="edition">
+                          <h5>Enterprise Edition</h5>
+                          <iron-icon icon="icons:account-balance"></iron-icon>
+                          <p>Run Mist.io in your data center, under your terms, and behind your firewall.</p>
+                      </div>
+                  </div>
+                  <div class="xs12 s4 m4 l4 margin-top margin-bottom padding-bottom">
+                      <div class="edition">
+                          <h5>Community Edition</h5>
+                          <iron-icon icon="social:share"></iron-icon>
+                          <p>Mist.io is open source and available to be modified.</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                <a aria-label="Get started" href="/get-started" tabindex="-1">
+                  <paper-button raised="" id="_getStartedBtn" role="button" tabindex="0" animated="" elevation="1" aria-disabled="false">Choose Mist.io edition</paper-button>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="section white">
+            <div class="contains">
+              <div class="row text-center">
+                <h3 class="decorated row">Frequently Asked Questions</h3>
+              </div>
+              <div class="grid-row editions">
+                <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                    <div class="faqitem">
+                        <h5>How do I use it?</h5>
+                        <p>The easiest way is to <a href="https://mist.io/sign-up">sign up</a> to the Hosted Edition. Then you can immediatelly start adding your clouds and inviting your team members.</p>
+                    </div>
+                  </div>
+                  <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                    <div class="faqitem">
+                        <h5>Can I install it on-premises?</h5>
+                        <p>Yes! You can download and install the Community Edition which is free and open source software. Also, you can purchase a license for the Enterprise Edition.</p>
+                    </div>
+                  </div>
+                  <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                    <div class="faqitem">
+                        <h5>How much does it cost?</h5>
+                        <p>The Hosted Edition provides a limited free tier and then implements a Pay-As-You-Go model depending on usage. The Enterprise Edition is licensed per vcpu. Details in the <a href="/pricing">pricing page</a>.</p>
+                    </div>
+                  </div>
+                  <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                    <div class="faqitem">
+                        <h5>How secure is it?</h5>
+                        <p>Mist.io helps you enhance security by implementing access policies consistently across your entire infrastructure. We use Mist.io internally to manage all our systems since 2013. During this time, we never witnessed any evidence of security breaches on our production infrastructure.</p>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section grey">
+            <div class="contains text-center">
+              <div class="row">
+                <h5 class="row"><strong>Get started today.</strong></h5>
+                <a aria-label="Get started" href="/sign-up" tabindex="-1"><paper-button raised="" id="signUpBtn2" role="button" tabindex="0" animated="" elevation="1" aria-disabled="false">Sign up to Mist.io</paper-button></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <!-- <div class="page about" slot="content">
         <div id="placeholder"></div>
         <div id="container">
           <div class="section grey">
@@ -467,11 +678,13 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> -->
   </landing-app>
 
   <script>
     if (CONFIG) {
+      // var page = window.location.pathname;
+      // console.log('page', page);
       document.querySelector('landing-app').config = CONFIG;
       var repeater = document.querySelector('dom-repeat');
       repeater.items = CATEGORIES;

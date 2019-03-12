@@ -72,7 +72,9 @@ h6 {
   margin: 0.5rem 0 0.4rem 0;
 }
 .with-shadow {
-  @apply(--shadow-elevation-2dp);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12),
+              0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
 a {
@@ -868,4 +870,139 @@ landing-providers .provider {
 }
 landing-person img {
     width: 100%;
+}
+
+/* PRODUCT */
+
+.page paper-button {
+  background-color: var(--app-accent-color) !important;
+  color: #fff;
+  font-size: 18px;
+  height: 54px;
+  padding: 0 2rem !important;
+  margin: 0 8px 40px !important;
+  font-weight: 500;
+}
+
+a {
+  text-decoration: none;
+}
+
+.col {
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.pad {
+  padding: 16px;
+}
+
+img.with-shadow {
+  max-width: 100%;
+  display: block;
+}
+
+#placeholder {
+    opacity: 0;
+    background-color: grey;
+    @apply(--layout-fit);
+    z-index: -1;
+}
+
+.title {
+  margin-bottom: 0;
+}
+
+/* FEATURES */
+
+.features iron-icon {
+    width: 48px;
+    height: 48px;
+}
+
+.feature {
+    position: relative;
+    /*padding: 24px;*/
+}
+
+.image,
+.desc {
+    padding: 24px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.feature h3 {
+    font-size: 2.92rem;
+    margin: 1.46rem 0 1.168rem;
+}
+
+.white {
+    background-color: #fff;
+}
+
+.grey {
+    background-color: #fafafa;
+}
+
+.prod-label {
+    background-color: #444;
+    color: #fff;
+    font-size: 0.8em;
+    border-radius: 2px;
+    padding: 4px 6px;
+    width: 100px;
+    font-style: normal;
+}
+.feature ul {
+    padding: 0;
+}
+
+.feature ul li {
+    line-height: 2em;
+}
+
+.feature ul ul {
+    margin-left: 70px;
+}
+
+.feature ul li {
+    list-style-type: disc;
+    list-style-position: inside;
+}
+
+/* EDITIONS */
+
+h5 {
+    font-weight: 400;
+    font-size: 1.64rem;
+    margin: .82rem 0 .656rem;
+}
+.edition iron-icon {
+    color: #09c;
+    width: 48px;
+    height: 48px;
+}
+.edition {
+    max-width: 235px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* FAQ */
+
+.faqitem h5 {
+    font-weight: 400;
+    font-size: 1.64rem;
+    margin: .82rem 0 .656rem;
+}
+.faqitem {
+    margin: 0 auto;
+    position: relative;
+}
+.faqitem a {
+    text-decoration: none !important;
+    color: #09c !important;
 }
