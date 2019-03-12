@@ -147,6 +147,9 @@
       min-height: 100vh;
       flex-direction: column;
     }
+    landing-app[unresolved] > * {
+      display: none;
+    }
 
     /* styling for render while resources are loading */
     landing-app[unresolved] {
@@ -174,17 +177,305 @@
       z-index: 10;
     }
   </style>
-
+  <link rel="stylesheet" type="text/css" href="src/style.css">
 </head>
 <body>
 
   <landing-app unresolved>
+    <div slot="tabs">
+      <dom-repeat>
+        <template>
+          <landing-tab hidden="[[item.hiddenFromMenu]]">
+              <a name="[[item.name]]" href="[[item.href]]" target="new">[[item.title]]</a>
+          </landing-tab>
+        </template>
+      </dom-repeat>
+    </div>
+
+    <div class="page about" slot="content">
+        <div id="placeholder"></div>
+        <div id="container">
+          <div class="section grey">
+            <div class="text-center">
+              <h2 class="decorated row title">About Mist.io</h2>
+            </div>
+            <div class="description">
+              <p><strong>Mist.io makes cloud management simple</strong>, setting you free from vendor lock-in. It abstracts the infrastructure level, to help you easily replicate your entire setup across providers. It works from any web device, including laptops, tablets and phones, to help you take action from anywhere you are.</p>
+              <p><strong>It supports all popular computing platforms</strong> including public clouds, private clouds, hypervisors, containers and bare metal machines. It provides a unified interface for performing common management tasks like provisioning, orchestration, monitoring and automation. It comes with a RESTful API and command line tools, so you can easily integrate it in your existing workflow.</p>
+              <p><strong>You can choose the edition that works best for you.</strong> Freemium SaaS, Enteprise on-premises or Community Supported Open Source. It aims to become the de-facto standard for multi­-cloud management and a broker of cloud computing services. It's targeted to developers, system administrators and any organisation that performs on-premises, remote, or hybrid computing.</p>
+            </div>
+          </div>
+
+          <div class="section white">
+            <div class="contains">
+              <h3 class="decorated row text-center">Who we are</h3>
+              <div class="grid-row people">
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/cpsaltis.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Chris Psaltis</span>
+                    <span slot="person-position">CEO & co-founder</span>
+                    <a href="https://gr.linkedin.com/in/chpsaltis" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://twitter.com/cpsaltis" target="new" slot="person-twitter">
+                        <social-media-icons icon="twitter" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://github.com/cpsaltis" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/dimo.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Dimitris Moraitis</span>
+                    <span slot="person-position">CTO & co-founder</span>
+                    <a href="https://gr.linkedin.com/in/dimmo" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://twitter.com/d1_mo" target="new" slot="person-twitter">
+                        <social-media-icons icon="twitter" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://github.com/d-mo" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/mgogoulos.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Markos Gogoulos</span>
+                    <span slot="person-position">Customer Success Engineer & co-founder</span>
+                    <a href="https://gr.linkedin.com/in/mgogoulos" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://github.com/mgogoulos" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/clopy.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Mike Muzurakis</span>
+                    <span slot="person-position">Community Manager & co-founder</span>
+                    <a href="https://gr.linkedin.com/in/muzurakis" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://github.com/Clopy" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/yconst.png" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Yannis Chatzikonstantinou</span>
+                    <span slot="person-position">Lead Data Scientist</span>
+                    <a href="https://linkedin.com/in/yconst" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://github.com/yconst" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/dr.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Dimitris Rozakis</span>
+                    <span slot="person-position">Backend Engineer</span>
+                    <a href="https://gr.linkedin.com/pub/dimitris-rozakis/bb/35a/b50" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://github.com/dimrozakis" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/louk.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Christos Loukas</span>
+                    <span slot="person-position">DevOps Engineer</span>
+                    <a href="https://gr.linkedin.com/in/pub/chris-loukas/90/988/38b" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://github.com/commixon" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/xristina.png" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Christina Papakonstantinou</span>
+                    <span slot="person-position">Designer & Frontend Developer</span>
+                    <a href="https://www.linkedin.com/in/cpapakonstantinou/" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://github.com/xristina" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/cpollalis.png" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Chris Pollalis</span>
+                    <span slot="person-position">Backend Software Engineer</span>
+                    <a href="https://gr.linkedin.com/in/christos-pollalis-206459105" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://github.com/pchristos" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/spyros.png" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Spiros Tzavaras</span>
+                    <span slot="person-position">QA engineer</span>
+                    <a href="https://github.com/mpempekos" target="new" slot="person-github">
+                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/evi.png" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Evi Psaltou</span>
+                    <span slot="person-position">Office manager</span>
+                    <a href="https://www.linkedin.com/in/evi-psaltou-23590b130" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section grey">
+            <div class="contains">
+              <h3 class="decorated row text-center">Our Advisors</h3>
+              <div class="grid-row people">
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/allen.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Allen Wirfs-Brock</span>
+                    <a href="https://www.linkedin.com/in/allenwb" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/david-3.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">David Hecht</span>
+                    https://www.linkedin.com/in/davidhecht
+                    <a href="https://www.linkedin.com/in/davidhecht" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/geva.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Geva Perry</span>
+                    <a href="https://www.linkedin.com/in/gevaperry" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                    <a href="https://twitter.com/gevaperry" target="new" slot="person-twitter">
+                        <social-media-icons icon="twitter" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+                <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
+                  <landing-person>
+                    <img src="images/people/andreas.jpg" fade sizing="cover" slot="person-image"/>
+                    <span slot="person-name">Andreas Kallis</span>
+                    <a href="https://uk.linkedin.com/pub/andreas-kallis/3/a4a/140" target="new" slot="person-linkedin">
+                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
+                    </a>
+                  </landing-person>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section white">
+            <div class="contains text-center">
+              <div class="row">
+                <h3 class="decorated row">Our Trusted Partners</h3>
+              </div>
+              <div class="grid-row providers">
+                <div class="xs6 s6 m4 l4 ">
+                  <div class="provider">
+                    <img src="images/partners/gigaspaces.png" alt="gigaspaces">
+                  </div>
+                </div>
+                <div class="xs6 s6 m4 l4 ">
+                  <div class="provider">
+                    <img src="images/partners/redhat.png" alt="redhat">
+                  </div>
+                </div>
+                <div class="xs6 s6 m4 l4 ">
+                  <div class="provider">
+                    <img src="images/partners/nephoscale.png" alt="nephoscale">
+                  </div>
+                </div>
+                <div class="xs6 s6 m4 l4 ">
+                  <div class="provider">
+                    <img src="images/partners/unisystems.png" alt="unisystems">
+                  </div>
+                </div>
+                <div class="xs6 s6 m4 l4 ">
+                  <div class="provider">
+                    <img src="images/partners/indocloud.png" alt="indonesian cloud">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section grey">
+            <div class="contains text-center">
+              <div class="row">
+                <h3 class="decorated row">Our Investors</h3>
+              </div>
+              <div class="grid-row providers">
+                <div class="grid-row providers">
+                  <div class="xs6 s6 m4 l4">
+                    <div class="provider">
+                      <img src="images/investors/nbg-business.png" alt="NBG Business Seeds">
+                    </div>
+                  </div>
+                  <div class="xs6 s6 m4 l4">
+                    <div class="provider">
+                      <img src="images/investors/piraeus-jeremie.png" alt="PJ Tech Catalyst">
+                    </div>
+                  </div>
+                  <div class="xs6 s6 m4 l4">
+                    <div class="provider">
+                      <img src="images/investors/startup-monthlly.png" alt="Startup Monthlly">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
   </landing-app>
 
   <script>
-    window.performance && performance.mark && performance.mark('index.html');
-    if (CONFIG) document.querySelector('landing-app').config = CONFIG;
-    console.log('window.location.path',window.location.pathname);
+    if (CONFIG) {
+      document.querySelector('landing-app').config = CONFIG;
+      var repeater = document.querySelector('dom-repeat');
+      repeater.items = CATEGORIES;
+    }
   </script>
   <link rel="import" href="src/landing-app.html">
   <!-- CUSTOM THEME -->

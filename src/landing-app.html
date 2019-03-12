@@ -27,6 +27,7 @@
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="landing-footer.html">
 <link rel="import" href="landing-social.html">
+<link rel="import" href="landing-person.html">
 
 <!-- Since 'home' is the default route, eagerly load it. -->
 <link rel="import" href="landing-home.html">
@@ -400,9 +401,11 @@
       </app-drawer>
       </template>
     </dom-if>
+
+
     <landing-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="not-found">
-      <!-- home view -->
-      <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-home>
+
+      <!-- <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-home>
 
       <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-pricing>
 
@@ -412,15 +415,21 @@
 
       <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-orchestration>
 
-      <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-rbac>
+      <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-rbac> -->
 
       <dom-repeat items="[[categories]]" as="cat">
         <template>
-          <landing-page name="[[cat.name]]" title="[[cat.title]]" id="[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]"></landing-page>
+          <landing-page name="[[cat.name]]" title="[[cat.title]]" id="[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]">
+            <dom-if if="[[_isEqual(cat.name,page)]]">
+              <template>
+                <slot name="content"></slot>
+              </template>
+            </dom-if>
+          </landing-page>
         </template>
       </dom-repeat>
 
-      <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
+      <!-- <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
         sign-in-google=[[config.features.signin_google]] sign-in-github=[[config.features.signin_github]] sign-in-email=[[config.features.signin_email]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in>
       <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
         sign-up-google=[[config.features.signup_google]] sign-up-github=[[config.features.signup_github]] sign-up-email=[[config.features.signup_email]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
@@ -438,7 +447,7 @@
       <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
 
       <landing-error name="error" route="[[subroute]]" offline="[[offline]]"></landing-error>
-      <landing-not-found name="not-found" id="not-found"></landing-not-found>
+      <landing-not-found name="not-found" id="not-found"></landing-not-found> -->
     </landing-pages>
 
     <landing-social id="social" categories="[[categories]]" data="[[category.items]]" hidden$="[[!_hasFooter(page)]]"></landing-social>
@@ -842,6 +851,10 @@
         console.log(e.detail.content);
           var content = e.detail.content;
           this.$["show-"+content].open();
+      },
+
+      _isEqual: function(catName,page) {
+        return catName == page;
       }
     });
 

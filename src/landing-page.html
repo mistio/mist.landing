@@ -18,8 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="landing-page">
   <template>
-    <style include="shared-styles"></style>
-    <style>
+    <style include="shared-styles">
 
       :host {
         display: block;
@@ -54,9 +53,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
 
     <div>
+
       <div id="placeholder"></div>
       <div id="container">
-        
+
         <div class="section grey">
           <div class="contains">
             <div class="text-center">
@@ -73,6 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <!-- <landing-button>
           <a href="/">Go to the home page</a>
         </landing-button> -->
+
       </div>
     </div>
 
@@ -85,6 +86,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         name: String,
         title: String,
         data: Object
+      },
+
+      _signUpClick: function(event) {
+        window.scrollTo(0, 0);
+        this.fire('user-action', 'sign up button 1 click');
+      },
+
+      _signUpClick2: function(event) {
+        window.scrollTo(0, 0);
+        this.fire('user-action', 'sign up button 2 click');
       }
     });
   </script>

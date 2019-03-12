@@ -1,0 +1,47 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="landing-provider">  
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+        :host {
+            display: block;
+            padding: 24px;
+        }
+        .provider img {
+            opacity: .4;
+            max-width: 100%;
+            filter: grayscale(100%);
+            -webkit-filter: grayscale(100%);
+            -webkit-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
+        }
+        .provider:hover img {
+            opacity: 1;
+            filter: grayscale(0);
+            -webkit-filter: grayscale(0);
+        }
+        
+    </style>
+
+
+    <div class$="xs6 s6 m4 l4">
+        <div class="provider">
+            <slot name="provider"></slot>
+        </div>
+    </div>
+
+  </template>
+
+  <script>
+
+    Polymer({
+        is: 'landing-provider',
+        properties: {
+        }
+    });
+
+  </script>
+</dom-module>
