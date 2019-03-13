@@ -1231,3 +1231,79 @@ img.with-shadow {
     font-size: 0.8em;
     font-weight: 400;
 }
+
+/* TESTIMONIALS */
+
+#testimonials {
+    position: relative;
+    display: block;
+} 
+.client {
+    font-size: 16px;
+}
+img.client-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #fefefe;
+    border: 3px solid #444;
+}
+.job-title {
+    color: #7f7f7f;
+    line-height: 130%;
+    font-weight: 300;
+    margin: 0;
+}
+h5.client-name {
+    font-weight: 400; 
+}
+h6.job-title {
+    line-height: 130%;
+    color: #7f7f7f;
+    font-weight: 400;
+}
+hr {
+    max-width: 66%;
+    margin-top: 20px;
+    margin-bottom: 20px; 
+    opacity: .3;
+}
+.client-testimonial {
+    max-width: 75%;
+    margin: 0 auto;
+}
+#testimonials {
+    position: relative;
+    min-height: 300px;
+}
+.testimonial {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    transition: 100ms opacity ease-in;
+    opacity: 0;
+}
+.testimonial[active] {
+    opacity: 1;
+}
+#controls {
+    text-align: center;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+}
+#controls .control-item {
+    display: inline-block;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+    margin: 0 12px;
+    background-color: #e0e0e0;
+    transition: background-color .3s;
+    border-radius: 50%;
+    font-size: 0;
+}
+#controls .control-item[active] {
+    background-color: #09c;
+}
