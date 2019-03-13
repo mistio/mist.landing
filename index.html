@@ -192,8 +192,79 @@
       </dom-repeat>
     </div>
 
-    <!-- PRODUCT PAGE -->
+    <!-- HOME PAGE -->
     <div class="page product" slot="content">
+      <div id="placeholder"></div>
+      <div id="container">
+
+        <div class="section fold grey">
+          <landing-fold>
+            <span slot="title">Do multi-cloud efficiently</span>
+            <span slot="subtitle">Mist.io helps you streamline your operations and reduce your infrastructure costs</span>
+            <a aria-label="Sign up" href="/sign-up" tabindex="-1" slot="button">
+              <paper-button raised on-tap="_signUpClick" id="signUpBtn1">Get Started</paper-button>
+            </a>
+          </landing-fold>
+        </div>
+
+        <div class="section fold white">
+          <div class="text-center">
+            <h3 class="decorated row title">What a modern cloud management platform looks like</h3>
+          </div>
+          <div class="container pad-top-0">
+            <div class="grid-row center">
+              <div class="col xs12 s12 m4 l4 text-center">
+                <h4 class="light">
+                  <iron-icon class="icon" icon="social:people-outline"></iron-icon>
+                  Teams
+                </h4>
+                <p class="light landing-summary-p">
+                  Organize teams and enable self service provisioning for your devs.
+                </p>
+                <paper-material class="icon-block center">
+                  <a href="/rbac">
+                    <img src="images/frontpage/home-teams-policy.png" alt="welcome screen" class="materialboxed card wow fadeIn responsive-img"/>
+                  </a>
+                </paper-material>
+              </div>
+
+              <div class="col xs12 s12 m4 l4 text-center">
+                <h4 class="light">
+                  <iron-icon class="icon" icon="places:all-inclusive"></iron-icon>
+                  Orchestration
+                </h4>
+                <p class="light landing-summary-p">
+                  Automate the provisioning and configuration of simple and complex apps.
+                </p>
+                <paper-material class="icon-block center">
+                  <a href="/orchestration">
+                    <img src="images/frontpage/home-orchestration.png" alt="welcome screen" class="materialboxed card wow fadeIn responsive-img"/>
+                  </a>
+                </paper-material>
+              </div>
+
+              <div class="col xs12 s12 m4 l4 text-center">
+                <h4 class="light">
+                  <iron-icon class="icon" icon="editor:attach-money"></iron-icon>
+                  Reduce Costs
+                </h4>
+                <p class="light landing-summary-p">
+                  See costs and utilization in one view. Get proactive alerts about under-utilized machines.
+                </p>
+                <paper-material class="icon-block center">
+                  <img src="images/frontpage/home-machines-list.png" alt="welcome screen" class="materialboxed card wow fadeIn responsive-img"/>
+                </paper-material>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- PRODUCT PAGE -->
+    <!-- <div class="page product" slot="content">
       <div id="placeholder"></div>
         <div id="container">
 
@@ -400,7 +471,7 @@
           </div>
 
         </div>
-    </div>
+    </div> -->
 
     <!-- ABOUT PAGE -->
     <!-- <div class="page about" slot="content">
@@ -683,11 +754,25 @@
 
   <script>
     if (CONFIG) {
-      // var page = window.location.pathname;
+      var page = window.location.pathname;
       // console.log('page', page);
       document.querySelector('landing-app').config = CONFIG;
       var repeater = document.querySelector('dom-repeat');
       repeater.items = CATEGORIES;
+
+      if (window.location.pathname == "" || window.location.pathname == "/home") {
+        var contents = {
+          alt: "Mist.io cloud management dashboard",
+          copy: "Do multi-cloud efficiently",
+          cta: "Get Started",
+          frame: "images/frontpage/mockup-imac-frame.png",
+          image: "images/screencast-landing.gif",
+          style: "position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;",
+          subcopy: "Mist.io helps you streamline your operations and reduce your infrastructure costs"
+        }
+        document.querySelector('landing-fold').contents = contents;
+      }
+
     }
   </script>
   <link rel="import" href="src/landing-app.html">

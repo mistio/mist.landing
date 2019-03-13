@@ -192,11 +192,12 @@
       </template>
       <template is="dom-if" if="{{!printTyped}}">
         <h2>
-          {{contents.copy}}
+          <slot name="title"></slot>
         </h2>
       </template>
-      <h5>{{contents.subcopy}}</h5>
-      <slot></slot>
+      <h5><slot name="subtitle"></slot></h5>
+      <br/>
+      <slot name="button"></slot>
 
       <dom-if if="[[contents.image]]" restamp>
         <template>
