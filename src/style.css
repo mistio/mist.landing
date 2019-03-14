@@ -1307,3 +1307,468 @@ hr {
 #controls .control-item[active] {
     background-color: #09c;
 }
+
+/* PRICING */
+
+:host {
+    --paper-tooltip: {
+        font-size: 14px;
+        line-height: 24px;
+    }
+}
+:host paper-tooltip {
+    max-width: 200px;
+    text-align: center;
+}
+
+span#vcpus, span#datapoints, span#rulechecks, span#apirequests, span#retention {
+    border-bottom: 1px dashed #999;
+}
+
+paper-material {
+    @apply(--shadow-elevation-2dp);
+}
+
+.hero {
+    padding: 48px 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+paper-button {
+    background-color: var(--app-accent-color) !important;
+    color: #fff;
+    font-size: 18px;
+    height: 54px;
+    padding: 0 2rem !important;
+    margin: 0 40px 40px !important;
+    font-weight: 500;
+}
+
+paper-button.hero-button {
+    margin: 40px 40px 16px !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.col {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.pad {
+    padding: 16px;
+}
+
+#placeholder {
+    opacity: 0;
+    background-color: grey;
+    @apply(--layout-fit);
+    z-index: -1;
+}
+
+.plan {
+    background-color: #fff;
+    margin-bottom: 50px;
+    overflow: auto;
+    @apply(--shadow-elevation-4dp);
+}
+
+.plan, .plan > * {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.title {
+    color: #fff;
+    text-transform: uppercase;
+    padding: 20px 0;
+    font-size: 18px;
+}
+
+.plan paper-button {
+    margin: 0 !important;
+    font-size: 14px;
+    height: 2rem;
+    width: auto;
+}
+
+.bg-0 {
+    background-color: #999;
+}
+
+.bg-1 {
+    background-color: #777;
+}
+
+.bg-2 {
+    background-color: #555;
+}
+
+.bg-3 {
+    background-color: #222;
+}
+
+.plan-body-item {
+    padding: 30px 10px 50px 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    .plan-body-item {
+        min-height: 50px;
+    }
+}
+
+.plan-body-item + .plan-body-item {
+    border-top: 1px solid #d4d4d4;
+}
+
+.plan-body-item:last-child {
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.plan-body-item.highlight {
+    background-color: var(--app-background-color);
+}
+
+.plan-body-item * {
+    width: 100%;
+}
+
+.plan-body-item:not(:first-child) {
+    padding: 0 10px;
+}
+
+.plan-body-item:last-child p {
+    font-weight: bold;
+}
+
+.valign {
+    display: block;
+}
+
+.price {
+    font-weight: 700;
+    line-height: 1;
+    padding: 0;
+    margin: 8px;
+}
+
+.price sub,
+.price sup {
+    font-size: 18px;
+    font-weight: 300;
+    vertical-align: middle;
+}
+
+.price sup {
+    font-size: 24px;
+    padding: 0 5px;
+}
+
+paper-button#enterpriseBtn {
+    background-color: #4caf50;
+    /*green*/
+    display: block-inline;
+    line-height: 54px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+ul {
+    padding: 0;
+    margin: 0;
+}
+ul li {
+    margin-left: 15px;
+    clear: both;
+    list-style: none;
+}
+.block-center {
+    margin: 0 auto;
+}
+.payg-rates {
+
+}
+.payg-rate {
+    justify-content: center;
+}
+.plus-rate > span {
+    background-color: #424242;
+    color: #fff;
+    border-radius: 50%;
+    padding: 8px;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    flex: none;
+    display: block;
+    margin: 0 auto;
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+}
+.plus-rate .plus {
+    font-weight: normal;
+    font-size: 0.8em;
+}
+.plus-per {
+    text-align: center;
+}
+@media screen and (max-width: 768px){
+    .includes > div {
+        text-align: center;
+    }
+    .includes ul, .includes li {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+p.free {
+    max-width: 540px;
+    margin: 32px auto;
+    line-height: 32px;
+}
+.small {
+    font-size: 14px;
+    margin: 0 32px 32px;
+}
+
+/* PRICING */
+
+#pricing paper-tooltip {
+    font-size: 14px;
+    line-height: 24px;
+}
+#pricing paper-tooltip {
+    max-width: 200px;
+    text-align: center;
+}
+
+span#vcpus, span#datapoints, span#rulechecks, span#apirequests, span#retention {
+    border-bottom: 1px dashed #999;
+}
+
+#pricing paper-material {
+    /*@apply(--shadow-elevation-2dp);*/
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12),
+              0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+
+.hero {
+    padding: 48px 0;
+}
+
+#pricing {
+    display: block;
+}
+
+.text-center {
+    text-align: center;
+}
+
+#pricing paper-button {
+    background-color: var(--app-accent-color) !important;
+    color: #fff;
+    font-size: 18px;
+    height: 54px;
+    padding: 0 2rem !important;
+    margin: 0 40px 40px !important;
+    font-weight: 500;
+}
+
+#pricing paper-button.hero-button {
+    margin: 40px 40px 16px !important;
+}
+
+#pricing a {
+    text-decoration: none;
+}
+
+#pricing .col {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+#pricing .pad {
+    padding: 16px;
+}
+
+#pricing #placeholder {
+    opacity: 0;
+    background-color: grey;
+    @apply(--layout-fit);
+    z-index: -1;
+}
+
+#pricing .plan {
+    background-color: #fff;
+    margin-bottom: 50px;
+    overflow: auto;
+    /*@apply(--shadow-elevation-4dp);*/
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+                0 1px 10px 0 rgba(0, 0, 0, 0.12),
+                0 2px 4px -1px rgba(0, 0, 0, 0.4);
+}
+
+#pricing .plan, #pricing .plan > * {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#pricing .title {
+    color: #fff;
+    text-transform: uppercase;
+    padding: 20px 0;
+    font-size: 18px;
+}
+
+#pricing .plan paper-button {
+    margin: 0 !important;
+    font-size: 14px;
+    height: 2rem;
+    width: auto;
+}
+
+.bg-0 {
+    background-color: #999;
+}
+
+.bg-1 {
+    background-color: #777;
+}
+
+.bg-2 {
+    background-color: #555;
+}
+
+.bg-3 {
+    background-color: #222;
+}
+
+#pricing .plan-body-item {
+    padding: 30px 10px 50px 10px;
+}
+
+@media only screen and (max-width: 600px) {
+    #pricing .plan-body-item {
+        min-height: 50px;
+    }
+}
+
+#pricing .plan-body-item + .plan-body-item {
+    border-top: 1px solid #d4d4d4;
+}
+
+#pricing .plan-body-item:last-child {
+    border-bottom: 1px solid #d4d4d4;
+}
+
+#pricing .plan-body-item.highlight {
+    background-color: var(--app-background-color);
+}
+
+#pricing .plan-body-item * {
+    width: 100%;
+}
+
+#pricing .plan-body-item:not(:first-child) {
+    padding: 0 10px;
+}
+
+#pricing .plan-body-item:last-child p {
+    font-weight: bold;
+}
+
+#pricing .valign {
+    display: block;
+}
+
+#pricing .price {
+    font-weight: 700;
+    line-height: 1;
+    padding: 0;
+    margin: 8px;
+}
+
+.price sub,
+.price sup {
+    font-size: 18px;
+    font-weight: 300;
+    vertical-align: middle;
+}
+
+.price sup {
+    font-size: 24px;
+    padding: 0 5px;
+}
+
+#pricing paper-button#enterpriseBtn {
+    background-color: #4caf50;
+    /*green*/
+    display: block-inline;
+    line-height: 54px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+#pricing ul {
+    padding: 0;
+    margin: 0;
+}
+#pricing ul li {
+    margin-left: 15px;
+    clear: both;
+    list-style: none;
+}
+#pricing .block-center {
+    margin: 0 auto;
+}
+#pricing .payg-rate {
+    justify-content: center;
+}
+#pricing .plus-rate > span {
+    background-color: #424242;
+    color: #fff;
+    border-radius: 50%;
+    padding: 8px;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    flex: none;
+    display: block;
+    margin: 0 auto;
+    width: 52px;
+    height: 52px;
+    line-height: 52px;
+}
+#pricing .plus-rate .plus {
+    font-weight: normal;
+    font-size: 0.8em;
+}
+#pricing .plus-per {
+    text-align: center;
+}
+@media screen and (max-width: 768px){
+    #pricing .includes > div {
+        text-align: center;
+    }
+    #pricing .includes ul, .includes li {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+#pricing p.free {
+    max-width: 540px;
+    margin: 32px auto;
+    line-height: 32px;
+}
+#pricing .small {
+    font-size: 14px;
+    margin: 0 32px 32px;
+}

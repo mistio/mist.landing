@@ -148,7 +148,7 @@
       flex-direction: column;
     }
     landing-app[unresolved] > * {
-      display: none;
+      display: none !important;
     }
 
     /* styling for render while resources are loading */
@@ -192,8 +192,315 @@
       </dom-repeat>
     </div>
 
+    <!-- PRICING PAGE -->
+    <div id="pricing" class="page product" slot="content">
+      <div id="placeholder"></div>
+      <div id="container">
+          <div class="section grey">
+              <div class="contains">
+                  <div class="row text-center">
+                      <h2 class="decorated row">Pay As You Go rates</h2>
+                  </div>
+                  <div class="grid-row payg-rates">
+                      <div class="xs6 s3 m3 l3 margin-bottom payg-rate" id="vcpus">
+                          <div class="plus-rate">
+                            <span>
+                              <sup>$</sup>2
+                              <span class="plus">
+                                <sub>/mo</sub>
+                              </span>
+                            </span>
+                          </div>
+                          <div class="plus-per"><sub>per</sub><br />vCPU</div>
+                      </div>
+                      <paper-tooltip for="vcpus" animation-delay="0" position="bottom">Sum of virtual processor cores under management.</paper-tooltip>
+
+                      <div class="xs6 s3 m3 l3 margin-bottom payg-rate" id="datapoints">
+                        <div class="plus-rate">
+                            <span>
+                                <sup>$</sup>5
+                                <span class="plus">
+                                    <sub>/mo</sub>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="plus-per"><sub>per</sub><br />1M datapoints/day</div>
+                      </div>
+                      <paper-tooltip for="datapoints" animation-delay="0" position="bottom">Incoming metric samples and log entries.</paper-tooltip>
+
+                      <div class="xs6 s3 m3 l3 margin-bottom payg-rate" id="rulechecks">
+                          <div class="plus-rate">
+                              <span>
+                                  <sup>$</sup>5
+                                  <span class="plus">
+                                      <sub>/mo</sub>
+                                  </span>
+                              </span>
+                          </div>
+                          <div class="plus-per"><sub>per</sub><br />100k rule checks/day</div>
+                      </div>
+                      <paper-tooltip for="rulechecks" animation-delay="0" position="bottom">Evaluations of conditions that trigger alerts or automated actions.</paper-tooltip>
+
+                      <div class="xs6 s3 m3 l3 margin-bottom payg-rate" id="apirequests">
+                          <div class="plus-rate">
+                              <span>
+                                  <sup>$</sup>5
+                                  <span class="plus">
+                                      <sub>/mo</sub>
+                                  </span>
+                              </span>
+                          </div>
+                          <div class="plus-per"><sub>per</sub><br />1M API requests/day</div>
+                      </div>
+                      <paper-tooltip for="apirequests" animation-delay="0" position="bottom">Invokations of the Mist.io API by any member of your organization.</paper-tooltip>
+
+                  </div>
+                  <div class="text-center">
+                      <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                          <paper-button class="hero-button" raised on-tap="_signUpClick" id="signUpBtn1">Sign up for free</paper-button>
+                      </a>
+                      <p class="small">
+                          High watermark, pro-rated daily. <br/>
+                          1 month data retention. 14 days free trial.
+                      </p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="section white">
+            <div class="contains">
+                <div class="row text-center">
+                    <h2 class="decorated row">Prepaid Plans</h2>
+                </div>
+                <div class="grid-row">
+                    <div class="xs12 s4 m4 l4 margin-bottom">
+                        <div class="plan text-center">
+                            <div class="title bg-1">
+                                Small
+                            </div>
+                            <div class="plan-body">
+                                <div class="plan-body-item valign-wrapper">
+                                    <div class="valign">
+                                        <h2 class="price"><sup>$</sup>200<sub>/mo.</sub></h2>
+                                        <!-- <a aria-label="Purchase small" href="/sign-up?plan=Small" tabindex="-1">
+                                            <paper-button raised on-tap="_purchaseSmallClick">Purchase</paper-button>
+                                        </a> -->
+                                    </div>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">200 vCPUs</p>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">20M datapoints/day</p>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">100k rule checks/day</p>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">3 month retention</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="xs12 s4 m4 l4 margin-bottom">
+                        <div class="plan text-center">
+                            <div class="title bg-2">
+                                Medium
+                            </div>
+                            <div class="plan-body">
+                                <div class="plan-body-item valign-wrapper">
+                                    <div class="valign">
+                                        <h2 class="price"><sup>$</sup>900<sub>/mo.</sub></h2>
+                                        <!-- <a aria-label="Purchase small" href="/sign-up?plan=Medium" tabindex="-1">
+                                            <paper-button raised on-tap="_purchaseMediumClick">Purchase</paper-button>
+                                        </a> -->
+                                    </div>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">1k vCPUs</p>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">100M datapoints/day</p>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">1M rule checks/day</p>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">1 year retention</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="xs12 s4 m4 l4 margin-bottom">
+                        <div class="plan text-center">
+                            <div class="title bg-3">
+                                Large
+                            </div>
+                            <div class="plan-body">
+                                <div class="plan-body-item valign-wrapper">
+                                    <div class="valign">
+                                        <h2 class="price"><sup>$</sup>3,000<sub>/mo.</sub></h2>
+                                        <!-- <a aria-label="Purchase small" href="/sign-up?plan=Large" tabindex="-1">
+                                            <paper-button raised on-tap="_purchaseLargeClick">Purchase</paper-button>
+                                        </a> -->
+                                    </div>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">10k vCPUs</p>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">1B datapoints/day</p>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">10M rule checks/day</p>
+                                </div>
+                                <div class="plan-body-item valign-wrapper">
+                                    <p class="valign">3 year retention</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <sub> * Pay As You Go rates apply if limits exceeded </sub>
+                </div>
+            </div>
+        </div>
+
+        <div class="section grey">
+            <div class="contains">
+                <div class="row text-center">
+                    <h2 class="decorated row">All Plans Include</h2>
+                </div>
+                <div class="grid-row includes">
+                    <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
+                        <ul>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> Cost Insights
+                            </li>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> Inventory Dashboard
+                            </li>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> RBAC
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
+                        <ul>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> Monitoring &amp; Alerting
+                            </li>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> VPN
+                            </li>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> Scheduling
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
+                        <ul>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> Keys
+                            </li>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> Orchestration
+                            </li>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> Scripting
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="xs12 s6 m3 l3 margin-bottom padding-bottom">
+                        <ul>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> Audit Logs
+                            </li>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> Machine Actions
+                            </li>
+                            <li>
+                                <iron-icon icon="done"></iron-icon> API access
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                        <paper-button raised on-tap="_signUpClick2" id="signUpBtn2">Sign up for free</paper-button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="section dark">
+            <div class="contains">
+                <div class="row text-center">
+                    <h2 class="decorated">Need it On Premises?</h2>
+                </div>
+                <div class="grid-row">
+                    <div class="xs12 s12 m12 l12 text-center">
+                        <p>If you are looking for an on premises solution, contact us at <a href="mailto:sales@mist.io">sales@mist.io</a> or send us a request for pricing.</p>
+                        <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
+                            <paper-button raised on-tap="_requestInfoClick" id="enterpriseBtn">Request Pricing</paper-button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <div class="section grey">
+          <div class="contains">
+              <div class="row text-center">
+                  <h2 class="decorated row">Pricing FAQ</h2>
+              </div>
+              <div class="grid-row editions">
+                  <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                      <div class="faqitem">
+                          <h5>Can I test Mist.io for free?</h5>
+                          <p>Yes you can. As long as the infrastructure that you add does not exceed 10 vCPUs total, your monitored machines emit up to 1M datapoints/day and your configured rules require less than 1000 checks/day.</p>
+                      </div>
+                  </div>
+                  <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                      <div class="faqitem">
+                          <h5>What if I exceed the free limits?</h5>
+                          <p>Your credit card will be charged at the end of the month according to your usage. The amount will be prorated for each day that your exceed the free tier.</p>
+                      </div>
+                  </div>
+                  <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                      <div class="faqitem">
+                          <h5>How many teams and users can I have?</h5>
+                          <p>Each organization can include unlimited teams and users. Additional organizations can be added by users.</p>
+                      </div>
+                  </div>
+                  <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                      <div class="faqitem">
+                          <h5>How do you calculate the vCPU count?</h5>
+                          <p>It's the daily maximum sum of all virtual and physical computing cores from all the machines under management. Not including containers.</p>
+                      </div>
+                  </div>
+                  <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                      <div class="faqitem">
+                          <h5>What type of support do I get?</h5>
+                          <p>All paid plans include email support with next business day response time. Upgrade options are available upon request. Please contact <a href="mailto:sales@mist.io">sales@mist.io</a> to learn more.</p>
+                      </div>
+                  </div>
+                  <div class="xs12 s6 m6 l6 margin-top margin-bottom padding-bottom">
+                      <div class="faqitem">
+                          <h5>Do you offer discounts?</h5>
+                          <p>Yes. You can receive a discount by making an annual prepayment or annual commitment.</p>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          
+      </div>
+    </div>
+
+
     <!-- HOME PAGE -->
-    <div class="page product" slot="content">
+    <!-- <div class="page product" slot="content">
       <div id="placeholder"></div>
       <div id="container">
 
@@ -552,7 +859,7 @@
         </div>
 
       </div>
-    </div>
+    </div> -->
 
     <!-- PRODUCT PAGE -->
     <!-- <div class="page product" slot="content">
