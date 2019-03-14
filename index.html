@@ -192,8 +192,80 @@
       </dom-repeat>
     </div>
 
+    <!-- ORCHESTRATION PAGE -->
+    <div class="page orchestration" slot="content">
+      <div id="placeholder"></div>
+      <div id="container">
+
+        <div class="section grey">
+          <div>
+            <div class="text-center">
+              <h2 class="decorated row title">Cloud Orchestration</h2>
+              <div class="padding">
+                <p>Simplify the provisioning of complex infrastructure and applications <br/>
+                across heterogeneous environments.</p>
+              </div>
+            </div>
+            <div class="text-center">
+              <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                <paper-button raised on-click="_signUpClick" id="signUpBtn1">Sign up</paper-button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="section white">
+          <div class="contains">
+            <div class="text-center"><h3 class="decorated row title">How it works</h3></div>
+            <div class="grid-row">
+              <div class="xs12 s6 m6 l6 desc">
+                <div class="feature-description">
+                    <p><strong>The cloud orchestration service is based on Cloudify</strong>, the open-source, TOSCA-based orchestration platform. </p>
+                    <p> <strong>The service is similar to AWS’ OpsWorks but is designed for heterogeneous infrastructure</strong>. This means you can create a single, reusable template to provision the same application across different cloud providers, data centers, or colo environments.</p>
+                    <p><strong>Combine Cloud Orchestration with other Mist.io features</strong> such as monitoring, scheduling, RBAC, and/or APIs, to create automated and dynamic workflows and policies that respond to system events in real time.</p>
+                </div>
+              </div>
+              <div class="xs12 s6 m6 l6 image">
+                <img class="with-shadow" src="images/orchestration/add-template.png">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section grey">
+          <div class="contains">
+            <div class="text-center"><h3 class="decorated row title">Simple Kubernetes Cluster Deployments</h3></div>
+            <div class="grid-row">
+              <div class="xs12 s6 m6 l6 image">
+                <img class="with-shadow" src="images/orchestration/stack-page.png">
+              </div>
+              <div class="xs12 s6 m6 l6 desc">
+                <div class="feature-description">
+                    <p><strong>Mist.io’s Cloudify cloud orchestration service</strong> offers single-click Kubernetes cluster deployments across public and private clouds. Users can use the cloud orchestration service to automate the deployment, operations, and scaling of containerized applications resulting in accelerate software deployment, development, and simplified IT operations.</p>
+                    <p><strong>Mist.io with Cloudify offers the simplest way to run Kubernetes</strong> on AWS, OpenStack and other clouds through a single management experience. Setting up a Kubernetes cluster is simple and quick.</p>
+                    <p><strong>With just a few clicks a cluster can be setup in minutes</strong>, making it easy to get started. Rule based auto-scaling tools make it easy to scale up and down the cluster when necessary.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section white">
+          <div class="contains text-center">
+            <div class="row">
+              <h5 class="row"><strong>Get started today.</strong></h5>
+              <a aria-label="Get started" href="/sign-up" tabindex="-1">
+                <paper-button raised="" id="signUpBtn2" role="button" tabindex="0" animated="" elevation="1" aria-disabled="false">Sign up to Mist.io</paper-button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- PRICING PAGE -->
-    <div id="pricing" class="page product" slot="content">
+    <!-- <div id="pricing" class="page pricing" slot="content">
       <div id="placeholder"></div>
       <div id="container">
           <div class="section grey">
@@ -281,11 +353,11 @@
                             <div class="plan-body">
                                 <div class="plan-body-item valign-wrapper">
                                     <div class="valign">
-                                        <h2 class="price"><sup>$</sup>200<sub>/mo.</sub></h2>
+                                        <h2 class="price"><sup>$</sup>200<sub>/mo.</sub></h2> -->
                                         <!-- <a aria-label="Purchase small" href="/sign-up?plan=Small" tabindex="-1">
                                             <paper-button raised on-tap="_purchaseSmallClick">Purchase</paper-button>
                                         </a> -->
-                                    </div>
+                                    <!-- </div>
                                 </div>
                                 <div class="plan-body-item valign-wrapper">
                                     <p class="valign">200 vCPUs</p>
@@ -310,11 +382,11 @@
                             <div class="plan-body">
                                 <div class="plan-body-item valign-wrapper">
                                     <div class="valign">
-                                        <h2 class="price"><sup>$</sup>900<sub>/mo.</sub></h2>
+                                        <h2 class="price"><sup>$</sup>900<sub>/mo.</sub></h2> -->
                                         <!-- <a aria-label="Purchase small" href="/sign-up?plan=Medium" tabindex="-1">
                                             <paper-button raised on-tap="_purchaseMediumClick">Purchase</paper-button>
                                         </a> -->
-                                    </div>
+                                    <!-- </div>
                                 </div>
                                 <div class="plan-body-item valign-wrapper">
                                     <p class="valign">1k vCPUs</p>
@@ -340,9 +412,9 @@
                                 <div class="plan-body-item valign-wrapper">
                                     <div class="valign">
                                         <h2 class="price"><sup>$</sup>3,000<sub>/mo.</sub></h2>
-                                        <!-- <a aria-label="Purchase small" href="/sign-up?plan=Large" tabindex="-1">
+                                        <a aria-label="Purchase small" href="/sign-up?plan=Large" tabindex="-1">
                                             <paper-button raised on-tap="_purchaseLargeClick">Purchase</paper-button>
-                                        </a> -->
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="plan-body-item valign-wrapper">
@@ -496,7 +568,7 @@
           </div>
           
       </div>
-    </div>
+    </div> -->
 
 
     <!-- HOME PAGE -->
