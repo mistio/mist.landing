@@ -1578,6 +1578,92 @@ img.with-shadow {
     @apply(--layout-fit);
     z-index: -1;
 }
+
+/* RBAC */
+
+.rbac .icon-bg {
+  background-color: #ccc;
+  border-radius: 50%;
+  width: 95px;
+  margin: 40px auto 20px;
+  height: 95px;
+  box-sizing: border-box;
+}
+
+.rbac iron-icon {
+  width: 60px;
+  height: 60px;
+  padding: 14px 0 0 0 !important;
+}
+
+.rbac .offset-m3 {
+  margin-left: 25%; 
+}
+
+@media screen and (max-width: 991px) {
+  .rbac .offset-m3 {
+    margin-left: 24px; 
+    margin-right: 24px; 
+  }
+}
+
+.rbac .conclusion {
+  padding-bottom: 120px;
+}
+
+/* RBAC STEPS */
+
+.step {
+    position: relative;
+    padding: 24px;
+}
+
+.step .image,
+.step .desc {
+    padding: 24px;
+}
+
+.step .image-wrapper > img {
+    margin: 20px auto;
+    transform: scale(2);
+}
+
+.step h3 {
+    font-size: 2.92rem;
+    margin: 1.46rem 0 1.168rem;
+}
+
+.step .image-wrapper {
+    border-radius: 50%;
+    width: 220px;
+    height: 220px;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+paper-dialog#zoomArea {
+    display: block;
+    overflow: hidden;
+    background-color: #424242;
+}
+
+paper-dialog#zoomArea iron-icon {
+    background-color: #424242;
+    position: absolute;
+    right: 0;
+    top: -24px;
+    width: 24px;
+    height: 24px;
+    color: #fff;
+    padding: 16px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+paper-dialog#zoomArea img {
+    max-width: 100%;
+}
         </style>
     </template>
 </dom-module>    
