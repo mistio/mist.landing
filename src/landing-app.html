@@ -433,8 +433,8 @@
       </dom-repeat>
 
       <!-- <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
-        sign-in-google=[[config.features.signin_google]] sign-in-github=[[config.features.signin_github]] sign-in-email=[[config.features.signin_email]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in>
-      <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
+        sign-in-google=[[config.features.signin_google]] sign-in-github=[[config.features.signin_github]] sign-in-email=[[config.features.signin_email]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in> -->
+      <!-- <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
         sign-up-google=[[config.features.signup_google]] sign-up-github=[[config.features.signup_github]] sign-up-email=[[config.features.signup_email]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
 
       <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
@@ -857,6 +857,7 @@
       },
 
       _isEqual: function(catName,page) {
+        console.log('page',catName, page);
         return catName == page;
       }
     });

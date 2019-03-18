@@ -54,27 +54,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div>
 
-      <div id="placeholder"></div>
-      <div id="container">
+      <slot>
+          <div id="placeholder"></div>
+          <div id="container">
+            <div class="section grey">
+              <div class="contains">
+                <div class="text-center">
+                  <h2 class="decorated row title">[[title]]</h2>
+                </div>
+                <div id="content">
+                  <marked-element markdown="[[data.body]]">
+                    <div slot="markdown-html"></div>
+                  </marked-element>
+                </div>
+              </div>
+            </div>
 
-        <div class="section grey">
-          <div class="contains">
-            <div class="text-center">
-              <h2 class="decorated row title">[[title]]</h2>
-            </div>
-            <div id="content">
-              <marked-element markdown="[[data.body]]">
-                <div slot="markdown-html"></div>
-              </marked-element>
-            </div>
-          </div>
+          <!-- <landing-button>
+            <a href="/">Go to the home page</a>
+          </landing-button> -->
+
         </div>
-
-        <!-- <landing-button>
-          <a href="/">Go to the home page</a>
-        </landing-button> -->
-
-      </div>
+      </slot>
     </div>
 
   </template>
