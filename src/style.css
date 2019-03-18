@@ -1082,7 +1082,10 @@ img.with-shadow {
 }
 
 #whatsnew paper-material {
-    @apply(--shadow-elevation-2dp);
+    /*@apply(--shadow-elevation-2dp);*/
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12),
+              0 3px 1px -2px rgba(0, 0, 0, 0.2);
     display: block;
 }
 
@@ -1644,4 +1647,285 @@ paper-dialog#zoomArea iron-icon {
 
 paper-dialog#zoomArea img {
     max-width: 100%;
+}
+
+/* GET STARTED */
+
+#get-started .hero {
+    padding: 48px 0;
+}
+
+#get-started .center {
+    margin: 0 auto;
+}
+
+#get-started paper-button {
+    background-color: var(--app-accent-color);
+    color: #fff;
+    font-size: 18px;
+    height: 54px;
+    font-weight: 500;
+}
+#get-started paper-button a {
+    color: #fff !important;
+}
+#get-started .plan paper-button {
+    width: 80% !important;
+    margin-top: 24px;
+}
+
+#get-started a {
+    font-weight: 400 !important;
+    text-decoration: none;
+}
+
+#get-started .col {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+#get-started .pad {
+    padding: 16px;
+}
+
+@media only screen and (max-width: 943px) {
+    #get-started typed-text {
+        display: block;
+    }
+}
+
+#get-started .contains > .grid-row {
+    align-items: flex-start;
+}
+
+#get-started #placeholder {
+    opacity: 0;
+    background-color: grey;
+    /*@apply(--layout-fit);*/
+    z-index: -1;
+}
+
+#get-started .plan {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    overflow: auto;
+    background-color: #fff;
+    /*@apply(--shadow-elevation-4dp);*/
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+                0 1px 10px 0 rgba(0, 0, 0, 0.12),
+                0 2px 4px -1px rgba(0, 0, 0, 0.4);
+}
+#get-started .plan .icon {
+    border-radius: 50%;
+    background-color: #fff;
+    width: 48px;
+    padding: 8px;
+    height: 48px;
+}
+#get-started .plan-head {
+    padding: 2rem 0;
+    border-bottom: 4px solid;
+}
+
+#get-started .green .plan-head  {
+    border-color: green;
+}
+
+#get-started .purple .plan-head {
+    border-color: purple;
+}
+
+#get-started .blue .plan-head {
+    border-color: #3F51B5;
+}
+#get-started .plan, .plan > * {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+#get-started .title {
+    color: #fff;
+    text-transform: uppercase;
+    padding: 20px 0;
+    font-size: 24px;
+}
+
+#get-started .plan-body-item {
+    padding: 16px;
+}
+
+@media only screen and (max-width: 600px) {
+    #get-started .plan-body-item {
+        min-height: 50px;
+    }
+}
+
+#get-started .plan-body-item + .plan-body-item {
+    border-top: 1px solid #d4d4d4;
+}
+
+#get-started .plan-body-item:last-child {
+    border-bottom: 1px solid #d4d4d4;
+}
+
+#get-started .plan-body-item.highlight {
+    background-color: var(--app-background-color);
+}
+
+#get-started .plan-body-item:first-child{
+    min-height: 115px;
+    max-height: 120px;
+}
+
+#get-started .plan-body-item > * {
+    width: 100%;
+}
+
+#get-started .valign {
+    display: block;
+}
+
+#get-started .price {
+    font-weight: 700;
+    line-height: 1;
+    padding: 0;
+    margin: 8px 0;
+}
+
+#get-started .price sub,
+#get-started .price sup {
+    font-size: 18px;
+    font-weight: 300;
+    vertical-align: middle;
+}
+
+#get-started sub > sub {
+    font-size: 12px !important;
+    display: block;
+    margin-top: 8px;
+}
+
+#get-started .price sup {
+    font-size: 24px;
+    padding: 0 5px;
+}
+
+#get-started .price sub.month {
+    margin-left: -54px;
+    top: 6px;
+}
+
+#get-started .price sup.vcpu {
+    top: -15px;
+}
+
+#get-started .plan-head sub iron-icon {
+    width: 32px;
+    height: 32px;
+    top: -2px;
+    left: -2px;
+}
+
+#get-started paper-button#enterpriseBtn {
+    background-color: #4caf50;
+    /*green*/
+    display: block-inline;
+    line-height: 54px;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+#get-started ul {
+    padding: 0;
+    margin: 0;
+}
+#get-started ul li {
+    margin-left: 15px;
+    clear: both;
+    list-style: none;
+}
+#get-started .bold {
+    font-weight: 500;
+}
+#get-started ul.feature-list {
+    display: block;
+    margin: 1em auto;
+}
+#get-started ul.feature-list li {
+    margin-left: 0;
+    text-align: left;
+    cursor: pointer;
+    line-height: 1.8em;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+#get-started ul.feature-list li .li-text {
+    line-height: 1.4em
+}
+#get-started ul.feature-list li p {
+    height: 0;
+    opacity: 0;
+    margin: 0;
+    font-size: 0.8em;
+    padding-left: 55px;
+    transform: translate3d(-100%, 0);
+    transition: all 100ms ease-in;
+}
+#get-started ul.feature-list li p.visible {
+    height: auto;
+    margin-top: 4px;
+    margin-bottom: 16px;
+    opacity: 0.87;
+    transform: translate3d(0, 0);
+    transition: all 300ms linear;
+}
+#get-started ul.feature-list li iron-icon {
+    opacity: 0.54;
+    margin: 0 16px;
+    width: 1em;
+    height: 1em;
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    #get-started ul.feature-list li {
+        font-size: 0.9em;
+    }
+    #get-started ul.feature-list li iron-icon {
+        margin: 0 16px;
+    }
+}
+@media screen and (max-width: 768px){
+    #get-started .includes > div {
+        text-align: center;
+    }
+    #get-started .includes ul, .includes li {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+#get-started h4.pricetext {
+    line-height: 2.36em;
+}
+
+#get-started .grey {
+    background-color: var(--app-background-color);
+}
+
+#get-started div.back {
+    float: left;
+    margin-top: 24px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+#get-started div.back span {
+    line-height: 4.5em;
+    vertical-align: middle;
+    color: #000 !important;
+}
+
+#get-started h2.decorated {
+    margin-left: 32px;
+    margin-right: 32px;
 }

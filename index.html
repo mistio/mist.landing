@@ -192,6 +192,263 @@
       </dom-repeat>
     </div>
 
+    <!-- GET STARTED PAGE -->
+    <div id="get-started" class="get-started" slot="content">
+      <div id="placeholder"></div>
+      <div id="container">
+        <div class="section grey">
+                <div class="hero text-center">
+                    <div class="back">
+                        <span><iron-icon icon="icons:arrow-back" on-tap="goBack"></iron-icon></span>
+                    </div>
+                    <h2 class="decorated">Choose your Mist.io</h2>
+                </div>
+            </div>
+            <div class="section grey">
+                <div class="contains">
+                    <div class="grid-row items-center">
+
+                        <!-- community -->
+                        <div class="xs12 s6 m4 l4 margin-bottom valign-top">
+                            <div class="plan green text-center">
+                                <div class="plan-head">
+                                    <h4>Community Edition<br/><sub><iron-icon icon="social:share"></iron-icon>CE</sub></h4>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <p class="valign">Ideal for personal projects and small teams with a DIY approach.</p>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign">
+                                            <h4>Free forever</h4>
+                                            <h4 class="price"><sub><a href="https://github.com/mistio/mist.io/blob/master/LICENSE" target="new">AGPL</a> licensed</sub></h4>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item grey">
+                                        <div>
+                                            <a aria-label="Clone github repo" target="new" href="https://github.com/mistio/mist.io/releases/latest" tabindex="-1">
+                                                <paper-button raised on-tap="_downloadClick">Download</paper-button>
+                                            </a>
+                                            <p>Install on premises.</p>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="bold">Features:</div>
+                                        <ul class="feature-list">
+                                            <li id="unlimited-machines">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text">Unlimited clouds &amp; machines</span>
+                                                <paper-tooltip for="unlimited-machines" animation-delay="0" position="top">Manage all of you infrastructure.</paper-tooltip>
+                                            </li>
+                                            <li id="unlimited-users">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Unlimited users &amp; teams</span>
+                                                <paper-tooltip for="unlimited-users" animation-delay="0" position="top">Invite unlimited users and organize them in teams.</paper-tooltip>
+                                            </li>
+                                            <li id="script-key-management">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Script &amp; Key management</span>
+                                                <paper-tooltip for="script-key-management" animation-delay="0" position="top">
+                                                    Generate and store SSH keys associated to machines.<br/>Use them to run your scripts and playbooks.
+                                                </paper-tooltip>
+                                            </li>
+                                            <li id="scheduled-actions">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Scheduled actions</span>
+                                                <paper-tooltip for="scheduled-actions" animation-delay="0" position="top">Multi-cloud crontab to schedule script executions and machine actions.</paper-tooltip>
+                                            </li>
+                                            <li id="web-shell">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Web shell</span>
+                                                <paper-tooltip for="web-shell" animation-delay="0" position="top">Connect interactively to machines through the browser. Record all shell sessions.</paper-tooltip>
+                                            </li>
+                                            <li id="rest-api">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> REST API </span>
+                                                <paper-tooltip for="rest-api" animation-delay="0" position="top">Issue revokable tokens and build robust automations.<br/> The Mist.io API provides a uniform abstraction on top of the cloud provider API's.<br /> </paper-tooltip>
+                                            </li>
+                                            <li id="audit-logs">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Audit logs</span>
+                                                <paper-tooltip for="audit-logs" animation-delay="0" position="top">All actions leave audit trails. All infrastructure changes observed are being logged.</paper-tooltip>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold">Community Support</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- enterprise -->
+                        <div class="xs12 s6 m4 l4 margin-bottom valign-top">
+                            <div class="plan purple text-center">
+                                <div class="plan-head">
+                                    <h4>Enterprise Edition<br/><sub><iron-icon icon="icons:account-balance"></iron-icon>EE</sub></h4>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <p class="valign">Ideal for medium and large teams with advanced needs around orchestration &amp; access control.</p>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign">
+                                            <h2 class="price" id="vcpus-ee">
+                                                <sup>$</sup>1<sup class="vcpu">/vcpu</sup><sub class="month">/month</sub>
+                                            </h2>
+                                            <paper-tooltip for="vcpus-ee" animation-delay="0" position="top">High water mark of physical and virtual cores under management</paper-tooltip>
+                                            <h4 class="price"><sub>if paid annually</sub></h4>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item grey">
+                                        <div>
+                                            <a aria-label="Buy Licence" href="https://mist.io/buy-license" tabindex="-1">
+                                                <paper-button raised on-tap="_purchaseClick">Purchase Licence</paper-button>
+                                            </a>
+                                            <p>Install on premises.</p>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="bold">All features from CE plus:</div>
+                                        <ul class="feature-list">
+                                            <li id="rbac">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Role based Access Control</span>
+                                                <paper-tooltip for="rbac" animation-delay="0" position="top">Delegate access with fine grained controls. Use tags to enforce policies across clouds.</paper-tooltip>
+                                            </li>
+                                            <li id="monitoring-alerting">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Monitoring &amp; Alerting</span>
+                                                <paper-tooltip for="monitoring-alerting" animation-delay="0" position="top">Gather system, application &amp; custom business metrics. Configure rules that trigger alerts &amp; automated responses.</paper-tooltip>
+                                            </li>
+                                            <li id="cost-insights">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Cost Insights</span>
+                                                <paper-tooltip for="cost-insights" animation-delay="0" position="top">Understand your infrastructure costs, broken down by tags and clouds. Corellate with utilization to start optimizing performance vs money spent.</paper-tooltip>
+                                            </li>
+                                            <li id="orchestration">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Orchestration</span>
+                                                <paper-tooltip for="orchestration" animation-delay="0" position="top">Streamline the deployment and lifecycle of complex architectures across clouds. <br/>Define topologies and workflows with TOSCA blueprints. Use Mist.io to deploy and manage your stacks.</paper-tooltip>
+                                                
+                                            </li>
+                                            <li id="msp-reseller">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> MSP / reseller accounts<sup>beta</sup></span>
+                                                <paper-tooltip for="msp-reseller" animation-delay="0" position="top">Resell hybrid infrastructure to your customers. Contact us to join private beta.</paper-tooltip>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold" id="premium-support">
+                                            Premium Support
+                                            <paper-tooltip for="premium-support" animation-delay="0" position="top">Next business day.</paper-tooltip>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- saas -->
+                        <div class="xs12 s6 m4 l4 margin-bottom valign-top">
+                            <div class="plan blue text-center">
+                                <div class="plan-head">
+                                    <h4>Hosted Edition<br/><sub><iron-icon icon="icons:cloud-circle"></iron-icon>HE</sub></h4>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <p class="valign">Mist.io as a Service. Ideal for highly dynamic infrastructures &amp; teams. Easy to get started.</p>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign">
+                                            <div class="valign">
+                                                <a href="/pricing" on-tap="_pricingClick">
+                                                    <h4>Pay As You Go</h4>
+                                                    <h4 class="price"><sub>or prepaid plans.</sub></h4>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item grey">
+                                        <div>
+                                            <a aria-label="Sign up" href="https://mist.io/sign-up" tabindex="-1">
+                                                <paper-button raised on-tap="_signUpClick">Sign up</paper-button>
+                                            </a>
+                                            <p>No installation. Start right away.</p>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="bold">All features from EE plus:</div>
+                                        <ul class="feature-list">
+                                            <li id="vpn-tunnels">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> VPN tunnels</span>
+                                                <paper-tooltip for="vpn-tunnels" animation-delay="0" position="top">Manage infrastructure that's only addressable through private networks by establishing point-to-point VPN connections.</paper-tooltip>
+                                            </li>
+                                            <li id="recommendation-engine">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Recommendation engine<sup>beta</sup></span>
+                                                <paper-tooltip for="recommendation-engine" animation-delay="0" position="top">Generates automatic recommendations to optimize QoS, security and cost.</paper-tooltip>
+                                            </li>
+                                            <li id="anomaly-detection">
+                                                <iron-icon icon="help"></iron-icon>
+                                                <span class="li-text"> Anomaly detection<sup>beta</sup></span>
+                                                <paper-tooltip for="anomaly-detection" animation-delay="0" position="top">Get alerted of irregularities before they affect your uptime. Contact us for more info.</paper-tooltip>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold" id="premium-support-saas">
+                                            Premium Support
+                                            <paper-tooltip for="premium-support-saas" animation-delay="0" position="top">Next business day.<br/>24/7 for service emergencies.</paper-tooltip>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="section white">
+            <div class="contains">
+                <div class="row text-center">
+                    <h2 class="decorated">Help with custom needs?</h2>
+                </div>
+                <div class="grid-row">
+                    <div class="xs12 s12 m6 l8">
+                        <div class="left">
+                            <h5 class="w400">Do you have more than 300 machines? <br/>Do you want to run Mist.io on premises? </h5>
+                            <p> Mist.io can provide custom pricing for businesses with a lot of infrastructure.
+                                <br/>Also, we can work with you to run Mist.io on premises or to setup a proof of concept. </p>
+                        </div>
+                    </div>
+                    <div class="xs12 s12 m6 l4">
+                        <h5 class="w400">Contact us if you: </h5>
+                        <p>
+                            <iron-icon icon="check"></iron-icon> Have more than 300 machines
+                            <br/>
+                            <iron-icon icon="check"></iron-icon> Want to run an on-premises POC
+                            <br/>
+                            <iron-icon icon="check"></iron-icon> Want help to optimize your infrastructure
+                            <br/>
+                            <iron-icon icon="check"></iron-icon> Require HA or 24/7 support
+                            <br/>
+                        </p>
+                        <p>
+                            <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
+                                <paper-button raised on-tap="_requestInfoClick" id="enterpriseBtn">Request Pricing</paper-button>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- TERMS OF SERVICE PAGE -->
     <!-- <div class="tos" slot="content">
       <div class="section grey">
@@ -272,7 +529,7 @@
     </div> -->
 
     <!-- PRIVACY POLICY PAGE -->
-    <div class="privacy-policy" slot="content">
+    <!-- <div class="privacy-policy" slot="content">
       <div class="section grey">
         <div class="contains">
           <div class="row text-center">
@@ -283,7 +540,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- RBAC PAGE -->
     <!-- <div class="page rbac" slot="content">
@@ -1705,7 +1962,13 @@
     if (CONFIG) {
       document.querySelector('landing-app').config = CONFIG;
       var repeater = document.querySelector('dom-repeat');
-      repeater.items = CATEGORIES;
+      var categories = CATEGORIES;
+      categories.push({hiddenFromMenu: 1,
+        href: "/get-started",
+        name: "get-started",
+        template: "page",
+        title: "Get Started"});
+      repeater.items = categories;
 
       if (window.location.pathname == "" || window.location.pathname == "/home") {
         var contents = {
