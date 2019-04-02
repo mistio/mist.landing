@@ -5,8 +5,7 @@
    "src/lazy-resources.html",
    "src/landing-set-password.html",
    "src/landing-reset-password.html",
-   "src/landing-buy-license.html",
-   "src/landing-pricing.html"
+   "src/landing-buy-license.html"
   ],
   "sources": [
    "src/**/*",
