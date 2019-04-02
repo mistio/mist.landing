@@ -20,8 +20,14 @@
 
 <link rel="import" href="../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/hardware-icons.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/iron-icons/places-icons.html">
+<link rel="import" href="../bower_components/iron-icons/editor-icons.html">
 
 <link rel="import" href="landing-pages.html">
+<link rel="import" href="landing-page.html">
 <link rel="import" href="landing-category-data.html">
 <link rel="import" href="landing-icons.html">
 <link rel="import" href="shared-styles.html">
@@ -389,7 +395,7 @@
     </app-header>
 
     <!-- Lazy-create the drawer for small screen sizes. -->
-    <dom-if if="[[_shouldRenderDrawer]]">
+    <dom-if if="[[_shouldRenderDrawer]]" restamp>
       <template>
       <!-- Two-way bind `drawerOpened` since app-drawer can update `opened` itself. -->
       <app-drawer opened="{{drawerOpened}}" swipe-open tabindex="0">
@@ -404,53 +410,65 @@
       </template>
     </dom-if>
 
+    <dom-if if="[[_hasCategories(categories, categories.length)]]" restamp>
+      <template>
 
-    <landing-pages id="pages" role="main" selected="[[page]]" attr-for-selected="name" selected-attribute="visible" fallback-selection="not-found">
+        <landing-pages id="pages" role="main" attr-for-selected="name" fallback-selection="not-found" selected="[[page]]">
 
-      <!-- <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-home>
+          <!-- <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-home>
 
-      <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-pricing>
+          <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-pricing>
 
-      <landing-about name="about" categories="[[categories]]" id="about" data="[[category.items]]"></landing-about>
+          <landing-about name="about" categories="[[categories]]" id="about" data="[[category.items]]"></landing-about>
 
-      <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-product>
+          <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-product>
 
-      <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-orchestration>
+          <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-orchestration>
 
-      <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-rbac> -->
+          <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-rbac> -->
 
-      <dom-repeat items="[[categories]]" as="cat">
-        <template>
-          <landing-page name="[[cat.name]]" title="[[cat.title]]" id="[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]">
-            <dom-if if="[[_isEqual(cat.name,page)]]">
-              <template>
-                <slot name="content"></slot>
-              </template>
-            </dom-if>
-          </landing-page>
-        </template>
-      </dom-repeat>
+          <!--landing-page name="home" title="Home" route=[[subroute]] offline=[[offline]]>
+              <dom-if if="[[_isEqual('home',page)]]">
+                  <template>
+                    <slot name="content"></slot>
+                  </template>
+                </dom-if>
+          </landing-page-->
+          <dom-repeat items="[[categories]]" as="cat">
+            <template>
+              <landing-page name$="[[cat.name]]" title="[[cat.title]]" id="page-[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]">
+                <dom-if if="[[_isEqual(cat.name,page)]]">
+                  <template>
+                    <slot name="content"></slot>
+                  </template>
+                </dom-if>
+              </landing-page>
+            </template>
+          </dom-repeat>
 
-      <!-- <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
-        sign-in-google=[[config.features.signin_google]] sign-in-github=[[config.features.signin_github]] sign-in-email=[[config.features.signin_email]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in> 
-        <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
-        sign-up-google=[[config.features.signup_google]] sign-up-github=[[config.features.signup_github]] sign-up-email=[[config.features.signup_email]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
+          <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in"
+            sign-in-google=[[config.features.signin_google]] sign-in-github=[[config.features.signin_github]] sign-in-email=[[config.features.signin_email]] invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in>
+          <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up"
+            sign-up-google=[[config.features.signup_google]] sign-up-github=[[config.features.signup_github]] sign-up-email=[[config.features.signup_email]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
 
-      <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
-      <dom-if if="[[config.features.billing]]" restamp>
-        <template>
-          <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey=[[config.stripeKey]]></landing-buy-license>
-          <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
-        </template>
-      </dom-if>
+          <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
+          <dom-if if="[[config.features.billing]]" restamp>
+            <template>
+              <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey=[[config.stripeKey]]></landing-buy-license>
+              <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+            </template>
+          </dom-if>
 
-      <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password" support-email="[[config.email.support]]"></landing-forgot-password>
-      <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
-      <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
+          <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password" support-email="[[config.email.support]]"></landing-forgot-password>
+          <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
+          <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
 
-      <landing-error name="error" route="[[subroute]]" offline="[[offline]]"></landing-error>
-      <landing-not-found name="not-found" id="not-found"></landing-not-found> -->
-    </landing-pages>
+          <landing-error name="error" route="[[subroute]]" offline="[[offline]]"></landing-error>
+          <landing-not-found name="not-found" id="not-found"></landing-not-found> -->
+        </landing-pages>
+      </template>
+    </dom-if>
+
 
     <landing-social id="social" categories="[[categories]]" data="[[category.items]]" hidden$="[[!_hasFooter(page)]]"></landing-social>
     <footer hidden$="[[!config.features.landing_footer]]">
@@ -484,8 +502,7 @@
         },
 
         category: {
-          type: Object,
-          notify: true
+          type: Object
         },
 
         gaId: {
@@ -522,10 +539,7 @@
         categories: {
           type: Array,
           value: function() {
-            if (typeof(CATEGORIES) == 'undefined')
-              return [{'href': '/', 'name': 'home', 'template': 'home', 'title': 'Home'}]
-            else
-              return CATEGORIES;
+            return CATEGORIES;
           }
         },
         invitoken: {
@@ -540,7 +554,8 @@
       },
 
       observers: [
-        '_routePageChanged(routeData.page, route.__queryParams)'
+        '_routePageChanged(routeData.page, route.__queryParams)',
+        '_categoryChanged(category.content)'
       ],
 
       listeners: {
@@ -560,6 +575,9 @@
       },
 
       attached: function() {
+        var content = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
+        this.category = {'name': this.page, 'content': content};
+        //this.$.pages._selection.selection = []
         // listen for online/offline
         Polymer.RenderStatus.afterNextRender(this, function() {
           this.listen(window, 'online', '_notifyNetworkStatus');
@@ -625,12 +643,12 @@
             var category = this.categories && this.categories.find(function(c){ return c.name == page});
             if (!category)
               category = category && this.categories.find(function(c){ return c.href == "/" + page});
-            var template = category ? category.template : page;
-            if (template)
+            if (category && category.template) {
               this.importHref(
-                this.resolveUrl('landing-' + template + '.html'),
+                this.resolveUrl('landing-' + category.template + '.html'),
                 cb, cb, true
               );
+            }
           }
         }
       },
@@ -644,7 +662,8 @@
             this.$.header.resetLayout();
           }, 1);
         }
-        this.$.pages.selected = this.page;
+        console.log('Loaded page ', this.page);
+        //this.$.pages.selected = this.page;
       },
 
       _ensureLazyLoaded: function() {
@@ -857,6 +876,18 @@
 
       _isEqual: function(catName,page) {
         return catName == page;
+      },
+
+      _categoryChanged: function(content) {
+        var htmlContent = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
+        if (!this.category["content"] || htmlContent == this.category["content"])
+          return;
+        this.querySelector('[slot="content"]').innerHTML = this.category["content"];
+        window.scrollTo(0, 0);
+      },
+
+      _hasCategories: function (categories, length) {
+        return this.categories && this.categories.length > 0 || false;
       }
     });
 

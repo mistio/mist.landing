@@ -32,6 +32,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: ['sign-up', 'sign-in', 'get-started', 'buy-license', 'set-password', 'reset-password', 'forgot-password', 'error', 'request-pricing']
         },
 
+        categoryData: {
+          type: Object,
+          value: function () { return {}; }
+        },
+
         category: {
           type: Object,
           computed: '_computeCategory(categoryName)',
@@ -65,9 +70,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // Fetch the items of the category. Note that the fetch is asynchronous,
         // which means `category.items` may not be set initially (but that path
         // will be notified when the fetch completes).
-        var categoryObj = this._getCategoryObject(categoryName);
-        if (categoryObj && !categoryObj.items)
-          this._fetchItems(categoryObj, 1);
+        if (!this.categoryData[categoryName]) {
+          this.categoryData[categoryName] = {'name': categoryName};
+        }
+        var categoryObj = this.categoryData[categoryName];
+        if (this.parentNode.host.category && categoryName != this.parentNode.host.category.name && !this.categoryData[this.parentNode.host.category.name]) {
+          this.categoryData[this.parentNode.host.category.name] = {'name': this.parentNode.host.category.name, 'content': this.parentNode.host.querySelector('[slot="content"]')};
+        }
+        if (categoryObj && !categoryObj.content)
+          this._fetchContent(categoryObj, 1);
         return categoryObj;
       },
 
@@ -84,20 +95,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.fire('show-invalid-url-warning');
       },
 
-      _fetchItems: function(category, attempts) {
-        console.log('category.name',category.name);
-        if (category.name == "pledge"){
-          return;
-        }
+      _fetchContent: function(category, attempts) {
+        if (!this.category || this.category.name == category.name || this.builtinCategories.indexOf(category.name) > -1) return;
+        console.log('category.name', category.name);
         this._setFailure(false);
         // Only fetch the items of a category if it has not been previously set.
-        if (!category || category.items || !category.template) {
+        if (!category) {
           return;
         }
         this._getResource({
           url: '/api/v1/section/landing--' + category.name,
           onLoad: function(e) {
-            this.set('category.items', JSON.parse(e.target.responseText));
+            this.set('category.content', e.target.responseText);
           },
           onError: function(e) {
             this._setFailure(true);
