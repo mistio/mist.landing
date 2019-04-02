@@ -419,21 +419,12 @@
 
           <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-pricing>
 
-          <landing-about name="about" categories="[[categories]]" id="about" data="[[category.items]]"></landing-about>
-
           <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-product>
 
           <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-orchestration>
 
           <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-rbac> -->
 
-          <!--landing-page name="home" title="Home" route=[[subroute]] offline=[[offline]]>
-              <dom-if if="[[_isEqual('home',page)]]">
-                  <template>
-                    <slot name="content"></slot>
-                  </template>
-                </dom-if>
-          </landing-page-->
           <dom-repeat items="[[categories]]" as="cat">
             <template>
               <landing-page name$="[[cat.name]]" title="[[cat.title]]" id="page-[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]">
@@ -464,7 +455,7 @@
           <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
 
           <landing-error name="error" route="[[subroute]]" offline="[[offline]]"></landing-error>
-          <landing-not-found name="not-found" id="not-found"></landing-not-found> -->
+          <landing-not-found name="not-found" id="not-found"></landing-not-found>
         </landing-pages>
       </template>
     </dom-if>
@@ -604,6 +595,8 @@
             }
           }
         });
+
+        this._ensureLazyLoaded();
       },
 
       _goToPage: function(event) {
@@ -654,7 +647,6 @@
       },
 
       _pageLoaded: function(shouldResetLayout) {
-        this._ensureLazyLoaded();
         if (shouldResetLayout) {
           // The size of the header depends on the page (e.g. on some pages the tabs
           // do not appear), so reset the header's layout only when switching pages.
@@ -880,10 +872,13 @@
 
       _categoryChanged: function(content) {
         var htmlContent = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
-        if (!this.category["content"] || htmlContent == this.category["content"])
+        if (!this.category["content"] || htmlContent == this.category["content"]) {
           return;
-        this.querySelector('[slot="content"]').innerHTML = this.category["content"];
-        window.scrollTo(0, 0);
+        }
+        if (this.querySelector('[slot="content"]')) {
+          this.querySelector('[slot="content"]').innerHTML = this.category["content"];
+          window.scrollTo(0, 0);
+        }
       },
 
       _hasCategories: function (categories, length) {
