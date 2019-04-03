@@ -6,6 +6,9 @@
 <dom-module id="landing-social">  
   <template>
     <style include="shared-styles">
+        :host([hidden]) {
+            display: none;
+        }
         .social {
             text-align: center;
             justify-content: center;
@@ -24,22 +27,23 @@
             color: var(--app-primary-color);
         }
     </style>
-    
-    <div class="section grey">
-        <div class="contains">
-            <div class="grid-row social">
-                <div class="margin-top margin-bottom padding-bottom">
-                    <template is="dom-repeat" items="[[data.social]]" as="item">
-                        <div class="social-link">
-                            <a href="[[item.href]]" target="_blank" rel="noopener noreferrer">
-                                <social-media-icons icon="[[item.icon]]" size="[[item.size]]" color="[[item.color]]" href="[[item.href]]" new-tab></social-media-icons>
-                            </a>
-                        </div>
-                    </template>
+    <template is="dom-if" if="[[data.social]]" restamp>
+        <div class="section grey">
+            <div class="contains">
+                <div class="grid-row social">
+                    <div class="margin-top margin-bottom padding-bottom">
+                        <template is="dom-repeat" items="[[data.social]]" as="item">
+                            <div class="social-link">
+                                <a href="[[item.href]]" target="_blank" rel="noopener noreferrer">
+                                    <social-media-icons icon="[[item.icon]]" size="[[item.size]]" color="[[item.color]]" href="[[item.href]]" new-tab></social-media-icons>
+                                </a>
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </template>
 
   </template>
 
