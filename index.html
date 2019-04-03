@@ -36,22 +36,6 @@
   <script src="/landing/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
   <script>
-   window.twttr = (function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0],
-                t = window.twttr || {};
-              if (d.getElementById(id)) return t;
-              js = d.createElement(s);
-              js.id = id;
-              js.src = "https://platform.twitter.com/widgets.js";
-              fjs.parentNode.insertBefore(js, fjs);
-
-              t._e = [];
-              t.ready = function(f) {
-                t._e.push(f);
-              };
-
-              return t;
-            }(document, "script", "twitter-wjs"));
     // setup Polymer options
     window.Polymer = {lazyRegister: true};
 
@@ -61,7 +45,7 @@
           && 'import' in document.createElement('link')
           && 'content' in document.createElement('template'))
           ANIMATIONS = true;
-  </script>
+</script>
 
   <style>
     body {
@@ -192,10 +176,10 @@
       </dom-repeat>
     </div>
 
-    <div class="page" slot="content" tal:condition="section|nothing">
+    <div class="page" slot="content">
       <div id="placeholder"></div>
       <div id="container">
-        <div tal:replace="structure section"></div>
+        <div tal:replace="structure section" tal:condition="section|nothing"></div>
       </div>
     </div>
 
@@ -216,12 +200,6 @@
       <link slot="theme" rel="import"  tal:attributes="href string:/static/landing/${theme}-theme.html">
   </custom-style>
   <!-- CUSTOM THEME END-->
-  <!-- mixpanel-->
-  <script tal:condition="mixpanel_id|nothing" tal:content="string: var MIXPANEL_ID='${mixpanel_id}'"></script>
-  <script type="text/javascript" tal:condition="mixpanel_id|nothing">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-    for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-    mixpanel.init(MIXPANEL_ID);
-  </script>
 
   <!-- Facebook Pixel Code -->
   <script tal:condition="fb_id|nothing" tal:content="string: var FB_ID='${fb_id}'"></script>
@@ -233,7 +211,26 @@
   document,'script','//connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', FB_ID);
-  fbq('track', "PageView");</script>
+  fbq('track', "PageView");
+
+  // Twitter widget
+  window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function(f) {
+      t._e.push(f);
+    };
+
+    return t;
+  }(document, "script", "twitter-wjs"));
+  </script>
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1647503578815528&ev=PageView&noscript=1"
   /></noscript>

@@ -189,21 +189,18 @@
       <br/>
       <slot name="button"></slot>
 
-      <dom-if if="[[image]]" restamp>
+      <dom-if if="[[frame]]" restamp>
         <template>
-          <dom-if if="[[!frame]]" restamp>
-            <template>
-              <landing-image src="[[image]]" alt="[[alt]]" placeholder-img=""></landing-image>
-            </template>
-          </dom-if>
-          <dom-if if="[[frame]]" restamp>
-            <template>
-              <div class="framed-image" hidden$="[[!frame]]">
-                <img src="[[image]]" class="image-content" style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;">
-                <img src="[[frame]]" class="image-frame">
-              </div>
-            </template>
-          </dom-if>
+          <div class="framed-image">
+            <img src="[[image]]" class="image-content" style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;">
+            <img src="[[frame]]" class="image-frame">
+          </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[!frame]]" restamp>
+        <template>
+          <landing-image src="[[image]]" alt="[[alt]]" placeholder-img=""></landing-image>
         </template>
       </dom-if>
     </div>
@@ -214,10 +211,13 @@
         is: 'landing-fold',
         properties: {
             image: {
-                type: String
+                type: String,
+                reflectToAttribute: true
             },
             frame: {
-              type: String
+              type: String,
+              reflectToAttribute: true,
+              value: false
             },
             printTyped: {
               type: Boolean,
@@ -228,6 +228,10 @@
         _signUpClick: function(event) {
           window.scrollTo(0, 0);
           this.fire('user-action', 'sign up button 1 click in home');
+        },
+
+        _hasNoFrame: function (frame) {
+          return !(this.frame && this.frame.length > 0 || false);
         }
     });
   </script>
