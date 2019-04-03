@@ -943,19 +943,19 @@ img {
     width: 100px;
     font-style: normal;
 }
-.feature ul {
+.product-feature ul, .feature ul {
     padding: 0;
 }
 
-.feature ul li {
+.product-feature ul li, .feature ul li {
     line-height: 2em;
 }
 
-.feature ul ul {
+.product-feature ul ul, .feature ul ul {
     margin-left: 70px;
 }
 
-.feature ul li {
+.product-feature ul li, .feature ul li {
     list-style-type: disc;
     list-style-position: inside;
 }
