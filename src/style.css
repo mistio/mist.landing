@@ -833,11 +833,6 @@ landing-providers .provider {
   margin-bottom: 0;
 }
 
-.about .description {
-  padding-top: 0 !important;
-  margin-bottom: 50px !important;
-}
-
 .provider img {
     opacity: .4;
     max-width: 100%;
