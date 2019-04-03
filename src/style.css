@@ -949,15 +949,12 @@ img {
 
 .product-feature ul li, .feature ul li {
     line-height: 2em;
+    list-style-type: disc;
+    list-style-position: inside;
 }
 
 .product-feature ul ul, .feature ul ul {
     margin-left: 70px;
-}
-
-.product-feature ul li, .feature ul li {
-    list-style-type: disc;
-    list-style-position: inside;
 }
 
 /* EDITIONS */
