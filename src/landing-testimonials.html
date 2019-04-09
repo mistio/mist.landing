@@ -1,11 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-
-<link rel="import" href="shared-styles.html">
-
+<link rel="import" href="../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 <dom-module id="landing-testimonials">  
   <template>
-    <style include="shared-styles"></style>
-    <style>
+    <style include="shared-styles">
         :host {
             position: relative;
             display: block;
@@ -47,7 +44,7 @@
         }
         #testimonials {
             position: relative;
-            height: 300px;
+            min-height: 300px;
         }
         .testimonial {
             position: absolute;
@@ -84,22 +81,11 @@
     </style>
     
     <div id="testimonials">
-      <template is="dom-repeat" items="[[clients]]" as="client">
-        <div id="[[index]]" class="testimonial" active$="{{isEqual(index, activeIndex)}}">
-            <div class="client">
-                <!-- dynamicly generated imge paths should not be relative. $ will resolve it. -->
-                <img alt="[[client.name]]" class="client-image" src$="[[_imagePath(client)]]"/>
-                <h5 class="client-name">[[client.name]]</h5>
-                <h6 class="job-title">[[client.jobtitle]]</h6>
-                <hr/>
-                <p class="client-testimonial">"[[client.testimonial]]"</p>
-            </div>
-        </div>
-      </template>
+        <slot id="clients" name="testimonials"></slot>
     </div>
 
     <div id="controls">
-        <template is="dom-repeat" items="[[clients]]" as="client">
+        <template id="controlsRepeater" is="dom-repeat" items="[[clients]]" as="client">
             <div data-index="[[index]]" class="control-item" on-tap="_selectTestimonial" active$="{{isEqual(index, activeIndex)}}">[[index]]</div>
         </template>
     </div>
@@ -112,21 +98,30 @@
 
         is: 'landing-testimonials',
 
+        behaviors: [
+            Polymer.IronResizableBehavior
+        ],
+
         properties: {
-            clients: {
-                type: Array
-            },
             activeIndex: {
                 type: Number,
-                value: 0,
-                notify: true
+                value: 0
             }
         },
-        observers: [
-            'updateHeights(clients)'
-        ],
-        updateHeights: function(clients){
-            var testimonials = this.$.testimonials.children;
+        listeners: {
+            'iron-resize': 'updateHeights'
+        },
+        attached: function (e) {
+            if (this.$.clients.assignedNodes().length)
+                this.$.clients.assignedNodes()[0].setAttribute('active', true);
+            this.$.controlsRepeater.items = this.$.clients.assignedNodes();
+            var that = this;
+            this.async(function(){
+                that.updateHeights();
+            }, 200);
+        },
+        updateHeights: function(){
+            var testimonials = this.$.clients.assignedNodes();
             var heights = [];
             [].forEach.call(testimonials, function(t){
                 heights.push(t.offsetHeight);
@@ -134,15 +129,18 @@
             var height = heights.reduce(function(a,b){
                 return Math.max(a,b);
             });
+            this.$.testimonials.style.height = height+'px';
         },
         _selectTestimonial: function(e) {
-            this.set('activeIndex', e.target.dataIndex);
+            this.set('activeIndex',e.model.index);
+            var testimonials = this.$.clients.assignedNodes();
+            [].forEach.call(testimonials, function(t){
+                t.removeAttribute('active');
+            })
+            this.$.clients.assignedNodes()[e.model.index].setAttribute('active', true);
         },
         isEqual: function(ind, activeIndex){
             return ind == this.activeIndex;
-        },
-        _imagePath: function(client) {
-            return 'images/testimonials/' + client.image;
         }
     });
 

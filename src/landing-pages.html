@@ -84,6 +84,7 @@ Material design: [Meaningful transitions](https://www.google.com/design/spec/ani
 
     _selectedPageChanged: function(selected, old) {
       this.async(this.notifyResize);
+      console.log('Page changed from ', old, 'to ', selected);
     }
 
   })

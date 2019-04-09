@@ -182,37 +182,25 @@
     </style>
 
     <div class="hero text-center"> 
-      <template is="dom-if" if="{{printTyped}}">
-      <h2 class="typed">How many <typed-text cursor="|" blink noretype="" loop="" strings="[
-        &quot;clouds&quot;,
-        &quot;servers&quot;,
-        &quot;containers&quot;,
-        &quot;keys&quot;,
-        &quot;scripts&quot;]"></typed-text> do you have?</h2>
-      </template>
-      <template is="dom-if" if="{{!printTyped}}">
-        <h2>
-          {{contents.copy}}
-        </h2>
-      </template>
-      <h5>{{contents.subcopy}}</h5>
-      <slot></slot>
+      <h2>
+        <slot name="title"></slot>
+      </h2>
+      <h5><slot name="subtitle"></slot></h5>
+      <br/>
+      <slot name="button"></slot>
 
-      <dom-if if="[[contents.image]]" restamp>
+      <dom-if if="[[frame]]" restamp>
         <template>
-          <dom-if if="[[!contents.frame]]" restamp>
-            <template>
-              <landing-image src="[[contents.image]]" alt="[[contents.alt]]" placeholder-img=""></landing-image>
-            </template>
-          </dom-if>
-          <dom-if if="[[contents.frame]]" restamp>
-            <template>
-              <div class="framed-image" hidden$="[[!contents.frame]]">
-                <img src="[[contents.image]]" class="image-content" style$="[[contents.style]]">
-                <img src="[[contents.frame]]" class="image-frame">
-              </div>
-            </template>
-          </dom-if>
+          <div class="framed-image">
+            <img src="[[image]]" class="image-content" style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;">
+            <img src="[[frame]]" class="image-frame">
+          </div>
+        </template>
+      </dom-if>
+
+      <dom-if if="[[!frame]]" restamp>
+        <template>
+          <landing-image src="[[image]]" alt="[[alt]]" placeholder-img=""></landing-image>
         </template>
       </dom-if>
     </div>
@@ -222,13 +210,18 @@
     Polymer({
         is: 'landing-fold',
         properties: {
-            contents: {
-                type: Object,
-                notify: true
+            image: {
+                type: String,
+                reflectToAttribute: true
+            },
+            frame: {
+              type: String,
+              reflectToAttribute: true,
+              value: false
             },
             printTyped: {
               type: Boolean,
-              computed: '_computePrintTyped(contents)'
+              value: false
             }
         },
 
@@ -237,8 +230,8 @@
           this.fire('user-action', 'sign up button 1 click in home');
         },
 
-        _computePrintTyped: function(contents) {
-          return contents && contents.copy ? !contents.copy.length : true;
+        _hasNoFrame: function (frame) {
+          return !(this.frame && this.frame.length > 0 || false);
         }
     });
   </script>

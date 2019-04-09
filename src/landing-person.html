@@ -8,7 +8,7 @@
 
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="landing-people">  
+<dom-module id="landing-person">  
   <template>
     <style include="shared-styles"></style>
     <style>
@@ -59,43 +59,19 @@
             width: 100%;
         }
 
-        @media screen and (max-width: 580px){
-            .grid-row {
-                display: block;
-            }
-            .xs6 {
-                width: 100% !important;
-                display: block !important;
-                flex: none;
-                max-width: 100%;
-            }
-        }
-
     </style>
-    
-    <div class="grid-row people">
-      <template is="dom-repeat" items="[[people]]" as="person">
-        <div class="xs6 s4 m3 l3 margin-top margin-bottom padding-bottom">
-            <div class="person text-aligned">
-                <img src$="images/people/[[person.photo]]" fade sizing="cover"/>
-                <div class="details">
-                    <h5 class="name">[[person.name]]</h5>
-                    <p class="secondary">[[person.position]]</p>
-                </div>
-                <div class="social layout horizontal">
-                    <a href="[[person.linkedin]]" hidden$="[[!person.linkedin]]" target="new">
-                        <social-media-icons icon="linkedin" color="#424242" size="20"></social-media-icons>
-                    </a>
-                    <a href="[[person.twitter]]" hidden$="[[!person.twitter]]" target="new">
-                        <social-media-icons icon="twitter" color="#424242" size="20"></social-media-icons>
-                    </a>
-                    <a href="[[person.github]]" hidden$="[[!person.github]]" target="new">
-                        <social-media-icons icon="github" color="#424242" size="20"></social-media-icons>
-                    </a>
-                </div>
-            </div>
+
+    <div class="person text-aligned">
+        <slot name="person-image"></slot>
+        <div class="details">
+            <h5 class="name"><slot name="person-name"></slot></h5>
+            <p class="secondary"><slot name="person-position"></slot></p>
         </div>
-      </template>
+        <div class="social layout horizontal">
+            <slot name="person-linkedin"></slot>
+            <slot name="person-twitter"></slot>
+            <slot name="person-github"></slot>
+        </div>
     </div>
 
   </template>
@@ -104,10 +80,7 @@
 
     Polymer({
 
-        is: 'landing-people',
-        // behaviors: [
-        //     Polymer.PaperButtonBehavior
-        // ],
+        is: 'landing-person',
         properties: {
             people: {
                 type: Array

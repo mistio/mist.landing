@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <base tal:attributes="href string:/landing/${build_path}"></base>
 
-  <title><tal tal:replace="portal_name|nothing">mist.io</tal> :: hybrid cloud management platform</title>
-  <meta name="description" content="A secure cloud management platform for automation, orchestration, cost and usage monitoring of public and private clouds. Provides multi-cloud RBAC. Enables self service provisioning. Cost analysis and cloud spending optimization">
+  <title><tal tal:replace="portal_name|nothing">mist.io</tal> :: open source multi-cloud management platform</title>
+  <meta name="description" content="A secure cloud management platform for automation, orchestration, cost and usage monitoring of public and private clouds, hypervisors and container hosts. Provides multi-cloud RBAC. Enables self service provisioning. Cost analysis and cloud spending optimization">
 
   <link tal:condition="theme|nothing" rel="shortcut icon" sizes="32x32" tal:attributes="href string:/static/${theme}-favicon.ico">
   <link tal:condition="not theme" rel="shortcut icon" sizes="32x32" tal:attributes="href string:images/mist-icon-32.png">
@@ -36,22 +36,6 @@
   <script src="/landing/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
   <script>
-   window.twttr = (function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0],
-                t = window.twttr || {};
-              if (d.getElementById(id)) return t;
-              js = d.createElement(s);
-              js.id = id;
-              js.src = "https://platform.twitter.com/widgets.js";
-              fjs.parentNode.insertBefore(js, fjs);
-
-              t._e = [];
-              t.ready = function(f) {
-                t._e.push(f);
-              };
-
-              return t;
-            }(document, "script", "twitter-wjs"));
     // setup Polymer options
     window.Polymer = {lazyRegister: true};
 
@@ -61,7 +45,7 @@
           && 'import' in document.createElement('link')
           && 'content' in document.createElement('template'))
           ANIMATIONS = true;
-  </script>
+</script>
 
   <style>
     body {
@@ -147,9 +131,13 @@
       min-height: 100vh;
       flex-direction: column;
     }
+    landing-app[unresolved] > div.page, landing-app[unresolved] > div.tabs {
+      display: none;
+    }
 
     /* styling for render while resources are loading */
     landing-app[unresolved] {
+      background-color: #f2f2f2;
       display: block;
       min-height: 101vh;
       line-height: 68px;
@@ -160,6 +148,40 @@
       color: #202020;
       padding: 0 16px;
       overflow: visible;
+    }
+
+    landing-app[unresolved] .lds-ripple {
+      margin-top: 42%;
+      display: inline-block;
+      position: relative;
+      width: 64px;
+      height: 64px;
+    }
+    landing-app[unresolved] .lds-ripple div {
+      position: absolute;
+      border: 4px solid #444;
+      opacity: 1;
+      border-radius: 50%;
+      animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+    landing-app[unresolved] .lds-ripple div:nth-child(2) {
+      animation-delay: -0.5s;
+    }
+    @keyframes lds-ripple {
+      0% {
+        top: 28px;
+        left: 28px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      100% {
+        top: -1px;
+        left: -1px;
+        width: 58px;
+        height: 58px;
+        opacity: 0;
+      }
     }
 
     div.wave {
@@ -174,16 +196,35 @@
       z-index: 10;
     }
   </style>
-
+  <link rel="stylesheet" type="text/css" href="src/style.css">
 </head>
 <body>
 
   <landing-app unresolved>
+    <div class="lds-ripple"><div></div><div></div></div>
+    <div slot="tabs" class="tabs">
+      <dom-repeat>
+        <template>
+          <landing-tab hidden="[[item.hiddenFromMenu]]">
+              <a name="[[item.name]]" href="[[item.href]]" target="new">[[item.title]]</a>
+          </landing-tab>
+        </template>
+      </dom-repeat>
+    </div>
+
+    <div class="page" slot="content">
+      <div tal:replace="structure section" tal:condition="section|nothing"></div>
+    </div>
+
   </landing-app>
 
   <script>
-    window.performance && performance.mark && performance.mark('index.html');
-    if (CONFIG) document.querySelector('landing-app').config = CONFIG;
+    if (CONFIG) {
+      document.querySelector('landing-app').config = CONFIG;
+      var repeater = document.querySelector('dom-repeat');
+      var categories = CATEGORIES;
+      repeater.items = categories;
+    }
   </script>
   <link rel="import" href="src/landing-app.html">
   <!-- CUSTOM THEME -->
@@ -192,13 +233,6 @@
       <link slot="theme" rel="import"  tal:attributes="href string:/static/landing/${theme}-theme.html">
   </custom-style>
   <!-- CUSTOM THEME END-->
-  <!-- mixpanel-->
-  <script tal:condition="mixpanel_id|nothing" tal:content="string: var MIXPANEL_ID='${mixpanel_id}'"></script>
-  <script type="text/javascript" tal:condition="mixpanel_id|nothing">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
-    for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2.2.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
-    mixpanel.init(MIXPANEL_ID);
-  </script>
-
   <!-- Facebook Pixel Code -->
   <script tal:condition="fb_id|nothing" tal:content="string: var FB_ID='${fb_id}'"></script>
   <script tal:condition="fb_id|nothing">
@@ -209,7 +243,8 @@
   document,'script','//connect.facebook.net/en_US/fbevents.js');
 
   fbq('init', FB_ID);
-  fbq('track', "PageView");</script>
+  fbq('track', "PageView");
+  </script>
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1647503578815528&ev=PageView&noscript=1"
   /></noscript>

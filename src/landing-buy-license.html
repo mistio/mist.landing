@@ -31,6 +31,7 @@
             :host {
                 background-color: #fff;
                 padding-top: 100px;
+                padding-bottom: 120px;
             }
 
             [hidden] {
@@ -112,13 +113,6 @@
             a#forgotPasswordLink {
             }
 
-            #placeholder {
-                opacity: 0;
-                background-color: var(--app-accent-color);
-                @apply(--layout-fit);
-                z-index: -1;
-            }
-
             paper-material {
                 background-color: #f7f7f7;
                 display: block;
@@ -190,9 +184,7 @@
             .cost {
                 font-size: 0.9em;
             }
-            #container {
-                padding-bottom: 120px;
-            }
+
             @media screen and (max-width: 700px) {
                 #name, #signUp-email {
                     width: auto;
@@ -334,91 +326,88 @@
             }
         </style>
 
-        <div id="placeholder"></div>
-        <div id="container">
+        <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-tap="_logoClicked" id="logoButton"></paper-icon-button></a></div>
 
-            <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-tap="_logoClicked" id="logoButton"></paper-icon-button></a></div>
-
-            <div class="head">
-                <div class="back">
-                    <a href="/get-started"><iron-icon icon="icons:arrow-back"></iron-icon></a>
-                </div>
-                <h1>Purchase Enterprise Edition License</h1>
+        <div class="head">
+            <div class="back">
+                <a href="/get-started"><iron-icon icon="icons:arrow-back"></iron-icon></a>
             </div>
-            <iron-form id="buyLicence">
-                <paper-material elevation="1">
-                    <form method="post" action="/api/v1/license" enctype='application/json' id='form' hidden=[[licenseKey]]>
-                        <div id="contact-info">
-                            <h4>Contact Information</h4>
+            <h1>Purchase Enterprise Edition License</h1>
+        </div>
+        <iron-form id="buyLicence">
+            <paper-material elevation="1">
+                <form method="post" action="/api/v1/license" enctype='application/json' id='form' hidden=[[licenseKey]]>
+                    <div id="contact-info">
+                        <h4>Contact Information</h4>
 
-                            <paper-input id="name" name="name" label="Name" value="{{contact.name}}" pattern="[a-zA-Z0-9\. ]*" required auto-validate autocomplete="cc-name" always-float-label error-message="Alphanumerics allowed only." class="form-input" autofocus></paper-input>
-                            <paper-input id="email" name="email" label="Email" always-float-label type="email" value="{{contact.email}}" class="form-input" auto-validate>
-                                <iron-icon icon="mail" slot="prefix"></iron-icon>
-                            </paper-input>
-                            <paper-textarea id="address" name="address" label="Address" value="{{contact.address}}" required auto-validate autocomplete="street-address" class="form-input" always-float-label></paper-textarea>
-                            <!--paper-input id="address" name="phone" label="Phone number" pattern="[0-9 \+\(\)]+" always-float-label class="form-input" value="{{contact.phone}}" auto-validate>
-                                <iron-icon icon="communication:phone" slot="prefix"></iron-icon>
-                            </paper-input-->
-                        </div>
-                        <div id="payment-info">
-                            <h4>Payment information</h4>
-
-                            <gold-cc-input id="cc" required auto-validate class="form-input"
-                                value="{{stripePayload.number}}"
-                                label="Credit Card number"
-                                card-type="{{cardType}}">
-                            </gold-cc-input>
-
-                            <paper-input id="exp-month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Wrong month." auto-validate></paper-input>
-                            <span class="exp">/</span>
-                            <paper-input id="exp-year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Error in expiration" auto-validate></paper-input>
-
-                            <gold-cc-cvc-input id="cc-cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
-
-                            <paper-input id="address-zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
-                            <input type="hidden" name="token" id="token" />
-                        </div>
-                        <div id="order-details">
-                            <h4>Order details</h4>
-                            <paper-input id="vcpus" name="vcpus" id="vcpus" label="Number of vcpus" type="number" min=100 value={{vcpus}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of vcpus is wrong"></paper-input>
-
-                            <paper-radio-group name="interval">
-                                <paper-radio-button checked="{{annualy}}" class="field" name="annual" value="annual">
-                                    Annual payment
-                                    <span class="subtitle">
-                                        $1/vcpu per month
-                                    </span>
-                                </paper-radio-button>
-                                <paper-radio-button checked="{{!annualy}}" class="field" name="monthly" value="monthly">
-                                    Monthly payment
-                                    <span class="subtitle">
-                                        $1.2/vcpu per month
-                                    </span>
-                                </paper-radio-button>
-                            </paper-radio-group>
-                        </div>
-                        <paper-checkbox id="accept" checked={{accept}}>I accept the <a href="/privacy-policy" target="_blank">Privacy Policy</a> and the <a href="/tos" target="_blank">Terms of Service</a></paper-checkbox>
-                        <paper-button id="submitButton" on-tap="submit" disabled="[[_isSubmitDisabled(formReady, loading)]]">
-                            <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
-                            <div hidden$="[[loading]]">
-                                Purchase for $[[cost]] <span hidden$="[[annualy]]">/month</span> <span hidden$="[[!annualy]]">/year</span>
-                            </div>
-                        </paper-button>
-                        <div id="output" class="output"></div>
-                        <div id="notice">You will receive an email with your license key and download instructions after submitting this form.</div>
-                    </form>
-                    <div id="success" hidden=[[!licenseKey]]><h2>Transaction successful</h2>
-                        <p>Congratulations for purchasing your Mist.io Enterprise Edition License!</p> <p>In order to install Mist.io EE, you will need a Linux machine with at least 6GB of free RAM. Docker and Docker Compose need to be preinstalled and port 80 needs to be available.</p>
-                        <p>Provided the above, use the following steps to complete the installation.</p>
-                        <textarea id="instructions" rows="8" cols="80" onclick="this.focus();if (typeof(textareaSelected) == 'undefined') { textareaSelected = true; this.select() }" readonly="readonly">[[instructions]]</textarea>
-                        <p hidden=[[registryPassword]]>
-                            Your registry.ops.mist.io password was not changed. <a href="https://gitlab.ops.mist.io/users/password/new">Forgot password?</a>
-                        </p>
-                        <p>Also check out the <a href="https://github.com/mistio/mist.ee/#configuring-mistio" target="new">configuration guide</a>.</p>
+                        <paper-input id="name" name="name" label="Name" value="{{contact.name}}" pattern="[a-zA-Z0-9\. ]*" required auto-validate autocomplete="cc-name" always-float-label error-message="Alphanumerics allowed only." class="form-input" autofocus></paper-input>
+                        <paper-input id="email" name="email" label="Email" always-float-label type="email" value="{{contact.email}}" class="form-input" auto-validate>
+                            <iron-icon icon="mail" slot="prefix"></iron-icon>
+                        </paper-input>
+                        <paper-textarea id="address" name="address" label="Address" value="{{contact.address}}" required auto-validate autocomplete="street-address" class="form-input" always-float-label></paper-textarea>
+                        <!--paper-input id="address" name="phone" label="Phone number" pattern="[0-9 \+\(\)]+" always-float-label class="form-input" value="{{contact.phone}}" auto-validate>
+                            <iron-icon icon="communication:phone" slot="prefix"></iron-icon>
+                        </paper-input-->
                     </div>
+                    <div id="payment-info">
+                        <h4>Payment information</h4>
+
+                        <gold-cc-input id="cc" required auto-validate class="form-input"
+                            value="{{stripePayload.number}}"
+                            label="Credit Card number"
+                            card-type="{{cardType}}">
+                        </gold-cc-input>
+
+                        <paper-input id="exp-month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Wrong month." auto-validate></paper-input>
+                        <span class="exp">/</span>
+                        <paper-input id="exp-year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Error in expiration" auto-validate></paper-input>
+
+                        <gold-cc-cvc-input id="cc-cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
+
+                        <paper-input id="address-zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
+                        <input type="hidden" name="token" id="token" />
+                    </div>
+                    <div id="order-details">
+                        <h4>Order details</h4>
+                        <paper-input id="vcpus" name="vcpus" id="vcpus" label="Number of vcpus" type="number" min=100 value={{vcpus}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of vcpus is wrong"></paper-input>
+
+                        <paper-radio-group name="interval">
+                            <paper-radio-button checked="{{annualy}}" class="field" name="annual" value="annual">
+                                Annual payment
+                                <span class="subtitle">
+                                    $1/vcpu per month
+                                </span>
+                            </paper-radio-button>
+                            <paper-radio-button checked="{{!annualy}}" class="field" name="monthly" value="monthly">
+                                Monthly payment
+                                <span class="subtitle">
+                                    $1.2/vcpu per month
+                                </span>
+                            </paper-radio-button>
+                        </paper-radio-group>
+                    </div>
+                    <paper-checkbox id="accept" checked={{accept}}>I accept the <a href="/privacy-policy" target="_blank">Privacy Policy</a> and the <a href="/tos" target="_blank">Terms of Service</a></paper-checkbox>
+                    <paper-button id="submitButton" on-tap="submit" disabled="[[_isSubmitDisabled(formReady, loading)]]">
+                        <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
+                        <div hidden$="[[loading]]">
+                            Purchase for $[[cost]] <span hidden$="[[annualy]]">/month</span> <span hidden$="[[!annualy]]">/year</span>
+                        </div>
+                    </paper-button>
+                    <div id="output" class="output"></div>
+                    <div id="notice">You will receive an email with your license key and download instructions after submitting this form.</div>
+                </form>
+                <div id="success" hidden=[[!licenseKey]]><h2>Transaction successful</h2>
+                    <p>Congratulations for purchasing your Mist.io Enterprise Edition License!</p> <p>In order to install Mist.io EE, you will need a Linux machine with at least 6GB of free RAM. Docker and Docker Compose need to be preinstalled and port 80 needs to be available.</p>
+                    <p>Provided the above, use the following steps to complete the installation.</p>
+                    <textarea id="instructions" rows="8" cols="80" onclick="this.focus();if (typeof(textareaSelected) == 'undefined') { textareaSelected = true; this.select() }" readonly="readonly">[[instructions]]</textarea>
+                    <p hidden=[[registryPassword]]>
+                        Your registry.ops.mist.io password was not changed. <a href="https://gitlab.ops.mist.io/users/password/new">Forgot password?</a>
+                    </p>
+                    <p>Also check out the <a href="https://github.com/mistio/mist.ee/#configuring-mistio" target="new">configuration guide</a>.</p>
                 </div>
-                </paper-material>
-            </iron-form>
+            </div>
+            </paper-material>
+        </iron-form>
 
     </template>
     <script>

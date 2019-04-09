@@ -18,8 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="landing-page">
   <template>
-    <style include="shared-styles"></style>
-    <style>
+    <style include="shared-styles">
 
       :host {
         display: block;
@@ -52,39 +51,67 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
     </style>
-
     <div>
-      <div id="placeholder"></div>
-      <div id="container">
-        
-        <div class="section grey">
-          <div class="contains">
-            <div class="text-center">
-              <h2 class="decorated row title">[[title]]</h2>
-            </div>
-            <div id="content">
-              <marked-element markdown="[[data.body]]">
-                <div slot="markdown-html"></div>
-              </marked-element>
-            </div>
-          </div>
-        </div>
-
-        <!-- <landing-button>
-          <a href="/">Go to the home page</a>
-        </landing-button> -->
-      </div>
+      <slot>
+      </slot>
     </div>
-
   </template>
   <script>
     Polymer({
       is: 'landing-page',
 
       properties: {
-        name: String,
-        title: String,
-        data: Object
+        name: {
+          type: String,
+          reflectToAttribute: true
+        },
+        title: {
+          type: String
+        },
+        data: {
+          type: Object
+        }
+      },
+
+      listeners: {
+        'tap': '_onTap'
+      },
+
+      _signUpClick: function(event) {
+        window.scrollTo(0, 0);
+        console.log('user-action');
+        this.fire('user-action', 'sign up button 1 click in '+name);
+        //new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+      },
+
+      _signUpClick2: function(event) {
+        window.scrollTo(0, 0);
+        console.log('user-action');
+        this.fire('user-action', 'sign up button 2 click in '+name);
+      },
+
+      _downloadClick: function(event) {
+        window.scrollTo(0, 0);
+        console.log('user-action');
+        this.fire('user-action', 'download button click in '+name);
+      },
+
+      _chooseEditionClick: function(event) {
+        window.scrollTo(0, 0);
+        console.log('user-action');
+        this.fire('user-action', 'choose edition button click in '+name);
+      },
+
+      _onTap: function (e) {
+        if (e.target.tagName == 'PAPER-BUTTON') {
+          if (e.target.id == 'signUpBtn1') {
+            this.parentNode.parentNode.host._signUpClick(e);
+          } else if (e.target.id == 'signUpBtn2') {
+            this._signUpClick2();
+          } else {
+            // debugger;
+          }
+        }
       }
     });
   </script>
