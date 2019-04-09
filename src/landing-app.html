@@ -407,18 +407,7 @@
     <dom-if if="[[_hasCategories(categories, categories.length)]]" restamp>
       <template>
 
-        <landing-pages id="pages" role="main" attr-for-selected="name" fallback-selection="not-found" selected="[[page]]">
-
-          <!-- <landing-home name="home" categories="[[categories]]" id="home" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-home>
-
-          <landing-pricing name="pricing" categories="[[categories]]" id="pricing" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-pricing>
-
-          <landing-product name="product" categories="[[categories]]" id="product" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-product>
-
-          <landing-orchestration name="orchestration" categories="[[categories]]" id="orchestration" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-orchestration>
-
-          <landing-rbac name="rbac" categories="[[categories]]" id="rbac" data="[[category.items]]" allow-purchase-license=[[config.features.billing]]></landing-rbac> -->
-
+        <landing-pages id="pages" role="main" attr-for-selected="name" fallback-selection="not-found" selected$="[[page]]">
           <dom-repeat items="[[categories]]" as="cat">
             <template>
               <landing-page name$="[[cat.name]]" title="[[cat.title]]" id="page-[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]">
@@ -437,12 +426,8 @@
             sign-up-google=[[config.features.signup_google]] sign-up-github=[[config.features.signup_github]] sign-up-email=[[config.features.signup_email]] invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
 
           <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
-          <dom-if if="[[config.features.billing]]" restamp>
-            <template>
-              <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey=[[config.stripeKey]]></landing-buy-license>
-              <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
-            </template>
-          </dom-if>
+          <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey=[[config.stripeKey]]></landing-buy-license>
+          <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
 
           <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password" support-email="[[config.email.support]]"></landing-forgot-password>
           <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
@@ -635,6 +620,11 @@
                 this.resolveUrl('landing-' + category.template + '.html'),
                 cb, cb, true
               );
+            } else if (['buy-license', 'request-pricing'].indexOf(page) > -1) {
+              this.importHref(
+                this.resolveUrl('landing-' + page + '.html'),
+                cb, cb, true
+              );
             }
           }
         }
@@ -649,7 +639,6 @@
           }, 1);
         }
         console.log('Loaded page ', this.page);
-        //this.$.pages.selected = this.page;
       },
 
       _ensureLazyLoaded: function() {
