@@ -199,6 +199,7 @@
   <custom-style tal:condition="theme|nothing">
       <link slot="theme" rel="import"  tal:attributes="href string:/static/landing/${theme}-theme.html">
   </custom-style>
+
   <!-- CUSTOM THEME END-->
 
   <!-- Facebook Pixel Code -->
@@ -212,24 +213,6 @@
 
   fbq('init', FB_ID);
   fbq('track', "PageView");
-
-  // Twitter widget
-  window.twttr = (function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0],
-      t = window.twttr || {};
-    if (d.getElementById(id)) return t;
-    js = d.createElement(s);
-    js.id = id;
-    js.src = "https://platform.twitter.com/widgets.js";
-    fjs.parentNode.insertBefore(js, fjs);
-
-    t._e = [];
-    t.ready = function(f) {
-      t._e.push(f);
-    };
-
-    return t;
-  }(document, "script", "twitter-wjs"));
   </script>
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=1647503578815528&ev=PageView&noscript=1"
