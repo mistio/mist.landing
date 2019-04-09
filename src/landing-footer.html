@@ -190,7 +190,7 @@
           }(document, "script", "twitter-wjs"));
         },
         finishLoading: function() {
-          window.twttr.widgets.createTimeline({
+          window.twttr.widgets && window.twttr.widgets.createTimeline({
             sourceType: 'profile',
             screenName: 'mist_io'
           }, this.$.tweets, {width: '300', height: '400'});
