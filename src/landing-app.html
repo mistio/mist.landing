@@ -408,7 +408,7 @@
       <template>
 
         <landing-pages id="pages" role="main" attr-for-selected="name" fallback-selection="not-found" selected$="[[page]]">
-          <dom-repeat items="[[categories]]" as="cat">
+          <dom-repeat items="{{categories}}" as="cat">
             <template>
               <landing-page name$="[[cat.name]]" title="[[cat.title]]" id="page-[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]">
                 <dom-if if="[[_isEqual(cat.name,page)]]">
