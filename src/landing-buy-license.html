@@ -364,7 +364,7 @@
 
                         <gold-cc-cvc-input id="cc-cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
 
-                        <paper-input id="address-zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[0-9]*" error-message="Numbers only." auto-validate></paper-input>
+                        <paper-input id="address-zip" label="Zip Code" value="{{stripePayload.address_zip}}" class="form-input" pattern="[a-zA-Z0-9]*" error-message="Alphanumerical only." auto-validate></paper-input>
                         <input type="hidden" name="token" id="token" />
                     </div>
                     <div id="order-details">
