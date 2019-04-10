@@ -201,7 +201,6 @@
 <body>
 
   <landing-app unresolved>
-    <div class="lds-ripple"><div></div><div></div></div>
     <div slot="tabs" class="tabs">
       <dom-repeat>
         <template>
@@ -215,7 +214,7 @@
     <div class="page" slot="content">
       <div tal:replace="structure section" tal:condition="section|nothing"></div>
     </div>
-
+    <div class="lds-ripple"><div></div><div></div></div>
   </landing-app>
 
   <script>
