@@ -45,7 +45,7 @@
           && 'import' in document.createElement('link')
           && 'content' in document.createElement('template'))
           ANIMATIONS = true;
-</script>
+  </script>
 
   <style>
     body {
@@ -54,7 +54,6 @@
       min-height: 100vh;
       box-sizing: border-box;
     }
-
     
     @font-face {
       font-family: "Roboto";
@@ -200,7 +199,6 @@
   <link rel="stylesheet" type="text/css" href="src/style.css">
 </head>
 <body>
-
   <landing-app unresolved>
     <div slot="tabs" class="tabs">
       <dom-repeat>
@@ -212,7 +210,7 @@
       </dom-repeat>
     </div>
 
-    <div class="page" slot="content">
+    <div class="page" slot="content" title="">
       <div tal:replace="structure section" tal:condition="section|nothing"></div>
     </div>
     <div class="lds-ripple"><div></div><div></div></div>
