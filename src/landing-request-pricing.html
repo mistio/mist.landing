@@ -1,17 +1,17 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
+<script type="module" src="../../../@polymer/paper-input/paper-input.js"></script>
+<script type="module" src="../../../@polymer/paper-input/paper-textarea.js"></script>
+<script type="module" src="../../../@polymer/paper-button/paper-button.js"></script>
+<script type="module" src="../../../@polymer/paper-icon-button/paper-icon-button.js"></script>
+<script type="module" src="../../../@polymer/paper-spinner/paper-spinner.js"></script>
+<script type="module" src="../../../@polymer/paper-material/paper-material.js"></script>
+<script type="module" src="../../../@polymer/iron-form/iron-form.js"></script>
+<script type="module" src="../../../@polymer/iron-icon/iron-icon.js"></script>
+<script type="module" src="../../../@polymer/iron-icons/iron-icons.js"></script>
+<script type="module" src="../../../@polymer/iron-icons/social-icons.js"></script>
 
-<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<script type="module" src="../../../@polymer/iron-ajax/iron-ajax.js"></script>
+<script type="module" src="../../../@polymer/iron-flex-layout/iron-flex-layout.js"></script>
 
 <dom-module id="landing-request-pricing">
     <template>
@@ -171,76 +171,90 @@
         </iron-form>
 
     </template>
-    <script>
-        Polymer({
-            is: 'landing-request-pricing',
+    <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/paper-input/paper-input.js';
+import '@polymer/paper-input/paper-textarea.js';
+import '@polymer/paper-button/paper-button.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/paper-spinner/paper-spinner.js';
+import '@polymer/paper-material/paper-material.js';
+import '@polymer/iron-form/iron-form.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-icons/social-icons.js';
+import '@polymer/iron-ajax/iron-ajax.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+Polymer({
+    is: 'landing-request-pricing',
 
-            properties: {
-                loading: {
-                    type: Boolean,
-                    value: false
-                },
-                invitoken: String
-            },
+    properties: {
+        loading: {
+            type: Boolean,
+            value: false
+        },
+        invitoken: String
+    },
 
-            observers: [
-                '_invitokenExists(invitoken)'
-            ],
+    observers: [
+        '_invitokenExists(invitoken)'
+    ],
 
-            attached: function() {
-                var that = this,
-                    validate = function(event) {
-                    // Validate the entire form to see if we should enable the `Submit` button.
-                    var ret = that.$.signUpForm.validate();
-                    that.$.signUpSubmit.disabled = !ret;
-                    return ret;
-                }
-                this.$.signUpForm.addEventListener('keyup', function(event) {
-                    var submitDisabled = that.$.signUpSubmit.disabled;
-                    that.$.signUpForm.querySelector('paper-button > div').innerHTML = "Send request";
-                    if (validate(event) && !submitDisabled && event.key == "Enter")
-                        that._submitButtonHandler();
-                });
-                this.$.signUpForm.addEventListener('change', validate);
-
-                this.$.signUpForm.addEventListener('iron-form-error', function(event) {
-                    console.warn("GOT ERROR!", event.detail);
-                    that.loading = false;
-                    that.$.signUpForm.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
-                });
-                this.$.signUpForm.addEventListener('iron-form-response', function(event) {
-                    console.warn("REQUEST SUCCESS!", event);
-                    that.loading = false;
-                    that.$.signUpForm.querySelector('form').hidden = true;
-                    that.$.signUpForm.querySelector('.output').innerHTML = "Thank you for contacting us! We will get back to you as soon as possible. <br/> <a href='/pricing'>Back to pricing page</a>";
-                });
-                this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
-                    that.$.signUpForm.request.headers['Csrf-Token'] = CSRF_TOKEN;
-                    that.fire('user-action', 'request-pricing submit')
-                });
-            },
-            _submitButtonHandler:  function(event) {
-                this.loading = true;
-                this.$.signUpSubmit.disabled = true;
-                this.$.signUpForm.querySelector('.output').innerHTML = '';
-                this.$.signUpForm.submit();
-            },
-            _logoClicked: function(event) {
-                this.fire('user-action', 'logo click on request-pricing');
-            },
-            _signInClicked: function(event) {
-                this.fire('user-action', 'request-pricing click')
-            },
-            _invitokenExists: function(tok){
-                console.log('tok', tok);
-                if (tok) {
-                    var element = document.createElement('input');
-                    element.type = 'hidden';
-                    element.name = 'invitoken';
-                    element.value = this.invitoken;
-                    this.$.form.appendChild(element);
-                }
-            },
+    attached: function() {
+        var that = this,
+            validate = function(event) {
+            // Validate the entire form to see if we should enable the `Submit` button.
+            var ret = that.$.signUpForm.validate();
+            that.$.signUpSubmit.disabled = !ret;
+            return ret;
+        }
+        this.$.signUpForm.addEventListener('keyup', function(event) {
+            var submitDisabled = that.$.signUpSubmit.disabled;
+            that.$.signUpForm.querySelector('paper-button > div').innerHTML = "Send request";
+            if (validate(event) && !submitDisabled && event.key == "Enter")
+                that._submitButtonHandler();
         });
-    </script>
+        this.$.signUpForm.addEventListener('change', validate);
+
+        this.$.signUpForm.addEventListener('iron-form-error', function(event) {
+            console.warn("GOT ERROR!", event.detail);
+            that.loading = false;
+            that.$.signUpForm.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
+        });
+        this.$.signUpForm.addEventListener('iron-form-response', function(event) {
+            console.warn("REQUEST SUCCESS!", event);
+            that.loading = false;
+            that.$.signUpForm.querySelector('form').hidden = true;
+            that.$.signUpForm.querySelector('.output').innerHTML = "Thank you for contacting us! We will get back to you as soon as possible. <br/> <a href='/pricing'>Back to pricing page</a>";
+        });
+        this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
+            that.$.signUpForm.request.headers['Csrf-Token'] = CSRF_TOKEN;
+            that.fire('user-action', 'request-pricing submit')
+        });
+    },
+    _submitButtonHandler:  function(event) {
+        this.loading = true;
+        this.$.signUpSubmit.disabled = true;
+        this.$.signUpForm.querySelector('.output').innerHTML = '';
+        this.$.signUpForm.submit();
+    },
+    _logoClicked: function(event) {
+        this.fire('user-action', 'logo click on request-pricing');
+    },
+    _signInClicked: function(event) {
+        this.fire('user-action', 'request-pricing click')
+    },
+    _invitokenExists: function(tok){
+        console.log('tok', tok);
+        if (tok) {
+            var element = document.createElement('input');
+            element.type = 'hidden';
+            element.name = 'invitoken';
+            element.value = this.invitoken;
+            this.$.form.appendChild(element);
+        }
+    },
+});
+</script>
 </dom-module>

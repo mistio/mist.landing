@@ -8,13 +8,13 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/app-route/app-route.html">
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="landing-category-data.html">
-<link rel="import" href="landing-common-styles.html">
-<link rel="import" href="landing-image.html">
-<link rel="import" href="landing-list-item.html">
+<script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
+<script type="module" src="../../../@polymer/app-route/app-route.js"></script>
+<script type="module" src="../../../@polymer/iron-flex-layout/iron-flex-layout.js"></script>
+<script type="module" src="./landing-category-data.js"></script>
+<script type="module" src="./landing-common-styles.js"></script>
+<script type="module" src="./landing-image.js"></script>
+<script type="module" src="./landing-list-item.js"></script>
 
 <dom-module id="landing-list">
 
@@ -124,85 +124,92 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   </template>
 
-  <script>
+  <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/app-route/app-route.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import './landing-category-data.js';
+import './landing-common-styles.js';
+import './landing-image.js';
+import './landing-list-item.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 
-    Polymer({
+Polymer({
 
-      is: 'landing-list',
+  is: 'landing-list',
 
-      properties: {
+  properties: {
 
-        category: Object,
+    category: Object,
 
-        route: Object,
+    route: Object,
 
-        routeData: Object,
+    routeData: Object,
 
-        visible: {
-          type: Boolean,
-          value: false
-        },
+    visible: {
+      type: Boolean,
+      value: false
+    },
 
-        offline: {
-          type: Boolean,
-          observer: '_offlineChanged'
-        },
+    offline: {
+      type: Boolean,
+      observer: '_offlineChanged'
+    },
 
-        failure: Boolean
+    failure: Boolean
 
-      },
+  },
 
-      observers: [
-        '_categoryChanged(category, visible)'
-      ],
+  observers: [
+    '_categoryChanged(category, visible)'
+  ],
 
-      _getListItems: function(items) {
-        // Return placeholder items when the items haven't loaded yet.
-        return items || [{},{},{},{},{},{},{},{},{},{}];
-      },
+  _getListItems: function(items) {
+    // Return placeholder items when the items haven't loaded yet.
+    return items || [{},{},{},{},{},{},{},{},{},{}];
+  },
 
-      _getItemHref: function(item) {
-        // By returning null when `itemId` is undefined, the href attribute won't be set and
-        // the link will be disabled.
-        return item.name ? ['/detail', this.category.name, item.name].join('/') : null;
-      },
+  _getItemHref: function(item) {
+    // By returning null when `itemId` is undefined, the href attribute won't be set and
+    // the link will be disabled.
+    return item.name ? ['/detail', this.category.name, item.name].join('/') : null;
+  },
 
-      _getPluralizedQuantity: function(quantity) {
-        if (!quantity) {
-          return '';
-        }
-        var pluralizedQ = quantity === 1 ? 'item' : 'items';
-        return  '(' + quantity + ' ' + pluralizedQ + ')';
-      },
+  _getPluralizedQuantity: function(quantity) {
+    if (!quantity) {
+      return '';
+    }
+    var pluralizedQ = quantity === 1 ? 'item' : 'items';
+    return  '(' + quantity + ' ' + pluralizedQ + ')';
+  },
 
-      _categoryChanged: function(category, visible) {
-        if (visible) {
-          if (!category) {
-            this.fire('show-invalid-url-warning');
-          } else {
-            this.debounce('change-section', function() {
-              // Notify the category and the page's title
-              this.fire('change-section', {
-                category: category.name,
-                title: category.title
-              });
-            });
-          }
-        }
-      },
-
-      _tryReconnect: function() {
-        this.$.categoryData.refresh();
-      },
-
-      _offlineChanged: function(offline) {
-        if (!offline && this.isAttached) {
-          this._tryReconnect();
-        }
+  _categoryChanged: function(category, visible) {
+    if (visible) {
+      if (!category) {
+        this.fire('show-invalid-url-warning');
+      } else {
+        this.debounce('change-section', function() {
+          // Notify the category and the page's title
+          this.fire('change-section', {
+            category: category.name,
+            title: category.title
+          });
+        });
       }
+    }
+  },
 
-    });
+  _tryReconnect: function() {
+    this.$.categoryData.refresh();
+  },
 
-  </script>
+  _offlineChanged: function(offline) {
+    if (!offline && this.isAttached) {
+      this._tryReconnect();
+    }
+  }
+
+});
+</script>
 
 </dom-module>

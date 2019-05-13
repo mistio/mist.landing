@@ -8,14 +8,14 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/app-route/app-route.html">
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="landing-button.html">
-<link rel="import" href="landing-category-data.html">
-<link rel="import" href="landing-common-styles.html">
-<link rel="import" href="landing-image.html">
-<link rel="import" href="landing-select.html">
+<script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
+<script type="module" src="../../../@polymer/app-route/app-route.js"></script>
+<script type="module" src="../../../@polymer/iron-flex-layout/iron-flex-layout.js"></script>
+<script type="module" src="./landing-button.js"></script>
+<script type="module" src="./landing-category-data.js"></script>
+<script type="module" src="./landing-common-styles.js"></script>
+<script type="module" src="./landing-image.js"></script>
+<script type="module" src="./landing-select.js"></script>
 
 <dom-module id="landing-detail">
 
@@ -203,93 +203,101 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   </template>
 
-  <script>
+  <script type="module">
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/app-route/app-route.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import './landing-button.js';
+import './landing-category-data.js';
+import './landing-common-styles.js';
+import './landing-image.js';
+import './landing-select.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 
-    Polymer({
+Polymer({
 
-      is: 'landing-detail',
+  is: 'landing-detail',
 
-      properties: {
+  properties: {
 
-        item: Object,
+    item: Object,
 
-        route: Object,
+    route: Object,
 
-        routeData: Object,
+    routeData: Object,
 
-        visible: {
-          type: Boolean,
-          value: false
-        },
+    visible: {
+      type: Boolean,
+      value: false
+    },
 
-        offline: {
-          type: Boolean,
-          observer: '_offlineChanged'
-        },
+    offline: {
+      type: Boolean,
+      observer: '_offlineChanged'
+    },
 
-        failure: Boolean
+    failure: Boolean
 
-      },
+  },
 
-      observers: [
-        '_itemChanged(item, visible)'
-      ],
+  observers: [
+    '_itemChanged(item, visible)'
+  ],
 
-      _itemChanged: function(item, visible) {
-        if (visible) {
-          this.debounce('item-change', function() {
-            // The item description contains escaped HTML (e.g. "&lt;br&gt;"), so we need to
-            // unescape it ("<br>") and set it as innerHTML.
-            var text = item ? item.description : '';
-            this.$.desc.innerHTML = this._unescapeText(text);
+  _itemChanged: function(item, visible) {
+    if (visible) {
+      this.debounce('item-change', function() {
+        // The item description contains escaped HTML (e.g. "&lt;br&gt;"), so we need to
+        // unescape it ("<br>") and set it as innerHTML.
+        var text = item ? item.description : '';
+        this.$.desc.innerHTML = this._unescapeText(text);
 
-            // Reset the select menus.
-            this.$.quantitySelect.value = '1';
-            this.$.sizeSelect.value = 'M';
+        // Reset the select menus.
+        this.$.quantitySelect.value = '1';
+        this.$.sizeSelect.value = 'M';
 
-            this.fire('change-section', {
-              category: item ? item.category : '',
-              title: item ? item.title : ''
-            });
-          });
-        }
-      },
-
-      _unescapeText: function(text) {
-        var elem = document.createElement('textarea');
-        elem.innerHTML = text;
-        return elem.textContent;
-      },
-
-      _formatPrice: function(price) {
-        return price ? '$' + price.toFixed(2) : '';
-      },
-
-      _addToCart: function() {
-        // This event will be handled by landing-app.
-        this.fire('add-cart-item', {
-          item: this.item,
-          quantity: parseInt(this.$.quantitySelect.value, 10),
-          size: this.$.sizeSelect.value
+        this.fire('change-section', {
+          category: item ? item.category : '',
+          title: item ? item.title : ''
         });
-      },
+      });
+    }
+  },
 
-      _isDefined: function(item) {
-        return item != null;
-      },
+  _unescapeText: function(text) {
+    var elem = document.createElement('textarea');
+    elem.innerHTML = text;
+    return elem.textContent;
+  },
 
-      _tryReconnect: function() {
-        this.$.categoryData.refresh();
-      },
+  _formatPrice: function(price) {
+    return price ? '$' + price.toFixed(2) : '';
+  },
 
-      _offlineChanged: function(offline) {
-        if (!offline) {
-          this._tryReconnect();
-        }
-      }
-
+  _addToCart: function() {
+    // This event will be handled by landing-app.
+    this.fire('add-cart-item', {
+      item: this.item,
+      quantity: parseInt(this.$.quantitySelect.value, 10),
+      size: this.$.sizeSelect.value
     });
+  },
 
-  </script>
+  _isDefined: function(item) {
+    return item != null;
+  },
+
+  _tryReconnect: function() {
+    this.$.categoryData.refresh();
+  },
+
+  _offlineChanged: function(offline) {
+    if (!offline) {
+      this._tryReconnect();
+    }
+  }
+
+});
+</script>
 
 </dom-module>
