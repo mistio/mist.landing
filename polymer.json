@@ -1,10 +1,10 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/landing-app.html",
+  "shell": "src/landing-app.js",
   "fragments": [
    "src/lazy-resources.html",
-   "src/landing-set-password.html",
-   "src/landing-reset-password.html",
+   "src/landing-set-password.js",
+   "src/landing-reset-password.js",
    "src/landing-buy-license.html",
    "src/landing-request-pricing.html"
   ],
@@ -12,17 +12,14 @@
    "src/**/*",
    "data/**/*",
    "images/**/*",
-   "bower.json",
    "app.yaml"
   ],
   "extraDependencies": [
     "manifest.json",
-    "bower_components/webcomponentsjs/**/*",
-    "bower_components/custom-elements/**/*",
-    "bower_components/shadydom/**/*",
-    "bower_components/shadycss/**/*",
-    "bower_components/gold-cc-cvc-input/*.png",
-    "bower_components/gold-cc-input/images/*.png",
+    "node_modules/@webcomponents/**/*",
+    "node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
+    "node_modules/@polymer/gold-cc-cvc-input/*.png",
+    "node_modules/@polymer/gold-cc-input/images/*.png",
     "tumblrBadge-1.1.js"
   ],
   "builds": [{
@@ -33,6 +30,6 @@
     "html": {"minify": true}
   }],
   "lint": {
-    "rules": ["polymer-2"]
+    "rules": ["polymer-3"]
   }
 }
