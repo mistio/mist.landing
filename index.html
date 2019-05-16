@@ -226,10 +226,7 @@
   </script>
   <link rel="import" href="src/landing-app.html">
   <!-- CUSTOM THEME -->
-  <link rel="import" tal:condition="theme|nothing" href="bower_components/polymer/lib/elements/custom-style.html">
-  <custom-style tal:condition="theme|nothing">
-      <link slot="theme" rel="import"  tal:attributes="href string:/static/landing/${theme}-theme.html">
-  </custom-style>
+  <link slot="theme" rel="import" tal:condition="theme|nothing" tal:attributes="href string:/static/landing/${theme}-theme.html">
   <!-- CUSTOM THEME END-->
   <!-- Facebook Pixel Code -->
   <script tal:condition="fb_id|nothing" tal:content="string: var FB_ID='${fb_id}'"></script>
