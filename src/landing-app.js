@@ -1,3 +1,4 @@
+import {PolymerElement, html} from '@polymer/polymer';
 import '@polymer/polymer/polymer-legacy.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';

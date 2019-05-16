@@ -16,7 +16,7 @@
   ],
   "extraDependencies": [
     "manifest.json",
-    "node_modules/@webcomponents/**/*",
+    "node_modules/@webcomponents/shadycss/entrypoints/apply-shim.js",
     "node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js",
     "node_modules/@polymer/gold-cc-cvc-input/*.png",
     "node_modules/@polymer/gold-cc-input/images/*.png",

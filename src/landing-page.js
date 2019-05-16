@@ -35,7 +35,7 @@ Polymer({
       #placeholder {
           opacity: 0;
           background-color: grey;
-          @apply(--layout-fit);
+          @apply --layout-fit;
       }
 
       .title {
