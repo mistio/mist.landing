@@ -1,26 +1,26 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../bower_components/paper-input/paper-textarea.html">
-<link rel="import" href="../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="../bower_components/paper-radio-group/paper-radio-group.html">
-<link rel="import" href="../bower_components/paper-radio-button/paper-radio-button.html">
-<link rel="import" href="../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../bower_components/iron-form/iron-form.html">
-<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/iron-icons/social-icons.html">
-<link rel="import" href="../bower_components/iron-icons/communication-icons.html">
-<link rel="import" href="../bower_components/gold-cc-input/gold-cc-input.html">
-<link rel="import" href="../bower_components/gold-cc-cvc-input/gold-cc-cvc-input.html">
-<link rel="import" href="../bower_components/gold-phone-input/gold-phone-input.html">
+<script type="module" src="../node_modules/@polymer/polymer/polymer-legacy.js"></script>
+<script type="module" src="../node_modules/@polymer/paper-input/paper-input.js"></script>
+<script type="module" src="../node_modules/@polymer/paper-input/paper-textarea.js"></script>
+<script type="module" src="../node_modules/@polymer/paper-button/paper-button.js"></script>
+<script type="module" src="../node_modules/@polymer/paper-checkbox/paper-checkbox.js"></script>
+<script type="module" src="../node_modules/@polymer/paper-icon-button/paper-icon-button.js"></script>
+<script type="module" src="../node_modules/@polymer/paper-spinner/paper-spinner.js"></script>
+<script type="module" src="../node_modules/@polymer/paper-radio-group/paper-radio-group.js"></script>
+<script type="module" src="../node_modules/@polymer/paper-radio-button/paper-radio-button.js"></script>
+<script type="module" src="../node_modules/@polymer/paper-material/paper-material.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-form/iron-form.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-icon/iron-icon.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-icons/iron-icons.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-icons/social-icons.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-icons/communication-icons.js"></script>
+<script type="module" src="../node_modules/@polymer/gold-cc-input/gold-cc-input.js"></script>
+<script type="module" src="../node_modules/@polymer/gold-cc-cvc-input/gold-cc-cvc-input.js"></script>
+<script type="module" src="../node_modules/@polymer/gold-phone-input/gold-phone-input.js"></script>
 
-<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<script type="module" src="../node_modules/@polymer/iron-ajax/iron-ajax.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js"></script>
 
-<link rel="import" href="shared-styles.html">
+<script type="module" src="./shared-styles.js"></script>
 
 <script src="https://js.stripe.com/v2/"></script>
 
@@ -410,268 +410,290 @@
         </iron-form>
 
     </template>
-    <script>
+    <script type="module">
+import '../node_modules/@polymer/polymer/polymer-legacy.js';
+import '../node_modules/@polymer/paper-input/paper-input.js';
+import '../node_modules/@polymer/paper-input/paper-textarea.js';
+import '../node_modules/@polymer/paper-button/paper-button.js';
+import '../node_modules/@polymer/paper-checkbox/paper-checkbox.js';
+import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js';
+import '../node_modules/@polymer/paper-spinner/paper-spinner.js';
+import '../node_modules/@polymer/paper-radio-group/paper-radio-group.js';
+import '../node_modules/@polymer/paper-radio-button/paper-radio-button.js';
+import '../node_modules/@polymer/paper-material/paper-material.js';
+import '../node_modules/@polymer/iron-form/iron-form.js';
+import '../node_modules/@polymer/iron-icon/iron-icon.js';
+import '../node_modules/@polymer/iron-icons/iron-icons.js';
+import '../node_modules/@polymer/iron-icons/social-icons.js';
+import '../node_modules/@polymer/iron-icons/communication-icons.js';
+import '../node_modules/@polymer/gold-cc-input/gold-cc-input.js';
+import '../node_modules/@polymer/gold-cc-cvc-input/gold-cc-cvc-input.js';
+import '../node_modules/@polymer/gold-phone-input/gold-phone-input.js';
+import '../node_modules/@polymer/iron-ajax/iron-ajax.js';
+import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
+import './shared-styles.js';
+import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 
-        Polymer({
-            is: 'landing-buy-license',
+Polymer({
+    is: 'landing-buy-license',
 
-            properties: {
+    properties: {
 
-                loading: {
-                    type: Boolean,
-                    value: false
-                },
+        loading: {
+            type: Boolean,
+            value: false
+        },
 
-                contact: {
-                    type: Object,
-                    value: function() {
-                        return {
-                            name: undefined,
-                            address: undefined,
-                            email: ""
-                        }
-                    }
-                },
-
-                stripePayload: {
-                    type: Object,
-                    value: function() {
-                        return {
-                            number: "",
-                            exp_month: "",
-                            exp_year: "",
-                            cvc: "",
-                            address_zip: undefined
-                        }
-                    }
-                },
-
-                vcpus: {
-                    type: Number,
-                    value: 100
-                },
-
-                dockerhubid: String,
-
-                cost: {
-                    type: Number,
-                    computed: '_computeCost(vcpus, annualy)'
-                },
-
-                annualy: {
-                    type: Boolean,
-                    value: true
-                },
-
-                annualCost: {
-                    type: Number,
-                    value: 1
-                },
-
-                monthlyCost: {
-                    type: Number,
-                    value: 1.2
-                },
-
-                formReady: {
-                    type: Boolean,
-                    computed: '_computeFormReady(vcpus, dockerhubid, contact.*, stripePayload.*, accept)',
-                    value: true
-                },
-
-                accept: {
-                    type: Boolean,
-                    value: false
-                },
-
-                stripePublicApikey: {
-                    type: String,
-                    value: ""
-                },
-
-                instructions: {
-                    type: String,
-                    value: ""
-                },
-
-                registryUsername: {
-                    type: String,
-                    value: ""
-                },
-
-                licenseKey: {
-                    type: String,
-                    value: ""
-                },
-
-                registryPassword: {
-                    type: String,
-                    value: ""
+        contact: {
+            type: Object,
+            value: function() {
+                return {
+                    name: undefined,
+                    address: undefined,
+                    email: ""
                 }
-            },
-
-            attached: function() {
-                this.$.buyLicence.addEventListener('iron-form-response', function(event) {
-                    that.loading = false;
-                    that.registryUsername = event.detail.xhr.response.username;
-                    that.registryPassword = event.detail.xhr.response.password;
-                    that.licenseKey = event.detail.xhr.response.license_key;
-                    that.instructions = event.detail.xhr.response.instructions;
-                    this.fire('user-action', 'purchase license sucess');
-                });
-                var that = this;
-                this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
-                    that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
-                });
-                this.$.buyLicence.addEventListener('iron-form-error', function(event) {
-                    that.loading = false;
-                    that.$.buyLicence.querySelector('div.output').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
-                });
-
-            },
-
-            submit: function(e) {
-                this.fire('user-action', 'purchase license submit');
-                if (this.formReady) {
-                    this.formReady = false;
-                    this.loading = true;
-                    // extra stripe validation
-                    var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
-                        Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
-                        Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip != '';
-
-                    if (isValid) {
-                        Stripe.setPublishableKey(this.stripePublicApikey);
-                        Stripe.card.createToken(this.stripePayload, stripeResponseHandler);
-                        this.set('sendingData', true);
-                        var that = this;
-                        function stripeResponseHandler(status, response){
-                            if (response.error) {
-                                console.log('stripeResponseHandler failed', response.error.message);
-                                that.showError(response.error.message);
-                            } else {
-                                that.sumbmitPayment(status, response);
-                            }
-                        }
-                    } else {
-                        var errorText = 'There seems to be an error with the';
-                        if (!Stripe.card.validateCardNumber(this.stripePayload.number)){
-                            errorText += ' card number';
-                            this.$["cc-cvc"].invalid = true;
-                        }
-
-                        if (!Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year)){
-                            errorText += ' expiration date';
-                            this.$["exp-year"].invalid = true;
-                        }
-
-                        if (!Stripe.card.validateCVC(this.stripePayload.cvc)){
-                            errorText += ' cvc';
-                            this.$["cc-cvc"].invalid = true;
-                        }
-
-                        errorText += '.';
-
-                        this.showError(errorText);
-                    }
-                }
-            },
-
-            sumbmitPayment: function(status, response) {
-                this.$.buyLicence.headers["Csrf-Token"] = CSRF_TOKEN;
-                this.$.token.value = response.id;
-                this.$.buyLicence.submit();
-            },
-
-            _computeFormReady: function(vcpus, dockerhubid, contact, stripePayload, accept) {
-                // move input focus for month/year if length == 2
-                if (stripePayload.path.startsWith("stripePayload."))
-                    this.moveFocus(stripePayload)
-
-                // if vcpus empty not ready
-                if (this.vcpus < 10){
-                    return false;
-                }
-                // if any of contact or payload is empty, form not ready
-                for (var prop in this.contact){
-                    if (this.contact.hasOwnProperty(prop) && (this.contact[prop] == "" || this.contact[prop] == undefined)){
-                        return false;
-                    }
-                }
-                for (var prop in this.stripePayload){
-                    if (this.stripePayload.hasOwnProperty(prop) && (this.stripePayload[prop] == "" || this.stripePayload[prop] == undefined)){
-                        return false;
-                    }
-                }
-                // if any of the fields is invalid, form is not ready
-                var fields = this.$.buyLicence.querySelectorAll(".form-input");
-                for (var i=0;i<fields.length;i++){
-                    if (fields[i].invalid){
-                        return false;
-                    }
-                }
-
-                // if user does not accept terms, form is not ready
-                if (!this.accept)
-                    return false;
-
-                // else form is ready
-                console.log('form ready');
-                return this.$.buyLicence.validate();
-            },
-
-            _computeCost: function(vcpus, annualy){
-                if (vcpus > 0 && annualy) {
-                    return (vcpus * 12 * this.annualCost).toFixed(2);
-                }
-                else if (vcpus > 0 && !annualy) {
-                    return (vcpus * this.monthlyCost).toFixed(2);
-                }
-                else {
-                    this.set("vcpus", 0);
-                    return 0;
-                }
-            },
-
-            moveFocus: function(stripePayload){
-                // if exp_mont has 2 digits move to year
-                if (stripePayload.path == "stripePayload.exp_month" && stripePayload.value.length == 2){
-                    this.$.form.querySelector("paper-input#exp-year").focus()
-                }
-                // if exp_year has 2 digits move to cvc
-                if (stripePayload.path == "stripePayload.exp_year" && stripePayload.value.length == 2){
-                    this.$.form.querySelector("gold-cc-cvc-input").focus()
-                }
-                // if exp_year has 2 digits move to cvc
-                if (stripePayload.path == "stripePayload.cvc" && stripePayload.value.length == 3){
-                    this.$.form.querySelector("paper-input#address-zip").focus()
-                }
-            },
-
-            showError: function(result){
-                this.set('sendingData', false);
-                this.set('formError', true);
-                console.log(result)
-                if (result.error)
-                    this.$.output.textContent = result.error.message;
-                else if (!result)
-                    this.$.output.textContent = "";
-                else
-                    this.$.output.textContent = result;
-                this.loading = false;
-            },
-
-            _logoClicked: function(event) {
-                this.fire('user-action', 'logo click');
-            },
-
-            _signInClicked: function(event) {
-                this.fire('user-action', 'purchase-license click')
-            },
-
-            _isSubmitDisabled: function(formReady, loading) {
-                return !formReady || loading;
             }
+        },
+
+        stripePayload: {
+            type: Object,
+            value: function() {
+                return {
+                    number: "",
+                    exp_month: "",
+                    exp_year: "",
+                    cvc: "",
+                    address_zip: undefined
+                }
+            }
+        },
+
+        vcpus: {
+            type: Number,
+            value: 100
+        },
+
+        dockerhubid: String,
+
+        cost: {
+            type: Number,
+            computed: '_computeCost(vcpus, annualy)'
+        },
+
+        annualy: {
+            type: Boolean,
+            value: true
+        },
+
+        annualCost: {
+            type: Number,
+            value: 1
+        },
+
+        monthlyCost: {
+            type: Number,
+            value: 1.2
+        },
+
+        formReady: {
+            type: Boolean,
+            computed: '_computeFormReady(vcpus, dockerhubid, contact.*, stripePayload.*, accept)',
+            value: true
+        },
+
+        accept: {
+            type: Boolean,
+            value: false
+        },
+
+        stripePublicApikey: {
+            type: String,
+            value: ""
+        },
+
+        instructions: {
+            type: String,
+            value: ""
+        },
+
+        registryUsername: {
+            type: String,
+            value: ""
+        },
+
+        licenseKey: {
+            type: String,
+            value: ""
+        },
+
+        registryPassword: {
+            type: String,
+            value: ""
+        }
+    },
+
+    attached: function() {
+        this.$.buyLicence.addEventListener('iron-form-response', function(event) {
+            that.loading = false;
+            that.registryUsername = event.detail.xhr.response.username;
+            that.registryPassword = event.detail.xhr.response.password;
+            that.licenseKey = event.detail.xhr.response.license_key;
+            that.instructions = event.detail.xhr.response.instructions;
+            this.fire('user-action', 'purchase license sucess');
         });
-    </script>
+        var that = this;
+        this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
+            that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
+        });
+        this.$.buyLicence.addEventListener('iron-form-error', function(event) {
+            that.loading = false;
+            that.$.buyLicence.querySelector('div.output').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
+        });
+
+    },
+
+    submit: function(e) {
+        this.fire('user-action', 'purchase license submit');
+        if (this.formReady) {
+            this.formReady = false;
+            this.loading = true;
+            // extra stripe validation
+            var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
+                Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
+                Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip != '';
+
+            if (isValid) {
+                Stripe.setPublishableKey(this.stripePublicApikey);
+                Stripe.card.createToken(this.stripePayload, stripeResponseHandler);
+                this.set('sendingData', true);
+                var that = this;
+                function stripeResponseHandler(status, response){
+                    if (response.error) {
+                        console.log('stripeResponseHandler failed', response.error.message);
+                        that.showError(response.error.message);
+                    } else {
+                        that.sumbmitPayment(status, response);
+                    }
+                }
+            } else {
+                var errorText = 'There seems to be an error with the';
+                if (!Stripe.card.validateCardNumber(this.stripePayload.number)){
+                    errorText += ' card number';
+                    this.$["cc-cvc"].invalid = true;
+                }
+
+                if (!Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year)){
+                    errorText += ' expiration date';
+                    this.$["exp-year"].invalid = true;
+                }
+
+                if (!Stripe.card.validateCVC(this.stripePayload.cvc)){
+                    errorText += ' cvc';
+                    this.$["cc-cvc"].invalid = true;
+                }
+
+                errorText += '.';
+
+                this.showError(errorText);
+            }
+        }
+    },
+
+    sumbmitPayment: function(status, response) {
+        this.$.buyLicence.headers["Csrf-Token"] = CSRF_TOKEN;
+        this.$.token.value = response.id;
+        this.$.buyLicence.submit();
+    },
+
+    _computeFormReady: function(vcpus, dockerhubid, contact, stripePayload, accept) {
+        // move input focus for month/year if length == 2
+        if (stripePayload.path.startsWith("stripePayload."))
+            this.moveFocus(stripePayload)
+
+        // if vcpus empty not ready
+        if (this.vcpus < 10){
+            return false;
+        }
+        // if any of contact or payload is empty, form not ready
+        for (var prop in this.contact){
+            if (this.contact.hasOwnProperty(prop) && (this.contact[prop] == "" || this.contact[prop] == undefined)){
+                return false;
+            }
+        }
+        for (var prop in this.stripePayload){
+            if (this.stripePayload.hasOwnProperty(prop) && (this.stripePayload[prop] == "" || this.stripePayload[prop] == undefined)){
+                return false;
+            }
+        }
+        // if any of the fields is invalid, form is not ready
+        var fields = this.$.buyLicence.querySelectorAll(".form-input");
+        for (var i=0;i<fields.length;i++){
+            if (fields[i].invalid){
+                return false;
+            }
+        }
+
+        // if user does not accept terms, form is not ready
+        if (!this.accept)
+            return false;
+
+        // else form is ready
+        console.log('form ready');
+        return this.$.buyLicence.validate();
+    },
+
+    _computeCost: function(vcpus, annualy){
+        if (vcpus > 0 && annualy) {
+            return (vcpus * 12 * this.annualCost).toFixed(2);
+        }
+        else if (vcpus > 0 && !annualy) {
+            return (vcpus * this.monthlyCost).toFixed(2);
+        }
+        else {
+            this.set("vcpus", 0);
+            return 0;
+        }
+    },
+
+    moveFocus: function(stripePayload){
+        // if exp_mont has 2 digits move to year
+        if (stripePayload.path == "stripePayload.exp_month" && stripePayload.value.length == 2){
+            this.$.form.querySelector("paper-input#exp-year").focus()
+        }
+        // if exp_year has 2 digits move to cvc
+        if (stripePayload.path == "stripePayload.exp_year" && stripePayload.value.length == 2){
+            this.$.form.querySelector("gold-cc-cvc-input").focus()
+        }
+        // if exp_year has 2 digits move to cvc
+        if (stripePayload.path == "stripePayload.cvc" && stripePayload.value.length == 3){
+            this.$.form.querySelector("paper-input#address-zip").focus()
+        }
+    },
+
+    showError: function(result){
+        this.set('sendingData', false);
+        this.set('formError', true);
+        console.log(result)
+        if (result.error)
+            this.$.output.textContent = result.error.message;
+        else if (!result)
+            this.$.output.textContent = "";
+        else
+            this.$.output.textContent = result;
+        this.loading = false;
+    },
+
+    _logoClicked: function(event) {
+        this.fire('user-action', 'logo click');
+    },
+
+    _signInClicked: function(event) {
+        this.fire('user-action', 'purchase-license click')
+    },
+
+    _isSubmitDisabled: function(formReady, loading) {
+        return !formReady || loading;
+    }
+});
+</script>
 </dom-module>

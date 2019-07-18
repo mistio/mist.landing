@@ -1,8 +1,8 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<script type="module" src="../node_modules/@polymer/polymer/polymer-legacy.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-icons/iron-icons.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-icons/social-icons.js"></script>
 
-<link rel="import" href="shared-styles.html">
+<script type="module" src="./shared-styles.js"></script>
 
 <dom-module id="landing-how-it-works"> 
     <template>
@@ -190,15 +190,20 @@
         </div>
 
     </template>
-    <script>
-    Polymer({
-        is: 'landing-how-it-works',
-        properties: {
-            contents: {
-                type: Array,
-                notify: true
-            }
+    <script type="module">
+import '../node_modules/@polymer/polymer/polymer-legacy.js';
+import '../node_modules/@polymer/iron-icons/iron-icons.js';
+import '../node_modules/@polymer/iron-icons/social-icons.js';
+import './shared-styles.js';
+import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
+Polymer({
+    is: 'landing-how-it-works',
+    properties: {
+        contents: {
+            type: Array,
+            notify: true
         }
-    });
-    </script>
+    }
+});
+</script>
 </dom-module>

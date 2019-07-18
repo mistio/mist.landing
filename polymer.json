@@ -1,38 +1,74 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/landing-app.html",
-  "fragments": [
-   "src/lazy-resources.html",
-   "src/landing-set-password.html",
-   "src/landing-reset-password.html",
-   "src/landing-buy-license.html",
-   "src/landing-request-pricing.html"
-  ],
+  "shell": "src/landing-app.js",
   "sources": [
-   "src/**/*",
-   "data/**/*",
-   "images/**/*",
-   "bower.json",
-   "app.yaml"
+    "images/**/*"
   ],
   "extraDependencies": [
     "manifest.json",
-    "bower_components/webcomponentsjs/**/*",
-    "bower_components/custom-elements/**/*",
-    "bower_components/shadydom/**/*",
-    "bower_components/shadycss/**/*",
-    "bower_components/gold-cc-cvc-input/*.png",
-    "bower_components/gold-cc-input/images/*.png",
-    "tumblrBadge-1.1.js"
+    "node_modules/@webcomponents/webcomponentsjs/*.js",
+    "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
+    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js"
   ],
-  "builds": [{
-    "name": "bundled",
-    "bundle": true,
-    "js": {"minify": true},
-    "css": {"minify": true},
-    "html": {"minify": true}
-  }],
+  "builds": [
+    {
+      "name": "esm-bundled",
+      "browserCapabilities": [
+        "es2015",
+        "modules"
+      ],
+      "js": {
+        "minify": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "bundle": true,
+      "addServiceWorker": true
+    },
+    {
+      "name": "es6-bundled",
+      "browserCapabilities": [
+        "es2015"
+      ],
+      "js": {
+        "minify": true,
+        "transformModulesToAmd": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "bundle": true,
+      "addServiceWorker": true
+    },
+    {
+      "name": "es5-bundled",
+      "js": {
+        "minify": true,
+        "compile": true,
+        "transformModulesToAmd": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "bundle": true,
+      "addServiceWorker": true
+    }
+  ],
+  "moduleResolution": "node",
+  "npm": true,
   "lint": {
-    "rules": ["polymer-2"]
+    "rules": [
+      "polymer-3"
+    ]
   }
 }

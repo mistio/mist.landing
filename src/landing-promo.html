@@ -1,7 +1,7 @@
-<link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../bower_components/iron-icons/social-icons.html">
-<link rel="import" href="shared-styles.html">
+<script type="module" src="../node_modules/@polymer/polymer/polymer-legacy.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-icons/iron-icons.js"></script>
+<script type="module" src="../node_modules/@polymer/iron-icons/social-icons.js"></script>
+<script type="module" src="./shared-styles.js"></script>
 <dom-module id="landing-promo">
     <template>
         <style include="shared-styles"></style>
@@ -174,14 +174,19 @@
             </div>
         </div>
     </template>
-    <script>
-    Polymer({
+    <script type="module">
+import '../node_modules/@polymer/polymer/polymer-legacy.js';
+import '../node_modules/@polymer/iron-icons/iron-icons.js';
+import '../node_modules/@polymer/iron-icons/social-icons.js';
+import './shared-styles.js';
+import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
+Polymer({
 
-        is: 'landing-promo',
+    is: 'landing-promo',
 
-        properties: {
-            data: Object
-        },
+    properties: {
+        data: Object
+    },
 // ADD TO HOME.JSON
 // "promo": {
 //         "type": "Live Webinar",
@@ -200,10 +205,10 @@
 //         }]
 //     },
 
-        _imagePath: function(person) {
-            return 'images/promo/' + person.image;
-        }
+    _imagePath: function(person) {
+        return 'images/promo/' + person.image;
+    }
 
-    });
-    </script>
+});
+</script>
 </dom-module>
