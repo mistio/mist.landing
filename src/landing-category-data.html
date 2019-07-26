@@ -62,8 +62,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return c;
           }
         }
-        if (this.builtinCategories.indexOf(categoryName) == -1)
-          this.fire('show-invalid-url-warning');
       },
 
       _computeCategory: function(categoryName) {
@@ -91,11 +89,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return item;
           }
         }
-        if (this.builtinCategories.indexOf(itemName) == -1)
-          this.fire('show-invalid-url-warning');
       },
 
       _fetchContent: function(category, attempts) {
+        if (this.builtinCategories.indexOf(category.name) == -1 && category.name != 'home')
+          this.fire('show-invalid-url-warning');
         if (!this.category || this.category.name == category.name || this.builtinCategories.indexOf(category.name) > -1) return;
         console.log('category.name', category.name);
         this._setFailure(false);

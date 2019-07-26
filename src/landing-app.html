@@ -629,6 +629,7 @@
               );
             }
           }
+          this.fire('change-section', { title: page.charAt(0).toUpperCase() + page.slice(1) } )
         }
       },
 
