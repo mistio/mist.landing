@@ -62,6 +62,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return c;
           }
         }
+        if (this.builtinCategories.indexOf(categoryName) == -1) {
+          this.fire('show-invalid-url-warning');
+        }
       },
 
       _computeCategory: function(categoryName) {
@@ -89,12 +92,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             return item;
           }
         }
+        if (this.builtinCategories.indexOf(itemName) == -1) {
+          this.fire('show-invalid-url-warning');
+        }
       },
 
       _fetchContent: function(category, attempts) {
-        if (this.builtinCategories.indexOf(category.name) == -1 && category.name != 'home')
+        var inCategories = this.categories.find(function(cat){
+            return category.name == cat.name;
+        });
+        if (this.builtinCategories.indexOf(category.name) == -1 && category.name != 'home' && !inCategories)
           this.fire('show-invalid-url-warning');
-        if (!this.category || this.category.name == category.name || this.builtinCategories.indexOf(category.name) > -1) return;
+        if (!this.category || this.category.name == category.name || this.builtinCategories.indexOf(category.name) > -1)
+          return;
         console.log('category.name', category.name);
         this._setFailure(false);
         // Only fetch the items of a category if it has not been previously set.
@@ -131,7 +141,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       refresh: function() {
         if (this.categoryName) {
           // Try at most 3 times to get the items.
-          this._fetchItems(this._getCategoryObject(this.categoryName), 3);
+          this._fetchContent(this._getCategoryObject(this.categoryName), 3);
         }
       }
 
