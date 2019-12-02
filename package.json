@@ -44,7 +44,8 @@
     "@polymer/paper-radio-button": "^3.0.0",
     "@polymer/paper-radio-group": "^3.0.0",
     "@polymer/paper-tooltip": "^3.0.0",
-    "@polymer/paper-checkbox": "^3.0.0"
+    "@polymer/paper-checkbox": "^3.0.0",
+    "@mistio/mist-password": "^2.0.0"
   },
   "devDependencies": {
     "@0xcda7a/empathy": "0.0.9",
