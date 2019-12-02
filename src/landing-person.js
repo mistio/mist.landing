@@ -4,10 +4,11 @@ import '../node_modules/@polymer/iron-image/iron-image.js';
 import '../node_modules/@polymer/iron-icons/hardware-icons.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout-classes.js';
-import '../node_modules/social-media-icons/social-media-icons.js';
+// import '../node_modules/social-media-icons/social-media-icons.js';
 import './shared-styles.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+import '../node_modules/social-icon/dile-social-icon.js';
 
 Polymer({
   _template: html`
