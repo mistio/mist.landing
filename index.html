@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <base tal:attributes="href string:/landing/${build_path}"></base>
 
-  <title><tal tal:replace="portal_name|nothing">mist.io</tal> :: open source multi-cloud management platform</title>
+  <title tal:content="portal_name|nothing"> mist.io :: open source multi-cloud management platform</title>
   <meta name="description" content="A secure cloud management platform for automation, orchestration, cost and usage monitoring of public and private clouds, hypervisors and container hosts. Provides multi-cloud RBAC. Enables self service provisioning. Cost analysis and cloud spending optimization">
 
   <link tal:condition="theme|nothing" rel="shortcut icon" sizes="32x32" tal:attributes="href string:/static/${theme}-favicon.ico">
