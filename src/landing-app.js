@@ -31,8 +31,8 @@ import './landing-page.js';
 import './landing-category-data.js';
 import './shared-styles.js';
 import './landing-footer.js';
-//import './landing-social.js';
-//import './landing-person.js';
+// import './landing-social.js';
+import './landing-person.js';
 import './landing-fold.js';
 import './landing-testimonials.js';
 import './landing-zoom-in.js';
@@ -45,6 +45,9 @@ import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from '../node_modules/@polymer/polymer/lib/utils/render-status.js';
 import { dom } from '../node_modules/@polymer/polymer/lib/legacy/polymer.dom.js';
+import './lazy-resources.js';
+import './landing-buy-license.js';
+import './landing-request-pricing.js';
 //import '../node_modules/fingerprintjs2/fingerprint2.js';
 // performance logging
 window.performance && performance.mark && performance.mark('landing-app - before register');
@@ -598,17 +601,17 @@ Polymer({
         var category = this.categories && this.categories.find(function(c){ return c.name == page});
         if (!category)
           category = category && this.categories.find(function(c){ return c.href == "/" + page});
-        if (category && category.template) {
-          this.importHref(
-            this.resolveUrl('landing-' + category.template + '.html'),
-            cb, cb, true
-          );
-        } else if (['buy-license', 'request-pricing'].indexOf(page) > -1) {
-          this.importHref(
-            this.resolveUrl('landing-' + page + '.html'),
-            cb, cb, true
-          );
-        }
+        // if (category && category.template) {
+        //   this.importHref(
+        //     this.resolveUrl('landing-' + category.template + '.html'),
+        //     cb, cb, true
+        //   );
+        // } else if (['buy-license', 'request-pricing'].indexOf(page) > -1) {
+        //   this.importHref(
+        //     this.resolveUrl('landing-' + page + '.html'),
+        //     cb, cb, true
+        //   );
+        // }
       }
     }
   },
@@ -628,14 +631,12 @@ Polymer({
     // load lazy resources after render and set `loadComplete` when done.
     if (!this.loadComplete) {
       afterNextRender(this, function() {
-        this.importHref(this.resolveUrl('lazy-resources.html'), function() {
-          // Register service worker if supported.
-          if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/landing/service-worker.js');
-          }
-          this._notifyNetworkStatus();
-          this.loadComplete = true;
-        });
+      // this.import('lazy-resources.js').then(callback);
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/landing/service-worker.js');
+        }
+        this._notifyNetworkStatus();
+        this.loadComplete = true;
       });
     }
   },
@@ -782,30 +783,31 @@ Polymer({
     if (!this.config || !this.config.features || !this.config.features.ab)
       return;
     var xhr = new XMLHttpRequest();
-    if (!this.fingerprint){
-      var that = this;
-      new Fingerprint2().get(function(result, components){
-        // this will use all available fingerprinting sources
-        that.fingerprint = result;
-        var componentMap = {};
-        components.forEach(function(e){componentMap[e.key] = e.value});
-        var payload = {'action': event.detail,
-                       'fingerprint': result,
-                       'resolution': componentMap.resolution,
-                       'platform': componentMap.navigator_platform,
-                       'browser': that._getBrowser(),
-                       'tz': componentMap.timezone_offset};
-        if (document.referrer)
-          payload['referrer'] = document.referrer;
-        xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(JSON.stringify(payload)));
-        xhr.send();
-      });
-    } else {
-      var payload = {'action': event.detail,
-                     'fingerprint': this.fingerprint};
-      xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(JSON.stringify(payload)));
-      xhr.send();
-    }
+    // TODO: De-comment when fingerprint gets updated
+    // if (!this.fingerprint){
+    //   var that = this;
+    //   new Fingerprint2().get(function(result, components){
+    //     // this will use all available fingerprinting sources
+    //     that.fingerprint = result;
+    //     var componentMap = {};
+    //     components.forEach(function(e){componentMap[e.key] = e.value});
+    //     var payload = {'action': event.detail,
+    //                    'fingerprint': result,
+    //                    'resolution': componentMap.resolution,
+    //                    'platform': componentMap.navigator_platform,
+    //                    'browser': that._getBrowser(),
+    //                    'tz': componentMap.timezone_offset};
+    //     if (document.referrer)
+    //       payload['referrer'] = document.referrer;
+    //     xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(JSON.stringify(payload)));
+    //     xhr.send();
+    //   });
+    // } else {
+    //   var payload = {'action': event.detail,
+    //                  'fingerprint': this.fingerprint};
+    //   xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(JSON.stringify(payload)));
+    //   xhr.send();
+    // }
   },
 
   _getBrowser: function() {
