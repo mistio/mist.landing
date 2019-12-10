@@ -45,7 +45,6 @@
     "@polymer/paper-styles": "^3.0.0",
     "@polymer/paper-tooltip": "^3.0.0",
     "@polymer/polymer": "^3.0.0",
-    "@mist/mist-password": "^2.0.0",
     "social-icon": "^1.2.1",
     "web-animations-js": "^2.3.1"
   },
