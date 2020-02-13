@@ -538,31 +538,13 @@ Polymer({
                 <div class="row text-center">
                     <h2 class="decorated">Help with custom needs?</h2>
                 </div>
-                <div class="grid-row">
-                    <div class="xs12 s12 m6 l8">
-                        <div class="left">
-                            <h5 class="w400">Do you have more than 300 machines? <br>Do you want to run Mist on premises? </h5>
-                            <p> We can provide custom pricing for businesses with a lot of infrastructure.
-                                <br>Also, we can work with you to run Mist on premises or to setup a proof of concept. </p>
-                        </div>
-                    </div>
-                    <div class="xs12 s12 m6 l4">
-                        <h5 class="w400">Contact us if you: </h5>
-                        <p>
-                            <iron-icon icon="check"></iron-icon> Have more than 300 machines
-                            <br>
-                            <iron-icon icon="check"></iron-icon> Want help optimizing your infrastructure
-                            <br>
-                            <iron-icon icon="check"></iron-icon> Require HA or 24/7 support
-                            <br>
-                            <iron-icon icon="check"></iron-icon> Want to whitelabel or extend Mist
-                            <br>
-                        </p>
-                        <p>
+                <div class="grid-row text-center">
+                    <div class="xs12 s12 m12 l12">
+                        <p> We can provide custom pricing for businesses with a lot of infrastructure,
+                            <br/> and work with you to run Mist on premises, setup a proof of concept, whitelabel or extend Mist. </p>                    
                             <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
-                                <paper-button raised="" on-tap="_requestInfoClick" id="enterpriseBtn">Request Pricing</paper-button>
-                            </a>
-                        </p>
+                            <paper-button raised="" on-tap="_requestInfoClick" id="enterpriseBtn">Contact Sales</paper-button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -631,7 +613,7 @@ Polymer({
 
   _requestInfoClick: function(event) {
       window.scrollTo(0, 0);
-      this.fire('user-action', 'request info button click in get-started');
+      this.fire('user-action', 'contact sales click button click in get-started');
   },
 
   _computeClass: function(index) {
