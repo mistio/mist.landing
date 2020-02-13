@@ -30,7 +30,7 @@ Polymer({
         font-size: 14px !important;
       }
       .subfoot .contains {
-        padding: 1rem;
+        padding: 1rem 0;
       }
       a, .a {
         text-decoration: none;
