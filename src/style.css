@@ -866,6 +866,12 @@ landing-person img {
   font-weight: 500;
 }
 
+.page paper-button.btn-bordered {
+  border: 2px solid var(--app-accent-color) !important;
+  background-color: #fff !important;
+  color: var(--app-accent-color) !important;
+}
+
 a {
   text-decoration: none;
 }
@@ -1137,12 +1143,17 @@ img.with-shadow {
 }
 
 #whatsnew h4 {
-    padding: 0.112rem 0 0.912rem 0 !important;
+    padding: 0;
 }
 
 #whatsnew a {
-    color: #acd !important;
+    color: #88c1de !important;
     cursor: pointer;
+}
+
+#whatsnew a p {
+  color: #fff !important;
+  padding: 0;
 }
 
 #whatsnew .join {
