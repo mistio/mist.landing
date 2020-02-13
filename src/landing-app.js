@@ -48,6 +48,7 @@ import { dom } from '../node_modules/@polymer/polymer/lib/legacy/polymer.dom.js'
 import './lazy-resources.js';
 import './landing-buy-license.js';
 import './landing-request-pricing.js';
+import './landing-request-demo.js';
 //import '../node_modules/fingerprintjs2/fingerprint2.js';
 // performance logging
 window.performance && performance.mark && performance.mark('landing-app - before register');
@@ -73,7 +74,7 @@ Polymer({
       }
 
       app-toolbar {
-        max-width: 1180px;
+        display: flex;
         margin: 0 auto;
         width: 90%;
         box-sizing: border-box;
@@ -181,6 +182,7 @@ Polymer({
       :host([page=forgot-password]) > app-header,
       :host([page=sign-in]) > app-header,
       :host([page=sign-up]) > app-header,
+      :host([page=request-demo]) > app-header,
       :host([page=request-pricing]) > app-header,
       :host([page=get-started]) > app-header,
       :host([page=buy-license]) > app-header {
@@ -204,9 +206,11 @@ Polymer({
       #tabContainer {
         position: relative;
         height: 66px;
-        width: var(--tab-ontainer-width);
-        text-align: right;
         margin: 12px 16px 0 0;
+        flex: 1;
+        align-items: flex-end;
+        justify-self: flex-end;
+        justify-items: flex-end;
       }
 
       landing-tabs, landing-tab {
@@ -421,6 +425,7 @@ Polymer({
           <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
           <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey="[[config.stripeKey]]"></landing-buy-license>
           <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+          <landing-request-demo name="request-demo" route="[[subroute]]" offline="[[offline]]" id="request-demo"></landing-request-demo>
 
           <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password" support-email="[[config.email.support]]"></landing-forgot-password>
           <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
@@ -743,7 +748,7 @@ Polymer({
   },
 
   _hasFooter: function(page) {
-    var unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password', 'request-pricing', 'buy-license']
+    var unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password', 'request-demo', 'request-pricing', 'buy-license']
     if (unfootedPages.indexOf(page) > -1)
       return false;
     return true;
