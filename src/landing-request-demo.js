@@ -1,0 +1,242 @@
+import '@polymer/polymer/polymer-legacy';
+import '@polymer/paper-input/paper-input';
+import '@polymer/paper-input/paper-textarea';
+import '@polymer/paper-button';
+import '@polymer/paper-icon-button';
+import '@polymer/paper-spinner/paper-spinner';
+import '@polymer/paper-material';
+import '@polymer/iron-form';
+import '@polymer/iron-icon';
+import '@polymer/iron-icons';
+import '@polymer/iron-icons/social-icons';
+import '@polymer/iron-ajax';
+import '@polymer/iron-flex-layout/iron-flex-layout';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn';
+import { html } from '@polymer/polymer/lib/utils/html-tag';
+
+Polymer({
+    _template: html`
+    <style>
+            :host {
+                background-color: #fff;
+                padding-top: 100px;
+            }
+
+            [hidden] {
+                display: none !important;
+            }
+
+            h1 {
+                text-align: center;
+                font-weight: 200;
+                font-family: Roboto, sans;
+                font-size: 36px;
+            }
+
+            a {
+                color: #2196F3;
+                cursor: pointer;
+                text-decoration: none;
+            }
+
+            paper-button {
+                width: 100%;
+                margin-top: 8px;
+                color: #bbb;
+                font-weight: 500;
+                font-size: 16px;
+                margin: 24px auto 16px;
+                text-align: center;
+                height: 46px;
+                display: block;
+                width: 300px;
+                padding-left: 4px;
+            }
+
+            paper-button > iron-icon {
+                padding: 7px;
+                background-color: #fff;
+                float: left;
+                margin-top: -7px;
+            }
+
+            paper-button > span {
+                width: 100%;
+            }
+
+            paper-spinner {
+                width: 16px;
+                height: 16px;
+                margin: 0 auto;
+            }
+
+            paper-button[disabled] {
+                opacity: var(--form-button-opacity-disabled, 1);
+            }
+
+            paper-button:not([disabled]) {
+                background-color: var(--app-accent-color);
+                color: #fff;
+            }
+
+            paper-button.white:not([disabled]) {
+                background-color: #fff;
+                color: #424242;
+            }
+
+            div.output {
+                color: var(--black-opaque-87);
+                text-align: center;
+                white-space: pre-wrap;
+                margin-top: 16px;
+            }
+
+            div.forgot {
+                text-align: right;
+                font-size: 12px;
+            }
+            pricing
+            a#signUpLink {
+                float: left;
+            }
+
+            paper-material {
+                background-color: var(--form-background);
+                display: block;
+                padding: 8px 32px 32px;
+                @apply(--shadow-elevation-2dp);
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            div.sign-up {
+                text-align: center;
+                padding: 32px;
+                font-size: 15px;
+            }
+
+            div.logo-solo {
+                width: 220px;
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            div.logo-solo paper-icon-button {
+                width: 160px;
+                height: 160px;
+                padding: 32px;
+            }
+
+            div.or {
+                margin: 32px auto 0px;
+                width: 100px;
+                text-align: center;
+                text-transform: uppercase;
+                font-size: 15px;
+                font-weight: 500;
+                color: #888;
+                display: block;
+            }
+
+            #name, #signUp-email {
+                width: 49%;
+                display: inline-block;
+            }
+            @media screen and (max-width: 700px) {
+                #name, #signUp-email {
+                    width: auto;
+                    display: block;
+                }   
+            }
+        </style>
+
+
+        <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-tap="_logoClicked" id="logoButton"></paper-icon-button></a></div>
+
+        <h1>Schedule Demo</h1>
+        <iron-form id="signUpForm">
+            <paper-material elevation="1">
+                <form method="post" action="/api/v1/request-info" enctype='application/json' id='form'>
+                    <paper-input name="name" id="name" label="Full name" required auto-validate autofocus></paper-input>
+                    <paper-input name="email" id="signUp-email" label="Email" required auto-validate autofocus type="email"></paper-input>
+                    <paper-input name="details" id="signUp-details" label="Company / Job description" auto-validate autofocus></paper-input>
+                    <paper-textarea name="comments" id="signUp-comments" label="Optional: Describe your infrustructure and the problem you want to solve" auto-validate autofocus rows="7"></paper-textarea>
+                    <paper-button raised on-tap="_submitButtonHandler" disabled id="signUpSubmit">
+                        <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
+                        <div hidden$="[[loading]]">Send demo request</div>
+                    </paper-button>
+                </form>
+                <div class="output"></div>
+            </paper-material>
+        </iron-form>
+    `,
+    is: 'landing-request-demo',
+
+    properties: {
+        loading: {
+            type: Boolean,
+            value: false
+        },
+        invitoken: String
+    },
+
+    observers: [
+        '_invitokenExists(invitoken)'
+    ],
+
+    attached: function() {
+        var that = this,
+            validate = function(event) {
+            // Validate the entire form to see if we should enable the `Submit` button.
+            var ret = that.$.signUpForm.validate();
+            that.$.signUpSubmit.disabled = !ret;
+            return ret;
+        }
+        this.$.signUpForm.addEventListener('keyup', function(event) {
+            var submitDisabled = that.$.signUpSubmit.disabled;
+            that.$.signUpForm.querySelector('paper-button > div').innerHTML = "Send request";
+            if (validate(event) && !submitDisabled && event.key == "Enter")
+                that._submitButtonHandler();
+        });
+        this.$.signUpForm.addEventListener('change', validate);
+
+        this.$.signUpForm.addEventListener('iron-form-error', function(event) {
+            console.warn("GOT ERROR!", event.detail);
+            that.loading = false;
+            that.$.signUpForm.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
+        });
+        this.$.signUpForm.addEventListener('iron-form-response', function(event) {
+            console.warn("REQUEST SUCCESS!", event);
+            that.loading = false;
+            that.$.signUpForm.querySelector('form').hidden = true;
+            that.$.signUpForm.querySelector('.output').innerHTML = "Thank you for contacting us! We will get back to you as soon as possible. <br/> <a href='/home'>Back to home page</a>";
+        });
+        this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
+            that.$.signUpForm.request.headers['Csrf-Token'] = CSRF_TOKEN;
+            that.fire('user-action', 'request-pricing submit')
+        });
+    },
+    _submitButtonHandler:  function(event) {
+        this.loading = true;
+        this.$.signUpSubmit.disabled = true;
+        this.$.signUpForm.querySelector('.output').innerHTML = '';
+        this.$.signUpForm.submit();
+    },
+    _logoClicked: function(event) {
+        this.fire('user-action', 'logo click on request-demo');
+    },
+    _signInClicked: function(event) {
+        this.fire('user-action', 'request-demo click')
+    },
+    _invitokenExists: function(tok){
+        console.log('tok', tok);
+        if (tok) {
+            var element = document.createElement('input');
+            element.type = 'hidden';
+            element.name = 'invitoken';
+            element.value = this.invitoken;
+            this.$.form.appendChild(element);
+        }
+    },
+});
