@@ -322,6 +322,8 @@ Polymer({
                         <span><iron-icon icon="icons:arrow-back" on-tap="goBack"></iron-icon></span>
                     </div>
                     <h2 class="decorated">Choose your Mist</h2>
+                    <br/>
+                    <h4>Try all Mist features - free for 14 days</h4>
                 </div>
             </div>
             <div class="section grey">
@@ -336,7 +338,7 @@ Polymer({
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
-                                        <p class="valign">Ideal for personal projects and small teams with a DIY approach.</p>
+                                        <p class="valign">Ideal for personal projects and small teams with a DIY approach. Download from Github.</p>
                                     </div>
                                     <div class="plan-body-item">
                                         <div class="valign">
@@ -477,14 +479,14 @@ Polymer({
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
-                                        <p class="valign">Mist as a Service. Ideal for highly dynamic infrastructures &amp; teams. Easy to get started.</p>
+                                        <p class="valign">Mist SaaS. Ideal for highly dynamic infrastructures &amp; teams. Easy to get started. Pay as you go rates apply after trial. </p>
                                     </div>
                                     <div class="plan-body-item">
                                         <div class="valign">
                                             <div class="valign">
                                                 <a href="/pricing" on-tap="_pricingClick">
-                                                    <h4>Pay As You Go</h4>
-                                                    <h4 class="price"><sub>or prepaid plans.</sub></h4>
+                                                    <h4>14 days free trial</h4>
+                                                    <h4 class="price"><sub>Prepaid plans available.</sub></h4>
                                                 </a>
                                             </div>
                                         </div>
