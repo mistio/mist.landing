@@ -75,7 +75,7 @@ Polymer({
       app-toolbar {
         display: flex;
         margin: 0 auto;
-        width: 90%;
+        padding: 0 24px;
         box-sizing: border-box;
       }
 
@@ -127,7 +127,6 @@ Polymer({
 
       paper-icon-button {
         color: var(--app-primary-color);
-        margin-top: 12px;
       }
 
       .logo {
@@ -198,6 +197,10 @@ Polymer({
         right: 0px;
       }
 
+      .signin-btn-container a {
+        margin: 0 5px;
+      }
+
       [hidden] {
         display: none !important;
       }
@@ -227,10 +230,10 @@ Polymer({
         margin: 0 5px;
       }
 
-      landing-tab a {
+      landing-tab a, .nav-tab {
         display: inline-block;
         outline: none;
-        padding: 27px 9px;
+        padding: 24px 8px;
         font-size: 15px;
         font-weight: 400;
         color: var(--tab-color) !important;
@@ -240,6 +243,7 @@ Polymer({
 
       app-drawer a {
         color: var(--app-primary-color) !important;
+        font-weight: 500;
       }
 
       .drawer-list {
@@ -248,6 +252,7 @@ Polymer({
 
       .drawer-list a {
         display: block;
+        margin-left: 24px;
         padding: 0 16px;
         line-height: 40px;
         text-decoration: none;
@@ -255,8 +260,8 @@ Polymer({
       }
 
       .drawer-list a.iron-selected {
-        color: black;
-        font-weight:   bold;
+        color: var(--app-accent-color) !important;
+        font-weight: 600;
       }
 
       app-drawer {
@@ -292,7 +297,7 @@ Polymer({
         color: var(--white-color);
       }
 
-      div.signin-btn-container paper-button {
+      div.getstarted-btn-container paper-button {
         background-color: #444;
         font-size: 15px;
         margin-right: 0;
@@ -313,7 +318,7 @@ Polymer({
       }
 
       /* small screen */
-      @media (max-width: 767px) {
+      @media (max-width: 910px) {
         .menu-btn {
           display: block;
         }
@@ -321,15 +326,38 @@ Polymer({
         :host([page=detail]) .menu-btn {
           display: none;
         }
+      }
 
-        .logo {
+      /* @media (min-width: 766px) and (max-width: 876px) {
+        landing-tab:first-child {
           display: none;
+        }
+      } */
+
+      @media (min-width: 1224px) {
+        app-toolbar {
+          padding: 0 80px;
         }
       }
 
-      @media (min-width: 766px) and (max-width: 876px) {
-        landing-tab:first-child {
-          display: none;
+      @media (max-width: 1024px) {
+        landing-tab a {
+          padding: 24px 2px;
+        }
+        .signin-btn-container a {
+          margin: 0;
+        }
+      }
+
+      @media (max-width: 910px) {
+        .left-bar-item {
+          margin-right: 24px;
+        }
+        div.getstarted-btn-container paper-button {
+          font-size: 13px;
+          font-weight: 500;
+          line-height: 2em;
+          margin-right: 0;
         }
       }
 
@@ -341,7 +369,7 @@ Polymer({
     <app-location route="{{route}}" id="appLocation"></app-location>
     <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 
-    <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
+    <iron-media-query query="max-width: 910px" query-matches="{{smallScreen}}"></iron-media-query>
 
     <!--
       landing-category-data provides the list of categories.
@@ -351,8 +379,6 @@ Polymer({
     <app-header role="navigation" id="header" effects="waterfall" fixed="">
       <app-toolbar>
         <div class="left-bar-item">
-          <paper-icon-button class="menu-btn" icon="menu" on-tap="_toggleDrawer" aria-label="Categories">
-          </paper-icon-button>
           <div class="logo">
             <a href="/" aria-label="Mist.io Home" on-tap="_logoClicked">
               <!-- <img src="images/logo.svg"> -->
@@ -377,10 +403,21 @@ Polymer({
           </dom-if>
         </div>
 
-        <div class\$="signin-btn-container [[_shouldShowTabs]]">
-          <a href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io">
-            <paper-button raised="" on-tap="_signInClick">Sign In</paper-button>
+        <div class="getstarted-btn-container">
+          <a href="/get-started" tabindex="-1" aria-label="Sign in to Mist.io">
+            <paper-button raised="" on-tap="_getStartedClick">Get Started</paper-button>
           </a>
+        </div>
+
+        <div class\$="signin-btn-container [[_shouldShowTabs]]">
+          <a class="nav-tab" href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io" on-tap="_signInClick" hidden\$="[[!_shouldShowTabs]]">
+            Sign In
+          </a>
+          <a class="nav-tab" href="/sign-up" tabindex="-1" aria-label="Sign up to Mist.io" on-tap="_signUpClick" hidden\$="[[!_shouldShowTabs]]">
+            Register
+          </a>
+          <paper-icon-button class="menu-btn" icon="menu" on-tap="_toggleDrawer" aria-label="Categories">
+          </paper-icon-button>
         </div>
       </app-toolbar>
     </app-header>
@@ -391,11 +428,22 @@ Polymer({
       <!-- Two-way bind \`drawerOpened\` since app-drawer can update \`opened\` itself. -->
       <app-drawer opened="{{drawerOpened}}" swipe-open="" tabindex="0">
         <iron-selector role="navigation" class="drawer-list" selected="{{page}}" attr-for-selected="name">
+          <a name="home" href="/">Home</a>
           <dom-repeat items="[[categories]]" as="category" initial-count="4">
             <template>
               <a name="[[category.name]]" href="[[category.href]]" hidden\$="[[category.hiddenFromMenu]]">[[category.title]]</a>
             </template>
           </dom-repeat>
+          <div class="getstarted-btn-container">
+            <a href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io">
+              <paper-button raised="" on-tap="_signInClick">Sign in</paper-button>
+            </a>
+          </div>
+          <div class="getstarted-btn-container">
+            <a href="/sign-up" tabindex="-1" aria-label="Sign up to Mist.io">
+              <paper-button raised="" on-tap="_signUpClick">Register</paper-button>
+            </a>
+          </div>
         </iron-selector>
       </app-drawer>
       </template>
