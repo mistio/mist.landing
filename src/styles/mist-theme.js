@@ -33,7 +33,7 @@ $_documentContainer.innerHTML = `<style is="custom-style">
         --tab-ontainer-width: 69%;
 
         --logo-height: 53px;
-        --logo-width: 119px;
+        --logo-width: 135px;
         --logo-image: url('/landing/images/logo.svg');
         --vertical-logo: url('/landing/images/logo-vertical.svg');
         --form-box-shadow: rgba(0, 0, 0, 0.157) 0px 2px 5px 0px, rgba(0, 0, 0, 0.118) 0px 2px 10px 0px;

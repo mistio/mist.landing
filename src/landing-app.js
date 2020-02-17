@@ -70,7 +70,6 @@ Polymer({
         z-index: 1;
         background-color: var(--white-opaque-95);
         box-shadow: var(--app-header-box-shadow);
-        height: 74px;
       }
 
       app-toolbar {
@@ -133,7 +132,7 @@ Polymer({
 
       .logo {
         text-align: left;
-        padding-top: 20px;
+        display: flex
       }
 
       .logo a {
@@ -143,7 +142,7 @@ Polymer({
         color: var(--app-primary-color);
         text-decoration: none;
         height: var(--logo-height); /*53px;*/
-        width: var(--logo-width); /*119px;*/
+        width: var(--logo-width); /*135px;*/
         background-image: var(--logo-image);  /*url('../images/logo.svg'); */
         background-repeat: no-repeat;
         /* required for IE 11, so this <a> can receive pointer events */
@@ -206,7 +205,7 @@ Polymer({
       #tabContainer {
         position: relative;
         height: 66px;
-        margin: 12px 16px 0 0;
+        margin: 0 16px 0 0;
         flex: 1;
         align-items: flex-end;
         justify-self: flex-end;
@@ -300,7 +299,6 @@ Polymer({
         margin-left: 0px;
         padding: 2px 18px;
         font-weight: 400;
-        margin-top: 12px;
         line-height: 36px;
         white-space: nowrap;
       }
