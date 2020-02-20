@@ -50,6 +50,9 @@ $_documentContainer.innerHTML = `<style is="custom-style">
         --paper-input-container-underline: {
             border-color: var(--app-accent-color);
         };
+
+        --green-color: #69b46c;
+        --red-color: #d96557;
     };
     --app-header-shadow: {
         box-shadow: inset 0px 5px 6px -3px rgba(0, 0, 0, 0.2);

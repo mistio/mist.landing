@@ -195,10 +195,12 @@ Polymer({
       .signin-btn-container.true {
         position: relative;
         right: 0px;
+        padding-left: 16px;
       }
 
       .signin-btn-container a {
         margin: 0 5px;
+        font-weight: 500;
       }
 
       [hidden] {
@@ -298,12 +300,12 @@ Polymer({
       }
 
       div.getstarted-btn-container paper-button {
-        background-color: #444;
+        background-color: var(--app-accent-color);
         font-size: 15px;
         margin-right: 0;
         margin-left: 0px;
         padding: 2px 18px;
-        font-weight: 400;
+        font-weight: 450;
         line-height: 36px;
         white-space: nowrap;
       }
@@ -425,27 +427,27 @@ Polymer({
     <!-- Lazy-create the drawer for small screen sizes. -->
     <dom-if if="[[_shouldRenderDrawer]]" restamp="">
       <template>
-      <!-- Two-way bind \`drawerOpened\` since app-drawer can update \`opened\` itself. -->
-      <app-drawer opened="{{drawerOpened}}" swipe-open="" tabindex="0">
-        <iron-selector role="navigation" class="drawer-list" selected="{{page}}" attr-for-selected="name">
-          <a name="home" href="/">Home</a>
-          <dom-repeat items="[[categories]]" as="category" initial-count="4">
-            <template>
-              <a name="[[category.name]]" href="[[category.href]]" hidden\$="[[category.hiddenFromMenu]]">[[category.title]]</a>
-            </template>
-          </dom-repeat>
-          <div class="getstarted-btn-container">
-            <a href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io">
-              <paper-button raised="" on-tap="_signInClick">Sign in</paper-button>
-            </a>
-          </div>
-          <div class="getstarted-btn-container">
-            <a href="/sign-up" tabindex="-1" aria-label="Sign up to Mist.io">
-              <paper-button raised="" on-tap="_signUpClick">Register</paper-button>
-            </a>
-          </div>
-        </iron-selector>
-      </app-drawer>
+        <!-- Two-way bind \`drawerOpened\` since app-drawer can update \`opened\` itself. -->
+        <app-drawer opened="{{drawerOpened}}" swipe-open="" tabindex="0">
+          <iron-selector role="navigation" class="drawer-list" selected="{{page}}" attr-for-selected="name">
+            <a name="home" href="/">Home</a>
+            <dom-repeat items="[[categories]]" as="category" initial-count="4">
+              <template>
+                <a name="[[category.name]]" href="[[category.href]]" hidden\$="[[category.hiddenFromMenu]]">[[category.title]]</a>
+              </template>
+            </dom-repeat>
+            <div class="getstarted-btn-container">
+              <a href="/sign-in" name="sign-in" tabindex="-1" aria-label="Sign in to Mist.io">
+                <paper-button raised="" on-tap="_signInClick">Sign in</paper-button>
+              </a>
+            </div>
+            <div class="getstarted-btn-container">
+              <a href="/sign-up" name="sign-up" tabindex="-1" aria-label="Sign up to Mist.io">
+                <paper-button raised="" on-tap="_signUpClick">Register</paper-button>
+              </a>
+            </div>
+          </iron-selector>
+        </app-drawer>
       </template>
     </dom-if>
 
@@ -819,7 +821,8 @@ Polymer({
     this.async(
       function() {
         waves.forEach(function(wave) { wave.up(); });
-        this.fire('go-to', event.target.parentElement.href);
+        this.fire('go-to', '/sign-up'); // event.target.parentElement.href);
+        console.log('go to sign up', event.target.parentElement && event.target.parentElement.href)
         window.scrollTo(0, 0);
       }, 200 );
   },

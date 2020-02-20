@@ -172,7 +172,7 @@ Polymer({
                             <paper-item>10,000+</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
-                    <paper-dropdown-menu name="country" id="country" label="country" auto-validate autofocus>
+                    <paper-dropdown-menu name="country" id="country" label="Country" auto-validate autofocus>
                         <paper-listbox slot="dropdown-content" selected="-1">
                             <paper-item>Afghanistan</paper-item>
                             <paper-item>Albania</paper-item>

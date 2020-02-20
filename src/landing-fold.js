@@ -16,6 +16,7 @@ Polymer({
 
       :host {
         display: block;
+        padding: 0;
       }
 
       .item {

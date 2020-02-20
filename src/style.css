@@ -19,6 +19,50 @@
     font-size: 15px;
   }
 }
+/* FEATURES GRID */
+table {
+  border-collapse: collapse;
+}
+th, td {
+  border-bottom: 1px solid #eee;
+}
+.grid-container {
+  width:100%;
+  table-layout: fixed;
+  overflow-wrap: break-word;
+}
+.grid-cell:first-child {
+  width: 40%;
+}
+.grid-cell {
+  padding: 20px;
+}
+.grid-cell.c {
+  text-align: center;
+}
+.grid-cell iron-icon[icon="done"] {
+  color: #4caf50;
+}
+.grid-cell iron-icon[icon="clear"] {
+  color: red;
+}
+.contact paper-button.btn-bordered {
+  border: 2px solid var(--app-accent-color) !important;
+  background-color: #fff !important;
+  color: var(--app-accent-color) !important;
+  font-size: 14px;
+  padding: 10px 20px;
+}
+#fixedTableHeader {
+  position: absolute;
+  top: 0;
+  background-color: rgba(255,255,255,.9);
+  position: fixed;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0;
+}
+/* END OF FEATURES GRID */
 .container, .section {
     font-size: 18px !important;
     line-height: 1.5;
@@ -808,8 +852,12 @@ paper-button {
     margin-right: 24px;
 }
 
-/* ABOUT */
+/* HOME */
+.section > landing-fold {
+  padding: 0;
+}
 
+/* ABOUT */
 .about .text-center {
   text-align: center;
 }
@@ -1470,7 +1518,7 @@ span#vcpus, span#datapoints, span#rulechecks, span#apirequests, span#retention {
 #pricing paper-button#enterpriseBtn {
     background-color: #4caf50;
     /*green*/
-    display: block-inline;
+    display: inline-block;
     line-height: 54px;
     margin-left: 0 !important;
     margin-right: 0 !important;
@@ -1928,4 +1976,7 @@ paper-dialog#zoomArea img {
 #get-started h2.decorated {
     margin-left: 32px;
     margin-right: 32px;
+}
+.cell {
+  border: 1px solid #ccc;
 }

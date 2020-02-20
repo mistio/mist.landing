@@ -70,6 +70,10 @@ Polymer({
   ],
 
   properties: {
+    selected: {
+      type: String,
+      observer: '_selectedPageChanged'
+    },
 
     activateEvent: {
       type: String,
@@ -77,10 +81,6 @@ Polymer({
     }
 
   },
-
-  observers: [
-    '_selectedPageChanged(selected)'
-  ],
 
   _selectedPageChanged: function(selected, old) {
     this.async(this.notifyResize);

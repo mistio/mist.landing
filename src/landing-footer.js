@@ -142,7 +142,7 @@ Polymer({
           </div> -->
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom address">
             <img src="images/logo-white.svg" width="125px">
-            <p>Made with <iron-icon icon="icons:favorite"></iron-icon> in Greece &amp; California<br><br></p>
+            <p>Made with <iron-icon icon="icons:favorite"></iron-icon> in the USA &amp; Greece<br><br></p>
             <p><iron-icon icon="communication:email"></iron-icon> info@mist.io &nbsp;<br><iron-icon icon="communication:phone"></iron-icon> +1-650-605-3299</p>
             <p></p>
             <p> Mist.io Inc <br>

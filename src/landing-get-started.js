@@ -10,6 +10,8 @@ import '../node_modules/@polymer/paper-tooltip/paper-tooltip.js';
 import './shared-styles.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+import '../node_modules/@polymer/iron-collapse/iron-collapse.js';
+
 Polymer({
   _template: html`
         <custom-style>
@@ -313,6 +315,31 @@ Polymer({
             margin-left: 32px;
             margin-right: 32px;
         }
+        .expand-btns {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #eee;
+        }
+        .expand {
+            transition: transform 100ms;
+        }
+        .expand.true {
+            transform: rotate(-180deg);
+        }
+        .grid-cell iron-icon[icon="done"]{
+            color: #fff;
+            background-color: var(--green-color);
+            border-radius: 50%;
+            padding: 4px;
+        }
+        .grid-cell iron-icon[icon="clear"]{
+            color: #fff;
+            background-color: var(--red-color);
+            padding: 4px;
+            border-radius: 50%;
+        }
         </style>
         <div id="placeholder"></div>
         <div id="container">
@@ -321,85 +348,65 @@ Polymer({
                     <div class="back">
                         <span><iron-icon icon="icons:arrow-back" on-tap="goBack"></iron-icon></span>
                     </div>
-                    <h2 class="decorated">Choose your Mist</h2>
-                    <br/>
-                    <h4>Try all Mist features - free for 14 days</h4>
+                    <!-- <h2 class="decorated">Choose your Mist</h2> -->
+                    <!-- <br/> -->
+                    <h4>Try all Mist features - <strong>free for 14 days</strong></h4>
+                    <h4>Community Edition - <strong>free forever</strong></h4>
                 </div>
             </div>
             <div class="section grey">
                 <div class="contains">
                     <div class="grid-row items-center">
 
+                        <!-- saas -->
+                        <div class="xs12 s6 m4 l4 margin-bottom valign-top">
+                            <div class="plan blue text-center">
+                                <div class="plan-head">
+                                    <h4>Hosted Solution<br><sub>
+                                        <!-- <iron-icon icon="icons:cloud-circle"></iron-icon> -->
+                                        mist-HS</sub></h4>
+                                </div>
+                                <div class="plan-body">
+                                    <div class="plan-body-item">
+                                        <p class="valign">Mist SaaS ideal for highly dynamic infrastructures &amp; teams. Easy to get started. <strong>14 days free trial.</strong> </p>
+                                    </div>
+                                    <div class="plan-body-item grey">
+                                        <div>
+                                            <a aria-label="Sign up" href="https://mist.io/sign-up" tabindex="-1">
+                                                <paper-button raised="" on-tap="_signUpClick">Sign up</paper-button>
+                                            </a>
+                                            <p class="secondary">No installation. Start right away.</p>
+                                        </div>
+                                    </div>
+                                    <div class="plan-body-item">
+                                        <div class="valign bold" id="premium-support-saas">
+                                            Premium Support
+                                            <paper-tooltip for="premium-support-saas" animation-delay="0" position="top">Next business day.<br>24/7 for service emergencies.</paper-tooltip>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- community -->
                         <div class="xs12 s6 m4 l4 margin-bottom valign-top">
                             <div class="plan green text-center">
                                 <div class="plan-head">
-                                    <h4>Community Edition<br><sub><iron-icon icon="social:share"></iron-icon>CE</sub></h4>
+                                    <h4>Community Edition<br><sub>
+                                        <!-- <iron-icon icon="social:share"></iron-icon> -->
+                                        mist-CE</sub></h4>
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
-                                        <p class="valign">Ideal for personal projects and small teams with a DIY approach. Download from Github.</p>
-                                    </div>
-                                    <div class="plan-body-item">
-                                        <div class="valign">
-                                            <h4>Free forever</h4>
-                                            <h4 class="price"><sub><a href="https://github.com/mistio/mist.io/blob/master/LICENSE" target="new">AGPL</a> licensed</sub></h4>
-                                        </div>
+                                        <p class="valign">Ideal for personal projects and small teams with a DIY approach. Download from Github. <strong>Free forever.</strong></p>
                                     </div>
                                     <div class="plan-body-item grey">
                                         <div>
                                             <a aria-label="Clone github repo" target="new" href="https://github.com/mistio/mist.io/releases/latest" tabindex="-1">
                                                 <paper-button raised="" on-tap="_downloadClick">Download</paper-button>
                                             </a>
-                                            <p>Install on premises.</p>
+                                            <p class="secondary">Install on premises.</p>
                                         </div>
-                                    </div>
-                                    <div class="plan-body-item">
-                                        <div class="bold">Features:</div>
-                                        <ul class="feature-list">
-                                            <li id="unlimited-machines">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text">Unlimited clouds &amp; machines</span>
-                                                <paper-tooltip for="unlimited-machines" animation-delay="0" position="top">Manage all of you infrastructure.</paper-tooltip>
-                                            </li>
-                                            <li id="unlimited-users">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Unlimited users &amp; teams</span>
-                                                <paper-tooltip for="unlimited-users" animation-delay="0" position="top">Invite unlimited users and organize them in teams.</paper-tooltip>
-                                            </li>
-                                            <li id="monitoring-alerting">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Monitoring &amp; Alerting</span>
-                                                <paper-tooltip for="monitoring-alerting" animation-delay="0" position="top">Gather system, application &amp; custom business metrics. Configure rules that trigger alerts &amp; automated responses.</paper-tooltip>
-                                            </li>
-                                            <li id="script-key-management">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Script &amp; Key management</span>
-                                                <paper-tooltip for="script-key-management" animation-delay="0" position="top">
-                                                    Generate and store SSH keys associated to machines.<br>Use them to run your scripts and playbooks.
-                                                </paper-tooltip>
-                                            </li>
-                                            <li id="scheduled-actions">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Scheduled actions</span>
-                                                <paper-tooltip for="scheduled-actions" animation-delay="0" position="top">Multi-cloud crontab to schedule script executions and machine actions.</paper-tooltip>
-                                            </li>
-                                            <li id="web-shell">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Web shell</span>
-                                                <paper-tooltip for="web-shell" animation-delay="0" position="top">Connect interactively to machines through the browser. Record all shell sessions.</paper-tooltip>
-                                            </li>
-                                            <li id="rest-api">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> REST API </span>
-                                                <paper-tooltip for="rest-api" animation-delay="0" position="top">Issue revokable tokens and build robust automations.<br> The Mist API provides a uniform abstraction on top of the cloud provider API's.<br> </paper-tooltip>
-                                            </li>
-                                            <li id="audit-logs">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Audit logs</span>
-                                                <paper-tooltip for="audit-logs" animation-delay="0" position="top">All actions leave audit trails. All infrastructure changes observed are being logged.</paper-tooltip>
-                                            </li>
-                                        </ul>
                                     </div>
                                     <div class="plan-body-item">
                                         <div class="valign bold">Community Support</div>
@@ -412,54 +419,21 @@ Polymer({
                         <div class="xs12 s6 m4 l4 margin-bottom valign-top">
                             <div class="plan purple text-center">
                                 <div class="plan-head">
-                                    <h4>Enterprise Edition<br><sub><iron-icon icon="icons:account-balance"></iron-icon>EE</sub></h4>
+                                    <h4>Enterprise Edition<br><sub>
+                                        <!-- <iron-icon icon="icons:account-balance"></iron-icon> -->
+                                        mist-EE</sub></h4>
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
                                         <p class="valign">Ideal for medium and large teams with advanced needs around orchestration &amp; access control.</p>
-                                    </div>
-                                    <div class="plan-body-item">
-                                        <div class="valign">
-                                            <h2 class="price" id="vcpus-ee">
-                                                <sup>\$</sup>1<sup class="vcpu">/vcpu</sup><sub class="month">/month</sub>
-                                            </h2>
-                                            <paper-tooltip for="vcpus-ee" animation-delay="0" position="top">High water mark of physical and virtual cores under management</paper-tooltip>
-                                            <h4 class="price"><sub>if paid annually</sub></h4>
-                                        </div>
                                     </div>
                                     <div class="plan-body-item grey">
                                         <div>
                                             <a aria-label="Buy Licence" href="https://mist.io/buy-license" tabindex="-1">
                                                 <paper-button raised="" on-tap="_purchaseClick">Purchase Licence</paper-button>
                                             </a>
-                                            <p>Install on premises.</p>
+                                            <p class="secondary">Install on premises.</p>
                                         </div>
-                                    </div>
-                                    <div class="plan-body-item">
-                                        <div class="bold">All features from CE plus:</div>
-                                        <ul class="feature-list">
-                                            <li id="rbac">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Role based Access Control</span>
-                                                <paper-tooltip for="rbac" animation-delay="0" position="top">Delegate access with fine grained controls. Use tags to enforce policies across clouds.</paper-tooltip>
-                                            </li>
-                                            <li id="cost-insights">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Cost Insights</span>
-                                                <paper-tooltip for="cost-insights" animation-delay="0" position="top">Understand your infrastructure costs, broken down by tags and clouds. Corellate with utilization to start optimizing performance vs money spent.</paper-tooltip>
-                                            </li>
-                                            <li id="orchestration">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Orchestration</span>
-                                                <paper-tooltip for="orchestration" animation-delay="0" position="top">Streamline the deployment and lifecycle of complex architectures across clouds. <br>Define topologies and workflows with TOSCA blueprints. Use Mist to deploy and manage your stacks.</paper-tooltip>
-                                                
-                                            </li>
-                                            <li id="msp-reseller">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> MSP / reseller accounts<sup>beta</sup></span>
-                                                <paper-tooltip for="msp-reseller" animation-delay="0" position="top">Resell hybrid infrastructure to your customers. Contact us to join private beta.</paper-tooltip>
-                                            </li>
-                                        </ul>
                                     </div>
                                     <div class="plan-body-item">
                                         <div class="valign bold" id="premium-support">
@@ -471,82 +445,217 @@ Polymer({
                             </div>
                         </div>
 
-                        <!-- saas -->
-                        <div class="xs12 s6 m4 l4 margin-bottom valign-top">
-                            <div class="plan blue text-center">
-                                <div class="plan-head">
-                                    <h4>Hosted Edition<br><sub><iron-icon icon="icons:cloud-circle"></iron-icon>HE</sub></h4>
-                                </div>
-                                <div class="plan-body">
-                                    <div class="plan-body-item">
-                                        <p class="valign">Mist SaaS. Ideal for highly dynamic infrastructures &amp; teams. Easy to get started. Pay as you go rates apply after trial. </p>
-                                    </div>
-                                    <div class="plan-body-item">
-                                        <div class="valign">
-                                            <div class="valign">
-                                                <a href="/pricing" on-tap="_pricingClick">
-                                                    <h4>14 days free trial</h4>
-                                                    <h4 class="price"><sub>Prepaid plans available.</sub></h4>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="plan-body-item grey">
-                                        <div>
-                                            <a aria-label="Sign up" href="https://mist.io/sign-up" tabindex="-1">
-                                                <paper-button raised="" on-tap="_signUpClick">Sign up</paper-button>
-                                            </a>
-                                            <p>No installation. Start right away.</p>
-                                        </div>
-                                    </div>
-                                    <div class="plan-body-item">
-                                        <div class="bold">All features from EE plus:</div>
-                                        <ul class="feature-list">
-                                            <li id="vpn-tunnels">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> VPN tunnels</span>
-                                                <paper-tooltip for="vpn-tunnels" animation-delay="0" position="top">Manage infrastructure that's only addressable through private networks by establishing point-to-point VPN connections.</paper-tooltip>
-                                            </li>
-                                            <li id="recommendation-engine">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Recommendation engine<sup>beta</sup></span>
-                                                <paper-tooltip for="recommendation-engine" animation-delay="0" position="top">Generates automatic recommendations to optimize QoS, security and cost.</paper-tooltip>
-                                            </li>
-                                            <li id="anomaly-detection">
-                                                <iron-icon icon="help"></iron-icon>
-                                                <span class="li-text"> Anomaly detection<sup>beta</sup></span>
-                                                <paper-tooltip for="anomaly-detection" animation-delay="0" position="top">Get alerted of irregularities before they affect your uptime. Contact us for more info.</paper-tooltip>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="plan-body-item">
-                                        <div class="valign bold" id="premium-support-saas">
-                                            Premium Support
-                                            <paper-tooltip for="premium-support-saas" animation-delay="0" position="top">Next business day.<br>24/7 for service emergencies.</paper-tooltip>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
                     </div>
                 </div>
             </div>
-            
         </div>
 
         <div class="section white">
             <div class="contains">
                 <div class="row text-center">
-                    <h2 class="decorated">Help with custom needs?</h2>
+                    <h3 class="decorated">Compare features</h3>
+                    <br/>
+                    <p>Compare the supported features of the different Mist.io editions.</p>
+                </div>
+                <div class="row text-center">
+                    <span class="expand-btns">
+                        <paper-icon-button id="expand" class\$="expand [[openedFeatures]]" icon="expand-more" on-tap="toggleExpand"></paper-icon-button>
+                        <paper-tooltip for="expand" animation-delay="0" position="bottom">
+                            <span hidden\$="[[openedFeatures]]"> See features </span> <span hidden\$="[[!openedFeatures]]"> Hide features </span>
+                        </paper-tooltip>
+                    </span>   
+                </div>
+                <iron-collapse id="collapse" opened="[[openedFeatures]]">
+                    <div id="features" style="position:relative;">
+                        <table id="table" class="grid-container">
+                            <tr>
+                                <td class="grid-cell h secondary">FEATURES</td>
+                                <td class="grid-cell h c"><strong>Mist HS</strong></td>
+                                <td class="grid-cell h c"><strong>Mist CE</strong></td>
+                                <td class="grid-cell h c"><strong>Mist EE</strong></td>
+                        
+                                <!-- all -->
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Unlimited clouds &amp; machines </strong><br/><span class="secondary">Manage all of your infrastructure.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Unlimited users &amp; teams </strong><br/><span class="secondary">Invite unlimited users and organize them in teams.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Monitoring &amp; Alerting</strong><br/><span class="secondary"> Configure rules that trigger alerts &amp; automated responses.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Script &amp; Key management</strong><br/><span class="secondary">Generate and store SSH keys associated to machines, to run scripts and playbooks.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Scheduled actions</strong><br/><span class="secondary">Multi-cloud crontab to schedule script executions and machine actions </span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Web shell</strong><br/><span class="secondary">Connect interactively to machines through the browser. Record all shell sessions.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>REST API</strong><br/><span class="secondary">Issue revokable tokens and build robust automations. Mist API provides uniform abstraction on top of the cloud provider API's.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Audit logs</strong><br/><span class="secondary">All actions leave audit trails. All infrastructure changes observed are being logged.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Google and Github SSO</strong><br/><span class="secondary">Allow users to sign in with their Google or Github credentials.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <!-- non ce -->
+
+                                <td class="grid-cell"><strong>Role based Access Control</strong><br/><span class="secondary">Delegate access with fine grained controls. Use tags to enforce policies across clouds.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Cost Insights</strong><br/><span class="secondary">Understand your infrastructure costs, broken down by tags and clouds. Corellate with utilization to start optimizing performance vs money spent.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Orchestration</strong><br/><span class="secondary">Streamline the deployment and lifecycle of complex architectures across clouds. Define topologies and workflows with TOSCA blueprints. Use Mist to deploy and manage your stacks.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>MSP / reseller accounts<sup>beta</sup></strong><br/><span class="secondary">Resell hybrid infrastructure to your customers. Contact us to join private beta.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <!-- non ee -->
+                                
+                                <td class="grid-cell"><strong>VPN tunnels</strong><br/><span class="secondary">Manage infrastructure that's only addressable through private networks by establishing point-to-point VPN connections.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Recommendation engine<sup>beta</sup></strong><br/><span class="secondary">Generates automatic recommendations to optimize QoS, security and cost.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Anomaly detection<sup>beta</sup></strong><br/><span class="secondary">Get alerted of irregularities before they affect your uptime. Contact us for more info.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                            </tr><tr>
+                                <!-- extras -->
+
+                                <td class="grid-cell"><strong>White label option</strong><br/><span class="secondary">Rebrand Mist.io with your company logo, color palette, product info and own documentation.</span></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>LDAP Integration</strong><br/><span class="secondary"></span></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Active Directory Integration</strong><br/><span class="secondary"></span></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="clear" title="not supported"></iron-icon></td>
+                                <td class="grid-cell c"><iron-icon icon="done" title="supported"></iron-icon></td>
+                            </tr><tr>
+                                <td class="grid-cell"><strong>Support</strong><br/><span class="secondary"></span></td>
+                                <td class="grid-cell c t"><strong>Premium</strong><br><span class="secondary">Next business day. <br>24/7 for service emergencies.</span></td>
+                                <td class="grid-cell c t"><strong>Community Support</strong></td>
+                                <td class="grid-cell c t"><strong>Premium</strong><br><span class="secondary">Next business day.</span></td>
+                            </tr>
+                        </table>
+                        <table id="fixedTableHeader" class="grid-container" hidden\$="[[!fixedTableHeader]]">
+                            <tr>
+                                <td class="grid-cell h secondary">FEATURES</td>
+                                <td class="grid-cell h c"><strong>Mist HS</strong></td>
+                                <td class="grid-cell h c"><strong>Mist CE</strong></td>
+                                <td class="grid-cell h c"><strong>Mist EE</strong></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="row text-center contact">
+                        <a aria-label="See pricing" href="/pricing" tabindex="-1">
+                            <paper-button class="btn-bordered" on-tap="_seePricingClick" id="enterpriseBtn">See Pricing</paper-button>
+                        </a>
+                    </div>
+                </iron-collapse>
+            </div>
+        </div>
+
+        <div class="section grey">
+            <div class="contains text-center">
+                <div class="row">
+                    <h3 class="decorated">Trusted by
+                    </h3>
+                </div>
+                <div class="grid-row providers">
+                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                        <div class="provider">
+                            <img src="/static/landing/images/customers/nbg.png" alt="National Bank of Greece" title="National Bank of Greece">
+                        </div>
+                    </div>
+                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                        <div class="provider">
+                            <img src="/static/landing/images/customers/ep.png" alt="European Parliament" title="European Parliament">
+                        </div>
+                    </div>
+                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                        <div class="provider">
+                            <img src="/static/landing/images/customers/sevone.png" alt="Sev One" title="Sev One">
+                        </div>
+                    </div>
+                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                        <div class="provider">
+                            <img src="/static/landing/images/customers/pccc.png" alt="Pccc" title="Pccc">
+                        </div>
+                    </div>
+                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                        <div class="provider">
+                            <img src="/static/landing/images/customers/shoprite.png" alt="Shoprite" title="Shoprite">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section white">
+            <div class="contains">
+                <div class="row text-center">
+                    <h2 class="decorated">Need more help?</h2>
                 </div>
                 <div class="grid-row text-center">
                     <div class="xs12 s12 m12 l12">
-                        <p> We can provide custom pricing for businesses with a lot of infrastructure,
-                            <br/> and work with you to run Mist on premises, setup a proof of concept, whitelabel or extend Mist. </p>                    
-                            <a aria-label="Get enterprise" href="/request-pricing" tabindex="-1">
+                        <p> We are working hands on with our customers to help them be successful. 
+                            <br/>We would love to learn more about your needs and deliver solutions to your daily problems. 
+                        </p>                    
+                        <a aria-label="Get enterprise" href="/contact-sales" tabindex="-1">
                             <paper-button raised="" on-tap="_requestInfoClick" id="enterpriseBtn">Contact Sales</paper-button>
                         </a>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
                     </div>
                 </div>
             </div>
@@ -568,8 +677,39 @@ Polymer({
       visible: {
           type: Boolean,
           observer: '_visibleChanged'
-      }
+      },
 
+      openedFeatures:  {
+        type: Boolean,
+        value: false
+      },
+
+      fixedTableHeader: {
+        type: Boolean,
+        value: false
+    },
+  },
+
+  attached: function() {
+    var that = this;
+    document.addEventListener('scroll', that.toggleFixedTableHeader.bind(this))
+  },
+
+  toggleExpand: function() {
+      this.set('openedFeatures', !this.openedFeatures);
+      // closing features-table behavior, scroll to top
+    //   if (!this.openedFeatures) {
+    //     this.set('fixedTableHeader', false);
+    //     window.scrollTo({
+    //         top: 0,
+    //         behavior: 'smooth'
+    //       })
+    //   }
+  },
+
+  detached: function() {
+    var that = this;
+    document.removeEventListener('scroll', that.toggleFixedTableHeader.bind(this))
   },
 
   _visibleChanged: function(visible) {
@@ -578,6 +718,16 @@ Polymer({
               title: 'Pricing'
           });
       }
+  },
+
+  toggleFixedTableHeader: function() {
+      var that = this;
+      var tableIsInView = this.$.table.getBoundingClientRect().y < 0 && this.$.table.getBoundingClientRect().bottom > 68;
+      if (this.openedFeatures && this.fixedTableHeader != tableIsInView) {
+        this.debounce( 'toggleFixedTableHeader',function(){
+                    that.set('fixedTableHeader', tableIsInView);
+            }, 10)
+        }
   },
 
   showInfo: function(e) {
