@@ -235,7 +235,7 @@ Polymer({
       landing-tab a, .nav-tab {
         display: inline-block;
         outline: none;
-        padding: 24px 8px;
+        padding: 21px 8px;
         font-size: 15px;
         font-weight: 400;
         color: var(--tab-color) !important;
@@ -344,7 +344,7 @@ Polymer({
 
       @media (max-width: 1024px) {
         landing-tab a {
-          padding: 24px 2px;
+          padding: 21px 2px;
         }
         .signin-btn-container a {
           margin: 0;
@@ -396,7 +396,7 @@ Polymer({
                 <dom-repeat items="[[categories]]" as="category" initial-count="4">
                   <template>
                     <landing-tab name="[[category.name]]" on-tap="_tabClicked" hidden\$="[[category.hiddenFromMenu]]">
-                      <a name="[[category.name]]" href="[[category.href]]" target="new" hidden\$="[[category.isButton]]">[[category.title]]</a>
+                      <a name="[[category.name]]" href="[[category.href]]" target="new">[[category.title]]</a>
                     </landing-tab>
                   </template>
                 </dom-repeat>
@@ -405,18 +405,14 @@ Polymer({
           </dom-if>
         </div>
 
-        <div id="persistentTabContainer">
+        <div id="persistentTabContainer" hidden\$="[[!config.promoPage]]">
           <dom-if if="[[loadComplete]]" restamp="">
             <template>
-              <dom-repeat items="[[categories]]" as="category">
-                <template>
-                  <div class="getstarted-btn-container" hidden\$="[[!category.isButton]]">
-                    <a href="[[category.href]]" tabindex="-1" aria-label="[[category.label]]">
-                      <paper-button raised="" on-tap="_tabClicked">[[category.title]]</paper-button>
-                    </a>
-                  </div>
-                </template>
-              </dom-repeat>
+              <div class="getstarted-btn-container">
+                <a href="[[config.promoPage.href]]" tabindex="-1" aria-label="[[config.promoPage.label]]">
+                  <paper-button raised="" on-tap="_tabClicked">[[config.promoPage.title]]</paper-button>
+                </a>
+              </div>
             </template>
           </dom-if>
         </div>
@@ -521,6 +517,10 @@ Polymer({
     },
 
     category: {
+      type: Object
+    },
+
+    promoPage: {
       type: Object
     },
 

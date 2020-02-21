@@ -30,8 +30,9 @@
 
   <script tal:condition="csrf_token|nothing" tal:content="string: var CSRF_TOKEN=${csrf_token}"></script>
   <script tal:condition="categories|nothing" tal:content="string: var CATEGORIES=${categories}"></script>
-  <script tal:content="string: var True = true, False = false, CONFIG = {'features': ${structure:features}, 'email': ${email}, 'portalName': '${portal_name}', 'stripeKey': '${stripe_public_apikey|nothing}'}">
+  <script tal:content="string: var True = true, False = false, CONFIG = {'features': ${structure:features},'promoPage': ${structure:promo_page}, 'email': ${email}, 'portalName': '${portal_name}','stripeKey': '${stripe_public_apikey|nothing}'}">
   var CONFIG = false;
+  console.log('config', CONFIG);
   </script>
   <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 
@@ -223,6 +224,8 @@
     var categories = CATEGORIES;
     repeater.items = categories;
   }
+  console.log('config 2', CONFIG);
+
   </script>
   <script type="module" src="./src/landing-app.js"></script>
 

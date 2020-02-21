@@ -448,7 +448,6 @@ Polymer({
                     </div>
                 </div>
             </div>
-        </div>
 
         <div class="section white">
             <div class="contains">
@@ -660,6 +659,7 @@ Polymer({
                 </div>
             </div>
         </div>
+    </div>
 `,
 
   is: 'landing-get-started',
