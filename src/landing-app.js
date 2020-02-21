@@ -396,7 +396,7 @@ Polymer({
                 <dom-repeat items="[[categories]]" as="category" initial-count="4">
                   <template>
                     <landing-tab name="[[category.name]]" on-tap="_tabClicked" hidden\$="[[category.hiddenFromMenu]]">
-                      <a name="[[category.name]]" href="[[category.href]]" target="new">[[category.title]]</a>
+                      <a name="[[category.name]]" href="[[category.href]]" target="new" hidden\$="[[category.isButton]]">[[category.title]]</a>
                     </landing-tab>
                   </template>
                 </dom-repeat>
@@ -405,20 +405,30 @@ Polymer({
           </dom-if>
         </div>
 
-        <div class="getstarted-btn-container">
-          <a href="/get-started" tabindex="-1" aria-label="Sign in to Mist.io">
-            <paper-button raised="" on-tap="_getStartedClick">Get Started</paper-button>
-          </a>
+        <div id="persistentTabContainer">
+          <dom-if if="[[loadComplete]]" restamp="">
+            <template>
+              <dom-repeat items="[[categories]]" as="category">
+                <template>
+                  <div class="getstarted-btn-container" hidden\$="[[!category.isButton]]">
+                    <a href="[[category.href]]" tabindex="-1" aria-label="[[category.label]]">
+                      <paper-button raised="" on-tap="_tabClicked">[[category.title]]</paper-button>
+                    </a>
+                  </div>
+                </template>
+              </dom-repeat>
+            </template>
+          </dom-if>
         </div>
 
         <div class\$="signin-btn-container [[_shouldShowTabs]]">
           <a class="nav-tab" href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io" on-tap="_signInClick" hidden\$="[[!_shouldShowTabs]]">
             Sign In
           </a>
-          <a class="nav-tab" href="/sign-up" tabindex="-1" aria-label="Sign up to Mist.io" on-tap="_signUpClick" hidden\$="[[!_shouldShowTabs]]">
+          <a class="nav-tab" href="/sign-up" tabindex="-1" aria-label="Sign up to Mist.io" on-tap="_signUpClick" hidden\$="[[!_canShowSignUp(config.features,_shouldShowTabs)]]">
             Register
           </a>
-          <paper-icon-button class="menu-btn" icon="menu" on-tap="_toggleDrawer" aria-label="Categories">
+          <paper-icon-button class="menu-btn" icon="menu" on-tap="_toggleDrawer" aria-label="Categories" hidden\$="[[_shouldShowTabs]]">
           </paper-icon-button>
         </div>
       </app-toolbar>
@@ -441,7 +451,7 @@ Polymer({
                 <paper-button raised="" on-tap="_signInClick">Sign in</paper-button>
               </a>
             </div>
-            <div class="getstarted-btn-container">
+            <div class="getstarted-btn-container" hidden\$="[[!_canSignUp(config.features.signup_google, config.features.signup_github, config.features.signup_email)]]">
               <a href="/sign-up" name="sign-up" tabindex="-1" aria-label="Sign up to Mist.io">
                 <paper-button raised="" on-tap="_signUpClick">Register</paper-button>
               </a>
@@ -615,6 +625,14 @@ Polymer({
     });
 
     this._ensureLazyLoaded();
+  },
+
+  _canShowSignUp: function(features, shouldShowTabs) {
+    return this._canSignUp(features.signup_google, features.signup_github, features.signup_email) && shouldShowTabs;    
+  },
+
+  _canSignUp: function(signUpGoogle, signUpGithub, signUpEmail) {
+    return signUpGoogle || signUpGithub || signUpEmail;    
   },
 
   _goToPage: function(event) {

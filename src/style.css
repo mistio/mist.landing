@@ -40,16 +40,13 @@ th, td {
 .grid-cell.c {
   text-align: center;
 }
-.grid-cell iron-icon[icon="done"] {
-  color: #4caf50;
-}
-.grid-cell iron-icon[icon="clear"] {
-  color: red;
+.grid-cell.t {
+  vertical-align: top;
 }
 .contact paper-button.btn-bordered {
-  border: 2px solid var(--app-accent-color) !important;
+  border: 2px solid #0099cc !important;
   background-color: #fff !important;
-  color: var(--app-accent-color) !important;
+  color: #0099cc !important;
   font-size: 14px;
   padding: 10px 20px;
 }
@@ -61,6 +58,18 @@ th, td {
   width: 100%;
   max-width: 1180px;
   margin: 0;
+}
+.grid-cell iron-icon[icon="done"]{
+  color: #fff;
+  background-color: #4caf50;;
+  border-radius: 50%;
+  padding: 4px;
+}
+.grid-cell iron-icon[icon="clear"]{
+  color: #fff;
+  background-color: #d96557;
+  padding: 4px;
+  border-radius: 50%;
 }
 /* END OF FEATURES GRID */
 .container, .section {
