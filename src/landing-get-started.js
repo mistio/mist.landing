@@ -64,7 +64,6 @@ Polymer({
         }
         
         a {
-            font-weight: 400 !important;
             text-decoration: none;
         }
         

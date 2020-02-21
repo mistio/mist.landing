@@ -919,8 +919,11 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
           font-size: 18px;
           height: 54px;
           padding: 0 2rem !important;
-          margin: 0 8px 40px !important;
           font-weight: 500;
+        }
+
+        landing-fold paper-button, .hero paper-button {
+          margin: 0 8px 40px !important;
         }
         
         .page paper-button.btn-bordered {
@@ -1156,17 +1159,14 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         
         #whatsnew {
           /*background-color: var(--app-accent-color);*/
-          font-weight: 400 !important;
           background-color: #444;
           color: #fff;
         }
         #whatsnew h4.title {
-          font-weight: 400 !important;
           line-height: 110%;
         }
         
         .light {
-            font-weight: 400 !important;
         }
         #whatsnew .promtext {
             margin: 8px 0 24px 0;
@@ -1730,7 +1730,6 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         }
         
         #get-started a {
-            font-weight: 400 !important;
             text-decoration: none;
         }
         
