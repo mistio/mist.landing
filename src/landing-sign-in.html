@@ -11,6 +11,7 @@
 
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="landing-icons.html">
 
 <dom-module id="landing-sign-in">
     <template>
@@ -44,15 +45,16 @@
                 font-weight: 500;
                 font-size: 16px;
                 margin: 24px auto 16px;
-                text-align: center;
+                /* text-align: center; */
                 height: 46px;
                 display: block;
                 width: 300px;
                 padding-left: 4px;
+                position: relative;
             }
 
             paper-button > iron-icon {
-                padding: 7px;
+                padding: 7px 12px 7px 7px;
                 background-color: #fff;
                 float: left;
                 margin-top: -7px;
@@ -88,8 +90,8 @@
             }
 
             paper-button > iron-icon.ldap {
-                float: none;
-                padding: 0 0 0 8px;
+                /* float: none; */
+                /* padding: 0; */
                 color: #444;
                 background-color: transparent;
             }
@@ -194,7 +196,7 @@
                     <paper-button raised class="white" on-tap="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon>Sign in with Google</paper-button>
                     <paper-button raised class="white" on-tap="_socialAuthGithub" id="signInBtnGithub" hidden$=[[!signInGithub]]><iron-icon icon="landing:github"></iron-icon>Sign in with Github</paper-button>
                     <paper-button raised class$="white [[_ldapSelected]]" on-tap="_toggleLdap" id="signInBtnLdap" hidden$=[[!signInLdap]]>
-                        Use LDAP <iron-icon class="ldap" icon="icons:expands-more" hidden$=[[!_ldapSelected]]></iron-icon><iron-icon class="ldap" icon="icons:expands-less"  hidden$=[[_ldapSelected]]></iron-icon>
+                        Use LDAP <iron-icon class="ldap" icon="icons:expand-more" hidden$=[[_ldapSelected]]></iron-icon><iron-icon class="ldap" icon="icons:expand-less"  hidden$=[[!_ldapSelected]]></iron-icon>
                     </paper-button>
                     <div hidden="[[_ldapSelected]]">
                         <div class="or" hidden$="[[!_hasSeparator(signInGoogle, signInGithub, signInEmail, signInLdap)]]">
@@ -294,16 +296,15 @@
                         that.$.signInSubmit.disabled = !ret;
                         return ret;
                     };
-                this.$.signInForm.addEventListener('tap', function(evennt){
+                this.$.signInForm.addEventListener('tap', function(event){
                     var submitDisabled = that.$.signInSubmit.disabled;
                     var method = that._ldapSelected ? " LDAP" : "your email";
                     that.$.signInForm.querySelector('.output').innerHTML = "Sign in with " + method;
-                    validate();
+                    validate(event);
                 });
                 this.$.signInForm.addEventListener('change', validate);
                 this.$.signInForm.addEventListener('keyup', function(event) {
                     var submitDisabled = that.$.signInSubmit.disabled;
-                    that.$.signInForm.querySelector('.output').innerHTML = "Sign in with your email";
                     if (validate(event) && !submitDisabled && event.key == "Enter")
                         that._submitButtonHandler();
                 });
