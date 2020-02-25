@@ -87,17 +87,20 @@
                 color: #424242;
             }
 
-            paper-button.white.true:not([disabled]) {
+            paper-button.white.ldap-selected.true:not([disabled]) {
                 background-color: transparent;
                 box-shadow: 0 0 0 0 transparent;
                 background-color: transparent;
                 padding-left: 0;
-                margin-left: -3px;
+                margin: 0 0 0 -3px;
             }
 
-            paper-button > iron-icon.ldap {
+            paper-button > span > iron-icon.users {
                 color: #444;
                 background-color: transparent;
+                padding: 7px 2px 7px 12px;
+                float: left;
+                margin-top: -5px;
             }
 
             div.output {
@@ -197,9 +200,9 @@
                         <paper-button raised class="white" on-tap="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon><span class="textBtn">in with Google</span></paper-button>
                         <paper-button raised class="white" on-tap="_socialAuthGithub" id="signInBtnGithub" hidden$=[[!signInGithub]]><iron-icon icon="landing:github"></iron-icon><span class="textBtn">Sign in with Github</span></paper-button>
                     </div>
-                    <paper-button raised class$="white [[_ldapSelected]]" on-tap="_toggleLdap" id="signInBtnLdap" hidden$=[[!signInLdap]]>
-                        <span hidden$=[[_ldapSelected]]><span class="textBtn"> Sign in with LDAP </span></span>
-                        <span hidden$=[[!_ldapSelected]]><iron-icon class="ldap" icon="arrow-back"></iron-icon><span class="textBtn">Back</span></span>
+                    <paper-button raised class$="white ldap-selected [[_ldapSelected]]" on-tap="_toggleLdap" id="signInBtnLdap" hidden$=[[!signInLdap]]>
+                        <span hidden$=[[_ldapSelected]]><iron-icon class="users" icon="landing:users"></iron-icon><span class="textBtn"> Sign in with LDAP </span></span>
+                        <span hidden$=[[!_ldapSelected]]><iron-icon class="back" icon="arrow-back"></iron-icon></span>
                     </paper-button>
                     <div hidden="[[_ldapSelected]]">
                         <div class="or" hidden$="[[!_hasSeparator(signInGoogle, signInGithub, signInEmail, signInLdap)]]">
