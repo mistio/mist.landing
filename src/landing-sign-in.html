@@ -50,14 +50,17 @@
                 display: block;
                 width: 300px;
                 padding-left: 4px;
-                position: relative;
             }
 
             paper-button > iron-icon {
-                padding: 7px 12px 7px 7px;
+                padding: 7px;
                 background-color: #fff;
                 float: left;
                 margin-top: -7px;
+            }
+
+            .textBtn {
+                padding-left: 7px;
             }
 
             paper-button > span {
@@ -85,19 +88,16 @@
             }
 
             paper-button.white.true:not([disabled]) {
-                background-color: var(--app-accent-color);
-                color: #fff;
+                background-color: transparent;
+                box-shadow: 0 0 0 0 transparent;
+                background-color: transparent;
+                padding-left: 0;
+                margin-left: -3px;
             }
 
             paper-button > iron-icon.ldap {
-                /* float: none; */
-                /* padding: 0; */
                 color: #444;
                 background-color: transparent;
-            }
-
-            paper-button.white.true:not([disabled]) > iron-icon.ldap {
-                color: #fff;
             }
 
             div.output {
@@ -193,10 +193,13 @@
             <iron-form id="signInForm">
                 <paper-material elevation="1">
                     <div hidden$="[[_canSignIn(signInGoogle, signInGithub, signInEmail, signInLdap)]]">Sign In has been disabled.</div>
-                    <paper-button raised class="white" on-tap="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon>Sign in with Google</paper-button>
-                    <paper-button raised class="white" on-tap="_socialAuthGithub" id="signInBtnGithub" hidden$=[[!signInGithub]]><iron-icon icon="landing:github"></iron-icon>Sign in with Github</paper-button>
+                    <div hidden="[[_ldapSelected]]">
+                        <paper-button raised class="white" on-tap="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon><span class="textBtn">in with Google</span></paper-button>
+                        <paper-button raised class="white" on-tap="_socialAuthGithub" id="signInBtnGithub" hidden$=[[!signInGithub]]><iron-icon icon="landing:github"></iron-icon><span class="textBtn">Sign in with Github</span></paper-button>
+                    </div>
                     <paper-button raised class$="white [[_ldapSelected]]" on-tap="_toggleLdap" id="signInBtnLdap" hidden$=[[!signInLdap]]>
-                        Use LDAP <iron-icon class="ldap" icon="icons:expand-more" hidden$=[[_ldapSelected]]></iron-icon><iron-icon class="ldap" icon="icons:expand-less"  hidden$=[[!_ldapSelected]]></iron-icon>
+                        <span hidden$=[[_ldapSelected]]><span class="textBtn"> Use LDAP </span></span>
+                        <span hidden$=[[!_ldapSelected]]><iron-icon class="ldap" icon="arrow-back"></iron-icon><span class="textBtn">Back</span></span>
                     </paper-button>
                     <div hidden="[[_ldapSelected]]">
                         <div class="or" hidden$="[[!_hasSeparator(signInGoogle, signInGithub, signInEmail, signInLdap)]]">
@@ -216,7 +219,7 @@
                             <a id="forbiddenlink" href="/request-whitelist-ip" on-tap="_requestWhitelist"></a>
                             <paper-spinner id="spinner" hidden$="[[!showRequestWhitelist]]" active="[[loadingIp]]"></paper-spinner>
                         </div>
-                        <div class="forgot"><a href="/forgot-password" id="forgotPasswordLink" on-tap="_forgotPasswordClicked"><span>Forgot password?</span></a></div>
+                        <div class="forgot" hidden="[[_ldapSelected]]"><a href="/forgot-password" id="forgotPasswordLink" on-tap="_forgotPasswordClicked"><span>Forgot password?</span></a></div>
                     </form>
                 </paper-material>
             </iron-form>
