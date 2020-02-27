@@ -18,7 +18,6 @@ Polymer({
             transform: scale(2);
         }
         paper-dialog {
-            position: fixed;
             display: block;
             overflow: hidden;
             background-color: #424242;
@@ -46,7 +45,7 @@ Polymer({
         <paper-dialog id="zoomArea" with-backdrop="">
             <iron-icon icon="close" dialog-dismiss=""></iron-icon>
             <paper-dialog-scrollable>
-                <img id="zoomimage">
+                <img id="zoomimage" src="[[src]]">
             </paper-dialog-scrollable>
         </paper-dialog>
 `,
@@ -61,11 +60,7 @@ Polymer({
 
   zoomInImage: function(e){
       console.log('zoomInImage', e)
-      if(e.path[0] && e.path[0].tagName == "IMG"){
-          console.log('zoomInImage', e.path[0], this.$.zoomimage)
-          this.$.zoomimage.setAttribute('src', e.path[0].src);
-          this.$.zoomArea.open();
-      }
+      this.$.zoomArea.open();
   },
 
   closeZoomIn: function() {
