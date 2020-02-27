@@ -951,7 +951,7 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         
         .provider img {
             opacity: .4;
-            max-width: 180px;
+            max-width: 130px;
             filter: grayscale(100%);
             -webkit-filter: grayscale(100%);
             -webkit-transition: all .2s ease-in-out;
