@@ -907,8 +907,9 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
           align-items: flex-start;
         }
 
-        .blogpost .text {
-          color: #444;
+        .blogpost .text .text-color {
+          // color: #444;
+          color: var(--app-primary-color);
         }
 
         .blogpost .secondary {

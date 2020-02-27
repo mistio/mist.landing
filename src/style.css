@@ -907,7 +907,7 @@ paper-button {
   align-items: flex-start;
 }
 
-.blogpost .text {
+.blogpost .text , .text-color {
   color: #444;
 }
 
