@@ -99,6 +99,17 @@ var tumblrBadge = function () {
                 }
             }
 
+            // Prepare for dynamic blog posts in home
+            // postObj = {}
+            // postObj.url = post.url;
+            // postObj.date = postDate;
+            // postObj.title = post["regular-title"];
+            // postObj.text = text;
+            // postObj.author = "Christos Psaltis";
+            // postObj.images = text.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g);
+            // postObj.image = postObj.images[0] || false;
+            // arrayOfPosts.push(postObj);
+
             // Apply list to container element
             badgeContainer.innerHTML = "";
             badgeContainer.appendChild(list);
