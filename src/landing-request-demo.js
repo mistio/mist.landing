@@ -108,7 +108,7 @@ Polymer({
                 display: block;
                 padding: 8px 32px 32px;
                 @apply(--shadow-elevation-2dp);
-                max-width: 600px;
+                max-width: 400px;
                 margin: 0 auto;
             }
 
@@ -143,7 +143,7 @@ Polymer({
             }
 
             #name, #signUp-email, #country, #company-size {
-                width: 49%;
+                width: 100%;
                 display: inline-block;
             }
             @media screen and (max-width: 700px) {
@@ -373,7 +373,7 @@ Polymer({
                             <paper-item>Zimbabwe</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
-                    <paper-textarea name="comments" id="signUp-comments" label="Optional: Describe your infrustructure and the problem you want to solve" auto-validate autofocus rows="7"></paper-textarea>
+                    <paper-textarea name="comments" id="signUp-comments" label="Optional: Extra info, convenient dates/times or other." auto-validate autofocus rows="7"></paper-textarea>
                     <paper-button raised on-tap="_submitButtonHandler" disabled id="signUpSubmit">
                         <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
                         <div hidden$="[[loading]]">Send demo request</div>
