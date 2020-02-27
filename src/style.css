@@ -864,7 +864,9 @@ paper-button {
 .margin-right {
     margin-right: 24px;
 }
-
+.blue-text {
+  color: var(--app-accent-color);
+}
 /* HOME */
 .section > landing-fold {
   padding: 0;
