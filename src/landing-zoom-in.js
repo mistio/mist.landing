@@ -18,6 +18,7 @@ Polymer({
             transform: scale(2);
         }
         paper-dialog {
+            position: fixed;
             display: block;
             overflow: hidden;
             background-color: #424242;

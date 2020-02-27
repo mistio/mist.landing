@@ -256,6 +256,10 @@ paper-button {
   color: var(--app-highlight-color);
 }
 
+.section:first-child {
+  padding-top: 130px;
+}
+
 .row {
   margin-bottom: 24px;
 }

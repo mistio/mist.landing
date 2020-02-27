@@ -31,14 +31,6 @@ Polymer({
         background-color: var(--app-background-color);
       }
 
-      :host ::slotted(*:not(landing-sign-in):not(landing-sign-up):not(landing-sign-up):not(landing-get-started)) {
-        padding-top: 130px;
-      }
-
-      :host ::content > *:not(landing-sign-in):not(landing-sign-up):not(landing-get-started) {
-        padding-top: 130px;
-      }
-
       :host > ::content > :not(.iron-selected) {
         display: none !important;
       }
