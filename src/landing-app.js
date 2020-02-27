@@ -50,6 +50,7 @@ import './landing-buy-license.js';
 import './landing-request-pricing.js';
 import './landing-request-demo.js';
 import './landing-compare-features.js';
+import './landing-blog-posts.js';
 //import '../node_modules/fingerprintjs2/fingerprint2.js';
 // performance logging
 window.performance && performance.mark && performance.mark('landing-app - before register');
