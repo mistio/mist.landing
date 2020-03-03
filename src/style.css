@@ -183,6 +183,7 @@ paper-dialog-scrollable {
 
 paper-button {
   letter-spacing: .5px;
+  text-transform: none;
 }
 
 .w200 {
@@ -871,6 +872,9 @@ paper-button {
 .blue-text {
   color: var(--app-accent-color);
 }
+.grey-text {
+  color: var(--black-opaque-54);
+}
 /* HOME */
 .section > landing-fold {
   padding: 0;
@@ -952,20 +956,23 @@ landing-providers .provider {
   margin-bottom: 0;
 }
 
-.provider img {
-    opacity: .4;
-    max-width: 130px;
-    filter: grayscale(100%);
-    -webkit-filter: grayscale(100%);
-    -webkit-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
+.provider img, .client img {
+  opacity: .4;
+  max-width: 130px;
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
-.provider:hover img {
+.client img {
+  opacity: .8;
+}
+.provider:hover img, .client:hover img {
     opacity: 1;
     filter: grayscale(0);
     -webkit-filter: grayscale(0);
 }
-.providers {
+.providers, .clients {
     justify-content: center;
     padding: 24px;
 }

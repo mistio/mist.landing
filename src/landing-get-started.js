@@ -320,7 +320,7 @@ Polymer({
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: #eee;
+            background-color: #fff;
         }
         .expand {
             transition: transform 100ms;
@@ -336,10 +336,10 @@ Polymer({
                     <div class="back">
                         <span><iron-icon icon="icons:arrow-back" on-tap="goBack"></iron-icon></span>
                     </div>
-                    <!-- <h2 class="decorated">Choose your Mist</h2> -->
-                    <!-- <br/> -->
-                    <h4>Try all Mist features - <strong>free for 14 days</strong></h4>
-                    <h4>Community Edition - <strong>free forever</strong></h4>
+                    <h2 class="decorated">Choose your Mist</h2>
+                    <br/>
+                    <!-- <h4>Try all Mist features - <strong>free for 14 days</strong></h4>
+                    <h4>Community Edition - <strong>free forever</strong></h4> -->
                 </div>
             </div>
             <div class="section grey">
@@ -350,13 +350,13 @@ Polymer({
                         <div class="xs12 s6 m4 l4 margin-bottom valign-top">
                             <div class="plan blue text-center">
                                 <div class="plan-head">
-                                    <h4>Hosted Solution<br><sub>
+                                    <h4>Hosted Service<br><sub>
                                         <!-- <iron-icon icon="icons:cloud-circle"></iron-icon> -->
-                                        mist-HS</sub></h4>
+                                        Mist HS</sub></h4>
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
-                                        <p class="valign">Mist SaaS ideal for highly dynamic infrastructures &amp; teams. Easy to get started. <strong>14 days free trial.</strong> </p>
+                                        <p class="valign">Easy to get started, Mist-aaS. Ideal for agile teams with dynamic infrastructure. Includes <strong>14-day free trial.</strong> </p>
                                     </div>
                                     <div class="plan-body-item grey">
                                         <div>
@@ -366,12 +366,12 @@ Polymer({
                                             <p class="secondary">No installation. Start right away.</p>
                                         </div>
                                     </div>
-                                    <div class="plan-body-item">
+                                    <!-- <div class="plan-body-item">
                                         <div class="valign bold" id="premium-support-saas">
                                             Premium Support
                                             <paper-tooltip for="premium-support-saas" animation-delay="0" position="top">Next business day.<br>24/7 for service emergencies.</paper-tooltip>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -382,7 +382,7 @@ Polymer({
                                 <div class="plan-head">
                                     <h4>Community Edition<br><sub>
                                         <!-- <iron-icon icon="social:share"></iron-icon> -->
-                                        mist-CE</sub></h4>
+                                        Mist CE</sub></h4>
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
@@ -396,9 +396,9 @@ Polymer({
                                             <p class="secondary">Install on premises.</p>
                                         </div>
                                     </div>
-                                    <div class="plan-body-item">
+                                    <!-- <div class="plan-body-item">
                                         <div class="valign bold">Community Support</div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -409,7 +409,7 @@ Polymer({
                                 <div class="plan-head">
                                     <h4>Enterprise Edition<br><sub>
                                         <!-- <iron-icon icon="icons:account-balance"></iron-icon> -->
-                                        mist-EE</sub></h4>
+                                        Mist EE</sub></h4>
                                 </div>
                                 <div class="plan-body">
                                     <div class="plan-body-item">
@@ -423,103 +423,103 @@ Polymer({
                                             <p class="secondary">Install on premises.</p>
                                         </div>
                                     </div>
-                                    <div class="plan-body-item">
+                                    <!-- <div class="plan-body-item">
                                         <div class="valign bold" id="premium-support">
                                             Premium Support
                                             <paper-tooltip for="premium-support" animation-delay="0" position="top">Next business day.</paper-tooltip>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
 
                     </div>
+                <!-- </div>
+            </div>
+
+            <div class="section white">
+                <div class="contains"> -->
+                    <div class="row text-center">
+                        <h3 class="decorated">Compare features</h3>
+                        <br/>
+                        <p>Compare the supported features of the different Mist.io editions.</p>
+                    </div>
+                    <div class="row text-center">
+                        <span class="expand-btns">
+                            <paper-icon-button id="expand" class\$="expand [[openedFeatures]]" icon="expand-more" on-tap="toggleExpand"></paper-icon-button>
+                            <paper-tooltip for="expand" animation-delay="0" position="bottom">
+                                <span hidden\$="[[openedFeatures]]"> See features </span> <span hidden\$="[[!openedFeatures]]"> Hide features </span>
+                            </paper-tooltip>
+                        </span>   
+                    </div>
+                    <landing-compare-features opened="[[openedFeatures]]" fixed-table-header-top-offset=0>
+                        <div class="row text-center contact" slot="cta">
+                            <a aria-label="See pricing" href="/pricing" tabindex="-1">
+                                <paper-button class="btn-bordered" on-tap="_seePricingClick" id="enterpriseBtn">See Pricing</paper-button>
+                            </a>
+                        </div>
+                    </landing-compare-features>
                 </div>
             </div>
 
-        <div class="section white">
-            <div class="contains">
-                <div class="row text-center">
-                    <h3 class="decorated">Compare features</h3>
-                    <br/>
-                    <p>Compare the supported features of the different Mist.io editions.</p>
-                </div>
-                <div class="row text-center">
-                    <span class="expand-btns">
-                        <paper-icon-button id="expand" class\$="expand [[openedFeatures]]" icon="expand-more" on-tap="toggleExpand"></paper-icon-button>
-                        <paper-tooltip for="expand" animation-delay="0" position="bottom">
-                            <span hidden\$="[[openedFeatures]]"> See features </span> <span hidden\$="[[!openedFeatures]]"> Hide features </span>
-                        </paper-tooltip>
-                    </span>   
-                </div>
-                <landing-compare-features opened="[[openedFeatures]]" fixed-table-header-top-offset=0>
-                    <div class="row text-center contact" slot="cta">
-                        <a aria-label="See pricing" href="/pricing" tabindex="-1">
-                            <paper-button class="btn-bordered" on-tap="_seePricingClick" id="enterpriseBtn">See Pricing</paper-button>
-                        </a>
+            <div class="section white">
+                <div class="contains text-center">
+                    <div class="row">
+                        <h3 class="decorated">Trusted by
+                        </h3>
                     </div>
-                </landing-compare-features>
+                    <div class="grid-row providers">
+                        <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                            <div class="provider">
+                                <img src="/static/landing/images/customers/nbg.png" alt="National Bank of Greece" title="National Bank of Greece">
+                            </div>
+                        </div>
+                        <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                            <div class="provider">
+                                <img src="/static/landing/images/customers/ep.png" alt="European Parliament" title="European Parliament">
+                            </div>
+                        </div>
+                        <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                            <div class="provider">
+                                <img src="/static/landing/images/customers/sevone.png" alt="Sev One" title="Sev One">
+                            </div>
+                        </div>
+                        <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                            <div class="provider">
+                                <img src="/static/landing/images/customers/pccc.png" alt="Pccc" title="Pccc">
+                            </div>
+                        </div>
+                        <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
+                            <div class="provider">
+                                <img src="/static/landing/images/customers/shoprite.png" alt="Shoprite" title="Shoprite">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="section grey">
-            <div class="contains text-center">
-                <div class="row">
-                    <h3 class="decorated">Trusted by
-                    </h3>
-                </div>
-                <div class="grid-row providers">
-                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
-                        <div class="provider">
-                            <img src="/static/landing/images/customers/nbg.png" alt="National Bank of Greece" title="National Bank of Greece">
-                        </div>
+            <div class="section grey">
+                <div class="contains">
+                    <div class="row text-center">
+                        <h2 class="decorated">Need more help?</h2>
                     </div>
-                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
-                        <div class="provider">
-                            <img src="/static/landing/images/customers/ep.png" alt="European Parliament" title="European Parliament">
-                        </div>
-                    </div>
-                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
-                        <div class="provider">
-                            <img src="/static/landing/images/customers/sevone.png" alt="Sev One" title="Sev One">
-                        </div>
-                    </div>
-                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
-                        <div class="provider">
-                            <img src="/static/landing/images/customers/pccc.png" alt="Pccc" title="Pccc">
-                        </div>
-                    </div>
-                    <div class="xs2 s2 m2 l2 margin-top margin-bottom padding-bottom">
-                        <div class="provider">
-                            <img src="/static/landing/images/customers/shoprite.png" alt="Shoprite" title="Shoprite">
+                    <div class="grid-row text-center">
+                        <div class="xs12 s12 m12 l12">
+                            <p> We are working hands on with our customers to help them be successful. 
+                                <br/>Let us know if you have any questions.
+                            </p>                    
+                            <a aria-label="Get enterprise" href="/contact-sales" tabindex="-1">
+                                <paper-button raised="" on-tap="_contactSalesClick" id="enterpriseBtn">Contact Sales</paper-button>
+                            </a>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="section white">
-            <div class="contains">
-                <div class="row text-center">
-                    <h2 class="decorated">Need more help?</h2>
-                </div>
-                <div class="grid-row text-center">
-                    <div class="xs12 s12 m12 l12">
-                        <p> We are working hands on with our customers to help them be successful. 
-                            <br/>We would love to learn more about your needs and deliver solutions to your daily problems. 
-                        </p>                    
-                        <a aria-label="Get enterprise" href="/contact-sales" tabindex="-1">
-                            <paper-button raised="" on-tap="_requestInfoClick" id="enterpriseBtn">Contact Sales</paper-button>
-                        </a>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 `,
 
   is: 'landing-get-started',
@@ -603,7 +603,7 @@ Polymer({
       this.fire('user-action', 'pricing click in get-started');
   },
 
-  _requestInfoClick: function(event) {
+  _contactSalesClick: function(event) {
       window.scrollTo(0, 0);
       this.fire('user-action', 'contact sales click button click in get-started');
   },

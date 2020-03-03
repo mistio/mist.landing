@@ -157,6 +157,7 @@
         <iron-form id="signUpForm">
             <paper-material elevation="1">
                 <form method="post" action="/api/v1/request-info" enctype='application/json' id='form'>
+                    <paper-input name="formtype" id="formtype" value="Request information/pricing Form" hidden></paper-input>
                     <paper-input name="name" id="name" label="Full name" required auto-validate autofocus></paper-input>
                     <paper-input name="email" id="signUp-email" label="Email" required auto-validate autofocus type="email"></paper-input>
                     <paper-input name="details" id="signUp-details" label="Company / Job description" auto-validate autofocus></paper-input>

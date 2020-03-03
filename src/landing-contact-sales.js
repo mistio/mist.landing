@@ -1,3 +1,4 @@
+
 import '@polymer/polymer/polymer-legacy';
 import '@polymer/paper-input/paper-input';
 import '@polymer/paper-input/paper-textarea';
@@ -157,15 +158,15 @@ Polymer({
 
         <div class="logo-solo"><a href="/"><paper-icon-button src="images/logo-vertical.svg" on-tap="_logoClicked" id="logoButton"></paper-icon-button></a></div>
 
-        <h1>Schedule Demo</h1>
+        <h1>Contact Sales</h1>
         <iron-form id="signUpForm">
             <paper-material elevation="1">
                 <form method="post" action="/api/v1/request-info" enctype='application/json' id='form'>
-                    <paper-input name="formtype" id="formtype" value="Schedule Demo Form" hidden></paper-input>
+                    <paper-input name="formtype" id="formtype" value="Contact Sales Form" hidden></paper-input>
                     <paper-input name="name" id="name" label="Full name" required auto-validate autofocus></paper-input>
                     <paper-input name="email" id="signUp-email" label="Email" required auto-validate autofocus type="email"></paper-input>
-                    <paper-input name="details" id="signUp-details" label="Company / Job description" auto-validate autofocus></paper-input>
-                    <paper-dropdown-menu name="company-size" id="company-size" label="Total number of employees" auto-validate autofocus>
+                    <paper-input name="details" id="signUp-details" required label="Company / Job description" auto-validate autofocus></paper-input>
+                    <paper-dropdown-menu name="company-size" id="company-size" required label="Total number of employees" auto-validate autofocus>
                         <paper-listbox slot="dropdown-content" selected="-1">
                             <paper-item>1-99</paper-item>
                             <paper-item>100-999</paper-item>
@@ -173,7 +174,7 @@ Polymer({
                             <paper-item>10,000+</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
-                    <paper-dropdown-menu name="country" id="country" label="Country" auto-validate autofocus>
+                    <paper-dropdown-menu name="country" id="country" label="Country" required auto-validate autofocus>
                         <paper-listbox slot="dropdown-content" selected="-1">
                             <paper-item>Afghanistan</paper-item>
                             <paper-item>Albania</paper-item>
@@ -374,17 +375,17 @@ Polymer({
                             <paper-item>Zimbabwe</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
-                    <paper-textarea name="comments" id="signUp-comments" label="Optional: Extra info, convenient dates/times or other." auto-validate autofocus rows="7"></paper-textarea>
+                    <paper-textarea name="comments" id="signUp-comments" label="Optional: What type of problem are you trying to solve with Mist.io?" auto-validate autofocus rows="7"></paper-textarea>
                     <paper-button raised on-tap="_submitButtonHandler" disabled id="signUpSubmit">
                         <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
-                        <div hidden$="[[loading]]">Send demo request</div>
+                        <div hidden$="[[loading]]">Send</div>
                     </paper-button>
                 </form>
                 <div class="output"></div>
             </paper-material>
         </iron-form>
     `,
-    is: 'landing-request-demo',
+    is: 'landing-contact-sales',
 
     properties: {
         loading: {

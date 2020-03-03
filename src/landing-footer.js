@@ -149,7 +149,7 @@ Polymer({
               1103 Earnest Street, <br>
               Hercules, CA 94547
             </p>
-            <p>Athens HQ<br>
+            <p>Athens office<br>
               Filaretou 86, <br>
               Kallithea 176 73, <br>
               Greece

@@ -182,6 +182,7 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         
         paper-button {
           letter-spacing: .5px;
+          text-transform: none;
         }
         
         .w200 {
@@ -949,7 +950,7 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
           margin-bottom: 0;
         }
         
-        .provider img {
+        .provider img, .client img {
             opacity: .4;
             max-width: 130px;
             filter: grayscale(100%);
@@ -957,7 +958,10 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
             -webkit-transition: all .2s ease-in-out;
             transition: all .2s ease-in-out;
         }
-        .provider:hover img {
+        .client img {
+          opacity: .8;
+        }
+        .provider:hover img, .client:hover img {
             opacity: 1;
             filter: grayscale(0);
             -webkit-filter: grayscale(0);

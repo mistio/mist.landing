@@ -49,6 +49,7 @@ import './lazy-resources.js';
 import './landing-buy-license.js';
 import './landing-request-pricing.js';
 import './landing-request-demo.js';
+import './landing-contact-sales.js';
 import './landing-compare-features.js';
 import './landing-blog-posts.js';
 //import '../node_modules/fingerprintjs2/fingerprint2.js';
@@ -183,6 +184,7 @@ Polymer({
       :host([page=sign-in]) > app-header,
       :host([page=sign-up]) > app-header,
       :host([page=request-demo]) > app-header,
+      :host([page=contact-sales]) > app-header,
       :host([page=request-pricing]) > app-header,
       :host([page=get-started]) > app-header,
       :host([page=buy-license]) > app-header {
@@ -242,7 +244,7 @@ Polymer({
         font-weight: 400;
         color: var(--tab-color) !important;
         text-decoration: none;
-        text-transform: uppercase;
+        /* text-transform: uppercase; */
       }
 
       app-drawer a {
@@ -299,6 +301,7 @@ Polymer({
         background-color: #2196F3;
         font-weight: 500;
         color: var(--white-color);
+        text-transform: none;
       }
 
       div.getstarted-btn-container paper-button {
@@ -482,6 +485,7 @@ Polymer({
           <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey="[[config.stripeKey]]"></landing-buy-license>
           <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
           <landing-request-demo name="request-demo" route="[[subroute]]" offline="[[offline]]" id="request-demo"></landing-request-demo>
+          <landing-contact-sales name="contact-sales" route="[[subroute]]" offline="[[offline]]" id="contact-sales"></landing-contact-sales>
 
           <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password" support-email="[[config.email.support]]"></landing-forgot-password>
           <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
@@ -816,7 +820,7 @@ Polymer({
   },
 
   _hasFooter: function(page) {
-    var unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password', 'request-demo', 'request-pricing', 'buy-license']
+    var unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password', 'request-demo', 'contact-sales', 'request-pricing', 'buy-license']
     if (unfootedPages.indexOf(page) > -1)
       return false;
     return true;
