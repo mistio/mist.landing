@@ -48,7 +48,7 @@
                 /* text-align: center; */
                 height: 46px;
                 display: block;
-                width: 300px;
+                width: 305px;
                 padding-left: 4px;
             }
 
@@ -195,13 +195,17 @@
             <h1>Sign in to your account</h1>
             <iron-form id="signInForm">
                 <paper-material elevation="1">
-                    <div hidden$="[[_canSignIn(signInGoogle, signInGithub, signInEmail, signInLdap)]]">Sign In has been disabled.</div>
+                    <div hidden$="[[_canSignIn(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD)]]">Sign In has been disabled.</div>
                     <div hidden="[[_ldapSelected]]">
                         <paper-button raised class="white" on-tap="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon><span class="textBtn">in with Google</span></paper-button>
                         <paper-button raised class="white" on-tap="_socialAuthGithub" id="signInBtnGithub" hidden$=[[!signInGithub]]><iron-icon icon="landing:github"></iron-icon><span class="textBtn">Sign in with Github</span></paper-button>
                     </div>
+                    <paper-button raised class$="white ldap-selected [[_ldapSelected]]" on-tap="_toggleLdap" id="signInBtnLdap" hidden$=[[!signInAD]]>
+                        <span hidden$=[[_ldapSelected]]><iron-icon class="users" icon="landing:users"></iron-icon><span class="textBtn"> Sign in with Active Directory</span></span>
+                        <span hidden$=[[!_ldapSelected]]><iron-icon class="back" icon="arrow-back"></iron-icon></span>
+                    </paper-button>
                     <paper-button raised class$="white ldap-selected [[_ldapSelected]]" on-tap="_toggleLdap" id="signInBtnLdap" hidden$=[[!signInLdap]]>
-                        <span hidden$=[[_ldapSelected]]><iron-icon class="users" icon="landing:users"></iron-icon><span class="textBtn"> Sign in with LDAP </span></span>
+                        <span hidden$=[[_ldapSelected]]><iron-icon class="users" icon="landing:users"></iron-icon><span class="textBtn"> Sign in with LDAP</span></span>
                         <span hidden$=[[!_ldapSelected]]><iron-icon class="back" icon="arrow-back"></iron-icon></span>
                     </paper-button>
                     <div hidden="[[_ldapSelected]]">
@@ -266,6 +270,11 @@
                     value: false
                 },
 
+                signInAD: {
+                    type: Boolean,
+                    value: false
+                },
+
                 signInEmail: {
                     type: Boolean,
                     value: false
@@ -304,7 +313,7 @@
                     };
                 this.$.signInForm.addEventListener('tap', function(event){
                     var submitDisabled = that.$.signInSubmit.disabled;
-                    var method = that._ldapSelected ? " LDAP" : "your email";
+                    var method = that._ldapSelected ? (that.signInLdap && " LDAP" || " Active Directory") : "your email";
                     that.$.signInForm.querySelector('.output').innerHTML = "Sign in with " + method;
                     validate(event);
                 });
@@ -388,11 +397,11 @@
             _forgotPasswordClicked: function(event) {
                 this.fire('user-action', 'forgot password click');
             },
-            _hasSeparator: function(signInGoogle, signInGithub, signInEmail, signInLdap) {
-                return (signInGoogle || signInGithub || signInLdap) && signInEmail;
+            _hasSeparator: function(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD) {
+                return (signInGoogle || signInGithub || signInLdap || signInLdap) && signInEmail;
             },
-            _canSignIn: function(signInGoogle, signInGithub, signInEmail, signInLdap) {
-                return signInGoogle || signInGithub || signInLdap || signInEmail;
+            _canSignIn: function(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD) {
+                return signInGoogle || signInGithub || signInLdap || signInEmail || signInAD;
             },
             _invitokenExists: function(tok){
                 if (tok) {
