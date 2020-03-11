@@ -165,8 +165,8 @@ Polymer({
                     <paper-input name="formtype" id="formtype" value="Contact Sales Form" hidden></paper-input>
                     <paper-input name="name" id="name" label="Full name" required auto-validate autofocus></paper-input>
                     <paper-input name="email" id="signUp-email" label="Email" required auto-validate autofocus type="email"></paper-input>
-                    <paper-input name="details" id="signUp-details" required label="Company / Job description" auto-validate autofocus></paper-input>
-                    <paper-dropdown-menu name="company-size" id="company-size" required label="Total number of employees" auto-validate autofocus>
+                    <paper-input name="details" id="signUp-details" label="Company name and job description" auto-validate autofocus></paper-input>
+                    <paper-dropdown-menu name="company-size" id="company-size" required label="Number of employees" auto-validate autofocus>
                         <paper-listbox slot="dropdown-content" selected="-1">
                             <paper-item>1-99</paper-item>
                             <paper-item>100-999</paper-item>
@@ -375,7 +375,7 @@ Polymer({
                             <paper-item>Zimbabwe</paper-item>
                         </paper-listbox>
                     </paper-dropdown-menu>
-                    <paper-textarea name="comments" id="signUp-comments" label="Optional: What type of problem are you trying to solve with Mist.io?" auto-validate autofocus rows="7"></paper-textarea>
+                    <paper-textarea name="comments" id="signUp-comments" label="What would you like to know?" auto-validate autofocus rows="7"></paper-textarea>
                     <paper-button raised on-tap="_submitButtonHandler" disabled id="signUpSubmit">
                         <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
                         <div hidden$="[[loading]]">Send</div>

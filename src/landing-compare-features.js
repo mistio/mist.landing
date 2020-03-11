@@ -131,20 +131,20 @@ Polymer({
                 <td class="grid-cell c"><iron-icon icon="clear" title="Not supported"></iron-icon></td>
                 <td class="grid-cell c"><iron-icon icon="done" title="Supported"></iron-icon></td>
             </tr><tr>
-                <td class="grid-cell"><strong>Support</strong><br/><span class="secondary"></span></td>
-                <td class="grid-cell c t"><strong>Premium</strong></td>
-                <td class="grid-cell c t"><strong>Community</strong></td>
-                <td class="grid-cell c t"><strong>Premium</strong></td>
-            </tr><tr>
                 <td class="grid-cell"><strong>Recommendation engine<sup>beta</sup></strong><br/><span class="secondary">Generates automatic recommendations to optimize QoS, security and cost.</span></td>
                 <td class="grid-cell c">Contact us</td>
-                <td class="grid-cell c"></td>
-                <td class="grid-cell c"></td>
+                <td class="grid-cell c"><iron-icon icon="clear" title="Not supported"></iron-icon></td>
+                <td class="grid-cell c"><iron-icon icon="clear" title="Not supported"></iron-icon></td>
             </tr><tr>
                 <td class="grid-cell"><strong>Anomaly detection<sup>beta</sup></strong><br/><span class="secondary">Get alerted of irregularities before they affect your uptime. Contact us for more info.</span></td>
                 <td class="grid-cell c">Contact us</td>
-                <td class="grid-cell c"></td>
-                <td class="grid-cell c"></td>
+                <td class="grid-cell c"><iron-icon icon="clear" title="Not supported"></iron-icon></td>
+                <td class="grid-cell c"><iron-icon icon="clear" title="Not supported"></iron-icon></td>
+            </tr><tr>
+                <td class="grid-cell"><strong>Support</strong><br/><span class="secondary">Over tickets, email, phone and/or teleconference</span></td>
+                <td class="grid-cell c t">Premium</td>
+                <td class="grid-cell c t">Community</td>
+                <td class="grid-cell c t">Premium</td>
             </tr><tr>
         </table>
         <table id="fixedTableHeader" class="grid-container" style\$="top: [[fixedTableHeaderTopOffset]]px" hidden\$="[[!fixedTableHeader]]">

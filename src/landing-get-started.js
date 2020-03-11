@@ -63,6 +63,10 @@ Polymer({
             width: 80% !important;
             margin-top: 24px;
         }
+
+        paper-button {
+            padding: 0 2rem !important;
+        }
         
         a {
             text-decoration: none;
@@ -211,15 +215,6 @@ Polymer({
             top: -2px;
             left: -2px;
         }
-        
-        paper-button#enterpriseBtn {
-            background-color: #4caf50;
-            /*green*/
-            display: block-inline;
-            line-height: 54px;
-            margin-left: 0 !important;
-            margin-right: 0 !important;
-        }
         ul {
             padding: 0;
             margin: 0;
@@ -338,8 +333,6 @@ Polymer({
                     </div>
                     <h2 class="decorated">Choose your Mist</h2>
                     <br/>
-                    <!-- <h4>Try all Mist features - <strong>free for 14 days</strong></h4>
-                    <h4>Community Edition - <strong>free forever</strong></h4> -->
                 </div>
             </div>
             <div class="section grey">
@@ -351,7 +344,6 @@ Polymer({
                             <div class="plan blue text-center">
                                 <div class="plan-head">
                                     <h4>Hosted Service<br><sub>
-                                        <!-- <iron-icon icon="icons:cloud-circle"></iron-icon> -->
                                         Mist HS</sub></h4>
                                 </div>
                                 <div class="plan-body">
@@ -366,12 +358,6 @@ Polymer({
                                             <p class="secondary">No installation. Start right away.</p>
                                         </div>
                                     </div>
-                                    <!-- <div class="plan-body-item">
-                                        <div class="valign bold" id="premium-support-saas">
-                                            Premium Support
-                                            <paper-tooltip for="premium-support-saas" animation-delay="0" position="top">Next business day.<br>24/7 for service emergencies.</paper-tooltip>
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -381,7 +367,6 @@ Polymer({
                             <div class="plan green text-center">
                                 <div class="plan-head">
                                     <h4>Community Edition<br><sub>
-                                        <!-- <iron-icon icon="social:share"></iron-icon> -->
                                         Mist CE</sub></h4>
                                 </div>
                                 <div class="plan-body">
@@ -396,9 +381,6 @@ Polymer({
                                             <p class="secondary">Install on premises.</p>
                                         </div>
                                     </div>
-                                    <!-- <div class="plan-body-item">
-                                        <div class="valign bold">Community Support</div>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -408,7 +390,6 @@ Polymer({
                             <div class="plan purple text-center">
                                 <div class="plan-head">
                                     <h4>Enterprise Edition<br><sub>
-                                        <!-- <iron-icon icon="icons:account-balance"></iron-icon> -->
                                         Mist EE</sub></h4>
                                 </div>
                                 <div class="plan-body">
@@ -423,26 +404,13 @@ Polymer({
                                             <p class="secondary">Install on premises.</p>
                                         </div>
                                     </div>
-                                    <!-- <div class="plan-body-item">
-                                        <div class="valign bold" id="premium-support">
-                                            Premium Support
-                                            <paper-tooltip for="premium-support" animation-delay="0" position="top">Next business day.</paper-tooltip>
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                <!-- </div>
-            </div>
 
-            <div class="section white">
-                <div class="contains"> -->
                     <div class="row text-center">
-                        <h3 class="decorated">Compare features</h3>
-                        <br/>
-                        <p>Compare the supported features of the different Mist.io editions.</p>
+                        <p>Compare Mist editions</p>
                     </div>
                     <div class="row text-center">
                         <span class="expand-btns">
@@ -452,20 +420,14 @@ Polymer({
                             </paper-tooltip>
                         </span>   
                     </div>
-                    <landing-compare-features opened="[[openedFeatures]]" fixed-table-header-top-offset=0>
-                        <div class="row text-center contact" slot="cta">
-                            <a aria-label="See pricing" href="/pricing" tabindex="-1">
-                                <paper-button class="btn-bordered" on-tap="_seePricingClick" id="enterpriseBtn">See Pricing</paper-button>
-                            </a>
-                        </div>
-                    </landing-compare-features>
+                    <landing-compare-features opened="[[openedFeatures]]" fixed-table-header-top-offset=0></landing-compare-features>
                 </div>
             </div>
 
             <div class="section white">
                 <div class="contains text-center">
                     <div class="row">
-                        <h3 class="decorated">Trusted by
+                        <h3 class="decorated">Trusted by large organizations
                         </h3>
                     </div>
                     <div class="grid-row providers">
@@ -509,7 +471,7 @@ Polymer({
                                 <br/>Let us know if you have any questions.
                             </p>                    
                             <a aria-label="Get enterprise" href="/contact-sales" tabindex="-1">
-                                <paper-button raised="" on-tap="_contactSalesClick" id="enterpriseBtn">Contact Sales</paper-button>
+                                <paper-button raised="" on-tap="_contactSalesClick" class="btn-pad">Contact Sales</paper-button>
                             </a>
                             <br/>
                             <br/>

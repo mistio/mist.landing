@@ -160,7 +160,216 @@ Polymer({
                 <form method="post" action="/api/v1/request-info" enctype='application/json' id='form'>
                     <paper-input name="name" id="name" label="Full name" required auto-validate autofocus></paper-input>
                     <paper-input name="email" id="signUp-email" label="Email" required auto-validate autofocus type="email"></paper-input>
-                    <paper-input name="details" id="signUp-details" label="Company / Job description" auto-validate autofocus></paper-input>
+                    <paper-input name="details" id="signUp-details" label="Company name and job description" auto-validate autofocus></paper-input>
+                    <paper-dropdown-menu name="company-size" id="company-size" label="Number of employees" required auto-validate autofocus>
+                        <paper-listbox slot="dropdown-content" selected="-1">
+                            <paper-item>1-99</paper-item>
+                            <paper-item>100-999</paper-item>
+                            <paper-item>1,000-9,999</paper-item>
+                            <paper-item>10,000+</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
+                    <paper-dropdown-menu name="country" id="country" label="Country" required auto-validate autofocus>
+                        <paper-listbox slot="dropdown-content" selected="-1">
+                            <paper-item>Afghanistan</paper-item>
+                            <paper-item>Albania</paper-item>
+                            <paper-item>Algeria</paper-item>
+                            <paper-item>Andorra</paper-item>
+                            <paper-item>Angola</paper-item>
+                            <paper-item>Antigua and Barbuda</paper-item>
+                            <paper-item>Argentina</paper-item>
+                            <paper-item>Armenia</paper-item>
+                            <paper-item>Australia</paper-item>
+                            <paper-item>Austria</paper-item>
+                            <paper-item>Azerbaijan</paper-item>
+                            <paper-item>Bahamas</paper-item>
+                            <paper-item>Bahrain</paper-item>
+                            <paper-item>Bangladesh</paper-item>
+                            <paper-item>Barbados</paper-item>
+                            <paper-item>Belarus</paper-item>
+                            <paper-item>Belgium</paper-item>
+                            <paper-item>Belize</paper-item>
+                            <paper-item>Benin</paper-item>
+                            <paper-item>Bhutan</paper-item>
+                            <paper-item>Bolivia</paper-item>
+                            <paper-item>Bosnia and Herzegovina</paper-item>
+                            <paper-item>Botswana</paper-item>
+                            <paper-item>Brazil</paper-item>
+                            <paper-item>Brunei</paper-item>
+                            <paper-item>Bulgaria</paper-item>
+                            <paper-item>Burkina Faso</paper-item>
+                            <paper-item>Burundi</paper-item>
+                            <paper-item>Cabo Verde</paper-item>
+                            <paper-item>Cambodia</paper-item>
+                            <paper-item>Cameroon</paper-item>
+                            <paper-item>Canada</paper-item>
+                            <paper-item>Central African Republic (CAR)</paper-item>
+                            <paper-item>Chad</paper-item>
+                            <paper-item>Chile</paper-item>
+                            <paper-item>China</paper-item>
+                            <paper-item>Colombia</paper-item>
+                            <paper-item>Comoros</paper-item>
+                            <paper-item>Congo, Democratic Republic of the</paper-item>
+                            <paper-item>Congo, Republic of the</paper-item>
+                            <paper-item>Costa Rica</paper-item>
+                            <paper-item>Cote d'Ivoire</paper-item>
+                            <paper-item>Croatia</paper-item>
+                            <paper-item>Cuba</paper-item>
+                            <paper-item>Cyprus</paper-item>
+                            <paper-item>Czechia</paper-item>
+                            <paper-item>Denmark</paper-item>
+                            <paper-item>Djibouti</paper-item>
+                            <paper-item>Dominica</paper-item>
+                            <paper-item>Dominican Republic</paper-item>
+                            <paper-item>Ecuador</paper-item>
+                            <paper-item>Egypt</paper-item>
+                            <paper-item>El Salvador</paper-item>
+                            <paper-item>Equatorial Guinea</paper-item>
+                            <paper-item>Eritrea</paper-item>
+                            <paper-item>Estonia</paper-item>
+                            <paper-item>Eswatini (formerly Swaziland)</paper-item>
+                            <paper-item>Ethiopia</paper-item>
+                            <paper-item>Fiji</paper-item>
+                            <paper-item>Finland</paper-item>
+                            <paper-item>France</paper-item>
+                            <paper-item>Gabon</paper-item>
+                            <paper-item>Gambia</paper-item>
+                            <paper-item>Georgia</paper-item>
+                            <paper-item>Germany</paper-item>
+                            <paper-item>Ghana</paper-item>
+                            <paper-item>Greece</paper-item>
+                            <paper-item>Grenada</paper-item>
+                            <paper-item>Guatemala</paper-item>
+                            <paper-item>Guinea</paper-item>
+                            <paper-item>Guinea-Bissau</paper-item>
+                            <paper-item>Guyana</paper-item>
+                            <paper-item>Haiti</paper-item>
+                            <paper-item>Honduras</paper-item>
+                            <paper-item>Hungary</paper-item>
+                            <paper-item>Iceland</paper-item>
+                            <paper-item>India</paper-item>
+                            <paper-item>Indonesia</paper-item>
+                            <paper-item>Iran</paper-item>
+                            <paper-item>Iraq</paper-item>
+                            <paper-item>Ireland</paper-item>
+                            <paper-item>Israel</paper-item>
+                            <paper-item>Italy</paper-item>
+                            <paper-item>Jamaica</paper-item>
+                            <paper-item>Japan</paper-item>
+                            <paper-item>Jordan</paper-item>
+                            <paper-item>Kazakhstan</paper-item>
+                            <paper-item>Kenya</paper-item>
+                            <paper-item>Kiribati</paper-item>
+                            <paper-item>Kosovo</paper-item>
+                            <paper-item>Kuwait</paper-item>
+                            <paper-item>Kyrgyzstan</paper-item>
+                            <paper-item>Laos</paper-item>
+                            <paper-item>Latvia</paper-item>
+                            <paper-item>Lebanon</paper-item>
+                            <paper-item>Lesotho</paper-item>
+                            <paper-item>Liberia</paper-item>
+                            <paper-item>Libya</paper-item>
+                            <paper-item>Liechtenstein</paper-item>
+                            <paper-item>Lithuania</paper-item>
+                            <paper-item>Luxembourg</paper-item>
+                            <paper-item>Madagascar</paper-item>
+                            <paper-item>Malawi</paper-item>
+                            <paper-item>Malaysia</paper-item>
+                            <paper-item>Maldives</paper-item>
+                            <paper-item>Mali</paper-item>
+                            <paper-item>Malta</paper-item>
+                            <paper-item>Marshall Islands</paper-item>
+                            <paper-item>Mauritania</paper-item>
+                            <paper-item>Mauritius</paper-item>
+                            <paper-item>Mexico</paper-item>
+                            <paper-item>Micronesia</paper-item>
+                            <paper-item>Moldova</paper-item>
+                            <paper-item>Monaco</paper-item>
+                            <paper-item>Mongolia</paper-item>
+                            <paper-item>Montenegro</paper-item>
+                            <paper-item>Morocco</paper-item>
+                            <paper-item>Mozambique</paper-item>
+                            <paper-item>Myanmar (formerly Burma)</paper-item>
+                            <paper-item>Namibia</paper-item>
+                            <paper-item>Nauru</paper-item>
+                            <paper-item>Nepal</paper-item>
+                            <paper-item>Netherlands</paper-item>
+                            <paper-item>New Zealand</paper-item>
+                            <paper-item>Nicaragua</paper-item>
+                            <paper-item>Niger</paper-item>
+                            <paper-item>Nigeria</paper-item>
+                            <paper-item>North Korea</paper-item>
+                            <paper-item>North Macedonia (formerly Macedonia)</paper-item>
+                            <paper-item>Norway</paper-item>
+                            <paper-item>Oman</paper-item>
+                            <paper-item>Pakistan</paper-item>
+                            <paper-item>Palau</paper-item>
+                            <paper-item>Palestine</paper-item>
+                            <paper-item>Panama</paper-item>
+                            <paper-item>Papua New Guinea</paper-item>
+                            <paper-item>Paraguay</paper-item>
+                            <paper-item>Peru</paper-item>
+                            <paper-item>Philippines</paper-item>
+                            <paper-item>Poland</paper-item>
+                            <paper-item>Portugal</paper-item>
+                            <paper-item>Qatar</paper-item>
+                            <paper-item>Romania</paper-item>
+                            <paper-item>Russia</paper-item>
+                            <paper-item>Rwanda</paper-item>
+                            <paper-item>Saint Kitts and Nevis</paper-item>
+                            <paper-item>Saint Lucia</paper-item>
+                            <paper-item>Saint Vincent and the Grenadines</paper-item>
+                            <paper-item>Samoa</paper-item>
+                            <paper-item>San Marino</paper-item>
+                            <paper-item>Sao Tome and Principe</paper-item>
+                            <paper-item>Saudi Arabia</paper-item>
+                            <paper-item>Senegal</paper-item>
+                            <paper-item>Serbia</paper-item>
+                            <paper-item>Seychelles</paper-item>
+                            <paper-item>Sierra Leone</paper-item>
+                            <paper-item>Singapore</paper-item>
+                            <paper-item>Slovakia</paper-item>
+                            <paper-item>Slovenia</paper-item>
+                            <paper-item>Solomon Islands</paper-item>
+                            <paper-item>Somalia</paper-item>
+                            <paper-item>South Africa</paper-item>
+                            <paper-item>South Korea</paper-item>
+                            <paper-item>South Sudan</paper-item>
+                            <paper-item>Spain</paper-item>
+                            <paper-item>Sri Lanka</paper-item>
+                            <paper-item>Sudan</paper-item>
+                            <paper-item>Suriname</paper-item>
+                            <paper-item>Sweden</paper-item>
+                            <paper-item>Switzerland</paper-item>
+                            <paper-item>Syria</paper-item>
+                            <paper-item>Taiwan</paper-item>
+                            <paper-item>Tajikistan</paper-item>
+                            <paper-item>Tanzania</paper-item>
+                            <paper-item>Thailand</paper-item>
+                            <paper-item>Timor-Leste</paper-item>
+                            <paper-item>Togo</paper-item>
+                            <paper-item>Tonga</paper-item>
+                            <paper-item>Trinidad and Tobago</paper-item>
+                            <paper-item>Tunisia</paper-item>
+                            <paper-item>Turkey</paper-item>
+                            <paper-item>Turkmenistan</paper-item>
+                            <paper-item>Tuvalu</paper-item>
+                            <paper-item>Uganda</paper-item>
+                            <paper-item>Ukraine</paper-item>
+                            <paper-item>United Arab Emirates (UAE)</paper-item>
+                            <paper-item>United Kingdom (UK)</paper-item>
+                            <paper-item>United States of America (USA)</paper-item>
+                            <paper-item>Uruguay</paper-item>
+                            <paper-item>Uzbekistan</paper-item>
+                            <paper-item>Vanuatu</paper-item>
+                            <paper-item>Vatican City (Holy See)</paper-item>
+                            <paper-item>Venezuela</paper-item>
+                            <paper-item>Vietnam</paper-item>
+                            <paper-item>Yemen</paper-item>
+                            <paper-item>Zambia</paper-item>
+                            <paper-item>Zimbabwe</paper-item>
+                        </paper-listbox>
+                    </paper-dropdown-menu>
                     <paper-textarea name="comments" id="signUp-comments" label="Describe your infrustructure and the problem you want to solve" auto-validate autofocus rows="7"></paper-textarea>
                     <paper-button raised on-tap="_submitButtonHandler" disabled id="signUpSubmit">
                         <paper-spinner id="spinner" hidden$="[[!loading]]" active="[[loading]]"></paper-spinner>
