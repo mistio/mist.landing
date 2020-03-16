@@ -26,6 +26,7 @@ import '../node_modules/@polymer/iron-icons/social-icons.js';
 import '../node_modules/@polymer/iron-icons/places-icons.js';
 import '../node_modules/@polymer/iron-icons/editor-icons.js';
 import '../node_modules/@polymer/iron-icon/iron-icon.js';
+import '../node_modules/@polymer/iron-collapse/iron-collapse.js';
 import './landing-pages.js';
 import './landing-page.js';
 import './landing-category-data.js';

@@ -1106,15 +1106,21 @@ h5 {
 }
 
 /* FAQ */
-
-.faqitem h5 {
-    font-weight: 400;
-    font-size: 1.64rem;
-    margin: .82rem 0 .656rem;
-}
 .faqitem {
-    margin: 0 auto;
-    position: relative;
+  position: relative;
+  border-bottom: 1px solid #d7d7d7;
+}
+.faqitem iron-icon {
+  float: right;
+}
+.faqitem > p {
+  cursor: pointer;
+}
+.faqitem iron-collapse p {
+  background-color: #eee;
+  padding: 24px;
+  border-radius: 5px;
+  margin: 0 0 24px 0;
 }
 .faqitem a {
     text-decoration: none !important;
@@ -1424,7 +1430,28 @@ hr {
 }
 
 /* PRICING */
-
+.grid.contains.tabs {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.section.dark .tab {
+  padding: 40px;
+  box-sizing: border-box;
+  margin: 0px 0px;
+  border-radius: 5px 5px 0 0;
+  border-top: 3px solid #0099cc;
+}
+.section.dark a:not(.active) .tab {
+    background-color: rgba(255,255,255,0.1);
+    color: #fff
+}
+.section.dark a:not(.active):hover .tab {
+  background-color: rgba(255,255,255,0.15);
+}
+.section.dark a.active .tab {
+  background-color: #fff;
+  color: #444;
+}
 #pricing paper-tooltip {
     font-size: 14px;
     line-height: 24px;
@@ -1538,6 +1565,9 @@ span#vcpus, span#datapoints, span#rulechecks, span#apirequests, span#retention {
 
 #pricing .plan-body-item {
     padding: 30px 10px 50px 10px;
+}
+#pricing .custom.plan-body-item {
+  padding: 22px 10px 22px 10px;
 }
 
 @media only screen and (max-width: 600px) {

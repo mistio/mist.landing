@@ -105,7 +105,33 @@ Polymer({
       } else if (e.target.id == 'signUpBtn2') {
         this._signUpClick2();
       } else {
-        // debugger;
+        debugger;
+      }
+    } else {
+      console.log("click", e);
+      // Toggle edition pricing
+      if (e.path.find(element => element.id == "eeBtn")){
+        document.querySelector("#eeBtn").classList.add('active');
+        document.querySelector("#ee").removeAttribute('hidden');
+
+        document.querySelector("#hsBtn").classList.remove('active');
+        document.querySelector("#hs").setAttribute('hidden', true);
+      } else if (e.path.find(element => element.id == "hsBtn")){
+        document.querySelector("#hsBtn").classList.add('active');
+        document.querySelector("#hs").removeAttribute('hidden');
+        
+        document.querySelector("#eeBtn").classList.remove('active');
+        document.querySelector("#ee").setAttribute('hidden', true);
+      }
+      // Collapse pricing faq
+      if (e.path.find(element => element.classList && element.classList.contains("faqitem"))){
+        var faqItem = e.path.find(element => element.classList.contains("faqitem"));
+        var collapseElement = faqItem.querySelector("iron-collapse");
+        if (collapseElement && collapseElement.hasAttribute("opened")) {
+          collapseElement.removeAttribute("opened");
+        } else {
+          collapseElement.setAttribute("opened", true);
+        }
       }
     }
   }

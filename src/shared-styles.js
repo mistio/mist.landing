@@ -1418,7 +1418,10 @@ $_documentContainer.innerHTML = `<dom-module id="shared-styles">
         }
         
         /* PRICING */
-        
+        .tab {
+            background-color: #fff;
+            color: rgba(0,0,0,0.87);
+        }
         #pricing paper-tooltip {
             font-size: 14px;
             line-height: 24px;
