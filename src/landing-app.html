@@ -493,11 +493,6 @@
         _shouldRenderDrawer: {
           computed: '_computeShouldRenderDrawer(smallScreen, loadComplete)'
         },
-
-        animated: {
-          type: Boolean,
-          value: ANIMATIONS
-        },
         
         scrollThresholdReached: {
           type: Boolean,
@@ -888,6 +883,7 @@
     var waves = [];
     var duration = 300;
     function Wave(x, y, color, opacity) {
+      if (!document.body.animate) return;
       waves.push(this);
       this.element = document.createElement('div');
       this.element.style.left = 'calc(' + x + 'px - 2000px)';

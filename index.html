@@ -39,12 +39,6 @@
     // setup Polymer options
     window.Polymer = {lazyRegister: true};
 
-    var ANIMATIONS = false;
-    // Disable animations in Polyfilled browsers for now
-    if ('registerElement' in document
-          && 'import' in document.createElement('link')
-          && 'content' in document.createElement('template'))
-          ANIMATIONS = true;
   </script>
 
   <style>
