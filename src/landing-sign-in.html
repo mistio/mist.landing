@@ -195,7 +195,7 @@
                 <paper-material elevation="1">
                     <div hidden$="[[_canSignIn(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD)]]">Sign In has been disabled.</div>
                     <div hidden="[[_ldapSelected]]">
-                        <paper-button raised class="white" on-tap="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon><span class="textBtn">in with Google</span></paper-button>
+                        <paper-button raised class="white" on-tap="_socialAuthGoogle" id="signInBtnGoogle" hidden$=[[!signInGoogle]]><iron-icon icon="landing:google"></iron-icon><span class="textBtn">Sign in with Google</span></paper-button>
                         <paper-button raised class="white" on-tap="_socialAuthGithub" id="signInBtnGithub" hidden$=[[!signInGithub]]><iron-icon icon="landing:github"></iron-icon><span class="textBtn">Sign in with Github</span></paper-button>
                     </div>
                     <paper-button raised class$="white ldap-selected [[_ldapSelected]]" on-tap="_toggleLdap" id="signInBtnLdap" hidden$=[[!signInAD]]>
