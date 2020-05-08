@@ -1,10 +1,10 @@
 #!/bin/sh
 
 cd /landing
-if ! diff -q bower.json /bower.json; then
-    echo "bower.json changed"
-    echo "Running bower install"
-    GIT_DIR= bower install --config.interactive=false --allow-root
+if ! diff -q package.json /package.json; then
+    echo "package.json changed"
+    echo "Running npm install"
+    npm install
 fi
 
 exec nginx
