@@ -10,9 +10,9 @@ import '../node_modules/@polymer/iron-icons/iron-icons.js';
 import '../node_modules/@polymer/iron-icons/social-icons.js';
 import '../node_modules/@polymer/iron-ajax/iron-ajax.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
-import '../node_modules/@mistio/mist-password/mist-password.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+
 Polymer({
   _template: html`
         <style>
@@ -187,46 +187,49 @@ Polymer({
       }
   },
 
-  attached: function() {
-      var that = this,
-          validate = function(event) {
+  attached() {
+      const that = this;
+          const validate = function(event) {
           // Validate the entire form to see if we should enable the `Submit` button.
-          var ret = that.$.resetPasswordForm.validate();
+          const ret = that.$.resetPasswordForm.validate();
           that.$.resetPasswordSubmit.disabled = !ret;
           return ret;
       }
-      this.$.resetPasswordForm.addEventListener('keyup', function(event) {
-          var submitDisabled = that.$.resetPasswordSubmit.disabled;
+      this.$.resetPasswordForm.addEventListener('keyup', (event) => {
+          const submitDisabled = that.$.resetPasswordSubmit.disabled;
           that.$.resetPasswordForm.querySelector('paper-button > div').innerHTML = "Enter";
           if (validate(event) && !submitDisabled && event.key == "Enter")
               that._submitButtonHandler();
       });
       this.$.resetPasswordForm.addEventListener('change', validate);
 
-      this.$.resetPasswordForm.addEventListener('iron-form-error', function(event) {
+      this.$.resetPasswordForm.addEventListener('iron-form-error', (event) => {
           console.warn("GOT ERROR!", event.detail);
           that.loading = false;
           that.$.resetPasswordSubmit.querySelector('div').innerText = event.detail.request.statusText;
       });
-      this.$.resetPasswordForm.addEventListener('iron-form-response', function(event) {
+      this.$.resetPasswordForm.addEventListener('iron-form-response', (event) => {
           console.warn("resetPassword SUCCESS!", event);
           that.loading = false;
           that.$.resetPasswordSubmit.querySelector('div').innerText = 'SUCCESS';
           window.location = '/';
       });
-      this.$.resetPasswordForm.addEventListener('iron-form-presubmit', function(event) {
+      this.$.resetPasswordForm.addEventListener('iron-form-presubmit', (event) => {
           that.$.resetPasswordForm.headers['Csrf-Token'] = CSRF_TOKEN;
       });
+      import('@mistio/mist-password/mist-password.js').then(({ default: DefaultExport, NamedExport })=> {
+          console.warn('mist-password imported');
+      })
   },
 
-  _submitButtonHandler:  function(event) {
+  _submitButtonHandler(event) {
       this.loading = true;
       this.$.resetPasswordSubmit.disabled = true;
       this.$.resetPasswordForm.querySelector('.output').innerHTML = '';
       this.$.resetPasswordForm.submit();
   },
 
-  _logoClicked: function(event) {
+  _logoClicked(event) {
       this.fire('user-action', 'logo click on reset-password');
   }
 });

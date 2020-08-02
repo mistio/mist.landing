@@ -1,31 +1,31 @@
-import '../node_modules/@polymer/polymer/polymer-legacy.js';
-import '../node_modules/@polymer/app-layout/app-header/app-header.js';
-import '../node_modules/@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
-import '../node_modules/@polymer/app-layout/app-toolbar/app-toolbar.js';
-import { scroll } from '../node_modules/@polymer/app-layout/helpers/helpers.js';
-import '../node_modules/@polymer/app-route/app-location.js';
-import '../node_modules/@polymer/app-route/app-route.js';
-import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
-import '../node_modules/@polymer/iron-media-query/iron-media-query.js';
-import '../node_modules/@polymer/iron-pages/iron-pages.js';
-import '../node_modules/@polymer/iron-selector/iron-selector.js';
-import '../node_modules/@polymer/paper-button/paper-button.js';
-import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js';
-import '../node_modules/@polymer/paper-styles/color.js';
-import '../node_modules/@polymer/paper-styles/default-theme.js';
-import '../node_modules/@polymer/paper-styles/shadow.js';
-import '../node_modules/@polymer/paper-styles/typography.js';
-import '../node_modules/@polymer/paper-styles/paper-styles.js';
-import '../node_modules/@polymer/paper-material/paper-material.js';
-import '../node_modules/@polymer/paper-dialog/paper-dialog.js';
-import '../node_modules/@polymer/iron-meta/iron-meta.js';
-import '../node_modules/@polymer/iron-iconset-svg/iron-iconset-svg.js';
-import '../node_modules/@polymer/iron-icons/iron-icons.js';
-import '../node_modules/@polymer/iron-icons/hardware-icons.js';
-import '../node_modules/@polymer/iron-icons/social-icons.js';
-import '../node_modules/@polymer/iron-icons/places-icons.js';
-import '../node_modules/@polymer/iron-icons/editor-icons.js';
-import '../node_modules/@polymer/iron-icon/iron-icon.js';
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/app-layout/app-header/app-header.js';
+import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
+import '@polymer/app-layout/app-toolbar/app-toolbar.js';
+import { scroll } from '@polymer/app-layout/helpers/helpers.js';
+import '@polymer/app-route/app-location.js';
+import '@polymer/app-route/app-route.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import '@polymer/iron-media-query/iron-media-query.js';
+import '@polymer/iron-pages/iron-pages.js';
+import '@polymer/iron-selector/iron-selector.js';
+import '@polymer/paper-button/paper-button.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/paper-styles/color.js';
+import '@polymer/paper-styles/default-theme.js';
+import '@polymer/paper-styles/shadow.js';
+import '@polymer/paper-styles/typography.js';
+import '@polymer/paper-styles/paper-styles.js';
+import '@polymer/paper-material/paper-material.js';
+import '@polymer/paper-dialog/paper-dialog.js';
+import '@polymer/iron-meta/iron-meta.js';
+import '@polymer/iron-iconset-svg/iron-iconset-svg.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-icons/hardware-icons.js';
+import '@polymer/iron-icons/social-icons.js';
+import '@polymer/iron-icons/places-icons.js';
+import '@polymer/iron-icons/editor-icons.js';
+import '@polymer/iron-icon/iron-icon.js';
 import './landing-pages.js';
 import './landing-page.js';
 import './landing-category-data.js';
@@ -41,14 +41,14 @@ import './landing-sign-in.js';
 import './landing-sign-up.js';
 import './landing-forgot-password.js';
 import './styles/mist-theme.js';
-import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
-import { afterNextRender } from '../node_modules/@polymer/polymer/lib/utils/render-status.js';
-import { dom } from '../node_modules/@polymer/polymer/lib/legacy/polymer.dom.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 import './lazy-resources.js';
 import './landing-buy-license.js';
 import './landing-request-pricing.js';
-//import '../node_modules/fingerprintjs2/fingerprint2.js';
+// import 'fingerprintjs2/fingerprint2.js';  // TODO
 // performance logging
 window.performance && performance.mark && performance.mark('landing-app - before register');
 
@@ -494,7 +494,7 @@ Polymer({
 
     categories: {
       type: Array,
-      value: function() {
+      value() {
         return CATEGORIES;
       }
     },
@@ -524,30 +524,30 @@ Polymer({
     'go-to': '_goToPage'
   },
 
-  created: function() {
+  created() {
     window.performance && performance.mark && performance.mark('landing-app.created');
     // Custom elements polyfill safe way to indicate an element has been upgraded.
     this.removeAttribute('unresolved');
   },
 
-  attached: function() {
-    var content = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
+  attached() {
+    const content = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
     this.category = {'name': this.page, 'content': content};
-    //this.$.pages._selection.selection = []
+    // this.$.pages._selection.selection = []
     // listen for online/offline
     afterNextRender(this, function() {
       this.listen(window, 'online', '_notifyNetworkStatus');
       this.listen(window, 'offline', '_notifyNetworkStatus');
     });
 
-    var that = this;
+    const that = this;
     window.onbeforeunload = function(e) {
-      that.fire('user-action', 'exit from ' + that.page);
+      that.fire('user-action', `exit from ${  that.page}`);
     };
-    this.fire('user-action', 'entry at ' + that.page);
+    this.fire('user-action', `entry at ${  that.page}`);
 
     document.addEventListener("scroll", function(e) {
-      var scrollPercent = 1 - (document.body.scrollHeight - window.scrollY - window.innerHeight) / document.body.scrollHeight;
+      const scrollPercent = 1 - (document.body.scrollHeight - window.scrollY - window.innerHeight) / document.body.scrollHeight;
       if (document.body.scrollHeight <= window.innerHeight)
         return;
       if (scrollPercent > 0.8 && !this.scrollThresholdReached){
@@ -564,11 +564,11 @@ Polymer({
     this._ensureLazyLoaded();
   },
 
-  _goToPage: function(event) {
+  _goToPage(event) {
     this.$.appLocation.set('path', event.detail);
   },
 
-  _routePageChanged: function(page, params) {
+  _routePageChanged(page, params) {
     if (params){
       this.set('invitoken', params.invitoken || this.invitoken);
       this.set('returnTo', params.return_to);
@@ -585,7 +585,7 @@ Polymer({
     this.drawerOpened = false;
   },
 
-  _pageChanged: function(page, oldPage) {
+  _pageChanged(page, oldPage) {
     if (page != null) {
       // in docs and blog case reset page to the oldPage
       if (['docs', 'blog'].indexOf(page) > -1){
@@ -597,10 +597,10 @@ Polymer({
       } else {
         // When a load failed, it triggered a 404 which means we need to
         // eagerly load the 404 page definition
-        var cb = this._pageLoaded.bind(this, Boolean(oldPage));
-        var category = this.categories && this.categories.find(function(c){ return c.name == page});
+        const cb = this._pageLoaded.bind(this, Boolean(oldPage));
+        let category = this.categories && this.categories.find((c) => c.name == page);
         if (!category)
-          category = category && this.categories.find(function(c){ return c.href == "/" + page});
+          category = category && this.categories.find((c) => c.href == `/${  page}`);
         // if (category && category.template) {
         //   this.importHref(
         //     this.resolveUrl('landing-' + category.template + '.html'),
@@ -616,7 +616,7 @@ Polymer({
     }
   },
 
-  _pageLoaded: function(shouldResetLayout) {
+  _pageLoaded(shouldResetLayout) {
     if (shouldResetLayout) {
       // The size of the header depends on the page (e.g. on some pages the tabs
       // do not appear), so reset the header's layout only when switching pages.
@@ -627,11 +627,14 @@ Polymer({
     console.log('Loaded page ', this.page);
   },
 
-  _ensureLazyLoaded: function() {
+  _ensureLazyLoaded() {
     // load lazy resources after render and set `loadComplete` when done.
     if (!this.loadComplete) {
+      /* TODO: FIXME */
+      import('lazy-resources.js').then(({ default: DefaultExport, NamedExport })=> {
+        console.warn('Lazy resources imported');
+      });
       afterNextRender(this, function() {
-      // this.import('lazy-resources.js').then(callback);
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('/landing/service-worker.js');
         }
@@ -641,8 +644,8 @@ Polymer({
     }
   },
 
-  _notifyNetworkStatus: function() {
-    var oldOffline = this.offline;
+  _notifyNetworkStatus() {
+    const oldOffline = this.offline;
     this.offline =  !navigator.onLine;
     // Show the snackbar if the user is offline when starting a new session
     // or if the network status changed.
@@ -657,21 +660,21 @@ Polymer({
     }
   },
 
-  _toggleDrawer: function() {
+  _toggleDrawer() {
     this.drawerOpened = !this.drawerOpened;
   },
 
   // Elements in the app can notify section changes.
   // Response by a11y announcing the section and syncronizing the category.
-  _onChangeSection: function(event) {
+  _onChangeSection(event) {
     if (this.page == 'home' && this.config.features.signin_home)
       this.page = 'sign-in';
     console.warn('change section', event);
-    var detail = event.detail;
+    const {detail} = event;
 
     // Scroll to the top of the page when navigating to a non-list page. For list view,
     // scroll to the last saved position only if the category has not changed.
-    var scrollTop = 0;
+    let scrollTop = 0;
     if (this.page === 'list') {
       if (this.category.name === detail.category) {
         scrollTop = this._listScrollTop;
@@ -686,18 +689,18 @@ Polymer({
 
     // Announce the page's title
     if (detail.title) {
-      document.title = detail.title + ' - ' + this.config.portalName;
-      this._announce(detail.title + ', loaded');
+      document.title = `${detail.title  } - ${  this.config.portalName}`;
+      this._announce(`${detail.title  }, loaded`);
     }
   },
 
   // Elements in the app can notify a change to be a11y announced.
-  _onAnnounce: function(e) {
+  _onAnnounce(e) {
     this._announce(e.detail);
   },
 
   // A11y announce the given message.
-  _announce: function(message) {
+  _announce(message) {
     this._a11yLabel = '';
     this.debounce('_a11yAnnouncer', function() {
       this._a11yLabel = message;
@@ -705,84 +708,84 @@ Polymer({
   },
 
   // This is for performance logging only.
-  _domChange: function(e) {
-    /*if (window.performance && performance.mark && !this.__loggedDomChange) {
+  _domChange(e) {
+    /* if (window.performance && performance.mark && !this.__loggedDomChange) {
       var target = Polymer.dom(e).rootTarget;
       if (target.domHost.is.match(this.page)) {
         this.__loggedDomChange = true;
         performance.mark(target.domHost.is + '.domChange');
       }
-    }*/
+    } */
   },
 
-  _onFallbackSelectionTriggered: function() {
+  _onFallbackSelectionTriggered() {
     if (this.route.path.match('insights|clouds|machines|images|networks|teams|keys|templates|stacks|tunnels|zones|scripts|schedules|account|incidents')) {
       this.route.__queryParams.return_to = this.route.path;
       this.page = 'sign-in';
-      window.history.pushState({}, null, '/sign-in?return_to='+this.route.path);
+      window.history.pushState({}, null, `/sign-in?return_to=${this.route.path}`);
       window.dispatchEvent(new CustomEvent('location-changed'));
     } else
       this.page = 'not-found';
   },
 
-  _computeShouldShowTabs: function(page, smallScreen) {
+  _computeShouldShowTabs(page, smallScreen) {
     return ((page === 'home' || page === 'list' || page === 'detail') ||
-            this.categories && this.categories.map(function(c){return c.name}).indexOf(page) > -1) && !smallScreen;
+            this.categories && this.categories.map((c) => c.name).indexOf(page) > -1) && !smallScreen;
   },
 
-  _computeShouldRenderTabs: function(_shouldShowTabs, loadComplete) {
+  _computeShouldRenderTabs(_shouldShowTabs, loadComplete) {
     return _shouldShowTabs && loadComplete;
   },
 
-  _computeShouldRenderDrawer: function(smallScreen, loadComplete) {
+  _computeShouldRenderDrawer(smallScreen, loadComplete) {
     return smallScreen && loadComplete;
   },
 
-  _computePluralizedQuantity: function(quantity) {
-    return quantity + ' ' + (quantity === 1 ? 'item' : 'items');
+  _computePluralizedQuantity(quantity) {
+    return `${quantity  } ${  quantity === 1 ? 'item' : 'items'}`;
   },
 
-  _hasFooter: function(page) {
-    var unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password', 'request-pricing', 'buy-license']
+  _hasFooter(page) {
+    const unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password', 'request-pricing', 'buy-license']
     if (unfootedPages.indexOf(page) > -1)
       return false;
     return true;
   },
 
-  _signInClick: function(event) {
-    this.fire('user-action', 'sign in click from ' + this.page);
+  _signInClick(event) {
+    this.fire('user-action', `sign in click from ${  this.page}`);
     event.preventDefault();
     new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
     this.async(
       function() {
         this.fire('go-to', '/sign-in');
-        waves.forEach(function(wave) { wave.up(); })
+        waves.forEach((wave) => { wave.up(); })
         window.scrollTo(0, 0);
       }, 200 );
   },
 
-  _signUpClick: function(event) {
-    this.fire('user-action', 'sign up click from ' + this.page);
+  _signUpClick(event) {
+    this.fire('user-action', `sign up click from ${  this.page}`);
     event.preventDefault();
     new Wave(event.detail.x, event.detail.y, '#333', 1);
     this.async(
       function() {
-        waves.forEach(function(wave) { wave.up(); });
+        waves.forEach((wave) => { wave.up(); });
         this.fire('go-to', event.target.parentElement.href);
         window.scrollTo(0, 0);
       }, 200 );
   },
 
-  _onUserAction: function(event) {
+  _onUserAction(event) {
     console.debug('user-action', event);
-    if (typeof gtag == 'function') {
+    if (typeof gtag === 'function') {
       gtag('event', event.detail, {
         'event_category': 'landing'
       });
     }
     if (!this.config || !this.config.features || !this.config.features.ab)
       return;
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     // TODO: De-comment when fingerprint gets updated
     // if (!this.fingerprint){
     //   var that = this;
@@ -810,12 +813,12 @@ Polymer({
     // }
   },
 
-  _getBrowser: function() {
-    var userAgent = navigator.userAgent.toLowerCase();
-    var productSub = navigator.productSub;
+  _getBrowser() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const {productSub} = navigator;
 
-    //we extract the browser from the user agent (respect the order of the tests)
-    var browser;
+    // we extract the browser from the user agent (respect the order of the tests)
+    let browser;
     if(userAgent.indexOf("firefox") >= 0){
       browser = "Firefox";
     } else if(userAgent.indexOf("opera") >= 0 || userAgent.indexOf("opr") >= 0){
@@ -832,47 +835,47 @@ Polymer({
     return browser;
   },
 
-  _tabClicked: function(event) {
-    this.fire('user-action', 'tab click ' + event.target.textContent);
+  _tabClicked(event) {
+    this.fire('user-action', `tab click ${  event.target.textContent}`);
   },
 
-  _logoClicked: function(event) {
+  _logoClicked(event) {
     this.fire('user-action', 'header logo click');
   },
 
-  _openDialog: function(e) {
+  _openDialog(e) {
     console.log(e.detail.content);
-      var content = e.detail.content;
-      this.$["show-"+content].open();
+      const {content} = e.detail;
+      this.$[`show-${content}`].open();
   },
 
-  _isEqual: function(catName,page) {
+  _isEqual(catName,page) {
     return catName == page;
   },
 
-  _categoryChanged: function(content) {
-    var htmlContent = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
-    if (!this.category["content"] || htmlContent == this.category["content"]) {
+  _categoryChanged(content) {
+    const htmlContent = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
+    if (!this.category.content || htmlContent == this.category.content) {
       return;
     }
     if (this.querySelector('[slot="content"]')) {
-      this.querySelector('[slot="content"]').innerHTML = this.category["content"];
+      this.querySelector('[slot="content"]').innerHTML = this.category.content;
       window.scrollTo(0, 0);
     }
   },
 
-  _hasCategories: function (categories, length) {
+  _hasCategories (categories, length) {
     return this.categories && this.categories.length > 0 || false;
   }
 });
 
 var waves = [];
-var duration = 300;
+const duration = 300;
 function Wave(x, y, color, opacity) {
   waves.push(this);
   this.element = document.createElement('div');
-  this.element.style.left = 'calc(' + x + 'px - 2000px)';
-  this.element.style.top = 'calc(' + y + 'px - 2000px)';
+  this.element.style.left = `calc(${  x  }px - 2000px)`;
+  this.element.style.top = `calc(${  y  }px - 2000px)`;
   this.element.style.backgroundColor = color;
   this.element.style.opacity = opacity;
   this.element.setAttribute('touch-action', 'none');
@@ -885,19 +888,19 @@ function Wave(x, y, color, opacity) {
     {transform: 'scale(0)'},
     {transform: 'scale(1)'},
   ], {
-    duration: duration,
+    duration,
     easing: 'cubic-bezier(0.3, 0.2, 1.0, 0.2)',
     fill: 'forwards',
   });
 }
 Wave.prototype = {
-  up: function() {
+  up() {
     this.up = function() {};
     this.opacity = this.element.animate([
       {opacity: 0.66},
       {opacity: 0},
     ], {
-      duration: duration,
+      duration,
       fill: 'forwards',
     });
     this.opacity.onfinish = function() {
@@ -908,7 +911,7 @@ Wave.prototype = {
 };
 
 function up() {
-  waves.forEach(function(wave) { wave.up(); });
+  waves.forEach((wave) => { wave.up(); });
 }
 
 document.body.addEventListener('up', up);

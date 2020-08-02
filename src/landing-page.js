@@ -10,9 +10,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 import '../node_modules/@polymer/polymer/polymer-legacy.js';
 
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
-import '../node_modules/@polymer/marked-element/marked-element.js';
+// import '../node_modules/@polymer/marked-element/marked-element.js';  // TODO
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+
 Polymer({
   _template: html`
     <style include="shared-styles">
@@ -73,32 +74,32 @@ Polymer({
     'tap': '_onTap'
   },
 
-  _signUpClick: function(event) {
+  _signUpClick(event) {
     window.scrollTo(0, 0);
     console.log('user-action');
-    this.fire('user-action', 'sign up button 1 click in '+name);
-    //new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
+    this.fire('user-action', `sign up button 1 click in ${name}`);
+    // new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
   },
 
-  _signUpClick2: function(event) {
+  _signUpClick2(event) {
     window.scrollTo(0, 0);
     console.log('user-action');
-    this.fire('user-action', 'sign up button 2 click in '+name);
+    this.fire('user-action', `sign up button 2 click in ${name}`);
   },
 
-  _downloadClick: function(event) {
+  _downloadClick(event) {
     window.scrollTo(0, 0);
     console.log('user-action');
-    this.fire('user-action', 'download button click in '+name);
+    this.fire('user-action', `download button click in ${name}`);
   },
 
-  _chooseEditionClick: function(event) {
+  _chooseEditionClick(event) {
     window.scrollTo(0, 0);
     console.log('user-action');
-    this.fire('user-action', 'choose edition button click in '+name);
+    this.fire('user-action', `choose edition button click in ${name}`);
   },
 
-  _onTap: function (e) {
+  _onTap (e) {
     if (e.target.tagName == 'PAPER-BUTTON') {
       if (e.target.id == 'signUpBtn1') {
         this.parentNode.parentNode.host._signUpClick(e);

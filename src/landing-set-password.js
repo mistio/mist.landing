@@ -10,9 +10,9 @@ import '../node_modules/@polymer/iron-icons/iron-icons.js';
 import '../node_modules/@polymer/iron-icons/social-icons.js';
 import '../node_modules/@polymer/iron-ajax/iron-ajax.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
-import '../node_modules/@mistio/mist-password/mist-password.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+
 Polymer({
   _template: html`
         <style>
@@ -191,40 +191,40 @@ Polymer({
       '_invitokenExists(invitoken)'
   ],
 
-  attached: function() {
-      var that = this,
-          validate = function(event) {
+  attached() {
+      const that = this;
+          const validate = function(event) {
           // Validate the entire form to see if we should enable the `Submit` button.
-          var ret = that.$.setPasswordForm.validate();
+          const ret = that.$.setPasswordForm.validate();
           that.$.setPasswordSubmit.disabled = !ret;
           return ret;
       };
-      this.$.setPasswordForm.addEventListener('keyup', function(event) {
-          var submitDisabled = that.$.setPasswordSubmit.disabled;
+      this.$.setPasswordForm.addEventListener('keyup', (event) => {
+          const submitDisabled = that.$.setPasswordSubmit.disabled;
           that.$.setPasswordForm.querySelector('paper-button > div').innerHTML = "Enter";
           if (validate(event) && !submitDisabled && event.key == "Enter")
               that._submitButtonHandler();
       });
       this.$.setPasswordForm.addEventListener('change', validate);
 
-      this.$.setPasswordForm.addEventListener('iron-form-error', function(event) {
+      this.$.setPasswordForm.addEventListener('iron-form-error', (event) => {
           console.warn("ERROR!", event.detail);
           that.loading = false;
           that.$.setPasswordSubmit.querySelector('div').innerText = event.detail.request.statusText;
       });
-      this.$.setPasswordForm.addEventListener('iron-form-response', function(event) {
+      this.$.setPasswordForm.addEventListener('iron-form-response', (event) => {
           that.loading = false;
           that.$.setPasswordSubmit.querySelector('div').innerText = 'SUCCESS';
           window.location = '/';
       });
-      this.$.setPasswordForm.addEventListener('iron-form-presubmit', function(event) {
+      this.$.setPasswordForm.addEventListener('iron-form-presubmit', (event) => {
           that.$.setPasswordForm.headers['Csrf-Token'] = CSRF_TOKEN;
       });
   },
 
-  _invitokenExists: function(tok){
+  _invitokenExists(tok){
       if (tok) {
-          var element = document.createElement('input');
+          const element = document.createElement('input');
           element.type = 'hidden';
           element.name = 'invitoken';
           element.value = this.invitoken;
@@ -232,14 +232,14 @@ Polymer({
       }
   },
 
-  _submitButtonHandler:  function(event) {
+  _submitButtonHandler(event) {
       this.loading = true;
       this.$.setPasswordSubmit.disabled = true;
       this.$.setPasswordForm.querySelector('.output').innerHTML = '';
       this.$.setPasswordForm.submit();
   },
 
-  _logoClicked: function(event) {
+  _logoClicked(event) {
       this.fire('user-action', 'logo click on set-password');
   }
 });

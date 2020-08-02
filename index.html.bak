@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <base href="/landing/"></base>
+
+  <title tal:content="portal_name|nothing"> mist.io :: open source multi-cloud management platform</title>
+  <meta name="description" content="A secure cloud management platform for automation, orchestration, cost and usage monitoring of public and private clouds, hypervisors and container hosts. Provides multi-cloud RBAC. Enables self service provisioning. Cost analysis and cloud spending optimization">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+  <link tal:condition="theme|nothing" rel="shortcut icon" sizes="32x32" tal:attributes="href string:/static/${theme}-favicon.ico">
+  <link tal:condition="not theme" rel="shortcut icon" sizes="32x32" tal:attributes="href string:images/mist-icon-32.png">
+
+  <meta name="theme-color" content="#fff">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async tal:condition="google_analytics_id"
+  src="https://www.googletagmanager.com/gtag/js?id=${google_analytics_id}"></script>
+  <script tal:condition="google_analytics_id">
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${google_analytics_id}', {
+  'custom_map': {'app': 'landing'}
+  });
+  gtag('set', {'content_group1': 'landing'});
+  </script>
+
+  <script tal:condition="csrf_token|nothing" tal:content="string: var CSRF_TOKEN=${csrf_token}"></script>
+  <script tal:content="string: var True = true, False = false, CONFIG = {'features': ${structure:features}, 'email': ${email}, 'portalName': '${portal_name}', 'stripeKey': '${stripe_public_apikey|nothing}'}">
+  var CONFIG = false;
+  var CATEGORIES = [];
+  </script>
+  <script tal:condition="categories|nothing" tal:content="string: CATEGORIES=${categories}"></script>
+  <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+  <script>
+    // setup Polymer options
+    window.Polymer = {lazyRegister: true};
+
+    var ANIMATIONS = false;
+    // Disable animations in Polyfilled browsers for now
+    if ('registerElement' in document
+          && 'import' in document.createElement('link')
+          && 'content' in document.createElement('template'))
+          ANIMATIONS = true;
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    @media only screen and (max-width: 993px) {
+        body {
+            font-size: 16px;
+        }
+    }
+    html {
+      font-size: 14px;
+      line-height: 1.5;
+      font-family: "Roboto", sans-serif;
+      font-weight: normal;
+      color: rgba(0, 0, 0, 0.87);
+    }
+
+    @media only screen and (min-width: 0) {
+      html {
+        font-size: 14px;
+      }
+    }
+
+    @media only screen and (min-width: 992px) {
+      html {
+        font-size: 14.5px;
+      }
+    }
+
+    @media only screen and (min-width: 1200px) {
+      html {
+        font-size: 15px;
+      }
+    }
+
+    body {
+      position: relative;
+      font-size: 18px;
+      color: #444;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    landing-app[unresolved] > div.page, landing-app[unresolved] > div.tabs {
+      display: none;
+    }
+
+    /* styling for render while resources are loading */
+    landing-app[unresolved] {
+      background-color: #f2f2f2;
+      display: block;
+      min-height: 101vh;
+      line-height: 68px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      color: #202020;
+      padding: 0 16px;
+      overflow: visible;
+    }
+
+    landing-app[unresolved] .lds-ripple {
+      top: 42%;
+      left: 48%;
+      display: inline-block;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+    }
+    landing-app[unresolved] .lds-ripple div {
+      position: absolute;
+      border: 4px solid #444;
+      opacity: 1;
+      border-radius: 50%;
+      animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+    landing-app[unresolved] .lds-ripple div:nth-child(2) {
+      animation-delay: -0.5s;
+    }
+    @keyframes lds-ripple {
+      0% {
+        top: 28px;
+        left: 28px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      100% {
+        top: -1px;
+        left: -1px;
+        width: 58px;
+        height: 58px;
+        opacity: 0;
+      }
+    }
+
+    div.wave {
+      border-radius: 50%;
+      background: black;
+      width: 4000px;
+      height: 4000px;
+      position: fixed;
+      -webkit-user-select: none;
+      user-select: none;
+      overflow: hidden;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <landing-app unresolved>
+    <div slot="tabs" class="tabs">
+      <dom-repeat>
+        <template>
+          <landing-tab hidden="[[item.hiddenFromMenu]]">
+              <a name="[[item.name]]" href="[[item.href]]" target="new">[[item.title]]</a>
+          </landing-tab>
+        </template>
+      </dom-repeat>
+    </div>
+
+    <div class="page" slot="content" title="">
+      <div tal:replace="structure section" tal:condition="section|nothing"></div>
+    </div>
+    <div class="lds-ripple"><div></div><div></div></div>
+  </landing-app>
+
+  <script type="module">
+  if (CONFIG) {
+    document.querySelector('landing-app').config = CONFIG;
+    var repeater = document.querySelector('dom-repeat');
+    var categories = CATEGORIES;
+    repeater.items = categories;
+  }
+  </script>
+  <script type="module" src="./src/landing-app.js"></script>
+
+</body>
+</html>
