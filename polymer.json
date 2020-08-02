@@ -8,9 +8,17 @@
     "manifest.json",
     "node_modules/@webcomponents/webcomponentsjs/*.js",
     "!node_modules/@webcomponents/webcomponentsjs/gulpfile.js",
-    "node_modules/@webcomponents/webcomponentsjs/bundles/*.js"
+    "push-manifest.json",
+    "src/style.css"
   ],
   "builds": [
+    {
+      "name": "modern",
+      "browserCapabilities": [
+        "es2015",
+        "push"
+      ]
+    },
     {
       "name": "esm-bundled",
       "browserCapabilities": [
@@ -62,8 +70,10 @@
       },
       "bundle": true,
       "addServiceWorker": true
-    }
+    },
+    {"name": "fallback"}
   ],
+  "autoBasePath": true,
   "moduleResolution": "node",
   "npm": true,
   "lint": {
