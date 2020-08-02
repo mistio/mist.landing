@@ -1,28 +1,17 @@
-FROM node:8.14.0-alpine
-MAINTAINER mist.io <support@mist.io>
+FROM node:12.16.3-alpine
+LABEL maintainer="support@mist.io"
 
-RUN apk add --update --no-cache git nginx
-
-RUN npm update && npm install -g -U --no-optional polymer-cli bower --unsafe-perm
-
-ENV bower_allow_root=true \
-    bower_interactive= \
-    GIT_DIR=
-
-COPY bower.json /landing/bower.json
-
-WORKDIR /landing
-
-RUN bower install
-
-RUN cp bower.json /
+RUN apk add --update --no-cache git nginx && npm update && npm install -g -U --no-optional polymer-cli prpl-server es-dev-server rollup --unsafe-perm
 
 COPY . /landing
-
-RUN node /usr/local/bin/polymer build
-
+WORKDIR /landing
 COPY ./container/nginx.conf /etc/nginx/nginx.conf
 
+#RUN node /usr/local/bin/polymer build && ln -s /landing/build/ /landing/build/landing
 COPY ./container/entry.sh /entry.sh
+RUN cp package.json /
 
-EXPOSE 80
+EXPOSE 80 8000
+
+ENTRYPOINT [ "/entry.sh" ]
+
