@@ -1,11 +1,10 @@
-
-import '../node_modules/@polymer/polymer/polymer-legacy.js';
-import '../node_modules/@polymer/iron-icons/iron-icons.js';
-import '../node_modules/@polymer/iron-icons/social-icons.js';
-import '../node_modules/@polymer/iron-icons/communication-icons.js';
-import '../node_modules/@polymer/paper-button/paper-button.js';
-import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-icons/social-icons.js';
+import '@polymer/iron-icons/communication-icons.js';
+import '@polymer/paper-button/paper-button.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 Polymer({
   _template: html`
@@ -32,9 +31,10 @@ Polymer({
       .subfoot .contains {
         padding: 1rem;
       }
-      a, .a {
+      a,
+      .a {
         text-decoration: none;
-        color: rgba(255,255,255,0.87) !important;
+        color: rgba(255, 255, 255, 0.87) !important;
         cursor: pointer;
       }
       .footer-nav.right {
@@ -42,7 +42,7 @@ Polymer({
         float: right;
       }
 
-      .address{
+      .address {
         font-size: 14px;
       }
 
@@ -82,7 +82,7 @@ Polymer({
       }
 
       #tumblr-badge div#tumblr-header {
-        border-bottom: 1px solid #E8E8E8;
+        border-bottom: 1px solid #e8e8e8;
         padding: 8px;
       }
 
@@ -100,7 +100,9 @@ Polymer({
         margin: 0;
       }
 
-      #tumblr-badge ul, .fa-ul, ul li {
+      #tumblr-badge ul,
+      .fa-ul,
+      ul li {
         list-style-type: none;
       }
 
@@ -114,31 +116,50 @@ Polymer({
         text-decoration: none;
       }
     </style>
-    
+
     <div class="section dark">
       <div class="contains">
         <div class="grid-row">
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom address">
-            <img src="images/logo-white.svg" width="125px">
-            <p>Made with <iron-icon icon="icons:favorite"></iron-icon> in Greece &amp; California<br><br></p>
-            <p><iron-icon icon="communication:email"></iron-icon> info@mist.io &nbsp;<br><iron-icon icon="communication:phone"></iron-icon> +1-650-605-3299</p>
+            <img src="/landing/images/logo-white.svg" width="125px" />
+            <p>
+              Made with <iron-icon icon="icons:favorite"></iron-icon> in Greece &amp; California<br /><br />
+            </p>
+            <p>
+              <iron-icon icon="communication:email"></iron-icon> info@mist.io &nbsp;<br /><iron-icon
+                icon="communication:phone"
+              ></iron-icon>
+              +1-650-605-3299
+            </p>
             <p></p>
-            <p> Mist.io Inc <br>
-              620 Folsom St, <br>
+            <p>
+              Mist.io Inc <br />
+              620 Folsom St, <br />
               San Francisco, CA 94107
             </p>
-            <p>Athens hq<br>
-            189 Syngrou ave, <br>
-            17121, Athens, Greece
+            <p>
+              Athens hq<br />
+              189 Syngrou ave, <br />
+              17121, Athens, Greece
             </p>
           </div>
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
-            <a id="tweets" class="twitter-timeline" data-dnt="true" href="https://twitter.com/mist_io" data-widget-id="328880614860259329"></a>
+            <a
+              id="tweets"
+              class="twitter-timeline"
+              data-dnt="true"
+              href="https://twitter.com/mist_io"
+              data-widget-id="328880614860259329"
+            ></a>
           </div>
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
             <div id="tumblr">
               <div id="tumblr-badge" class="box-round">
-                <div id="tumblr-header"><h1><a title="mist.io blog" href="http://blog.mist.io" target="_blank">Blog</a></h1></div>
+                <div id="tumblr-header">
+                  <h1>
+                    <a title="mist.io blog" href="http://blog.mist.io" target="_blank">Blog</a>
+                  </h1>
+                </div>
                 <div id="tumblr-content">
                   <script type="text/javascript" id="tumblr-script"></script>
                 </div>
@@ -165,19 +186,20 @@ Polymer({
         </ul>
       </div>
     </div>
-`,
+  `,
 
   is: 'landing-footer',
 
-  attached: function () {
+  attached() {
     // Twitter widget
     window.twttr = (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0],
-        t = window.twttr || {};
+      const js = d.createElement(s);
+      const fjs = d.getElementsByTagName(s)[0];
+      const t = window.twttr || {};
       if (d.getElementById(id)) return t;
-      js = d.createElement(s);
+
       js.id = id;
-      js.src = "https://platform.twitter.com/widgets.js";
+      js.src = 'https://platform.twitter.com/widgets.js';
       fjs.parentNode.insertBefore(js, fjs);
 
       t._e = [];
@@ -186,14 +208,20 @@ Polymer({
       };
 
       return t;
-    }(document, "script", "twitter-wjs"));
+    })(document, 'script', 'twitter-wjs');
   },
 
-  finishLoading: function() {
-    window.twttr.widgets && window.twttr.widgets.createTimeline({
-      sourceType: 'profile',
-      screenName: 'mist_io'
-    }, this.$.tweets, {width: '300', height: '400'});
-    this.$['tumblr-script'].src = "tumblrBadge-1.1.js";
-  }
+  finishLoading() {
+    if (window.twttr.widgets) {
+      window.twttr.widgets.createTimeline(
+        {
+          sourceType: 'profile',
+          screenName: 'mist_io',
+        },
+        this.$.tweets,
+        { width: '300', height: '400' },
+      );
+    }
+    this.$['tumblr-script'].src = 'tumblrBadge-1.1.js';
+  },
 });
