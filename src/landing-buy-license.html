@@ -448,7 +448,7 @@
 
                 vcpus: {
                     type: Number,
-                    value: 100
+                    value: 300
                 },
 
                 dockerhubid: String,
@@ -589,7 +589,7 @@
                     this.moveFocus(stripePayload)
 
                 // if vcpus empty not ready
-                if (this.vcpus < 10){
+                if (this.vcpus < 300){
                     return false;
                 }
                 // if any of contact or payload is empty, form not ready
