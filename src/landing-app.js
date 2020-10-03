@@ -45,7 +45,6 @@ import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
-import './lazy-resources.js';
 import './landing-buy-license.js';
 import './landing-request-pricing.js';
 // import 'fingerprintjs2/fingerprint2.js';  // TODO
@@ -631,7 +630,7 @@ Polymer({
     // load lazy resources after render and set `loadComplete` when done.
     if (!this.loadComplete) {
       /* TODO: FIXME */
-      import('lazy-resources.js').then(({ default: DefaultExport, NamedExport })=> {
+      import('./lazy-resources.js').then(({ default: DefaultExport, NamedExport })=> {
         console.warn('Lazy resources imported');
       });
       afterNextRender(this, function() {
