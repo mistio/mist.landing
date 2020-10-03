@@ -47,6 +47,7 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 // import 'fingerprintjs2/fingerprint2.js';  // TODO
 // performance logging
+// eslint-disable-next-line babel/no-unused-expressions
 window.performance && performance.mark && performance.mark('landing-app - before register');
 
 Polymer({
@@ -396,7 +397,7 @@ Polymer({
       </template>
     </dom-if>
 
-    <dom-if if="[[_hasCategories(categories, categories.length)]]" restamp="">
+    <dom-if if="[[_hasCategories(categories)]]" restamp="">
       <template>
 
         <landing-pages id="pages" role="main" attr-for-selected="name" fallback-selection="not-found" selected\$="[[page]]">
@@ -476,7 +477,7 @@ Polymer({
 
     animated: {
       type: Boolean,
-      value: ANIMATIONS
+      value: true
     },
     
     scrollThresholdReached: {
@@ -491,9 +492,7 @@ Polymer({
 
     categories: {
       type: Array,
-      value() {
-        return CATEGORIES;
-      }
+      value() { return CATEGORIES }
     },
     invitoken: {
       type: String,
@@ -522,6 +521,7 @@ Polymer({
   },
 
   created() {
+    // eslint-disable-next-line babel/no-unused-expressions
     window.performance && performance.mark && performance.mark('landing-app.created');
     // Custom elements polyfill safe way to indicate an element has been upgraded.
     this.removeAttribute('unresolved');
@@ -538,12 +538,12 @@ Polymer({
     });
 
     const that = this;
-    window.onbeforeunload = function(e) {
+    window.onbeforeunload = function() {
       that.fire('user-action', `exit from ${  that.page}`);
     };
     this.fire('user-action', `entry at ${  that.page}`);
 
-    document.addEventListener("scroll", function(e) {
+    document.addEventListener("scroll", function() {
       const scrollPercent = 1 - (document.body.scrollHeight - window.scrollY - window.innerHeight) / document.body.scrollHeight;
       if (document.body.scrollHeight <= window.innerHeight)
         return;
@@ -588,16 +588,16 @@ Polymer({
       if (['docs', 'blog'].indexOf(page) > -1){
         this.set('page', oldPage);
       // home route is eagerly loaded
-      } else if (page == 'home') {
+      } else if (page === 'home') {
         this._pageLoaded(Boolean(oldPage));
       // other routes are lazy loaded
       } else {
         // When a load failed, it triggered a 404 which means we need to
         // eagerly load the 404 page definition
-        const cb = this._pageLoaded.bind(this, Boolean(oldPage));
-        let category = this.categories && this.categories.find((c) => c.name == page);
+        // const cb = this._pageLoaded.bind(this, Boolean(oldPage));
+        let category = this.categories && this.categories.find((c) => c.name === page);
         if (!category)
-          category = category && this.categories.find((c) => c.href == `/${  page}`);
+          category = category && this.categories.find((c) => c.href === `/${  page}`);
         // if (category && category.template) {
         //   this.importHref(
         //     this.resolveUrl('landing-' + category.template + '.html'),
@@ -628,7 +628,7 @@ Polymer({
     // load lazy resources after render and set `loadComplete` when done.
     if (!this.loadComplete) {
       /* TODO: FIXME */
-      import('./lazy-resources.js').then(({ default: DefaultExport, NamedExport })=> {
+      import('./lazy-resources.js').then(()=> {
         console.warn('Lazy resources imported');
       });
       afterNextRender(this, function() {
@@ -664,7 +664,7 @@ Polymer({
   // Elements in the app can notify section changes.
   // Response by a11y announcing the section and syncronizing the category.
   _onChangeSection(event) {
-    if (this.page == 'home' && this.config.features.signin_home)
+    if (this.page === 'home' && this.config.features.signin_home)
       this.page = 'sign-in';
     console.warn('change section', event);
     const {detail} = event;
@@ -706,13 +706,13 @@ Polymer({
 
   // This is for performance logging only.
   _domChange(e) {
-    /* if (window.performance && performance.mark && !this.__loggedDomChange) {
-      var target = Polymer.dom(e).rootTarget;
+    if (window.performance && performance.mark && !this.__loggedDomChange) {
+      const target = Polymer.dom(e).rootTarget;
       if (target.domHost.is.match(this.page)) {
         this.__loggedDomChange = true;
-        performance.mark(target.domHost.is + '.domChange');
+        performance.mark(`${target.domHost.is  }.domChange`);
       }
-    } */
+    }
   },
 
   _onFallbackSelectionTriggered() {
@@ -847,12 +847,12 @@ Polymer({
   },
 
   _isEqual(catName,page) {
-    return catName == page;
+    return catName === page;
   },
 
   _categoryChanged(content) {
     const htmlContent = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
-    if (!this.category.content || htmlContent == this.category.content) {
+    if (!this.category.content || htmlContent === this.category.content) {
       return;
     }
     if (this.querySelector('[slot="content"]')) {
@@ -861,13 +861,18 @@ Polymer({
     }
   },
 
-  _hasCategories (categories, length) {
-    return this.categories && this.categories.length > 0 || false;
+  _hasCategories (categories) {
+    return categories && categories.length > 0 || false;
   }
 });
 
 var waves = [];
 const duration = 300;
+
+function up() {
+  waves.forEach((wave) => { wave.up(); });
+}
+
 function Wave(x, y, color, opacity) {
   waves.push(this);
   this.element = document.createElement('div');
@@ -906,9 +911,5 @@ Wave.prototype = {
     }.bind(this);
   }
 };
-
-function up() {
-  waves.forEach((wave) => { wave.up(); });
-}
 
 document.body.addEventListener('up', up);
