@@ -54,7 +54,7 @@
     "@0xcda7a/empathy": "0.0.9",
     "@open-wc/building-rollup": "^1.4.2",
     "@open-wc/demoing-storybook": "^1.15.2",
-    "@open-wc/eslint-config": "^2.0.6",
+    "@open-wc/eslint-config": "^2.1.0",
     "@open-wc/prettier-config": "^0.1.14",
     "@open-wc/testing": "^2.5.19",
     "@open-wc/testing-karma": "^3.4.6",
@@ -91,7 +91,12 @@
     "extends": [
       "@open-wc/eslint-config",
       "eslint-config-prettier"
-    ]
+    ],
+    "rules": {
+      "lit/no-legacy-template-syntax": [
+        "off"
+      ]
+    }
   },
   "prettier": "@open-wc/prettier-config",
   "husky": {
