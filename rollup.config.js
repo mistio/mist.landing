@@ -1,7 +1,7 @@
 import merge from 'deepmerge';
 // use createSpaConfig for bundling a Single Page App
 import { createSpaConfig } from '@open-wc/building-rollup';
-import { triggerAsyncId } from 'async_hooks';
+// import { triggerAsyncId } from 'async_hooks';
 
 // use createBasicConfig to do regular JS to JS bundling
 // import { createBasicConfig } from '@open-wc/building-rollup';
@@ -30,7 +30,7 @@ export default merge(baseConfig, {
   // optionally set a HTML template manually
   input: 'index.html',
   output: {
-    dir: './build/rollup',
+    dir: './build/bundled',
     // file: './build/rollup/landing-app.js',
     sourcemap: true,
     format: 'esm'
