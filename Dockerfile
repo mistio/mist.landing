@@ -7,8 +7,7 @@ COPY . /landing
 WORKDIR /landing
 COPY ./container/nginx.conf /etc/nginx/nginx.conf
 
-RUN npm install
-#RUN node /usr/local/bin/polymer build && ln -s /landing/build/ /landing/build/landing
+RUN npm install && npm run build
 COPY ./container/entry.sh /entry.sh
 RUN cp package.json /
 
