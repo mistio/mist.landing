@@ -7,7 +7,7 @@ COPY . /landing
 WORKDIR /landing
 COPY ./container/nginx.conf /etc/nginx/nginx.conf
 
-RUN npm install && npm run build
+RUN npm install && npm run build && cd build/bundled && ln -s /landing/images && cd -
 COPY ./container/entry.sh /entry.sh
 RUN cp package.json /
 
