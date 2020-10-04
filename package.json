@@ -12,7 +12,7 @@
     "Christina Papakonstantinou"
   ],
   "dependencies": {
-    "@mistio/mist-password": "^2.0.0",
+    "@mistio/mist-password": "^2.0.1",
     "@polymer/app-layout": "^3.0.0",
     "@polymer/app-route": "^3.0.0",
     "@polymer/app-storage": "^3.0.3",
