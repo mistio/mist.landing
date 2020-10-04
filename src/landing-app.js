@@ -532,18 +532,18 @@ Polymer({
     this.category = {'name': this.page, 'content': content};
     // this.$.pages._selection.selection = []
     // listen for online/offline
-    afterNextRender(this, function() {
+    afterNextRender(this, function listenNetworkStatus() {
       this.listen(window, 'online', '_notifyNetworkStatus');
       this.listen(window, 'offline', '_notifyNetworkStatus');
     });
 
     const that = this;
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function logUserExit() {
       that.fire('user-action', `exit from ${  that.page}`);
     };
     this.fire('user-action', `entry at ${  that.page}`);
 
-    document.addEventListener("scroll", function() {
+    document.addEventListener("scroll", function onScroll() {
       const scrollPercent = 1 - (document.body.scrollHeight - window.scrollY - window.innerHeight) / document.body.scrollHeight;
       if (document.body.scrollHeight <= window.innerHeight)
         return;
@@ -551,7 +551,7 @@ Polymer({
         that.fire('user-action', 'scroll to bottom');
         this.scrollThresholdReached = true;
         if (that.config.features && that.config.features.landing_footer){
-          that.async(function() {
+          that.async(function loadFooter() {
             this.$.footer.finishLoading();
           }, 50);
         }
@@ -707,8 +707,8 @@ Polymer({
   // This is for performance logging only.
   _domChange(e) {
     if (window.performance && performance.mark && !this.__loggedDomChange) {
-      const target = Polymer.dom(e).rootTarget;
-      if (target.domHost.is.match(this.page)) {
+      const target = dom(e).rootTarget;
+      if (target.domHost && target.domHost.is.match(this.page)) {
         this.__loggedDomChange = true;
         performance.mark(`${target.domHost.is  }.domChange`);
       }
@@ -780,10 +780,10 @@ Polymer({
         'event_category': 'landing'
       });
     }
-    if (!this.config || !this.config.features || !this.config.features.ab)
-      return;
-    const xhr = new XMLHttpRequest();
     // TODO: De-comment when fingerprint gets updated
+    // if (!this.config || !this.config.features || !this.config.features.ab)
+    //  return;
+    // const xhr = new XMLHttpRequest();
     // if (!this.fingerprint){
     //   var that = this;
     //   new Fingerprint2().get(function(result, components){
@@ -812,7 +812,6 @@ Polymer({
 
   _getBrowser() {
     const userAgent = navigator.userAgent.toLowerCase();
-    const {productSub} = navigator;
 
     // we extract the browser from the user agent (respect the order of the tests)
     let browser;
@@ -836,7 +835,7 @@ Polymer({
     this.fire('user-action', `tab click ${  event.target.textContent}`);
   },
 
-  _logoClicked(event) {
+  _logoClicked() {
     this.fire('user-action', 'header logo click');
   },
 
@@ -850,7 +849,7 @@ Polymer({
     return catName === page;
   },
 
-  _categoryChanged(content) {
+  _categoryChanged() {
     const htmlContent = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
     if (!this.category.content || htmlContent === this.category.content) {
       return;
