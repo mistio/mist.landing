@@ -54,7 +54,7 @@ Polymer({
 
   _onSelectedItemChanged: function(selectedItem) {
     if (selectedItem === undefined && this.selected) return;
-    if (['docs', 'blog'].indexOf(this.selected) > -1) return;
+    if (['docs'].indexOf(this.selected) > -1) return;
     this.$.overlay.target = selectedItem;
   }
 });

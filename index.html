@@ -6,7 +6,7 @@
   <base tal:attributes="href string:/landing/${build_path}" tal:condition="build_path"></base>
   <base tal:attributes="href string:/landing-dev/" tal:condition="not: build_path"></base>
 
-  <title tal:content="portal_name|nothing"> mist.io :: open source multi-cloud management platform</title>
+  <title tal:content="title|portal_name"> mist.io :: open source multi-cloud management platform</title>
   <meta name="description" content="A secure cloud management platform for automation, orchestration, cost and usage monitoring of public and private clouds, hypervisors and container hosts. Provides multi-cloud RBAC. Enables self service provisioning. Cost analysis and cloud spending optimization">
 
   <link tal:condition="theme|nothing" rel="shortcut icon" sizes="32x32" tal:attributes="href string:/static/${theme}-favicon.ico">
@@ -383,7 +383,9 @@
       width: 90%;
       box-sizing: border-box;
     }
-
+    .section.grey, .section.white {
+      color: #444;
+    }
     .row {
       margin-bottom: 24px;
     }
@@ -1037,6 +1039,7 @@
     /* PRODUCT */
 
     .page paper-button {
+      background-color: rgb(0, 153, 204) !important;
       color: #fff;
       font-size: 18px;
       height: 54px;
@@ -1101,10 +1104,6 @@
 
     .white {
         background-color: #fff;
-    }
-
-    .grey {
-        background-color: #fafafa;
     }
 
     .prod-label {

@@ -157,7 +157,7 @@ Polymer({
               <div id="tumblr-badge" class="box-round">
                 <div id="tumblr-header">
                   <h1>
-                    <a title="mist.io blog" href="http://blog.mist.io" target="_blank">Blog</a>
+                    <a title="mist.io blog" href="/blog">Blog</a>
                   </h1>
                 </div>
                 <div id="tumblr-content">
@@ -176,7 +176,7 @@ Polymer({
           <li><a href="/product">Product</a></li>
           <li><a href="/pricing">Pricing</a></li>
           <li><a href="http://docs.mist.io/" target="new">Docs</a></li>
-          <li><a href="http://blog.mist.io/" target="new">Blog</a></li>
+          <li><a href="/blog" target="new">Blog</a></li>
           <li><a href="/about">About</a></li>
         </ul>
         <ul class="footer-nav right">

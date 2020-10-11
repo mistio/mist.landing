@@ -949,10 +949,6 @@ img {
     background-color: #fff;
 }
 
-.grey {
-    background-color: #fafafa;
-}
-
 .prod-label {
     background-color: #444;
     color: #fff;

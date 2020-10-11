@@ -25,7 +25,7 @@ Polymer({
 
     builtinCategories: {
       type: Array,
-      value: ['sign-up', 'sign-in', 'get-started', 'buy-license', 'set-password', 'reset-password', 'forgot-password', 'error', 'request-pricing', 'docs', 'blog']
+      value: ['sign-up', 'sign-in', 'get-started', 'buy-license', 'set-password', 'reset-password', 'forgot-password', 'error', 'request-pricing', 'docs']
     },
 
     categoryData: {
@@ -99,8 +99,9 @@ Polymer({
     if (!category) {
       return;
     }
+    let categoryUrl = category.name != 'blog' ? ('/api/v1/section/landing--' + category.name) : '/api/v1/blog';
     this._getResource({
-      url: '/api/v1/section/landing--' + category.name,
+      url: categoryUrl,
       onLoad: function(e) {
         this.set('category.content', e.target.responseText);
       },

@@ -584,8 +584,8 @@ Polymer({
 
   _pageChanged(page, oldPage) {
     if (page != null) {
-      // in docs and blog case reset page to the oldPage
-      if (['docs', 'blog'].indexOf(page) > -1){
+      // in docs reset page to the oldPage
+      if (['docs'].indexOf(page) > -1){
         this.set('page', oldPage);
       // home route is eagerly loaded
       } else if (page === 'home') {
