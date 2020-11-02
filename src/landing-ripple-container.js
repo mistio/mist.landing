@@ -11,6 +11,7 @@ import '../node_modules/@polymer/polymer/polymer-legacy.js';
 
 import { PaperRippleBehavior } from '../node_modules/@polymer/paper-behaviors/paper-ripple-behavior.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
+
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<dom-module id="landing-ripple-container">
@@ -43,29 +44,29 @@ Polymer({
     'up': '_rippleUp',
   },
 
-  created: function() {
+  created() {
     this.addEventListener('focus', this._onFocus.bind(this), true);
     this.addEventListener('blur', this._onBlur.bind(this), true);
     this._isDown = false;
   },
 
-  _onFocus: function(event) {
+  _onFocus(event) {
     // Prevent second ripple when clicking causes both focus and down.
     if (!this._isDown) {
       this._rippleDown(event);
     }
   },
 
-  _onBlur: function(event) {
+  _onBlur(event) {
     this._rippleUp(event);
   },
 
-  _rippleDown: function(event) {
+  _rippleDown(event) {
     this._isDown = true;
     this.getRipple().downAction(event);
   },
 
-  _rippleUp: function(event) {
+  _rippleUp(event) {
     this._isDown = false;
     this.getRipple().upAction(event);
   },

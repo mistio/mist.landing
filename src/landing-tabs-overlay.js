@@ -7,10 +7,11 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import '../node_modules/@polymer/polymer/polymer-legacy.js';
+import '@polymer/polymer/polymer-legacy.js';
 
-import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
-import { flush } from '../node_modules/@polymer/polymer/lib/legacy/polymer.dom.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { flush } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<dom-module id="landing-tabs-overlay">
@@ -50,12 +51,12 @@ Polymer({
     'transitionend': '_onTransitionend',
   },
 
-  created: function() {
+  created() {
     this._lastTarget = undefined;
     this._transitionsInFlight = [];
   },
 
-  _targetChanged: function(newTarget, oldTarget) {
+  _targetChanged(newTarget, oldTarget) {
     if (!this._transitionsInFlight.length) {
       if (this._lastTarget) {
         this._lastTarget.classList.remove('landing-tabs-overlay-static-above');
@@ -66,8 +67,8 @@ Polymer({
     }
   },
 
-  _onTransitionend: function(event) {
-    var index = this._transitionsInFlight.indexOf(event.propertyName);
+  _onTransitionend(event) {
+    const index = this._transitionsInFlight.indexOf(event.propertyName);
     if (index >= 0) {
       this._transitionsInFlight.splice(index, 1);
     }
@@ -77,7 +78,7 @@ Polymer({
     }
   },
 
-  _moveComplete: function() {
+  _moveComplete() {
     if (this._lastTarget !== this.target) {
       this._move(this._lastTarget, this.target);
       this._lastTarget = this.target;
@@ -89,19 +90,19 @@ Polymer({
     }
   },
 
-  _move: function(oldTarget, newTarget) {
-    var from = oldTarget || newTarget;
-    var to = newTarget || oldTarget;
+  _move(oldTarget, newTarget) {
+    const from = oldTarget || newTarget;
+    const to = newTarget || oldTarget;
     if (!from && !to) return;
 
-    var fromOpacity = oldTarget ? 1 : 0;
-    var toOpacity = newTarget ? 1 : 0;
+    const fromOpacity = oldTarget ? 1 : 0;
+    const toOpacity = newTarget ? 1 : 0;
 
     flush();
-    var thisRect = this.getBoundingClientRect();
-    var thisStyle = window.getComputedStyle(this);
-    var fromRect = from.getBoundingClientRect();
-    var toRect = to.getBoundingClientRect();
+    const thisRect = this.getBoundingClientRect();
+    const thisStyle = window.getComputedStyle(this);
+    const fromRect = from.getBoundingClientRect();
+    const toRect = to.getBoundingClientRect();
 
     if (toRect.top === 0 && toRect.right === 0 &&
         toRect.bottom === 0 && toRect.left === 0 &&
@@ -111,22 +112,21 @@ Polymer({
       this._transitionsInFlight = [];
       this.async(this._moveComplete);
       return;
-    } else {
-      this.style.transitionProperty = '';
     }
+    this.style.transitionProperty = '';
 
-    var top = parseFloat(thisStyle.top || '0') + (fromRect.top - thisRect.top);
-    var right = parseFloat(thisStyle.right || '0') - (fromRect.right - thisRect.right);
-    var bottom = parseFloat(thisStyle.bottom || '0') - (fromRect.bottom - thisRect.bottom);
-    var left = parseFloat(thisStyle.left || '0') + (fromRect.left - thisRect.left);
+    let top = parseFloat(thisStyle.top || '0') + (fromRect.top - thisRect.top);
+    let right = parseFloat(thisStyle.right || '0') - (fromRect.right - thisRect.right);
+    let bottom = parseFloat(thisStyle.bottom || '0') - (fromRect.bottom - thisRect.bottom);
+    let left = parseFloat(thisStyle.left || '0') + (fromRect.left - thisRect.left);
 
     this.style.transitionDuration = '0s';
     this.style.transitionDelay = '0s';
-    var startValues = [
-      this.style.top = top + 'px',
-      this.style.right = right + 'px',
-      this.style.bottom = bottom + 'px',
-      this.style.left = left + 'px',
+    const startValues = [
+      this.style.top = `${top  }px`,
+      this.style.right = `${right  }px`,
+      this.style.bottom = `${bottom  }px`,
+      this.style.left = `${left  }px`,
       this.style.opacity = String(fromOpacity)
     ];
 
@@ -135,8 +135,8 @@ Polymer({
     bottom -= toRect.bottom - fromRect.bottom;
     left += toRect.left - fromRect.left;
 
-    var durations = [0.2, 0.2, 0.2, 0.2, 0.2];
-    var delays = [0, 0, 0, 0, 0];
+    const durations = [0.2, 0.2, 0.2, 0.2, 0.2];
+    const delays = [0, 0, 0, 0, 0];
     // Delay left / right transitions if element is left / right of the target.
     if (fromRect.left < toRect.left && fromRect.right < toRect.right) {
       delays[3] = 0.1;
@@ -151,28 +151,28 @@ Polymer({
       delays[2] = 0.1;
     }
 
-    var endValues = [
-      top + 'px',
-      right + 'px',
-      bottom + 'px',
-      left + 'px',
+    const endValues = [
+      `${top  }px`,
+      `${right  }px`,
+      `${bottom  }px`,
+      `${left  }px`,
       String(toOpacity)
     ];
 
-    var names = ['top', 'right', 'bottom', 'left', 'opacity'];
-    for (var i = 0; i < startValues.length; i++) {
+    const names = ['top', 'right', 'bottom', 'left', 'opacity'];
+    for (let i = 0; i < startValues.length; i++) {
       if (startValues[i] === endValues[i]) continue;
       if (durations[i] === 0 && delays[i] === 0) continue;
       this._transitionsInFlight.push(names[i]);
     }
 
     this.async(function() {
-      this.style.transitionDuration = durations.map(function(x) { return x + 's'; }).join(', ');
-      this.style.transitionDelay = delays.map(function(x) { return x + 's'; }).join(', ');
-      this.style.top = top + 'px';
-      this.style.right = right + 'px';
-      this.style.bottom = bottom + 'px';
-      this.style.left = left + 'px';
+      this.style.transitionDuration = durations.map((x) => `${x  }s`).join(', ');
+      this.style.transitionDelay = delays.map((x) => `${x  }s`).join(', ');
+      this.style.top = `${top  }px`;
+      this.style.right = `${right  }px`;
+      this.style.bottom = `${bottom  }px`;
+      this.style.left = `${left  }px`;
       this.style.opacity = String(toOpacity);
     }, 1);
   },

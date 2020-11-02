@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 import '../node_modules/@polymer/polymer/polymer-legacy.js';
 
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
+
 Polymer({
   is: 'landing-category-data',
 
@@ -30,7 +31,7 @@ Polymer({
 
     categoryData: {
       type: Object,
-      value: function () { return {}; }
+      value () { return {}; }
     },
 
     category: {
@@ -52,7 +53,7 @@ Polymer({
     }
   },
 
-  _getCategoryObject: function(categoryName) {
+  _getCategoryObject(categoryName) {
     for (var i = 0, c; c = this.categories[i]; ++i) {
       if (c.name === categoryName) {
         return c;
@@ -62,14 +63,14 @@ Polymer({
       this.fire('show-invalid-url-warning');
   },
 
-  _computeCategory: function(categoryName) {
+  _computeCategory(categoryName) {
     // Fetch the items of the category. Note that the fetch is asynchronous,
     // which means `category.items` may not be set initially (but that path
     // will be notified when the fetch completes).
     if (!this.categoryData[categoryName]) {
       this.categoryData[categoryName] = {'name': categoryName};
     }
-    var categoryObj = this.categoryData[categoryName];
+    const categoryObj = this.categoryData[categoryName];
     if (this.parentNode.host.category && categoryName != this.parentNode.host.category.name && !this.categoryData[this.parentNode.host.category.name]) {
       this.categoryData[this.parentNode.host.category.name] = {'name': this.parentNode.host.category.name, 'content': this.parentNode.host.querySelector('[slot="content"]')};
     }
@@ -78,7 +79,7 @@ Polymer({
     return categoryObj;
   },
 
-  _computeItem: function(items, itemName) {
+  _computeItem(items, itemName) {
     if (!items || !itemName) {
       return;
     }
@@ -91,7 +92,7 @@ Polymer({
       this.fire('show-invalid-url-warning');
   },
 
-  _fetchContent: function(category, attempts) {
+  _fetchContent(category, attempts) {
     if (!this.category || this.category.name == category.name || this.builtinCategories.indexOf(category.name) > -1) return;
     console.log('category.name', category.name);
     this._setFailure(false);
@@ -101,33 +102,33 @@ Polymer({
     }
     let categoryUrl = category.name != 'blog' ? ('/api/v1/section/landing--' + category.name) : '/api/v1/blog';
     this._getResource({
-      url: categoryUrl,
-      onLoad: function(e) {
+      url: `/api/v1/section/landing--${  category.name}`,
+      onLoad(e) {
         this.set('category.content', e.target.responseText);
       },
-      onError: function(e) {
+      onError(e) {
         this._setFailure(true);
       }
     }, attempts);
   },
 
-  _getResource: function(rq, attempts) {
-    var xhr = new XMLHttpRequest();
+  _getResource(rq, attempts) {
+    const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', rq.onLoad.bind(this));
-    xhr.addEventListener('error', function(e) {
+    xhr.addEventListener('error', (e) => {
       // Flaky connections might fail fetching resources
       if (attempts > 1) {
         this.debounce('_getResource', this._getResource.bind(this, rq, attempts - 1), 200);
       } else {
         rq.onError.call(this, e);
       }
-    }.bind(this));
+    });
 
     xhr.open('GET', rq.url);
     xhr.send();
   },
 
-  refresh: function() {
+  refresh() {
     if (this.categoryName) {
       // Try at most 3 times to get the items.
       this._fetchItems(this._getCategoryObject(this.categoryName), 3);

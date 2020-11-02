@@ -1,26 +1,26 @@
-import '../node_modules/@polymer/polymer/polymer-legacy.js';
-import '../node_modules/@polymer/paper-input/paper-input.js';
-import '../node_modules/@polymer/paper-input/paper-textarea.js';
-import '../node_modules/@polymer/paper-button/paper-button.js';
-import '../node_modules/@polymer/paper-checkbox/paper-checkbox.js';
-import '../node_modules/@polymer/paper-icon-button/paper-icon-button.js';
-import '../node_modules/@polymer/paper-spinner/paper-spinner.js';
-import '../node_modules/@polymer/paper-radio-group/paper-radio-group.js';
-import '../node_modules/@polymer/paper-radio-button/paper-radio-button.js';
-import '../node_modules/@polymer/paper-material/paper-material.js';
-import '../node_modules/@polymer/iron-form/iron-form.js';
-import '../node_modules/@polymer/iron-icon/iron-icon.js';
-import '../node_modules/@polymer/iron-icons/iron-icons.js';
-import '../node_modules/@polymer/iron-icons/social-icons.js';
-import '../node_modules/@polymer/iron-icons/communication-icons.js';
-import '../node_modules/@polymer/gold-cc-input/gold-cc-input.js';
-import '../node_modules/@polymer/gold-cc-cvc-input/gold-cc-cvc-input.js';
-import '../node_modules/@polymer/gold-phone-input/gold-phone-input.js';
-import '../node_modules/@polymer/iron-ajax/iron-ajax.js';
-import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/paper-input/paper-input.js';
+import '@polymer/paper-input/paper-textarea.js';
+import '@polymer/paper-button/paper-button.js';
+import '@polymer/paper-checkbox/paper-checkbox.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/paper-spinner/paper-spinner.js';
+import '@polymer/paper-radio-group/paper-radio-group.js';
+import '@polymer/paper-radio-button/paper-radio-button.js';
+import '@polymer/paper-material/paper-material.js';
+import '@polymer/iron-form/iron-form.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-icons/social-icons.js';
+import '@polymer/iron-icons/communication-icons.js';
+import '@polymer/gold-cc-input/gold-cc-input.js';
+import '@polymer/gold-cc-cvc-input/gold-cc-cvc-input.js';
+import '@polymer/gold-phone-input/gold-phone-input.js';
+import '@polymer/iron-ajax/iron-ajax.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import './shared-styles.js';
-import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 Polymer({
     _template: html`
@@ -393,11 +393,11 @@ Polymer({
             <div id="output" class="output"></div>
             <div id="notice">You will receive an email with your license key and download instructions after submitting this form.</div>
         </form>
-        <div id="success" hidden=[[!licenseKey]]><h2>Transaction successful</h2>
+        <div id="success" hidden$=[[!licenseKey]]><h2>Transaction successful</h2>
             <p>Congratulations for purchasing your Mist.io Enterprise Edition License!</p> <p>In order to install Mist.io EE, you will need a Linux machine with at least 6GB of free RAM. Docker and Docker Compose need to be preinstalled and port 80 needs to be available.</p>
             <p>Provided the above, use the following steps to complete the installation.</p>
             <textarea id="instructions" rows="8" cols="80" onclick="this.focus();if (typeof(textareaSelected) == 'undefined') { textareaSelected = true; this.select() }" readonly="readonly">[[instructions]]</textarea>
-            <p hidden=[[registryPassword]]>
+            <p hidden$=[[registryPassword]]>
                 Your registry.ops.mist.io password was not changed. <a href="https://gitlab.ops.mist.io/users/password/new">Forgot password?</a>
             </p>
             <p>Also check out the <a href="https://github.com/mistio/mist.ee/#configuring-mistio" target="new">configuration guide</a>.</p>
@@ -417,7 +417,7 @@ Polymer({
 
         contact: {
             type: Object,
-            value: function() {
+            value() {
                 return {
                     name: undefined,
                     address: undefined,
@@ -428,7 +428,7 @@ Polymer({
 
         stripePayload: {
             type: Object,
-            value: function() {
+            value() {
                 return {
                     number: "",
                     exp_month: "",
@@ -503,7 +503,7 @@ Polymer({
         }
     },
 
-    attached: function() {
+    attached() {
         this.$.buyLicence.addEventListener('iron-form-response', function(event) {
             that.loading = false;
             that.registryUsername = event.detail.xhr.response.username;
@@ -513,23 +513,23 @@ Polymer({
             this.fire('user-action', 'purchase license sucess');
         });
         var that = this;
-        this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
+        this.$.buyLicence.addEventListener('iron-form-presubmit', (event) => {
             that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
         });
-        this.$.buyLicence.addEventListener('iron-form-error', function(event) {
+        this.$.buyLicence.addEventListener('iron-form-error', (event) => {
             that.loading = false;
             that.$.buyLicence.querySelector('div.output').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
         });
 
     },
 
-    submit: function(e) {
+    submit(e) {
         this.fire('user-action', 'purchase license submit');
         if (this.formReady) {
             this.formReady = false;
             this.loading = true;
             // extra stripe validation
-            var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
+            const isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
                 Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
                 Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip != '';
 
@@ -537,7 +537,7 @@ Polymer({
                 Stripe.setPublishableKey(this.stripePublicApikey);
                 Stripe.card.createToken(this.stripePayload, stripeResponseHandler);
                 this.set('sendingData', true);
-                var that = this;
+                const that = this;
                 function stripeResponseHandler(status, response){
                     if (response.error) {
                         console.log('stripeResponseHandler failed', response.error.message);
@@ -547,7 +547,7 @@ Polymer({
                     }
                 }
             } else {
-                var errorText = 'There seems to be an error with the';
+                let errorText = 'There seems to be an error with the';
                 if (!Stripe.card.validateCardNumber(this.stripePayload.number)){
                     errorText += ' card number';
                     this.$["cc-cvc"].invalid = true;
@@ -570,13 +570,13 @@ Polymer({
         }
     },
 
-    sumbmitPayment: function(status, response) {
+    sumbmitPayment(status, response) {
         this.$.buyLicence.headers["Csrf-Token"] = CSRF_TOKEN;
         this.$.token.value = response.id;
         this.$.buyLicence.submit();
     },
 
-    _computeFormReady: function(vcpus, dockerhubid, contact, stripePayload, accept) {
+    _computeFormReady(vcpus, dockerhubid, contact, stripePayload, accept) {
         // move input focus for month/year if length == 2
         if (stripePayload.path.startsWith("stripePayload."))
             this.moveFocus(stripePayload)
@@ -597,8 +597,8 @@ Polymer({
             }
         }
         // if any of the fields is invalid, form is not ready
-        var fields = this.$.buyLicence.querySelectorAll(".form-input");
-        for (var i=0;i<fields.length;i++){
+        const fields = this.$.buyLicence.querySelectorAll(".form-input");
+        for (let i=0;i<fields.length;i++){
             if (fields[i].invalid){
                 return false;
             }
@@ -613,20 +613,18 @@ Polymer({
         return this.$.buyLicence.validate();
     },
 
-    _computeCost: function(vcpus, annualy){
+    _computeCost(vcpus, annualy){
         if (vcpus > 0 && annualy) {
             return (vcpus * 12 * this.annualCost).toFixed(2);
         }
-        else if (vcpus > 0 && !annualy) {
+        if (vcpus > 0 && !annualy) {
             return (vcpus * this.monthlyCost).toFixed(2);
         }
-        else {
-            this.set("vcpus", 0);
-            return 0;
-        }
+        this.set("vcpus", 0);
+        return 0;
     },
 
-    moveFocus: function(stripePayload){
+    moveFocus(stripePayload){
         // if exp_mont has 2 digits move to year
         if (stripePayload.path == "stripePayload.exp_month" && stripePayload.value.length == 2){
             this.$.form.querySelector("paper-input#exp-year").focus()
@@ -641,7 +639,7 @@ Polymer({
         }
     },
 
-    showError: function(result){
+    showError(result){
         this.set('sendingData', false);
         this.set('formError', true);
         console.log(result)
@@ -654,15 +652,15 @@ Polymer({
         this.loading = false;
     },
 
-    _logoClicked: function(event) {
+    _logoClicked(event) {
         this.fire('user-action', 'logo click');
     },
 
-    _signInClicked: function(event) {
+    _signInClicked(event) {
         this.fire('user-action', 'purchase-license click')
     },
 
-    _isSubmitDisabled: function(formReady, loading) {
+    _isSubmitDisabled(formReady, loading) {
         return !formReady || loading;
     }
 });

@@ -12,6 +12,7 @@ import '../node_modules/@polymer/iron-ajax/iron-ajax.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+
 Polymer({
   _template: html`
         <style>
@@ -193,50 +194,50 @@ Polymer({
       }
   },
 
-  attached: function() {
-      var that = this,
-          validate = function(event) {
+  attached() {
+      const that = this;
+          const validate = function(event) {
           // Validate the entire form to see if we should enable the `Submit` button.
-          var ret = that.$.forgotPasswordForm.validate();
+          const ret = that.$.forgotPasswordForm.validate();
           that.$.forgotPasswordSubmit.disabled = !ret;
           return ret;
       }
-      this.$.forgotPasswordForm.addEventListener('keyup', function(event) {
-          var submitDisabled = that.$.forgotPasswordSubmit.disabled;
+      this.$.forgotPasswordForm.addEventListener('keyup', (event) => {
+          const submitDisabled = that.$.forgotPasswordSubmit.disabled;
           that.$.forgotPasswordForm.querySelector('paper-button > div').innerHTML = "Reset password";
           if (validate(event) && !submitDisabled && event.key == "Enter")
               that._submitButtonHandler();
       });
       this.$.forgotPasswordForm.addEventListener('change', validate);
 
-      this.$.forgotPasswordForm.addEventListener('iron-form-error', function(event) {
+      this.$.forgotPasswordForm.addEventListener('iron-form-error', (event) => {
           console.warn("ERROR!", event.detail);
           that.loading = false;
           that.$.forgotPasswordSubmit.querySelector('div').innerText = event.detail.request.statusText;
       });
-      this.$.forgotPasswordForm.addEventListener('iron-form-response', function(event) {
+      this.$.forgotPasswordForm.addEventListener('iron-form-response', (event) => {
           that.loading = false;
           that.$.forgotPasswordForm.querySelector('form').hidden = true;
           that.$.pageTitle.innerText = "Password reset requested"
-          that.$.forgotPasswordForm.querySelector('.output').innerHTML = "You will soon receive further instructions over email.\n\nIf you are not sure about which email you used for your account, please contact " + that.supportEmail;
-      }.bind(this));
-      this.$.forgotPasswordForm.addEventListener('iron-form-presubmit', function(event) {
+          that.$.forgotPasswordForm.querySelector('.output').innerHTML = `You will soon receive further instructions over email.\n\nIf you are not sure about which email you used for your account, please contact ${  that.supportEmail}`;
+      });
+      this.$.forgotPasswordForm.addEventListener('iron-form-presubmit', (event) => {
           that.$.forgotPasswordForm.headers['Csrf-Token'] = CSRF_TOKEN;
       });
   },
 
-  _submitButtonHandler:  function(event) {
+  _submitButtonHandler(event) {
       this.loading = true;
       this.$.forgotPasswordSubmit.disabled = true;
       this.$.forgotPasswordForm.querySelector('.output').innerHTML = '';
       this.$.forgotPasswordForm.submit();
   },
 
-  _logoClicked: function(event) {
+  _logoClicked(event) {
       this.fire('user-action', 'logo click in forgot-password');
   },
 
-  _signInClicked: function(event) {
+  _signInClicked(event) {
       this.fire('user-action', 'sign-in click in forgot-password');
   }
 });

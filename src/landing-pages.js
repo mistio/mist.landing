@@ -82,7 +82,7 @@ Polymer({
     '_selectedPageChanged(selected)'
   ],
 
-  _selectedPageChanged: function(selected, old) {
+  _selectedPageChanged(selected, old) {
     this.async(this.notifyResize);
     console.log('Page changed from ', old, 'to ', selected);
   }

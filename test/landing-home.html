@@ -31,14 +31,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script type="module">
 import { dom } from '../node_modules/@polymer/polymer/lib/legacy/polymer.dom.js';
-suite('landing-home tests', function() {
-  var home;
 
-  setup(function() {
+suite('landing-home tests', () => {
+  let home;
+
+  setup(() => {
     home = fixture('basic');
   });
 
-  test('Item lengths should be equalled', function(done) {
+  test('Item lengths should be equalled', (done) => {
     // Test categories property
     home.categories = [
       {name: 'furniture', title: 'Furniture'},
@@ -48,8 +49,8 @@ suite('landing-home tests', function() {
 
     // Data bindings will stamp out new DOM asynchronously
     // so wait to check for updates
-    flush(function() {
-      var items = dom(home.root).querySelectorAll('.item');
+    flush(() => {
+      const items = dom(home.root).querySelectorAll('.item');
       assert.equal(home.categories.length, items.length);
       done();
     });

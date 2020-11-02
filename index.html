@@ -32,13 +32,13 @@
   <script tal:condition="csrf_token|nothing" tal:content="string: var CSRF_TOKEN=${csrf_token}"></script>
   <script tal:condition="categories|nothing" tal:content="string: var CATEGORIES=${categories}"></script>
   <script tal:content="string: var True = true, False = false, CONFIG = {'features': ${structure:features}, 'email': ${email}, 'portalName': '${portal_name}', 'stripeKey': '${stripe_public_apikey|nothing}'}">
-  var CONFIG = false;
+  const CONFIG = false;
   </script>
   <script>
     // setup Polymer options
     window.Polymer = {lazyRegister: true};
 
-    var ANIMATIONS = false;
+    let ANIMATIONS = false;
     // Disable animations in Polyfilled browsers for now
     if ('registerElement' in document
           && 'import' in document.createElement('link')
@@ -2097,8 +2097,8 @@
   <script type="module">
   if (CONFIG) {
     document.querySelector('landing-app').config = CONFIG;
-    var repeater = document.querySelector('dom-repeat');
-    var categories = CATEGORIES;
+    const repeater = document.querySelector('dom-repeat');
+    const categories = CATEGORIES;
     repeater.items = categories;
   }
   </script>

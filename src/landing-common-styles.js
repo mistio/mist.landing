@@ -1,5 +1,6 @@
 import '../node_modules/@polymer/polymer/polymer-legacy.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
+
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<dom-module id="landing-common-styles">

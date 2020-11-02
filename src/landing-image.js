@@ -58,7 +58,7 @@ Polymer({
 
   },
 
-  _srcChanged: function(src) {
+  _srcChanged(src) {
     this.$.img.removeAttribute('src');
     this.$.img.style.transition = '';
     this.$.img.style.opacity = 0;
@@ -67,18 +67,18 @@ Polymer({
     }
   },
 
-  _onImgLoad: function() {
+  _onImgLoad() {
     this.$.img.style.transition = '0.5s opacity';
     this.$.img.style.opacity = 1;
   },
 
-  _onImgError: function() {
+  _onImgError() {
     if (!this.placeholderImg) {
-      this.$.img.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#CCC" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>');
+      this.$.img.src = `data:image/svg+xml,${  encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#CCC" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>')}`;
     }
   },
 
-  _placeholderImgChanged: function(placeholder) {
-    this.style.backgroundImage = 'url(\'' + placeholder + '\')';
+  _placeholderImgChanged(placeholder) {
+    this.style.backgroundImage = `url('${  placeholder  }')`;
   }
 });

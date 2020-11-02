@@ -12,6 +12,7 @@ import '../node_modules/@polymer/polymer/polymer-legacy.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
 import './landing-ripple-container.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
+
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<dom-module id="landing-tab">

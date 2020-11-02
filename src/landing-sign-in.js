@@ -12,6 +12,7 @@ import '../node_modules/@polymer/iron-ajax/iron-ajax.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+
 Polymer({
   _template: html`
         <style>
@@ -247,43 +248,43 @@ Polymer({
       'iron-form-error': 'handleError'
   },
 
-  attached: function() {
-      var that = this,
-          validate = function(event) {
+  attached() {
+      const that = this;
+          const validate = function(event) {
               console.warn('validating');
               // Validate the entire form to see if we should enable the `Submit` button.
-              var ret = that.$.signInForm.validate();
+              const ret = that.$.signInForm.validate();
               that.$.signInSubmit.disabled = !ret;
               return ret;
           };
       this.$.signInForm.addEventListener('change', validate);
-      this.$.signInForm.addEventListener('keyup', function(event) {
-          var submitDisabled = that.$.signInSubmit.disabled;
+      this.$.signInForm.addEventListener('keyup', (event) => {
+          const submitDisabled = that.$.signInSubmit.disabled;
           that.$.signInForm.querySelector('.output').innerHTML = "Sign in with your email";
           if (validate(event) && !submitDisabled && event.key == "Enter")
               that._submitButtonHandler();
       });
-      this.$.signInForm.addEventListener('iron-form-error', function(event) {
+      this.$.signInForm.addEventListener('iron-form-error', (event) => {
           console.warn("GOT ERROR!", event.detail);
           that.loading = false;
-          var msg = event.detail.error.msg;
+          let {msg} = event.detail.error;
           if (event.detail.request.xhr.status == 401)
               msg = 'Unauthorized';
           else if (event.detail.request.xhr.status == 403)
               msg = 'Forbidden';
           that.$.signInForm.querySelector('.output').innerHTML = msg;
       });
-      this.$.signInForm.addEventListener('iron-form-response', function(event) {
+      this.$.signInForm.addEventListener('iron-form-response', (event) => {
           that.loading = false;
           that.$.signInForm.querySelector('.output').innerHTML = "SUCCESS!";
           window.location = event.detail.response.redirect;
       });
-      this.$.signInForm.addEventListener('iron-form-presubmit', function(event) {
+      this.$.signInForm.addEventListener('iron-form-presubmit', (event) => {
           that.$.signInForm.headers['Csrf-Token'] = CSRF_TOKEN;
       });
   },
 
-  handleError: function(event){
+  handleError(event){
       if (event.detail.request.xhr.status == 403){
           this.set('showRequestWhitelist', true);
           this.$.signInForm.querySelector('#forbidden').innerHTML = '<span class="error"><strong>Error</strong>:</span><br/> Trying to login from a non-whitelisted IP address. You can request ';
@@ -291,7 +292,7 @@ Polymer({
       }
   },
 
-  _submitButtonHandler:  function(event) {
+  _submitButtonHandler(event) {
       // this.set('showRequestWhitelist', false);
       this.loading = true;
       this.$.signInSubmit.disabled = true;
@@ -299,28 +300,28 @@ Polymer({
       this.$.signInForm.submit();
   },
 
-  _logoClicked: function(event) {
+  _logoClicked(event) {
       this.fire('user-action', 'logo click on sign-in');
   },
 
-  _socialAuthGoogle: function(event){
+  _socialAuthGoogle(event){
       this.fire('user-action', 'google sign in');
       window.location = '/social_auth/login/google-oauth2';
   },
 
-  _socialAuthGithub: function(event){
+  _socialAuthGithub(event){
       this.fire('user-action', 'github sign in');
       window.location = '/social_auth/login/github';
   },
 
-  _createAccountClicked: function(event) {
+  _createAccountClicked(event) {
       this.fire('user-action', 'create account click');
   },
 
-  _requestWhitelist: function(event) {
+  _requestWhitelist(event) {
       event.preventDefault();
 
-      var userEmail = this.$['signin-email'].value;
+      const userEmail = this.$['signin-email'].value;
       this.$.requestWhitelist.headers["Content-Type"] = 'application/json';
       this.$.requestWhitelist.headers["Csrf-Token"] = CSRF_TOKEN;
       this.$.requestWhitelist.body = {email: userEmail};
@@ -328,49 +329,49 @@ Polymer({
       this.fire('user-action', 'request whitelist click');
   },
 
-  _handleRequestResponse: function(e){
+  _handleRequestResponse(e){
       this.$.signInForm.querySelector('#forbidden').innerHTML = '<span class="success"><strong>Request Sent</strong></span>:<br/>Check you email to confirm whitelisting of current IP.'
       this.$.signInForm.querySelector('#forbiddenlink').innerHTML = '';
   },
 
-  _handleRequestError: function(e) {
+  _handleRequestError(e) {
       this.$.signInForm.querySelector('#forbidden').innerHTML = '<span class="error"><strong>Error</strong>:</span><br/> Service unavailable'
       this.$.signInForm.querySelector('#forbiddenlink').innerHTML = '';
   },
 
-  _forgotPasswordClicked: function(event) {
+  _forgotPasswordClicked(event) {
       this.fire('user-action', 'forgot password click');
   },
 
-  _hasSeparator: function(signInGoogle, signInGithub, signInEmail) {
+  _hasSeparator(signInGoogle, signInGithub, signInEmail) {
       return (signInGoogle || signInGithub) && signInEmail;
   },
 
-  _canSignIn: function(signInGoogle, signInGithub, signInEmail) {
+  _canSignIn(signInGoogle, signInGithub, signInEmail) {
       return signInGoogle || signInGithub || signInEmail;
   },
 
-  _invitokenExists: function(tok){
+  _invitokenExists(tok){
       if (tok) {
           this._createHiddenFormElement('invitoken', this.invitoken);
       }
   },
 
-  _returntoExists: function(ret){
+  _returntoExists(ret){
       if (ret) {
           this._createHiddenFormElement('return_to', this.returnTo);
       }
   },
 
-  _createHiddenFormElement: function(name, value){
-      var element = document.createElement('input');
+  _createHiddenFormElement(name, value){
+      const element = document.createElement('input');
           element.type = 'hidden';
           element.name = name;
           element.value = value;
           this.$.form.appendChild(element);
   },
 
-  _autoSelect: function(event) {
+  _autoSelect(event) {
       event.target._focusableElement.select();
   }
 });

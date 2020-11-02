@@ -110,38 +110,36 @@ Polymer({
       'iron-resize': 'updateHeights'
   },
 
-  attached: function (e) {
+  attached (e) {
       if (this.$.clients.assignedNodes().length)
           this.$.clients.assignedNodes()[0].setAttribute('active', true);
       this.$.controlsRepeater.items = this.$.clients.assignedNodes();
-      var that = this;
-      this.async(function(){
+      const that = this;
+      this.async(() => {
           that.updateHeights();
       }, 200);
   },
 
-  updateHeights: function(){
-      var testimonials = this.$.clients.assignedNodes();
-      var heights = [];
-      [].forEach.call(testimonials, function(t){
+  updateHeights(){
+      const testimonials = this.$.clients.assignedNodes();
+      const heights = [];
+      [].forEach.call(testimonials, (t) => {
           heights.push(t.offsetHeight);
       })
-      var height = heights.reduce(function(a,b){
-          return Math.max(a,b);
-      });
-      this.$.testimonials.style.height = height+'px';
+      const height = heights.reduce((a,b) => Math.max(a,b));
+      this.$.testimonials.style.height = `${height}px`;
   },
 
-  _selectTestimonial: function(e) {
+  _selectTestimonial(e) {
       this.set('activeIndex',e.model.index);
-      var testimonials = this.$.clients.assignedNodes();
-      [].forEach.call(testimonials, function(t){
+      const testimonials = this.$.clients.assignedNodes();
+      [].forEach.call(testimonials, (t) => {
           t.removeAttribute('active');
       })
       this.$.clients.assignedNodes()[e.model.index].setAttribute('active', true);
   },
 
-  isEqual: function(ind, activeIndex){
+  isEqual(ind, activeIndex){
       return ind == this.activeIndex;
   }
 });

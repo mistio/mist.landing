@@ -4,6 +4,7 @@ import '../node_modules/@polymer/paper-dialog/paper-dialog.js';
 import '../node_modules/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+
 Polymer({
   _template: html`
         <style>
@@ -58,7 +59,7 @@ Polymer({
       }
   },
 
-  zoomInImage: function(e){
+  zoomInImage(e){
       console.log('zoomInImage', e)
       if(e.path[0] && e.path[0].tagName == "IMG"){
           console.log('zoomInImage', e.path[0], this.$.zoomimage)
@@ -67,7 +68,7 @@ Polymer({
       }
   },
 
-  closeZoomIn: function() {
+  closeZoomIn() {
       this.$.zoomArea.close();
   }
 });

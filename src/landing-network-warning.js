@@ -64,7 +64,7 @@ Polymer({
     offline: Boolean
   },
 
-  _tryReconnect: function() {
+  _tryReconnect() {
     this.fire('try-reconnect', null, { bubbles: false });
   }
 });

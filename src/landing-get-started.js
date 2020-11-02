@@ -1,7 +1,7 @@
 import '../node_modules/@polymer/polymer/polymer-legacy.js';
 import '../node_modules/@polymer/paper-button/paper-button.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout-classes.js';
-//import '../node_modules/typed-text/typed-text.js';
+// import '../node_modules/typed-text/typed-text.js';
 import '../node_modules/@polymer/paper-styles/shadow.js';
 import '../node_modules/@polymer/iron-icons/iron-icons.js';
 import '../node_modules/@polymer/iron-icons/hardware-icons.js';
@@ -10,6 +10,7 @@ import '../node_modules/@polymer/paper-tooltip/paper-tooltip.js';
 import './shared-styles.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+
 Polymer({
   _template: html`
         <custom-style>
@@ -588,7 +589,7 @@ Polymer({
 
   },
 
-  _visibleChanged: function(visible) {
+  _visibleChanged(visible) {
       if (visible) {
           this.fire('change-section', {
               title: 'Pricing'
@@ -596,45 +597,43 @@ Polymer({
       }
   },
 
-  showInfo: function(e) {
-      var li = e.path.find(function(el,index){
-          return el.tagName.toLowerCase() == 'li';
-      });
+  showInfo(e) {
+      const li = e.path.find((el,index) => el.tagName.toLowerCase() == 'li');
       if (li && li.querySelector('p'))
           li.querySelector('p').classList.toggle("visible");
   },
 
-  goBack: function(e){
+  goBack(e){
       e.stopImmediatePropagation();
       this.fire('go-to','/');
       this.fire('user-action', 'back click in get-started');
   },
 
-  _downloadClick: function(event) {
+  _downloadClick(event) {
       this.fire('user-action', 'download ce button click in get-started');
   },
 
-  _purchaseClick: function(event) {
+  _purchaseClick(event) {
       window.scrollTo(0, 0);
       this.fire('user-action', 'purchase license button click in get-started');
   },
 
-  _signUpClick: function(event) {
+  _signUpClick(event) {
       window.scrollTo(0, 0);
       this.fire('user-action', 'sign-up button click in get-started');
   },
 
-  _pricingClick: function(event) {
+  _pricingClick(event) {
       window.scrollTo(0, 0);
       this.fire('user-action', 'pricing click in get-started');
   },
 
-  _requestInfoClick: function(event) {
+  _requestInfoClick(event) {
       window.scrollTo(0, 0);
       this.fire('user-action', 'request info button click in get-started');
   },
 
-  _computeClass: function(index) {
-      return "bg-" + index + " title";
+  _computeClass(index) {
+      return `bg-${  index  } title`;
   }
 });

@@ -13,6 +13,7 @@ import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
 import { IronSelectableBehavior } from '../node_modules/@polymer/iron-selector/iron-selectable.js';
 import './landing-tabs-overlay.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
+
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<dom-module id="landing-tabs">
@@ -52,7 +53,7 @@ Polymer({
     '_onSelectedItemChanged(selectedItem)'
   ],
 
-  _onSelectedItemChanged: function(selectedItem) {
+  _onSelectedItemChanged(selectedItem) {
     if (selectedItem === undefined && this.selected) return;
     if (['docs'].indexOf(this.selected) > -1) return;
     this.$.overlay.target = selectedItem;

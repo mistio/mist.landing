@@ -1,7 +1,7 @@
 // tumblrBadge by Robert Nyman, http://www.robertnyman.com/, http://code.google.com/p/tumblrbadge/
-var tumblrBadge = function () {
+const tumblrBadge = function () {
     // User settings
-    var settings = {
+    const settings = {
         userName : "mistio", // Your Tumblr user name
         itemsToShow : 3, // Number of Tumblr posts to retrieve
         itemToAddBadgeTo : "tumblr-content", // Id of HTML element to put badge code into
@@ -14,46 +14,46 @@ var tumblrBadge = function () {
     // Limit by words
     // http://stackoverflow.com/questions/1662308/javascript-substr-limit-by-word-not-char
     function trim_words(theString, numWords) {
-        var expString = theString.split(/\s+/,numWords);
-        var theNewString = expString.join(" ");
+        const expString = theString.split(/\s+/,numWords);
+        const theNewString = expString.join(" ");
         return theNewString;
     }
 
     // Badge functionality
-    var head = document.getElementsByTagName("head")[0];
-    var badgeContainer = document.querySelector('landing-app').$.footer.$['tumblr-content'];
+    const head = document.getElementsByTagName("head")[0];
+    const badgeContainer = document.querySelector('landing-app').$.footer.$['tumblr-content'];
     if (head && badgeContainer) {
-        var badgeJSON = document.createElement("script");
+        let badgeJSON = document.createElement("script");
         badgeJSON.type = "text/javascript";
-        badgeJSON.src = "https://mist.io/blog/api/read/json?callback=tumblrBadge.listItems&num=" +
-                        settings.itemsToShow;
+        badgeJSON.src = `https://mist.io/blog/api/read/json?callback=tumblrBadge.listItems&num=${ 
+                        settings.itemsToShow}`;
         head.appendChild(badgeJSON);
 
-        var wait = setTimeout(function () {
+        const wait = setTimeout(() => {
             badgeJSON.onload = null;
             badgeJSON.parentNode.removeChild(badgeJSON);
             badgeJSON = null;
         }, settings.timeToWait);
 
         listItems = function (json) {
-            var posts = json.posts,
-                list = document.createElement("ul"),
-                post,
-                listItem,
-                text,
-                link,
-                img,
-                conversation,
-                postLink;
+            const {posts} = json;
+                const list = document.createElement("ul");
+                let post;
+                let listItem;
+                let text;
+                let link;
+                let img;
+                let conversation;
+                let postLink;
             list.className = "tumblr";
-            for (var i=0, il=posts.length; i<il; i=i+1) {
+            for (let i=0, il=posts.length; i<il; i+=1) {
                 post = posts[i];
 
                 // Only get content for text, photo, quote and link posts
                 if (/regular|photo|quote|link|conversation/.test(post.type)) {
                     listItem = document.createElement("li");
-                    var mainText = trim_words(post["regular-body"], settings.words);
-                        mainText = mainText.length < (post["regular-body"]).length ? mainText + " (...)" : mainText;
+                    let mainText = trim_words(post["regular-body"], settings.words);
+                        mainText = mainText.length < (post["regular-body"]).length ? `${mainText  } (...)` : mainText;
                     text = mainText || post["photo-caption"] || post["quote-source"] || post["link-text"] || post["link-url"] || "";
                     if (post.type === "photo") {
                         link = document.createElement("a");
@@ -61,33 +61,33 @@ var tumblrBadge = function () {
                         img = document.createElement("img");
                         // To avoid a creeping page
                         img.width = settings.imageSize;
-                        img.src = post["photo-url-" + settings.imageSize];
+                        img.src = post[`photo-url-${  settings.imageSize}`];
                         link.appendChild(img);
                         listItem.appendChild(link);
-                        text = "<em>" + text + "</em>";
+                        text = `<em>${  text  }</em>`;
                     }
                     else if (post.type === "quote") {
-                        text = post["quote-text"] + "<em>" + text + "</em>";
+                        text = `${post["quote-text"]  }<em>${  text  }</em>`;
                     }
                     else if (post.type === "link") {
-                        text = '<a href="' + post["link-url"] + '">' + text + '</a>';
+                        text = `<a href="${  post["link-url"]  }">${  text  }</a>`;
                     }
                     else if (post.type === "conversation") {
                         conversation = post["conversation-lines"];
-                        for (var j=0, jl=conversation.length; j<jl; j=j+1) {
-                            text += conversation[j].label + " " + conversation[j].phrase + ((j === (jl -1))? "" : "<br>");
+                        for (let j=0, jl=conversation.length; j<jl; j+=1) {
+                            text += `${conversation[j].label  } ${  conversation[j].phrase  }${(j === (jl -1))? "" : "<br>"}`;
                         }
                     }
 
                     // Create a link to Tumblr post
                     postDate = document.createElement("span");
-                    var dt = new Date(post["date"]);
-                    postDate.innerHTML = dt.getDate() + "/" + (dt.getMonth()+1) + "/" + dt.getFullYear();
+                    const dt = new Date(post.date);
+                    postDate.innerHTML = `${dt.getDate()  }/${  dt.getMonth()+1  }/${  dt.getFullYear()}`;
 
                     postLink = document.createElement("a");
                     postLink.className = "tumblr-post-title";
                     postLink.href = post.url;
-                    postLink.innerHTML += post["regular-title"] + " - ";
+                    postLink.innerHTML += `${post["regular-title"]  } - `;
                     postLink.appendChild(postDate);
 
                     listItem.appendChild(postLink);
@@ -105,7 +105,7 @@ var tumblrBadge = function () {
         };
 
         return {
-            listItems : listItems
+            listItems
         };
     }
 }();

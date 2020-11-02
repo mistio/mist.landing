@@ -446,7 +446,7 @@ Polymer({
 
         contact: {
             type: Object,
-            value: function() {
+            value() {
                 return {
                     name: undefined,
                     address: undefined,
@@ -457,7 +457,7 @@ Polymer({
 
         stripePayload: {
             type: Object,
-            value: function() {
+            value() {
                 return {
                     number: "",
                     exp_month: "",
@@ -532,7 +532,7 @@ Polymer({
         }
     },
 
-    attached: function() {
+    attached() {
         this.$.buyLicence.addEventListener('iron-form-response', function(event) {
             that.loading = false;
             that.registryUsername = event.detail.xhr.response.username;
@@ -542,23 +542,23 @@ Polymer({
             this.fire('user-action', 'purchase license sucess');
         });
         var that = this;
-        this.$.buyLicence.addEventListener('iron-form-presubmit', function(event) {
+        this.$.buyLicence.addEventListener('iron-form-presubmit', (event) => {
             that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
         });
-        this.$.buyLicence.addEventListener('iron-form-error', function(event) {
+        this.$.buyLicence.addEventListener('iron-form-error', (event) => {
             that.loading = false;
             that.$.buyLicence.querySelector('div.output').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
         });
 
     },
 
-    submit: function(e) {
+    submit(e) {
         this.fire('user-action', 'purchase license submit');
         if (this.formReady) {
             this.formReady = false;
             this.loading = true;
             // extra stripe validation
-            var isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
+            const isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
                 Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
                 Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip != '';
 
@@ -566,7 +566,7 @@ Polymer({
                 Stripe.setPublishableKey(this.stripePublicApikey);
                 Stripe.card.createToken(this.stripePayload, stripeResponseHandler);
                 this.set('sendingData', true);
-                var that = this;
+                const that = this;
                 function stripeResponseHandler(status, response){
                     if (response.error) {
                         console.log('stripeResponseHandler failed', response.error.message);
@@ -576,7 +576,7 @@ Polymer({
                     }
                 }
             } else {
-                var errorText = 'There seems to be an error with the';
+                let errorText = 'There seems to be an error with the';
                 if (!Stripe.card.validateCardNumber(this.stripePayload.number)){
                     errorText += ' card number';
                     this.$["cc-cvc"].invalid = true;
@@ -599,13 +599,13 @@ Polymer({
         }
     },
 
-    sumbmitPayment: function(status, response) {
+    sumbmitPayment(status, response) {
         this.$.buyLicence.headers["Csrf-Token"] = CSRF_TOKEN;
         this.$.token.value = response.id;
         this.$.buyLicence.submit();
     },
 
-    _computeFormReady: function(vcpus, dockerhubid, contact, stripePayload, accept) {
+    _computeFormReady(vcpus, dockerhubid, contact, stripePayload, accept) {
         // move input focus for month/year if length == 2
         if (stripePayload.path.startsWith("stripePayload."))
             this.moveFocus(stripePayload)
@@ -626,8 +626,8 @@ Polymer({
             }
         }
         // if any of the fields is invalid, form is not ready
-        var fields = this.$.buyLicence.querySelectorAll(".form-input");
-        for (var i=0;i<fields.length;i++){
+        const fields = this.$.buyLicence.querySelectorAll(".form-input");
+        for (let i=0;i<fields.length;i++){
             if (fields[i].invalid){
                 return false;
             }
@@ -642,20 +642,20 @@ Polymer({
         return this.$.buyLicence.validate();
     },
 
-    _computeCost: function(vcpus, annualy){
+    _computeCost(vcpus, annualy){
         if (vcpus > 0 && annualy) {
             return (vcpus * 12 * this.annualCost).toFixed(2);
         }
-        else if (vcpus > 0 && !annualy) {
+        if (vcpus > 0 && !annualy) {
             return (vcpus * this.monthlyCost).toFixed(2);
         }
-        else {
+        
             this.set("vcpus", 0);
             return 0;
-        }
+        
     },
 
-    moveFocus: function(stripePayload){
+    moveFocus(stripePayload){
         // if exp_mont has 2 digits move to year
         if (stripePayload.path == "stripePayload.exp_month" && stripePayload.value.length == 2){
             this.$.form.querySelector("paper-input#exp-year").focus()
@@ -670,7 +670,7 @@ Polymer({
         }
     },
 
-    showError: function(result){
+    showError(result){
         this.set('sendingData', false);
         this.set('formError', true);
         console.log(result)
@@ -683,15 +683,15 @@ Polymer({
         this.loading = false;
     },
 
-    _logoClicked: function(event) {
+    _logoClicked(event) {
         this.fire('user-action', 'logo click');
     },
 
-    _signInClicked: function(event) {
+    _signInClicked(event) {
         this.fire('user-action', 'purchase-license click')
     },
 
-    _isSubmitDisabled: function(formReady, loading) {
+    _isSubmitDisabled(formReady, loading) {
         return !formReady || loading;
     }
 });

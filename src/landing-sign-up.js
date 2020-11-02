@@ -12,6 +12,7 @@ import '../node_modules/@polymer/iron-ajax/iron-ajax.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+
 Polymer({
   _template: html`
         <style>
@@ -227,88 +228,88 @@ Polymer({
       '_planExists(plan)'
   ],
 
-  attached: function() {
-      var that = this,
-          validate = function(event) {
+  attached() {
+      const that = this;
+          const validate = function(event) {
           // Validate the entire form to see if we should enable the `Submit` button.
-          var ret = that.$.signUpForm.validate();
+          const ret = that.$.signUpForm.validate();
           that.$.signUpSubmit.disabled = !ret;
           return ret;
       }
-      this.$.signUpForm.addEventListener('keyup', function(event) {
-          var submitDisabled = that.$.signUpSubmit.disabled;
+      this.$.signUpForm.addEventListener('keyup', (event) => {
+          const submitDisabled = that.$.signUpSubmit.disabled;
           that.$.signUpForm.querySelector('paper-button > div').innerHTML = "Sign up with your email";
           if (validate(event) && !submitDisabled && event.key == "Enter")
               that._submitButtonHandler();
       });
       this.$.signUpForm.addEventListener('change', validate);
 
-      this.$.signUpForm.addEventListener('iron-form-error', function(event) {
+      this.$.signUpForm.addEventListener('iron-form-error', (event) => {
           console.warn("GOT ERROR!", event.detail);
           that.loading = false;
-          var msg = event.detail.error.msg;
+          let {msg} = event.detail.error;
           if (event.detail.request.xhr.status == 409)
               msg = 'Conflict';
           that.$.signUpForm.querySelector('paper-button > div').innerHTML = msg;
       });
-      this.$.signUpForm.addEventListener('iron-form-response', function(event) {
+      this.$.signUpForm.addEventListener('iron-form-response', (event) => {
           console.warn("SIGNUP SUCCESS!", event);
           that.loading = false;
           that.$.signUpForm.querySelector('form').hidden = true;
           that.$.signUpForm.querySelector('.output').innerHTML = event.detail.response.msg;
       });
-      this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
+      this.$.signUpForm.addEventListener('iron-form-presubmit', (event) => {
           that.$.signUpForm.headers['Csrf-Token'] = CSRF_TOKEN;
       });
   },
 
-  _submitButtonHandler:  function(event) {
+  _submitButtonHandler(event) {
       this.loading = true;
       this.$.signUpSubmit.disabled = true;
       this.$.signUpForm.querySelector('.output').innerHTML = '';
       this.$.signUpForm.submit();
   },
 
-  _logoClicked: function(event) {
+  _logoClicked(event) {
       this.fire('user-action', 'logo click on sign-up');
   },
 
-  _socialAuthGoogle: function(event){
+  _socialAuthGoogle(event){
       this.fire('user-action', 'google sign up');
       window.location = '/social_auth/login/google-oauth2';
   },
 
-  _socialAuthGithub: function(event){
+  _socialAuthGithub(event){
       this.fire('user-action', 'github sign up');
       window.location = '/social_auth/login/github';
   },
 
-  _signInClicked: function(event) {
+  _signInClicked(event) {
       this.fire('user-action', 'sign-in click')
   },
 
-  _hasSeparator: function(signUpGoogle, signUpGithub, signUpEmail) {
+  _hasSeparator(signUpGoogle, signUpGithub, signUpEmail) {
       return (signUpGoogle || signUpGithub) && signUpEmail;
   },
 
-  _canSignUp: function(signUpGoogle, signUpGithub, signUpEmail) {
+  _canSignUp(signUpGoogle, signUpGithub, signUpEmail) {
       return signUpGoogle || signUpGithub || signUpEmail;
   },
 
-  _invitokenExists: function(tok){
+  _invitokenExists(tok){
       if (tok) {
           this._createHiddenFormElement('invitoken', this.invitoken);
       }
   },
 
-  _planExists: function(plan){
+  _planExists(plan){
       if (plan) {
           this._createHiddenFormElement('plan', this.plan);
       }
   },
 
-  _createHiddenFormElement: function(name, value){
-      var element = document.createElement('input');
+  _createHiddenFormElement(name, value){
+      const element = document.createElement('input');
           element.type = 'hidden';
           element.name = name;
           element.value = value;

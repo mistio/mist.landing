@@ -5,6 +5,7 @@ import './shared-styles.js';
 import './landing-image.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+
 Polymer({
   _template: html`
     <style include="shared-styles"></style>
@@ -223,12 +224,12 @@ Polymer({
       }
   },
 
-  _signUpClick: function(event) {
+  _signUpClick(event) {
     window.scrollTo(0, 0);
     this.fire('user-action', 'sign up button 1 click in home');
   },
 
-  _hasNoFrame: function (frame) {
+  _hasNoFrame (frame) {
     return !(this.frame && this.frame.length > 0 || false);
   }
 });

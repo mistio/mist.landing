@@ -186,6 +186,7 @@ import '../node_modules/@polymer/iron-icons/social-icons.js';
 import '../node_modules/@polymer/iron-ajax/iron-ajax.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
+
 Polymer({
     is: 'landing-request-pricing',
 
@@ -201,54 +202,54 @@ Polymer({
         '_invitokenExists(invitoken)'
     ],
 
-    attached: function() {
-        var that = this,
-            validate = function(event) {
+    attached() {
+        const that = this;
+            const validate = function(event) {
             // Validate the entire form to see if we should enable the `Submit` button.
-            var ret = that.$.signUpForm.validate();
+            const ret = that.$.signUpForm.validate();
             that.$.signUpSubmit.disabled = !ret;
             return ret;
         }
-        this.$.signUpForm.addEventListener('keyup', function(event) {
-            var submitDisabled = that.$.signUpSubmit.disabled;
+        this.$.signUpForm.addEventListener('keyup', (event) => {
+            const submitDisabled = that.$.signUpSubmit.disabled;
             that.$.signUpForm.querySelector('paper-button > div').innerHTML = "Send request";
             if (validate(event) && !submitDisabled && event.key == "Enter")
                 that._submitButtonHandler();
         });
         this.$.signUpForm.addEventListener('change', validate);
 
-        this.$.signUpForm.addEventListener('iron-form-error', function(event) {
+        this.$.signUpForm.addEventListener('iron-form-error', (event) => {
             console.warn("GOT ERROR!", event.detail);
             that.loading = false;
             that.$.signUpForm.querySelector('paper-button > div').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
         });
-        this.$.signUpForm.addEventListener('iron-form-response', function(event) {
+        this.$.signUpForm.addEventListener('iron-form-response', (event) => {
             console.warn("REQUEST SUCCESS!", event);
             that.loading = false;
             that.$.signUpForm.querySelector('form').hidden = true;
             that.$.signUpForm.querySelector('.output').innerHTML = "Thank you for contacting us! We will get back to you as soon as possible. <br/> <a href='/pricing'>Back to pricing page</a>";
         });
-        this.$.signUpForm.addEventListener('iron-form-presubmit', function(event) {
+        this.$.signUpForm.addEventListener('iron-form-presubmit', (event) => {
             that.$.signUpForm.request.headers['Csrf-Token'] = CSRF_TOKEN;
             that.fire('user-action', 'request-pricing submit')
         });
     },
-    _submitButtonHandler:  function(event) {
+    _submitButtonHandler(event) {
         this.loading = true;
         this.$.signUpSubmit.disabled = true;
         this.$.signUpForm.querySelector('.output').innerHTML = '';
         this.$.signUpForm.submit();
     },
-    _logoClicked: function(event) {
+    _logoClicked(event) {
         this.fire('user-action', 'logo click on request-pricing');
     },
-    _signInClicked: function(event) {
+    _signInClicked(event) {
         this.fire('user-action', 'request-pricing click')
     },
-    _invitokenExists: function(tok){
+    _invitokenExists(tok){
         console.log('tok', tok);
         if (tok) {
-            var element = document.createElement('input');
+            const element = document.createElement('input');
             element.type = 'hidden';
             element.name = 'invitoken';
             element.value = this.invitoken;

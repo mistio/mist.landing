@@ -244,12 +244,12 @@ Polymer({
     '_itemChanged(item, visible)'
   ],
 
-  _itemChanged: function(item, visible) {
+  _itemChanged(item, visible) {
     if (visible) {
       this.debounce('item-change', function() {
         // The item description contains escaped HTML (e.g. "&lt;br&gt;"), so we need to
         // unescape it ("<br>") and set it as innerHTML.
-        var text = item ? item.description : '';
+        const text = item ? item.description : '';
         this.$.desc.innerHTML = this._unescapeText(text);
 
         // Reset the select menus.
@@ -264,17 +264,17 @@ Polymer({
     }
   },
 
-  _unescapeText: function(text) {
-    var elem = document.createElement('textarea');
+  _unescapeText(text) {
+    const elem = document.createElement('textarea');
     elem.innerHTML = text;
     return elem.textContent;
   },
 
-  _formatPrice: function(price) {
-    return price ? '$' + price.toFixed(2) : '';
+  _formatPrice(price) {
+    return price ? `$${  price.toFixed(2)}` : '';
   },
 
-  _addToCart: function() {
+  _addToCart() {
     // This event will be handled by landing-app.
     this.fire('add-cart-item', {
       item: this.item,
@@ -283,15 +283,15 @@ Polymer({
     });
   },
 
-  _isDefined: function(item) {
+  _isDefined(item) {
     return item != null;
   },
 
-  _tryReconnect: function() {
+  _tryReconnect() {
     this.$.categoryData.refresh();
   },
 
-  _offlineChanged: function(offline) {
+  _offlineChanged(offline) {
     if (!offline) {
       this._tryReconnect();
     }

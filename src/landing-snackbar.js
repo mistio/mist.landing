@@ -60,13 +60,13 @@ Polymer({
 
   is: 'landing-snackbar',
 
-  open: function() {
+  open() {
     flush();
     this.offsetHeight && this.classList.add('opened');
     this.debounce('_close', this.close, 4000);
   },
 
-  close: function() {
+  close() {
     this.classList.remove('opened');
   }
 });
