@@ -1629,28 +1629,6 @@ img.with-shadow {
     margin: 0 auto;
 }
 
-paper-dialog#zoomArea {
-    display: block;
-    overflow: hidden;
-    background-color: #424242;
-}
-
-paper-dialog#zoomArea iron-icon {
-    background-color: #424242;
-    position: absolute;
-    right: 0;
-    top: -24px;
-    width: 24px;
-    height: 24px;
-    color: #fff;
-    padding: 16px;
-    z-index: 1;
-    cursor: pointer;
-}
-
-paper-dialog#zoomArea img {
-    max-width: 100%;
-}
 /* GET STARTED */
 
 #get-started .hero {

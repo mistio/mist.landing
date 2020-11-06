@@ -1,14 +1,14 @@
-import '../node_modules/@polymer/polymer/polymer-legacy.js';
-import '../node_modules/@polymer/iron-icons/iron-icons.js';
-import '../node_modules/@polymer/iron-image/iron-image.js';
-import '../node_modules/@polymer/iron-icons/hardware-icons.js';
-import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
-import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout-classes.js';
-// import '../node_modules/social-media-icons/social-media-icons.js';
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-image/iron-image.js';
+import '@polymer/iron-icons/hardware-icons.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import '@polymer/iron-flex-layout/iron-flex-layout-classes.js';
+// import 'social-media-icons/social-media-icons.js';
 import './shared-styles.js';
-import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
-import '../node_modules/social-icon/dile-social-icon.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import 'social-icon/dile-social-icon.js';
 
 Polymer({
   _template: html`
@@ -77,11 +77,5 @@ Polymer({
     </div>
 `,
 
-  is: 'landing-person',
-
-  properties: {
-      people: {
-          type: Array
-      }
-  }
+  is: 'landing-person'
 });

@@ -22,6 +22,7 @@ import './shared-styles.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
+
 Polymer({
     _template: html`
     <style>
@@ -339,7 +340,7 @@ Polymer({
 
                 <paper-input id="name" name="name" label="Name" value="{{contact.name}}" pattern="[a-zA-Z0-9\. ]*" required auto-validate autocomplete="cc-name" always-float-label error-message="Alphanumerics allowed only." class="form-input" autofocus></paper-input>
                 <paper-input id="email" name="email" label="Email" always-float-label type="email" value="{{contact.email}}" class="form-input" auto-validate>
-                    <iron-icon icon="mail" slot="prefix"></iron-icon>
+                    <iron-icon icon="communication:email" slot="prefix"></iron-icon>
                 </paper-input>
                 <paper-textarea id="address" name="address" label="Address" value="{{contact.address}}" required auto-validate autocomplete="street-address" class="form-input" always-float-label></paper-textarea>
                 <!--paper-input id="address" name="phone" label="Phone number" pattern="[0-9 \+\(\)]+" always-float-label class="form-input" value="{{contact.phone}}" auto-validate>
@@ -355,9 +356,9 @@ Polymer({
                     card-type="{{cardType}}">
                 </gold-cc-input>
 
-                <paper-input id="exp-month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label error-message="Wrong month." auto-validate></paper-input>
+                <paper-input id="exp-month" value="{{stripePayload.exp_month}}" pattern="0?[1-9]|1[012]" class="exp form-input" label="Expiration" always-float-label auto-validate></paper-input>
                 <span class="exp">/</span>
-                <paper-input id="exp-year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="^\d{2}$" error-message="Error in expiration" auto-validate></paper-input>
+                <paper-input id="exp-year" value="{{stripePayload.exp_year}}" class="exp form-input" pattern="[0-9][0-9]" auto-validate></paper-input>
 
                 <gold-cc-cvc-input id="cc-cvc" required auto-validate class="form-input" card-type="[[cardType]]" value="{{stripePayload.cvc}}"></gold-cc-cvc-input>
 
@@ -396,7 +397,7 @@ Polymer({
         <div id="success" hidden$=[[!licenseKey]]><h2>Transaction successful</h2>
             <p>Congratulations for purchasing your Mist.io Enterprise Edition License!</p> <p>In order to install Mist.io EE, you will need a Linux machine with at least 6GB of free RAM. Docker and Docker Compose need to be preinstalled and port 80 needs to be available.</p>
             <p>Provided the above, use the following steps to complete the installation.</p>
-            <textarea id="instructions" rows="8" cols="80" onclick="this.focus();if (typeof(textareaSelected) == 'undefined') { textareaSelected = true; this.select() }" readonly="readonly">[[instructions]]</textarea>
+            <textarea id="instructions" rows="8" cols="80" onclick="this.focus();if (typeof(textareaSelected) === 'undefined') { textareaSelected = true; this.select() }" readonly="readonly">[[instructions]]</textarea>
             <p hidden$=[[registryPassword]]>
                 Your registry.ops.mist.io password was not changed. <a href="https://gitlab.ops.mist.io/users/password/new">Forgot password?</a>
             </p>
@@ -504,6 +505,7 @@ Polymer({
     },
 
     attached() {
+        const that = this;
         this.$.buyLicence.addEventListener('iron-form-response', function(event) {
             that.loading = false;
             that.registryUsername = event.detail.xhr.response.username;
@@ -512,7 +514,6 @@ Polymer({
             that.instructions = event.detail.xhr.response.instructions;
             this.fire('user-action', 'purchase license sucess');
         });
-        var that = this;
         this.$.buyLicence.addEventListener('iron-form-presubmit', (event) => {
             that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
         });
@@ -520,7 +521,10 @@ Polymer({
             that.loading = false;
             that.$.buyLicence.querySelector('div.output').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
         });
-
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://js.stripe.com/v2/';
+        document.getElementsByTagName('head')[0].appendChild(script);
     },
 
     submit(e) {
@@ -531,21 +535,20 @@ Polymer({
             // extra stripe validation
             const isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
                 Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
-                Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip != '';
+                Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip !== '';
 
             if (isValid) {
-                Stripe.setPublishableKey(this.stripePublicApikey);
-                Stripe.card.createToken(this.stripePayload, stripeResponseHandler);
-                this.set('sendingData', true);
                 const that = this;
-                function stripeResponseHandler(status, response){
+                Stripe.setPublishableKey(this.stripePublicApikey);
+                Stripe.card.createToken(this.stripePayload, (status, response) => {
                     if (response.error) {
                         console.log('stripeResponseHandler failed', response.error.message);
                         that.showError(response.error.message);
                     } else {
                         that.sumbmitPayment(status, response);
                     }
-                }
+                });
+                this.set('sendingData', true);
             } else {
                 let errorText = 'There seems to be an error with the';
                 if (!Stripe.card.validateCardNumber(this.stripePayload.number)){
@@ -586,13 +589,13 @@ Polymer({
             return false;
         }
         // if any of contact or payload is empty, form not ready
-        for (var prop in this.contact){
-            if (this.contact.hasOwnProperty(prop) && (this.contact[prop] == "" || this.contact[prop] == undefined)){
+        for (const prop in this.contact){
+            if (this.contact.hasOwnProperty(prop) && (this.contact[prop] === "" || this.contact[prop] === undefined)){
                 return false;
             }
         }
-        for (var prop in this.stripePayload){
-            if (this.stripePayload.hasOwnProperty(prop) && (this.stripePayload[prop] == "" || this.stripePayload[prop] == undefined)){
+        for (const prop in this.stripePayload){
+            if (this.stripePayload.hasOwnProperty(prop) && (this.stripePayload[prop] === "" || this.stripePayload[prop] === undefined)){
                 return false;
             }
         }
@@ -626,15 +629,15 @@ Polymer({
 
     moveFocus(stripePayload){
         // if exp_mont has 2 digits move to year
-        if (stripePayload.path == "stripePayload.exp_month" && stripePayload.value.length == 2){
+        if (stripePayload.path === "stripePayload.exp_month" && stripePayload.value.length === 2){
             this.$.form.querySelector("paper-input#exp-year").focus()
         }
         // if exp_year has 2 digits move to cvc
-        if (stripePayload.path == "stripePayload.exp_year" && stripePayload.value.length == 2){
+        if (stripePayload.path === "stripePayload.exp_year" && stripePayload.value.length === 2){
             this.$.form.querySelector("gold-cc-cvc-input").focus()
         }
         // if exp_year has 2 digits move to cvc
-        if (stripePayload.path == "stripePayload.cvc" && stripePayload.value.length == 3){
+        if (stripePayload.path === "stripePayload.cvc" && stripePayload.value.length === 3){
             this.$.form.querySelector("paper-input#address-zip").focus()
         }
     },
@@ -652,11 +655,11 @@ Polymer({
         this.loading = false;
     },
 
-    _logoClicked(event) {
+    _logoClicked(_e) { /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "_" }] */
         this.fire('user-action', 'logo click');
     },
 
-    _signInClicked(event) {
+    _signInClicked(_e) {
         this.fire('user-action', 'purchase-license click')
     },
 

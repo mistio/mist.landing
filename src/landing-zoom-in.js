@@ -1,9 +1,10 @@
-import '../node_modules/@polymer/polymer/polymer-legacy.js';
-import '../node_modules/@polymer/iron-icons/iron-icons.js';
-import '../node_modules/@polymer/paper-dialog/paper-dialog.js';
-import '../node_modules/@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
-import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/paper-dialog/paper-dialog.js';
+import '@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
 
 Polymer({
   _template: html`
@@ -40,7 +41,6 @@ Polymer({
         paper-dialog img {
             max-width: 100%;
         }
-
         </style>
         <img src="[[src]]" on-tap="zoomInImage">
         <paper-dialog id="zoomArea" with-backdrop="">
@@ -61,7 +61,7 @@ Polymer({
 
   zoomInImage(e){
       console.log('zoomInImage', e)
-      if(e.path[0] && e.path[0].tagName == "IMG"){
+      if(e.path[0] && e.path[0].tagName === "IMG"){
           console.log('zoomInImage', e.path[0], this.$.zoomimage)
           this.$.zoomimage.setAttribute('src', e.path[0].src);
           this.$.zoomArea.open();

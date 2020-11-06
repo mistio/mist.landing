@@ -428,7 +428,7 @@ Polymer({
                                     </div>
                                     <div class="plan-body-item grey">
                                         <div>
-                                            <a aria-label="Buy Licence" href="https://mist.io/buy-license" tabindex="-1">
+                                            <a aria-label="Buy Licence" href="/buy-license" tabindex="-1">
                                                 <paper-button raised="" on-tap="_purchaseClick">Purchase Licence</paper-button>
                                             </a>
                                             <p>Install on premises.</p>
@@ -492,7 +492,7 @@ Polymer({
                                     </div>
                                     <div class="plan-body-item grey">
                                         <div>
-                                            <a aria-label="Sign up" href="https://mist.io/sign-up" tabindex="-1">
+                                            <a aria-label="Sign up" href="/sign-up" tabindex="-1">
                                                 <paper-button raised="" on-tap="_signUpClick">Sign up</paper-button>
                                             </a>
                                             <p>No installation. Start right away.</p>

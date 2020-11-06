@@ -100,7 +100,7 @@ Polymer({
     if (!category) {
       return;
     }
-    let categoryUrl = category.name != 'blog' ? ('/api/v1/section/landing--' + category.name) : '/api/v1/blog';
+    const categoryUrl = category.name != 'blog' ? (`/api/v1/section/landing--${  category.name}`) : '/api/v1/blog';
     this._getResource({
       url: `/api/v1/section/landing--${  category.name}`,
       onLoad(e) {

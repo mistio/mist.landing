@@ -68,46 +68,5 @@ Polymer({
     data: {
       type: Object
     }
-  },
-
-  listeners: {
-    'tap': '_onTap'
-  },
-
-  _signUpClick(event) {
-    window.scrollTo(0, 0);
-    console.log('user-action');
-    this.fire('user-action', `sign up button 1 click in ${name}`);
-    // new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
-  },
-
-  _signUpClick2(event) {
-    window.scrollTo(0, 0);
-    console.log('user-action');
-    this.fire('user-action', `sign up button 2 click in ${name}`);
-  },
-
-  _downloadClick(event) {
-    window.scrollTo(0, 0);
-    console.log('user-action');
-    this.fire('user-action', `download button click in ${name}`);
-  },
-
-  _chooseEditionClick(event) {
-    window.scrollTo(0, 0);
-    console.log('user-action');
-    this.fire('user-action', `choose edition button click in ${name}`);
-  },
-
-  _onTap (e) {
-    if (e.target.tagName == 'PAPER-BUTTON') {
-      if (e.target.id == 'signUpBtn1') {
-        this.parentNode.parentNode.host._signUpClick(e);
-      } else if (e.target.id == 'signUpBtn2') {
-        this._signUpClick2();
-      } else {
-        // debugger;
-      }
-    }
   }
 });

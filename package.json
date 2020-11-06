@@ -12,6 +12,7 @@
     "Christina Papakonstantinou"
   ],
   "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^3.0.1",
     "@mistio/mist-password": "^2.0.1",
     "@polymer/app-layout": "^3.0.0",
     "@polymer/app-route": "^3.0.0",
@@ -20,6 +21,7 @@
     "@polymer/gold-cc-input": "^3.0.0",
     "@polymer/gold-phone-input": "^3.0.0",
     "@polymer/gold-zip-input": "^3.0.0",
+    "@polymer/iron-ajax": "^3.0.1",
     "@polymer/iron-flex-layout": "^3.0.0",
     "@polymer/iron-form": "^3.0.0",
     "@polymer/iron-icon": "^3.0.0",
@@ -47,6 +49,7 @@
     "@polymer/paper-tooltip": "^3.0.0",
     "@polymer/polymer": "^3.4.1",
     "@rollup/plugin-node-resolve": "^8.1.0",
+    "@stripe/stripe-js": "^1.11.0",
     "social-icon": "^1.2.1",
     "web-animations-js": "^2.3.1"
   },
@@ -95,6 +98,12 @@
     "rules": {
       "lit/no-legacy-template-syntax": [
         "off"
+      ],
+      "no-plusplus": [
+        "off"
+      ],
+      "no-unused-vars": [
+        "error", { "varsIgnorePattern": "_" }
       ]
     }
   },

@@ -7,48 +7,83 @@ import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-media-query/iron-media-query.js';
-import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-button/paper-button.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
+
 import '@polymer/paper-styles/color.js';
 import '@polymer/paper-styles/default-theme.js';
 import '@polymer/paper-styles/shadow.js';
 import '@polymer/paper-styles/typography.js';
-import '@polymer/paper-styles/paper-styles.js';
-import '@polymer/paper-material/paper-material.js';
-import '@polymer/paper-dialog/paper-dialog.js';
-import '@polymer/iron-meta/iron-meta.js';
-import '@polymer/iron-iconset-svg/iron-iconset-svg.js';
-import '@polymer/iron-icons/iron-icons.js';
-import '@polymer/iron-icons/hardware-icons.js';
-import '@polymer/iron-icons/social-icons.js';
-import '@polymer/iron-icons/places-icons.js';
-import '@polymer/iron-icons/editor-icons.js';
-import '@polymer/iron-icon/iron-icon.js';
+
+import "@polymer/app-layout/app-drawer/app-drawer.js"
+import './landing-testimonials.js';
+
 import './landing-pages.js';
 import './landing-page.js';
 import './landing-category-data.js';
 import './shared-styles.js';
-import './landing-footer.js';
-// import './landing-social.js';
-import './landing-person.js';
 import './landing-fold.js';
-import './landing-testimonials.js';
-import './landing-zoom-in.js';
-import './landing-get-started.js';
 import './landing-sign-in.js';
 import './landing-sign-up.js';
-import './landing-forgot-password.js';
 import './styles/mist-theme.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
-// import 'fingerprintjs2/fingerprint2.js';  // TODO
+
 // performance logging
 // eslint-disable-next-line babel/no-unused-expressions
 window.performance && performance.mark && performance.mark('landing-app - before register');
+
+
+const waves = [];
+const duration = 300;
+
+function up() {
+  waves.forEach((wave) => { wave.up(); });
+}
+
+function Wave(x, y, color, opacity) {
+  waves.push(this);
+  this.element = document.createElement('div');
+  this.element.style.left = `calc(${  x  }px - 2000px)`;
+  this.element.style.top = `calc(${  y  }px - 2000px)`;
+  this.element.style.backgroundColor = color;
+  this.element.style.opacity = opacity;
+  this.element.setAttribute('touch-action', 'none');
+  this.element.setAttribute('class', 'wave');
+  this.element.addEventListener('up', up);
+
+  document.body.appendChild(this.element);
+
+  this.scale = this.element.animate([
+    {transform: 'scale(0)'},
+    {transform: 'scale(1)'},
+  ], {
+    duration,
+    easing: 'cubic-bezier(0.3, 0.2, 1.0, 0.2)',
+    fill: 'forwards',
+  });
+}
+Wave.prototype = {
+  up() {
+    this.up = function() {};
+    this.opacity = this.element.animate([
+      {opacity: 0.66},
+      {opacity: 0},
+    ], {
+      duration,
+      fill: 'forwards',
+    });
+    this.opacity.onfinish = function() {
+      this.element.remove();
+      waves.splice(waves.indexOf(this), 1);
+    }.bind(this);
+  }
+};
+
+document.body.addEventListener('up', up);
+
 
 Polymer({
   _template: html`
@@ -511,7 +546,6 @@ Polymer({
   ],
 
   listeners: {
-    'change-section': '_onChangeSection',
     'announce': '_onAnnounce',
     'dom-change': '_domChange',
     'show-invalid-url-warning': '_onFallbackSelectionTriggered',
@@ -571,13 +605,15 @@ Polymer({
       this.set('returnTo', params.return_to);
       this.set('plan', params.plan);
     }
-    // HACK(keanulee): Need to check if `page` actually changed due to polymer#3935.
-    if (this.page === 'list' && this.page !== page) {
+
+    if (this.page !== page) {
       this._listScrollTop = window.pageYOffset;
     }
-
     this.page = page || 'home';
 
+    if (this.page === 'home' && this.config.features.signin_home) {
+      this.page = 'sign-in';
+    }
     // Close the drawer - in case the *route* change came from a link in the drawer.
     this.drawerOpened = false;
   },
@@ -591,25 +627,27 @@ Polymer({
       } else if (page === 'home') {
         this._pageLoaded(Boolean(oldPage));
       // other routes are lazy loaded
-      } else {
+      } else if (page === 'request-pricing') {
+        import('./landing-request-pricing.js').then(()=> {
+          console.warn('Request-pricing page imported');
+        });
+      } else if (page === 'buy-license') {
+        import('./landing-buy-license.js').then(()=> {
+          console.warn('Buy-license page imported');
+        });
+      } // else {
+        // debugger;
         // When a load failed, it triggered a 404 which means we need to
         // eagerly load the 404 page definition
         // const cb = this._pageLoaded.bind(this, Boolean(oldPage));
-        let category = this.categories && this.categories.find((c) => c.name === page);
-        if (!category)
-          category = category && this.categories.find((c) => c.href === `/${  page}`);
+        // const category = this.categories && this.categories.find((c) => c.name === page);
         // if (category && category.template) {
         //   this.importHref(
         //     this.resolveUrl('landing-' + category.template + '.html'),
         //     cb, cb, true
         //   );
-        // } else if (['buy-license', 'request-pricing'].indexOf(page) > -1) {
-        //   this.importHref(
-        //     this.resolveUrl('landing-' + page + '.html'),
-        //     cb, cb, true
-        //   );
         // }
-      }
+      // }
     }
   },
 
@@ -627,11 +665,10 @@ Polymer({
   _ensureLazyLoaded() {
     // load lazy resources after render and set `loadComplete` when done.
     if (!this.loadComplete) {
-      /* TODO: FIXME */
-      import('./lazy-resources.js').then(()=> {
-        console.warn('Lazy resources imported');
-      });
       afterNextRender(this, function() {
+        import('./lazy-resources.js').then(()=> {
+          console.warn('Lazy resources imported');
+        });
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('/landing/service-worker.js');
         }
@@ -659,36 +696,6 @@ Polymer({
 
   _toggleDrawer() {
     this.drawerOpened = !this.drawerOpened;
-  },
-
-  // Elements in the app can notify section changes.
-  // Response by a11y announcing the section and syncronizing the category.
-  _onChangeSection(event) {
-    if (this.page === 'home' && this.config.features.signin_home)
-      this.page = 'sign-in';
-    console.warn('change section', event);
-    const {detail} = event;
-
-    // Scroll to the top of the page when navigating to a non-list page. For list view,
-    // scroll to the last saved position only if the category has not changed.
-    let scrollTop = 0;
-    if (this.page === 'list') {
-      if (this.category.name === detail.category) {
-        scrollTop = this._listScrollTop;
-      } else {
-        // Reset the list view scrollTop if the category changed.
-        this._listScrollTop = 0;
-      }
-    }
-    // Use `Polymer.AppLayout.scroll` with `behavior: 'silent'` to disable header scroll
-    // effects during the scroll.
-    scroll({ top: scrollTop, behavior: 'silent' });
-
-    // Announce the page's title
-    if (detail.title) {
-      document.title = `${detail.title  } - ${  this.config.portalName}`;
-      this._announce(`${detail.title  }, loaded`);
-    }
   },
 
   // Elements in the app can notify a change to be a11y announced.
@@ -721,8 +728,9 @@ Polymer({
       this.page = 'sign-in';
       window.history.pushState({}, null, `/sign-in?return_to=${this.route.path}`);
       window.dispatchEvent(new CustomEvent('location-changed'));
-    } else
+    } else {
       this.page = 'not-found';
+    }
   },
 
   _computeShouldShowTabs(page, smallScreen) {
@@ -781,33 +789,44 @@ Polymer({
       });
     }
     // TODO: De-comment when fingerprint gets updated
-    // if (!this.config || !this.config.features || !this.config.features.ab)
-    //  return;
-    // const xhr = new XMLHttpRequest();
-    // if (!this.fingerprint){
-    //   var that = this;
-    //   new Fingerprint2().get(function(result, components){
-    //     // this will use all available fingerprinting sources
-    //     that.fingerprint = result;
-    //     var componentMap = {};
-    //     components.forEach(function(e){componentMap[e.key] = e.value});
-    //     var payload = {'action': event.detail,
-    //                    'fingerprint': result,
-    //                    'resolution': componentMap.resolution,
-    //                    'platform': componentMap.navigator_platform,
-    //                    'browser': that._getBrowser(),
-    //                    'tz': componentMap.timezone_offset};
-    //     if (document.referrer)
-    //       payload['referrer'] = document.referrer;
-    //     xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(JSON.stringify(payload)));
-    //     xhr.send();
-    //   });
-    // } else {
-    //   var payload = {'action': event.detail,
-    //                  'fingerprint': this.fingerprint};
-    //   xhr.open('GET', '/api/v1/logs/ui?b=' + btoa(JSON.stringify(payload)));
-    //   xhr.send();
-    // }
+    if (!this.config || !this.config.features || !this.config.features.ab)
+     return;
+    const xhr = new XMLHttpRequest();
+    if (!this.fingerprint){
+      const that = this;
+      import('@fingerprintjs/fingerprintjs').then((FingerprintJS) => {
+        FingerprintJS.load().then((fp) => {
+          // The FingerprintJS agent is ready.
+          // Get a visitor identifier when you'd like to.
+          fp.get().then((result)=> {
+            // This is the visitor identifier:
+            const {visitorId} = result;
+            console.log(visitorId);
+
+            // this will use all available fingerprinting sources
+            that.fingerprint = result.visitorId;
+            const payload = {
+              'action': event.detail,
+              'fingerprint': result.visitorId,
+              'resolution': result.components.screenResolution.value,
+              'platform': result.components.platform.value,
+              'browser': that._getBrowser(),
+              'tz': result.components.timezoneOffset
+            };
+            if (document.referrer)
+              payload.referrer = document.referrer;
+            xhr.open('GET', `/api/v1/logs/ui?b=${  btoa(JSON.stringify(payload))}`);
+            xhr.send();
+          })
+        });
+      });
+
+    } else {
+      const payload = {'action': event.detail,
+                     'fingerprint': this.fingerprint};
+      xhr.open('GET', `/api/v1/logs/ui?b=${  btoa(JSON.stringify(payload))}`);
+      xhr.send();
+    }
   },
 
   _getBrowser() {
@@ -865,50 +884,3 @@ Polymer({
   }
 });
 
-var waves = [];
-const duration = 300;
-
-function up() {
-  waves.forEach((wave) => { wave.up(); });
-}
-
-function Wave(x, y, color, opacity) {
-  waves.push(this);
-  this.element = document.createElement('div');
-  this.element.style.left = `calc(${  x  }px - 2000px)`;
-  this.element.style.top = `calc(${  y  }px - 2000px)`;
-  this.element.style.backgroundColor = color;
-  this.element.style.opacity = opacity;
-  this.element.setAttribute('touch-action', 'none');
-  this.element.setAttribute('class', 'wave');
-  this.element.addEventListener('up', up);
-
-  document.body.appendChild(this.element);
-
-  this.scale = this.element.animate([
-    {transform: 'scale(0)'},
-    {transform: 'scale(1)'},
-  ], {
-    duration,
-    easing: 'cubic-bezier(0.3, 0.2, 1.0, 0.2)',
-    fill: 'forwards',
-  });
-}
-Wave.prototype = {
-  up() {
-    this.up = function() {};
-    this.opacity = this.element.animate([
-      {opacity: 0.66},
-      {opacity: 0},
-    ], {
-      duration,
-      fill: 'forwards',
-    });
-    this.opacity.onfinish = function() {
-      this.element.remove();
-      waves.splice(waves.indexOf(this), 1);
-    }.bind(this);
-  }
-};
-
-document.body.addEventListener('up', up);
