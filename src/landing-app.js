@@ -2,7 +2,6 @@ import '@polymer/polymer/polymer-legacy.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
-import { scroll } from '@polymer/app-layout/helpers/helpers.js';
 import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
 import '@polymer/iron-flex-layout/iron-flex-layout.js';
@@ -15,7 +14,7 @@ import '@polymer/paper-styles/default-theme.js';
 import '@polymer/paper-styles/shadow.js';
 import '@polymer/paper-styles/typography.js';
 
-import "@polymer/app-layout/app-drawer/app-drawer.js"
+import '@polymer/app-layout/app-drawer/app-drawer.js';
 import './landing-testimonials.js';
 
 import './landing-pages.js';
@@ -35,19 +34,20 @@ import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 // eslint-disable-next-line babel/no-unused-expressions
 window.performance && performance.mark && performance.mark('landing-app - before register');
 
-
 const waves = [];
 const duration = 300;
 
 function up() {
-  waves.forEach((wave) => { wave.up(); });
+  waves.forEach(wave => {
+    wave.up();
+  });
 }
 
 function Wave(x, y, color, opacity) {
   waves.push(this);
   this.element = document.createElement('div');
-  this.element.style.left = `calc(${  x  }px - 2000px)`;
-  this.element.style.top = `calc(${  y  }px - 2000px)`;
+  this.element.style.left = `calc(${x}px - 2000px)`;
+  this.element.style.top = `calc(${y}px - 2000px)`;
   this.element.style.backgroundColor = color;
   this.element.style.opacity = opacity;
   this.element.setAttribute('touch-action', 'none');
@@ -56,10 +56,7 @@ function Wave(x, y, color, opacity) {
 
   document.body.appendChild(this.element);
 
-  this.scale = this.element.animate([
-    {transform: 'scale(0)'},
-    {transform: 'scale(1)'},
-  ], {
+  this.scale = this.element.animate([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], {
     duration,
     easing: 'cubic-bezier(0.3, 0.2, 1.0, 0.2)',
     fill: 'forwards',
@@ -67,23 +64,19 @@ function Wave(x, y, color, opacity) {
 }
 Wave.prototype = {
   up() {
-    this.up = function() {};
-    this.opacity = this.element.animate([
-      {opacity: 0.66},
-      {opacity: 0},
-    ], {
+    this.up = () => {};
+    this.opacity = this.element.animate([{ opacity: 0.66 }, { opacity: 0 }], {
       duration,
       fill: 'forwards',
     });
-    this.opacity.onfinish = function() {
+    this.opacity.onfinish = () => {
       this.element.remove();
       waves.splice(waves.indexOf(this), 1);
-    }.bind(this);
-  }
+    };
+  },
 };
 
 document.body.addEventListener('up', up);
-
 
 Polymer({
   _template: html`
@@ -117,7 +110,7 @@ Polymer({
       }
 
       .large {
-        width: 100%
+        width: 100%;
       }
 
       .button {
@@ -176,7 +169,7 @@ Polymer({
         text-decoration: none;
         height: var(--logo-height); /*53px;*/
         width: var(--logo-width); /*119px;*/
-        background-image: var(--logo-image);  /*url('../images/logo.svg'); */
+        background-image: var(--logo-image); /*url('../images/logo.svg'); */
         background-repeat: no-repeat;
         /* required for IE 11, so this <a> can receive pointer events */
         display: inline-block;
@@ -193,30 +186,30 @@ Polymer({
         overflow: hidden;
       }
 
-      :host([page=set-password]),
-      :host([page=reset-password]),
-      :host([page=forgot-password]),
-      :host([page=sign-in]),
-      :host([page=sign-up]) {
+      :host([page='set-password']),
+      :host([page='reset-password']),
+      :host([page='forgot-password']),
+      :host([page='sign-in']),
+      :host([page='sign-up']) {
         padding-top: 0px;
       }
 
-      :host([page=set-password]) .logo,
-      :host([page=reset-password]) .logo,
-      :host([page=forgot-password]) .logo,
-      :host([page=sign-in]) .logo,
-      :host([page=sign-up]) .logo {
+      :host([page='set-password']) .logo,
+      :host([page='reset-password']) .logo,
+      :host([page='forgot-password']) .logo,
+      :host([page='sign-in']) .logo,
+      :host([page='sign-up']) .logo {
         display: none;
       }
 
-      :host([page=set-password]) > app-header,
-      :host([page=reset-password]) > app-header,
-      :host([page=forgot-password]) > app-header,
-      :host([page=sign-in]) > app-header,
-      :host([page=sign-up]) > app-header,
-      :host([page=request-pricing]) > app-header,
-      :host([page=get-started]) > app-header,
-      :host([page=buy-license]) > app-header {
+      :host([page='set-password']) > app-header,
+      :host([page='reset-password']) > app-header,
+      :host([page='forgot-password']) > app-header,
+      :host([page='sign-in']) > app-header,
+      :host([page='sign-up']) > app-header,
+      :host([page='request-pricing']) > app-header,
+      :host([page='get-started']) > app-header,
+      :host([page='buy-license']) > app-header {
         z-index: -1;
       }
 
@@ -242,10 +235,11 @@ Polymer({
         margin: 12px 16px 0 0;
       }
 
-      landing-tabs, landing-tab {
+      landing-tabs,
+      landing-tab {
         --landing-tab-overlay: {
           border-bottom: 2px solid var(--app-accent-color);
-        };
+        }
       }
 
       landing-tabs {
@@ -286,7 +280,7 @@ Polymer({
 
       .drawer-list a.iron-selected {
         color: black;
-        font-weight:   bold;
+        font-weight: bold;
       }
 
       app-drawer {
@@ -317,7 +311,7 @@ Polymer({
       }
 
       paper-button {
-        background-color: #2196F3;
+        background-color: #2196f3;
         font-weight: 500;
         color: var(--white-color);
       }
@@ -349,7 +343,7 @@ Polymer({
           display: block;
         }
 
-        :host([page=detail]) .menu-btn {
+        :host([page='detail']) .menu-btn {
           display: none;
         }
 
@@ -363,26 +357,39 @@ Polymer({
           display: none;
         }
       }
-
     </style>
 
     <!--
       app-location and app-route elements provide the state of the URL for the app.
     -->
     <app-location route="{{route}}" id="appLocation"></app-location>
-    <app-route route="{{route}}" pattern="/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+    <app-route
+      route="{{route}}"
+      pattern="/:page"
+      data="{{routeData}}"
+      tail="{{subroute}}"
+    ></app-route>
 
     <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
 
     <!--
       landing-category-data provides the list of categories.
     -->
-    <landing-category-data categories="[[categories]]" category-name="[[page]]" category="{{category}}"></landing-category-data>
+    <landing-category-data
+      categories="[[categories]]"
+      category-name="[[page]]"
+      category="{{category}}"
+    ></landing-category-data>
 
     <app-header role="navigation" id="header" effects="waterfall" fixed="">
       <app-toolbar>
         <div class="left-bar-item">
-          <paper-icon-button class="menu-btn" icon="menu" on-tap="_toggleDrawer" aria-label="Categories">
+          <paper-icon-button
+            class="menu-btn"
+            icon="menu"
+            on-tap="_toggleDrawer"
+            aria-label="Categories"
+          >
           </paper-icon-button>
           <div class="logo">
             <a href="/" aria-label="Mist.io Home" on-tap="_logoClicked">
@@ -392,14 +399,20 @@ Polymer({
         </div>
 
         <!-- Lazy-create the tabs for larger screen sizes. -->
-        <div id="tabContainer" sticky\$="[[_shouldShowTabs]]" hidden\$="[[!_shouldShowTabs]]">
+        <div id="tabContainer" sticky$="[[_shouldShowTabs]]" hidden$="[[!_shouldShowTabs]]">
           <dom-if if="[[_shouldRenderTabs]]" restamp="">
             <template>
               <landing-tabs selected="{{page}}" attr-for-selected="name">
                 <dom-repeat items="[[categories]]" as="category" initial-count="4">
                   <template>
-                    <landing-tab name="[[category.name]]" on-tap="_tabClicked" hidden\$="[[category.hiddenFromMenu]]">
-                      <a name="[[category.name]]" href="[[category.href]]" target="new">[[category.title]]</a>
+                    <landing-tab
+                      name="[[category.name]]"
+                      on-tap="_tabClicked"
+                      hidden$="[[category.hiddenFromMenu]]"
+                    >
+                      <a name="[[category.name]]" href="[[category.href]]" target="new"
+                        >[[category.title]]</a
+                      >
                     </landing-tab>
                   </template>
                 </dom-repeat>
@@ -407,8 +420,7 @@ Polymer({
             </template>
           </dom-if>
         </div>
-
-        <div class\$="signin-btn-container [[_shouldShowTabs]]">
+        <div class$="signin-btn-container [[_shouldShowTabs]]">
           <a href="/sign-in" tabindex="-1" aria-label="Sign in to Mist.io">
             <paper-button raised="" on-tap="_signInClick">Sign In</paper-button>
           </a>
@@ -419,26 +431,48 @@ Polymer({
     <!-- Lazy-create the drawer for small screen sizes. -->
     <dom-if if="[[_shouldRenderDrawer]]" restamp="">
       <template>
-      <!-- Two-way bind \`drawerOpened\` since app-drawer can update \`opened\` itself. -->
-      <app-drawer opened="{{drawerOpened}}" swipe-open="" tabindex="0">
-        <iron-selector role="navigation" class="drawer-list" selected="{{page}}" attr-for-selected="name">
-          <dom-repeat items="[[categories]]" as="category" initial-count="4">
-            <template>
-              <a name="[[category.name]]" href="[[category.href]]" hidden\$="[[category.hiddenFromMenu]]">[[category.title]]</a>
-            </template>
-          </dom-repeat>
-        </iron-selector>
-      </app-drawer>
+        <!-- Two-way bind \`drawerOpened\` since app-drawer can update \`opened\` itself. -->
+        <app-drawer opened="{{drawerOpened}}" swipe-open="" tabindex="0">
+          <iron-selector
+            role="navigation"
+            class="drawer-list"
+            selected="{{page}}"
+            attr-for-selected="name"
+          >
+            <dom-repeat items="[[categories]]" as="category" initial-count="4">
+              <template>
+                <a
+                  name="[[category.name]]"
+                  href="[[category.href]]"
+                  hidden$="[[category.hiddenFromMenu]]"
+                  >[[category.title]]</a
+                >
+              </template>
+            </dom-repeat>
+          </iron-selector>
+        </app-drawer>
       </template>
     </dom-if>
 
     <dom-if if="[[_hasCategories(categories)]]" restamp="">
       <template>
-
-        <landing-pages id="pages" role="main" attr-for-selected="name" fallback-selection="not-found" selected\$="[[page]]">
+        <landing-pages
+          id="pages"
+          role="main"
+          attr-for-selected="name"
+          fallback-selection="not-found"
+          selected$="[[page]]"
+        >
           <dom-repeat items="{{categories}}" as="cat">
             <template>
-              <landing-page name\$="[[cat.name]]" title="[[cat.title]]" id="page-[[cat.name]]" data="[[category.items]]" route="[[subroute]]" offline="[[offline]]">
+              <landing-page
+                name$="[[cat.name]]"
+                title="[[cat.title]]"
+                id="page-[[cat.name]]"
+                data="[[category.items]]"
+                route="[[subroute]]"
+                offline="[[offline]]"
+              >
                 <dom-if if="[[_isEqual(cat.name,page)]]">
                   <template>
                     <slot name="content"></slot>
@@ -448,16 +482,81 @@ Polymer({
             </template>
           </dom-repeat>
 
-          <landing-sign-in name="sign-in" route="[[subroute]]" offline="[[offline]]" id="sign-in" sign-in-google="[[config.features.signin_google]]" sign-in-github="[[config.features.signin_github]]" sign-in-email="[[config.features.signin_email]]" invitoken="[[invitoken]]" return-to="[[returnTo]]"></landing-sign-in>
-          <landing-sign-up name="sign-up" route="[[subroute]]" offline="[[offline]]" id="sign-up" sign-up-google="[[config.features.signup_google]]" sign-up-github="[[config.features.signup_github]]" sign-up-email="[[config.features.signup_email]]" invitoken="[[invitoken]]" plan="[[plan]]"></landing-sign-up>
+          <landing-sign-in
+            name="sign-in"
+            route="[[subroute]]"
+            offline="[[offline]]"
+            id="sign-in"
+            sign-in-google="[[config.features.signin_google]]"
+            sign-in-github="[[config.features.signin_github]]"
+            sign-in-email="[[config.features.signin_email]]"
+            invitoken="[[invitoken]]"
+            return-to="[[returnTo]]"
+            csrf-token="[[csrfToken]]"
+          ></landing-sign-in>
 
-          <landing-get-started name="get-started" categories="[[categories]]" id="get-started" data="[[category.items]]"></landing-get-started>
-          <landing-buy-license name="buy-license" route="[[subroute]]" offline="[[offline]]" id="buy-license" stripe-public-apikey="[[config.stripeKey]]"></landing-buy-license>
-          <landing-request-pricing name="request-pricing" route="[[subroute]]" offline="[[offline]]" id="request-pricing"></landing-request-pricing>
+          <landing-sign-up
+            name="sign-up"
+            route="[[subroute]]"
+            offline="[[offline]]"
+            id="sign-up"
+            sign-up-google="[[config.features.signup_google]]"
+            sign-up-github="[[config.features.signup_github]]"
+            sign-up-email="[[config.features.signup_email]]"
+            invitoken="[[invitoken]]"
+            plan="[[plan]]"
+            csrf-token="[[csrfToken]]"
+          ></landing-sign-up>
 
-          <landing-forgot-password name="forgot-password" route="[[subroute]]" offline="[[offline]]" id="forgot-password" support-email="[[config.email.support]]"></landing-forgot-password>
-          <landing-set-password name="set-password" route="[[subroute]]" offline="[[offline]]" id="set-password" invitoken="[[invitoken]]"></landing-set-password>
-          <landing-reset-password name="reset-password" route="[[subroute]]" offline="[[offline]]" id="reset-password"></landing-reset-password>
+          <landing-get-started
+            name="get-started"
+            categories="[[categories]]"
+            id="get-started"
+            data="[[category.items]]"
+          ></landing-get-started>
+
+          <landing-buy-license
+            name="buy-license"
+            route="[[subroute]]"
+            offline="[[offline]]"
+            id="buy-license"
+            stripe-public-apikey="[[config.stripeKey]]"
+            csrf-token="[[csrfToken]]"
+          ></landing-buy-license>
+
+          <landing-request-pricing
+            name="request-pricing"
+            route="[[subroute]]"
+            offline="[[offline]]"
+            id="request-pricing"
+            csrf-token="[[csrfToken]]"
+          ></landing-request-pricing>
+
+          <landing-forgot-password
+            name="forgot-password"
+            route="[[subroute]]"
+            offline="[[offline]]"
+            id="forgot-password"
+            support-email="[[config.email.support]]"
+            csrf-token="[[csrfToken]]"
+          ></landing-forgot-password>
+
+          <landing-set-password
+            name="set-password"
+            route="[[subroute]]"
+            offline="[[offline]]"
+            id="set-password"
+            invitoken="[[invitoken]]"
+            csrf-token="[[csrfToken]]"
+          ></landing-set-password>
+
+          <landing-reset-password
+            name="reset-password"
+            route="[[subroute]]"
+            offline="[[offline]]"
+            id="reset-password"
+            csrf-token="[[csrfToken]]"
+          ></landing-reset-password>
 
           <landing-error name="error" route="[[subroute]]" offline="[[offline]]"></landing-error>
           <landing-not-found name="not-found" id="not-found"></landing-not-found>
@@ -465,93 +564,100 @@ Polymer({
       </template>
     </dom-if>
 
-
-    <landing-social id="social" categories="[[categories]]" data="[[category.items]]" hidden\$="[[!_hasFooter(page)]]"></landing-social>
-    <footer hidden\$="[[!config.features.landing_footer]]">
-      <landing-footer id="footer" hidden\$="[[!_hasFooter(page)]]"></landing-footer>
+    <footer hidden$="[[!config.features.landing_footer]]">
+      <landing-footer id="footer" hidden$="[[!_hasFooter(page)]]"></landing-footer>
     </footer>
 
     <!-- a11y announcer -->
     <div class="announcer" aria-live="assertive">[[_a11yLabel]]</div>
-`,
+  `,
 
   is: 'landing-app',
 
   properties: {
-
     page: {
       type: String,
       reflectToAttribute: true,
-      observer: '_pageChanged'
+      observer: '_pageChanged',
     },
 
     numItems: {
       type: Number,
-      value: 0
+      value: 0,
     },
 
     category: {
-      type: Object
+      type: Object,
     },
 
     gaId: {
-      type: String
+      type: String,
     },
 
     _shouldShowTabs: {
-      computed: '_computeShouldShowTabs(page, smallScreen)'
+      computed: '_computeShouldShowTabs(page, smallScreen)',
     },
 
     _shouldRenderTabs: {
-      computed: '_computeShouldRenderTabs(_shouldShowTabs, loadComplete)'
+      computed: '_computeShouldRenderTabs(_shouldShowTabs, loadComplete)',
     },
 
     _shouldRenderDrawer: {
-      computed: '_computeShouldRenderDrawer(smallScreen, loadComplete)'
+      computed: '_computeShouldRenderDrawer(smallScreen, loadComplete)',
     },
 
     animated: {
       type: Boolean,
-      value: true
+      value: true,
     },
-    
+
     scrollThresholdReached: {
       type: Boolean,
-      value: false
+      value: false,
     },
 
     fingerprint: {
       type: String,
-      value: ''
+      value: '',
     },
 
     categories: {
       type: Array,
-      value() { return CATEGORIES }
+      value() {
+        return [];
+      },
     },
+
     invitoken: {
       type: String,
-      value: ''
+      value: '',
     },
+
     returnTo: {
       type: String,
-      value: ''
+      value: '',
     },
-    config: Object
+
+    config: Object,
+
+    csrfToken: {
+      type: String,
+      value: '',
+    },
   },
 
   observers: [
     '_routePageChanged(routeData.page, route.__queryParams)',
-    '_categoryChanged(category.content)'
+    '_categoryChanged(category.content)',
   ],
 
   listeners: {
-    'announce': '_onAnnounce',
+    announce: '_onAnnounce',
     'dom-change': '_domChange',
     'show-invalid-url-warning': '_onFallbackSelectionTriggered',
     'user-action': '_onUserAction',
     'open-dialog': '_openDialog',
-    'go-to': '_goToPage'
+    'go-to': '_goToPage',
   },
 
   created() {
@@ -562,9 +668,10 @@ Polymer({
   },
 
   attached() {
-    const content = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
-    this.category = {'name': this.page, 'content': content};
-    // this.$.pages._selection.selection = []
+    const content = this.querySelector('[slot="content"]')
+      ? this.querySelector('[slot="content"]').innerHTML
+      : '';
+    this.category = { name: this.page, content };
     // listen for online/offline
     afterNextRender(this, function listenNetworkStatus() {
       this.listen(window, 'online', '_notifyNetworkStatus');
@@ -573,24 +680,9 @@ Polymer({
 
     const that = this;
     window.onbeforeunload = function logUserExit() {
-      that.fire('user-action', `exit from ${  that.page}`);
+      that.fire('user-action', `exit from ${that.page}`);
     };
-    this.fire('user-action', `entry at ${  that.page}`);
-
-    document.addEventListener("scroll", function onScroll() {
-      const scrollPercent = 1 - (document.body.scrollHeight - window.scrollY - window.innerHeight) / document.body.scrollHeight;
-      if (document.body.scrollHeight <= window.innerHeight)
-        return;
-      if (scrollPercent > 0.8 && !this.scrollThresholdReached){
-        that.fire('user-action', 'scroll to bottom');
-        this.scrollThresholdReached = true;
-        if (that.config.features && that.config.features.landing_footer){
-          that.async(function loadFooter() {
-            this.$.footer.finishLoading();
-          }, 50);
-        }
-      }
-    });
+    this.fire('user-action', `entry at ${that.page}`);
 
     this._ensureLazyLoaded();
   },
@@ -600,7 +692,7 @@ Polymer({
   },
 
   _routePageChanged(page, params) {
-    if (params){
+    if (params) {
       this.set('invitoken', params.invitoken || this.invitoken);
       this.set('returnTo', params.return_to);
       this.set('plan', params.plan);
@@ -621,32 +713,32 @@ Polymer({
   _pageChanged(page, oldPage) {
     if (page != null) {
       // in docs reset page to the oldPage
-      if (['docs'].indexOf(page) > -1){
+      if (['docs'].indexOf(page) > -1) {
         this.set('page', oldPage);
-      // home route is eagerly loaded
+        // home route is eagerly loaded
       } else if (page === 'home') {
         this._pageLoaded(Boolean(oldPage));
-      // other routes are lazy loaded
+        // other routes are lazy loaded
       } else if (page === 'request-pricing') {
-        import('./landing-request-pricing.js').then(()=> {
+        import('./landing-request-pricing.js').then(() => {
           console.warn('Request-pricing page imported');
         });
       } else if (page === 'buy-license') {
-        import('./landing-buy-license.js').then(()=> {
+        import('./landing-buy-license.js').then(() => {
           console.warn('Buy-license page imported');
         });
       } // else {
-        // debugger;
-        // When a load failed, it triggered a 404 which means we need to
-        // eagerly load the 404 page definition
-        // const cb = this._pageLoaded.bind(this, Boolean(oldPage));
-        // const category = this.categories && this.categories.find((c) => c.name === page);
-        // if (category && category.template) {
-        //   this.importHref(
-        //     this.resolveUrl('landing-' + category.template + '.html'),
-        //     cb, cb, true
-        //   );
-        // }
+      // debugger;
+      // When a load failed, it triggered a 404 which means we need to
+      // eagerly load the 404 page definition
+      // const cb = this._pageLoaded.bind(this, Boolean(oldPage));
+      // const category = this.categories && this.categories.find((c) => c.name === page);
+      // if (category && category.template) {
+      //   this.importHref(
+      //     this.resolveUrl('landing-' + category.template + '.html'),
+      //     cb, cb, true
+      //   );
+      // }
       // }
     }
   },
@@ -655,7 +747,7 @@ Polymer({
     if (shouldResetLayout) {
       // The size of the header depends on the page (e.g. on some pages the tabs
       // do not appear), so reset the header's layout only when switching pages.
-      this.async(function() {
+      this.async(() => {
         this.$.header.resetLayout();
       }, 1);
     }
@@ -663,11 +755,28 @@ Polymer({
   },
 
   _ensureLazyLoaded() {
+    const that = this;
     // load lazy resources after render and set `loadComplete` when done.
     if (!this.loadComplete) {
-      afterNextRender(this, function() {
-        import('./lazy-resources.js').then(()=> {
+      afterNextRender(this, () => {
+        import('./lazy-resources.js').then(() => {
           console.warn('Lazy resources imported');
+          document.addEventListener('scroll', function onScroll() {
+            const scrollPercent =
+              1 -
+              (document.body.scrollHeight - window.scrollY - window.innerHeight) /
+                document.body.scrollHeight;
+            if (document.body.scrollHeight <= window.innerHeight) return;
+            if (scrollPercent > 0.8 && !this.scrollThresholdReached) {
+              that.fire('user-action', 'scroll to bottom');
+              this.scrollThresholdReached = true;
+              if (that.config.features && that.config.features.landing_footer) {
+                that.async(function loadFooter() {
+                  this.$.footer.finishLoading();
+                }, 50);
+              }
+            }
+          });
         });
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('/landing/service-worker.js');
@@ -680,7 +789,7 @@ Polymer({
 
   _notifyNetworkStatus() {
     const oldOffline = this.offline;
-    this.offline =  !navigator.onLine;
+    this.offline = !navigator.onLine;
     // Show the snackbar if the user is offline when starting a new session
     // or if the network status changed.
     if (this.offline || (!this.offline && oldOffline === true)) {
@@ -688,8 +797,7 @@ Polymer({
         this._networkSnackbar = document.createElement('landing-snackbar');
         dom(this.root).appendChild(this._networkSnackbar);
       }
-      dom(this._networkSnackbar).innerHTML = this.offline ?
-          'You are offline' : 'You are online';
+      dom(this._networkSnackbar).innerHTML = this.offline ? 'You are offline' : 'You are online';
       this._networkSnackbar.open();
     }
   },
@@ -706,9 +814,13 @@ Polymer({
   // A11y announce the given message.
   _announce(message) {
     this._a11yLabel = '';
-    this.debounce('_a11yAnnouncer', function() {
-      this._a11yLabel = message;
-    }, 100);
+    this.debounce(
+      '_a11yAnnouncer',
+      () => {
+        this._a11yLabel = message;
+      },
+      100,
+    );
   },
 
   // This is for performance logging only.
@@ -717,13 +829,17 @@ Polymer({
       const target = dom(e).rootTarget;
       if (target.domHost && target.domHost.is.match(this.page)) {
         this.__loggedDomChange = true;
-        performance.mark(`${target.domHost.is  }.domChange`);
+        performance.mark(`${target.domHost.is}.domChange`);
       }
     }
   },
 
   _onFallbackSelectionTriggered() {
-    if (this.route.path.match('insights|clouds|machines|images|networks|teams|keys|templates|stacks|tunnels|zones|scripts|schedules|account|incidents')) {
+    if (
+      this.route.path.match(
+        'insights|clouds|machines|images|networks|teams|keys|templates|stacks|tunnels|zones|scripts|schedules|account|incidents',
+      )
+    ) {
       this.route.__queryParams.return_to = this.route.path;
       this.page = 'sign-in';
       window.history.pushState({}, null, `/sign-in?return_to=${this.route.path}`);
@@ -734,8 +850,11 @@ Polymer({
   },
 
   _computeShouldShowTabs(page, smallScreen) {
-    return ((page === 'home' || page === 'list' || page === 'detail') ||
-            this.categories && this.categories.map((c) => c.name).indexOf(page) > -1) && !smallScreen;
+    return (
+      (page === 'home' ||
+        (this.categories && this.categories.map(c => c.name).indexOf(page) > -1)) &&
+      !smallScreen
+    );
   },
 
   _computeShouldRenderTabs(_shouldShowTabs, loadComplete) {
@@ -747,84 +866,95 @@ Polymer({
   },
 
   _computePluralizedQuantity(quantity) {
-    return `${quantity  } ${  quantity === 1 ? 'item' : 'items'}`;
+    return `${quantity} ${quantity === 1 ? 'item' : 'items'}`;
   },
 
   _hasFooter(page) {
-    const unfootedPages = ['sign-in', 'sign-up', 'set-password', 'reset-password', 'forgot-password', 'request-pricing', 'buy-license']
-    if (unfootedPages.indexOf(page) > -1)
-      return false;
+    const unfootedPages = [
+      'sign-in',
+      'sign-up',
+      'set-password',
+      'reset-password',
+      'forgot-password',
+      'request-pricing',
+      'buy-license',
+    ];
+    if (unfootedPages.indexOf(page) > -1) return false;
     return true;
   },
 
   _signInClick(event) {
-    this.fire('user-action', `sign in click from ${  this.page}`);
+    this.fire('user-action', `sign in click from ${this.page}`);
     event.preventDefault();
-    new Wave(event.detail.x, event.detail.y, window.getComputedStyle(event.currentTarget).backgroundColor, 1);
-    this.async(
-      function() {
-        this.fire('go-to', '/sign-in');
-        waves.forEach((wave) => { wave.up(); })
-        window.scrollTo(0, 0);
-      }, 200 );
+    const _w = new Wave(
+      event.detail.x,
+      event.detail.y,
+      window.getComputedStyle(event.currentTarget).backgroundColor,
+      1,
+    );
+    this.async(() => {
+      this.fire('go-to', '/sign-in');
+      waves.forEach(wave => {
+        wave.up();
+      });
+      window.scrollTo(0, 0);
+    }, 200);
   },
 
   _signUpClick(event) {
-    this.fire('user-action', `sign up click from ${  this.page}`);
+    this.fire('user-action', `sign up click from ${this.page}`);
     event.preventDefault();
-    new Wave(event.detail.x, event.detail.y, '#333', 1);
-    this.async(
-      function() {
-        waves.forEach((wave) => { wave.up(); });
-        this.fire('go-to', event.target.parentElement.href);
-        window.scrollTo(0, 0);
-      }, 200 );
+    const _w = new Wave(event.detail.x, event.detail.y, '#333', 1);
+    this.async(() => {
+      waves.forEach(wave => {
+        wave.up();
+      });
+      this.fire('go-to', event.target.parentElement.href);
+      window.scrollTo(0, 0);
+    }, 200);
   },
 
   _onUserAction(event) {
     console.debug('user-action', event);
     if (typeof gtag === 'function') {
+      // eslint-disable-next-line no-undef
       gtag('event', event.detail, {
-        'event_category': 'landing'
+        event_category: 'landing',
       });
     }
     // TODO: De-comment when fingerprint gets updated
-    if (!this.config || !this.config.features || !this.config.features.ab)
-     return;
+    if (!this.config || !this.config.features || !this.config.features.ab) return;
     const xhr = new XMLHttpRequest();
-    if (!this.fingerprint){
+    if (!this.fingerprint) {
       const that = this;
-      import('@fingerprintjs/fingerprintjs').then((FingerprintJS) => {
-        FingerprintJS.load().then((fp) => {
+      import('@fingerprintjs/fingerprintjs').then(FingerprintJS => {
+        FingerprintJS.load().then(fp => {
           // The FingerprintJS agent is ready.
           // Get a visitor identifier when you'd like to.
-          fp.get().then((result)=> {
+          fp.get().then(result => {
             // This is the visitor identifier:
-            const {visitorId} = result;
+            const { visitorId } = result;
             console.log(visitorId);
 
             // this will use all available fingerprinting sources
             that.fingerprint = result.visitorId;
             const payload = {
-              'action': event.detail,
-              'fingerprint': result.visitorId,
-              'resolution': result.components.screenResolution.value,
-              'platform': result.components.platform.value,
-              'browser': that._getBrowser(),
-              'tz': result.components.timezoneOffset
+              action: event.detail,
+              fingerprint: result.visitorId,
+              resolution: result.components.screenResolution.value,
+              platform: result.components.platform.value,
+              browser: that._getBrowser(),
+              tz: result.components.timezoneOffset,
             };
-            if (document.referrer)
-              payload.referrer = document.referrer;
-            xhr.open('GET', `/api/v1/logs/ui?b=${  btoa(JSON.stringify(payload))}`);
+            if (document.referrer) payload.referrer = document.referrer;
+            xhr.open('GET', `/api/v1/logs/ui?b=${btoa(JSON.stringify(payload))}`);
             xhr.send();
-          })
+          });
         });
       });
-
     } else {
-      const payload = {'action': event.detail,
-                     'fingerprint': this.fingerprint};
-      xhr.open('GET', `/api/v1/logs/ui?b=${  btoa(JSON.stringify(payload))}`);
+      const payload = { action: event.detail, fingerprint: this.fingerprint };
+      xhr.open('GET', `/api/v1/logs/ui?b=${btoa(JSON.stringify(payload))}`);
       xhr.send();
     }
   },
@@ -834,24 +964,24 @@ Polymer({
 
     // we extract the browser from the user agent (respect the order of the tests)
     let browser;
-    if(userAgent.indexOf("firefox") >= 0){
-      browser = "Firefox";
-    } else if(userAgent.indexOf("opera") >= 0 || userAgent.indexOf("opr") >= 0){
-      browser = "Opera";
-    } else if(userAgent.indexOf("chrome") >= 0){
-      browser = "Chrome";
-    } else if(userAgent.indexOf("safari") >= 0){
-      browser = "Safari";
-    } else if(userAgent.indexOf("trident") >= 0){
-      browser = "Internet Explorer";
+    if (userAgent.indexOf('firefox') >= 0) {
+      browser = 'Firefox';
+    } else if (userAgent.indexOf('opera') >= 0 || userAgent.indexOf('opr') >= 0) {
+      browser = 'Opera';
+    } else if (userAgent.indexOf('chrome') >= 0) {
+      browser = 'Chrome';
+    } else if (userAgent.indexOf('safari') >= 0) {
+      browser = 'Safari';
+    } else if (userAgent.indexOf('trident') >= 0) {
+      browser = 'Internet Explorer';
     } else {
-      browser = "Other";
+      browser = 'Other';
     }
     return browser;
   },
 
   _tabClicked(event) {
-    this.fire('user-action', `tab click ${  event.target.textContent}`);
+    this.fire('user-action', `tab click ${event.target.textContent}`);
   },
 
   _logoClicked() {
@@ -860,16 +990,18 @@ Polymer({
 
   _openDialog(e) {
     console.log(e.detail.content);
-      const {content} = e.detail;
-      this.$[`show-${content}`].open();
+    const { content } = e.detail;
+    this.$[`show-${content}`].open();
   },
 
-  _isEqual(catName,page) {
+  _isEqual(catName, page) {
     return catName === page;
   },
 
   _categoryChanged() {
-    const htmlContent = this.querySelector('[slot="content"]') ? this.querySelector('[slot="content"]').innerHTML : '';
+    const htmlContent = this.querySelector('[slot="content"]')
+      ? this.querySelector('[slot="content"]').innerHTML
+      : '';
     if (!this.category.content || htmlContent === this.category.content) {
       return;
     }
@@ -879,8 +1011,7 @@ Polymer({
     }
   },
 
-  _hasCategories (categories) {
-    return categories && categories.length > 0 || false;
-  }
+  _hasCategories(categories) {
+    return (categories && categories.length > 0) || false;
+  },
 });
-

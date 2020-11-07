@@ -16,7 +16,6 @@ import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
 Polymer({
   _template: html`
     <style>
-
       :host {
         display: block;
         position: relative;
@@ -34,28 +33,25 @@ Polymer({
         @apply --layout-fit;
         @apply --landing-image-img;
       }
-
     </style>
 
-    <img id="img" alt\$="[[alt]]" on-load="_onImgLoad" on-error="_onImgError">
-`,
+    <img id="img" alt$="[[alt]]" on-load="_onImgLoad" on-error="_onImgError" />
+  `,
 
   is: 'landing-image',
 
   properties: {
-
     alt: String,
 
     src: {
       type: String,
-      observer: '_srcChanged'
+      observer: '_srcChanged',
     },
 
     placeholderImg: {
       type: String,
-      observer: '_placeholderImgChanged'
-    }
-
+      observer: '_placeholderImgChanged',
+    },
   },
 
   _srcChanged(src) {
@@ -74,11 +70,13 @@ Polymer({
 
   _onImgError() {
     if (!this.placeholderImg) {
-      this.$.img.src = `data:image/svg+xml,${  encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#CCC" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>')}`;
+      this.$.img.src = `data:image/svg+xml,${encodeURIComponent(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#CCC" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>',
+      )}`;
     }
   },
 
   _placeholderImgChanged(placeholder) {
-    this.style.backgroundImage = `url('${  placeholder  }')`;
-  }
+    this.style.backgroundImage = `url('${placeholder}')`;
+  },
 });

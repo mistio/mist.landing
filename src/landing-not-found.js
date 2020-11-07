@@ -17,7 +17,6 @@ import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
 Polymer({
   _template: html`
     <style include="shared-styles">
-
       :host {
         display: block;
         text-align: center;
@@ -47,7 +46,6 @@ Polymer({
       .content404 {
         margin-bottom: 400px;
       }
-
     </style>
 
     <div class="content404">
@@ -57,7 +55,7 @@ Polymer({
         <paper-button raised="">Go to the home page</paper-button>
       </a>
     </div>
-`,
+  `,
 
-  is: 'landing-not-found'
+  is: 'landing-not-found',
 });

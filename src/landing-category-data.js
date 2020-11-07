@@ -7,60 +7,75 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import '../node_modules/@polymer/polymer/polymer-legacy.js';
+import '@polymer/polymer/polymer-legacy.js';
 
-import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 
 Polymer({
   is: 'landing-category-data',
 
   properties: {
-
     categoryName: String,
 
     itemName: String,
 
     categories: {
-      type: Array
+      type: Array,
     },
 
     builtinCategories: {
       type: Array,
-      value: ['sign-up', 'sign-in', 'get-started', 'buy-license', 'set-password', 'reset-password', 'forgot-password', 'error', 'request-pricing', 'docs']
+      value: [
+        'sign-up',
+        'sign-in',
+        'get-started',
+        'buy-license',
+        'set-password',
+        'reset-password',
+        'forgot-password',
+        'error',
+        'request-pricing',
+        'docs',
+      ],
     },
 
     categoryData: {
       type: Object,
-      value () { return {}; }
+      value() {
+        return {};
+      },
     },
 
     category: {
       type: Object,
       computed: '_computeCategory(categoryName)',
-      notify: true
+      notify: true,
     },
 
     item: {
       type: Object,
       computed: '_computeItem(category.items, itemName)',
-      notify: true
+      notify: true,
     },
 
     failure: {
       type: Boolean,
       notify: true,
-      readOnly: true
-    }
+      readOnly: true,
+    },
   },
 
   _getCategoryObject(categoryName) {
-    for (var i = 0, c; c = this.categories[i]; ++i) {
+    for (let i = 0; i < this.categories.length; i++) {
+      const c = this.categories[i];
       if (c.name === categoryName) {
         return c;
       }
     }
-    if (this.builtinCategories.indexOf(categoryName) == -1)
+    if (this.builtinCategories.indexOf(categoryName) === -1) {
       this.fire('show-invalid-url-warning');
+    }
+    return false;
   },
 
   _computeCategory(categoryName) {
@@ -68,54 +83,69 @@ Polymer({
     // which means `category.items` may not be set initially (but that path
     // will be notified when the fetch completes).
     if (!this.categoryData[categoryName]) {
-      this.categoryData[categoryName] = {'name': categoryName};
+      this.categoryData[categoryName] = { name: categoryName };
     }
     const categoryObj = this.categoryData[categoryName];
-    if (this.parentNode.host.category && categoryName != this.parentNode.host.category.name && !this.categoryData[this.parentNode.host.category.name]) {
-      this.categoryData[this.parentNode.host.category.name] = {'name': this.parentNode.host.category.name, 'content': this.parentNode.host.querySelector('[slot="content"]')};
+    if (
+      this.parentNode.host.category &&
+      categoryName !== this.parentNode.host.category.name &&
+      !this.categoryData[this.parentNode.host.category.name]
+    ) {
+      this.categoryData[this.parentNode.host.category.name] = {
+        name: this.parentNode.host.category.name,
+        content: this.parentNode.host.querySelector('[slot="content"]'),
+      };
     }
-    if (categoryObj && !categoryObj.content)
-      this._fetchContent(categoryObj, 1);
+    if (categoryObj && !categoryObj.content) this._fetchContent(categoryObj, 1);
     return categoryObj;
   },
 
   _computeItem(items, itemName) {
     if (!items || !itemName) {
-      return;
+      return false;
     }
-    for (var i = 0, item; item = items[i]; ++i) {
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
       if (item.name === itemName) {
         return item;
       }
     }
-    if (this.builtinCategories.indexOf(itemName) == -1)
-      this.fire('show-invalid-url-warning');
+    if (this.builtinCategories.indexOf(itemName) === -1) this.fire('show-invalid-url-warning');
+    return false;
   },
 
   _fetchContent(category, attempts) {
-    if (!this.category || this.category.name == category.name || this.builtinCategories.indexOf(category.name) > -1) return;
+    if (
+      !this.category ||
+      this.category.name === category.name ||
+      this.builtinCategories.indexOf(category.name) > -1
+    )
+      return;
     console.log('category.name', category.name);
     this._setFailure(false);
     // Only fetch the items of a category if it has not been previously set.
     if (!category) {
       return;
     }
-    const categoryUrl = category.name != 'blog' ? (`/api/v1/section/landing--${  category.name}`) : '/api/v1/blog';
-    this._getResource({
-      url: `/api/v1/section/landing--${  category.name}`,
-      onLoad(e) {
-        this.set('category.content', e.target.responseText);
+    this._getResource(
+      {
+        url: `/api/v1/section/landing--${category.name}`,
+        onLoad(e) {
+          this.set('category.content', e.target.responseText);
+        },
+        onError(e) {
+          this._setFailure(true);
+          console.warn('Error fetching category', e);
+        },
       },
-      onError(e) {
-        this._setFailure(true);
-      }
-    }, attempts);
+      attempts,
+    );
   },
 
   _getResource(rq, attempts) {
     const xhr = new XMLHttpRequest();
     xhr.addEventListener('load', rq.onLoad.bind(this));
-    xhr.addEventListener('error', (e) => {
+    xhr.addEventListener('error', e => {
       // Flaky connections might fail fetching resources
       if (attempts > 1) {
         this.debounce('_getResource', this._getResource.bind(this, rq, attempts - 1), 200);
@@ -133,6 +163,5 @@ Polymer({
       // Try at most 3 times to get the items.
       this._fetchItems(this._getCategoryObject(this.categoryName), 3);
     }
-  }
-
+  },
 });

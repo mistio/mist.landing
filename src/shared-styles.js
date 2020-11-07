@@ -1,6 +1,6 @@
-const $_documentContainer = document.createElement('template');
+const documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="shared-styles">
+documentContainer.innerHTML = `<dom-module id="shared-styles">
     <template>
         <style>
     :host > * {
@@ -1917,4 +1917,4 @@ img.with-shadow {
     </template>
 </dom-module>`;
 
-document.head.appendChild($_documentContainer.content);
+document.head.appendChild(documentContainer.content);

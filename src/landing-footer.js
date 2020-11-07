@@ -2,7 +2,6 @@ import '@polymer/polymer/polymer-legacy.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-icons/social-icons.js';
 import '@polymer/iron-icons/communication-icons.js';
-import '@polymer/paper-button/paper-button.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 

@@ -56,17 +56,19 @@ Polymer({
     </style>
 
     <slot></slot>
-`,
+  `,
 
   is: 'landing-snackbar',
 
   open() {
     flush();
-    this.offsetHeight && this.classList.add('opened');
+    if (this.offsetHeight) {
+      this.classList.add('opened');
+    }
     this.debounce('_close', this.close, 4000);
   },
 
   close() {
     this.classList.remove('opened');
-  }
+  },
 });

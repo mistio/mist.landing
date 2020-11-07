@@ -1,18 +1,17 @@
-import '../node_modules/@polymer/polymer/polymer-legacy.js';
-import '../node_modules/@polymer/iron-icons/iron-icons.js';
-import '../node_modules/@polymer/iron-icons/social-icons.js';
+import '@polymer/polymer/polymer-legacy.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-icons/social-icons.js';
 import './shared-styles.js';
 import './landing-image.js';
-import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
-import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
 Polymer({
   _template: html`
     <style include="shared-styles"></style>
     <style>
-
-    paper-material {
-        @apply(--shadow-elevation-2dp);
+      paper-material {
+        @apply (--shadow-elevation-2dp);
       }
 
       :host {
@@ -32,7 +31,7 @@ Polymer({
       .item:nth-of-type(4) {
         display: inline-block;
         width: 50%;
-      } 
+      }
 
       .item:nth-of-type(3) > h2,
       .item:nth-of-type(4) > h2 {
@@ -80,40 +79,40 @@ Polymer({
       }
 
       #placeholder {
-          opacity: 0;
-          background-color: grey;
-          @apply(--layout-fit);
-          z-index: -1;
+        opacity: 0;
+        background-color: grey;
+        @apply (--layout-fit);
+        z-index: -1;
       }
 
       .image-block {
-        padding: 60px; 
+        padding: 60px;
       }
 
       /* very small mobile screens */
       @media only screen and (max-width: 600px) {
-          h2.typed {
-              font-size: 2.56rem !important;
-          }
+        h2.typed {
+          font-size: 2.56rem !important;
+        }
       }
       h5 {
         line-height: 140%;
         font-weight: 300 !important;
         font-size: 1.64rem;
-        margin: .82rem 0 .656rem;
+        margin: 0.82rem 0 0.656rem;
       }
 
       .faqitem {
-          margin: 0 auto;
-          position: relative;
+        margin: 0 auto;
+        position: relative;
       }
       .markdown-html a {
-          text-decoration: none !important;
-          color: #09c !important;
+        text-decoration: none !important;
+        color: #09c !important;
       }
       .markdown-html a {
-          text-decoration: none !important;
-          color: #09c !important;
+        text-decoration: none !important;
+        color: #09c !important;
       }
 
       .image-link {
@@ -133,7 +132,7 @@ Polymer({
         left: 5px;
         right: 5px;
         bottom: 5px;
-        outline: #2196F3 auto 5px;
+        outline: #2196f3 auto 5px;
         outline: -moz-mac-focusring auto 5px;
         outline: -webkit-focus-ring-color auto 5px;
       }
@@ -155,9 +154,9 @@ Polymer({
           left: -9999px;
           right: -9999px;
           max-width: none;
-        };
+        }
         margin-top: 40px;
-      }    
+      }
 
       @media (max-width: 767px) {
         landing-image {
@@ -167,7 +166,7 @@ Polymer({
         h2 {
           margin: 24px 0;
         }
-      } 
+      }
 
       .framed-image {
         position: relative;
@@ -178,22 +177,25 @@ Polymer({
         position: relative;
         z-index: 0;
       }
-
     </style>
 
-    <div class="hero text-center"> 
+    <div class="hero text-center">
       <h2>
         <slot name="title"></slot>
       </h2>
       <h5><slot name="subtitle"></slot></h5>
-      <br>
+      <br />
       <slot name="button"></slot>
 
       <dom-if if="[[frame]]" restamp="">
         <template>
           <div class="framed-image">
-            <img src="[[image]]" class="image-content" style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;">
-            <img src="[[frame]]" class="image-frame">
+            <img
+              src="[[image]]"
+              class="image-content"
+              style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;"
+            />
+            <img src="[[frame]]" class="image-frame" />
           </div>
         </template>
       </dom-if>
@@ -204,32 +206,27 @@ Polymer({
         </template>
       </dom-if>
     </div>
-`,
+  `,
 
   is: 'landing-fold',
 
   properties: {
-      image: {
-          type: String,
-          reflectToAttribute: true
-      },
-      frame: {
-        type: String,
-        reflectToAttribute: true,
-        value: false
-      },
-      printTyped: {
-        type: Boolean,
-        value: false
-      }
+    image: {
+      type: String,
+      reflectToAttribute: true,
+    },
+    frame: {
+      type: String,
+      reflectToAttribute: true,
+      value: false,
+    },
+    printTyped: {
+      type: Boolean,
+      value: false,
+    },
   },
 
-  _signUpClick(event) {
-    window.scrollTo(0, 0);
-    this.fire('user-action', 'sign up button 1 click in home');
+  _hasNoFrame() {
+    return !((this.frame && this.frame.length > 0) || false);
   },
-
-  _hasNoFrame (frame) {
-    return !(this.frame && this.frame.length > 0 || false);
-  }
 });

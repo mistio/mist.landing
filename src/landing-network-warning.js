@@ -16,7 +16,6 @@ import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
 Polymer({
   _template: html`
     <style include="landing-button">
-
       :host {
         display: block;
         padding: 40px 20px;
@@ -42,13 +41,12 @@ Polymer({
       landing-button {
         margin-top: 50px;
       }
-
     </style>
 
-    <div hidden\$="[[offline]]">
+    <div hidden$="[[offline]]">
       <h1>Couldn't reach the server</h1>
     </div>
-    <div hidden\$="[[!offline]]">
+    <div hidden$="[[!offline]]">
       <iron-icon icon="perm-scan-wifi"></iron-icon>
       <h1>No internet connection</h1>
       <p>Check if your device is connected to a mobile network or WiFi.</p>
@@ -56,15 +54,15 @@ Polymer({
     <landing-button>
       <button on-click="_tryReconnect">Try Again</button>
     </landing-button>
-`,
+  `,
 
   is: 'landing-network-warning',
 
   properties: {
-    offline: Boolean
+    offline: Boolean,
   },
 
   _tryReconnect() {
     this.fire('try-reconnect', null, { bubbles: false });
-  }
+  },
 });

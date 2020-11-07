@@ -19,19 +19,24 @@
   <script async tal:condition="google_analytics_id"
   src="https://www.googletagmanager.com/gtag/js?id=${google_analytics_id}"></script>
   <script tal:condition="google_analytics_id">
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){window.dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '${google_analytics_id}', {
-  'custom_map': {'app': 'landing'}
-  });
-  gtag('set', {'content_group1': 'landing'});
+    /* eslint-disable */
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){window.dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${google_analytics_id}', {
+    'custom_map': {'app': 'landing'}
+    });
+    gtag('set', {'content_group1': 'landing'});
   </script>
 
   <script tal:condition="csrf_token|nothing" tal:content="string: const CSRF_TOKEN=${csrf_token}"></script>
-  <script tal:condition="categories|nothing" tal:content="string: const CATEGORIES=${categories}"></script>
+  <script tal:condition="categories|nothing" tal:content="string: const CATEGORIES=${categories}">
+  /* eslint-disable */
+  const CATEGORIES=[];
+  </script>
   <script tal:content="string: const True = true, False = false, CONFIG = {'features': ${structure:features}, 'email': ${email}, 'portalName': '${portal_name}', 'stripeKey': '${stripe_public_apikey|nothing}'}">
-  const CONFIG = false;
+    /* eslint-disable */
+    const CONFIG = false;
   </script>
   <script>
     // setup Polymer options
@@ -2087,18 +2092,21 @@
   </landing-app>
 
   <script type="module">
-  import {setPassiveTouchGestures} from '@polymer/polymer/lib/utils/settings.js';
+    /* eslint-disable */
+    import {setPassiveTouchGestures} from '@polymer/polymer/lib/utils/settings.js';
 
-  setPassiveTouchGestures(true);
-  if (CONFIG) {
-    document.querySelector('landing-app').config = CONFIG;
-    const repeater = document.querySelector('dom-repeat');
-    const categories = CATEGORIES;
-    repeater.items = categories;
-  }
+    setPassiveTouchGestures(true);
+    if (CONFIG) {
+      document.querySelector('landing-app').config = CONFIG;
+      const repeater = document.querySelector('dom-repeat');
+      const categories = CATEGORIES;
+      repeater.items = categories;
+      document.querySelector('landing-app').categories = categories;
+    }
+    document.querySelector('landing-app').csrfToken = CSRF_TOKEN;
   </script>
   <script type="module">
-  import './src/landing-app.js';
+    import './src/landing-app.js';
   </script>
 
 </body>

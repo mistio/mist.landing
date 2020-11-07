@@ -13,9 +13,9 @@ import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
 import './landing-ripple-container.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 
-const $_documentContainer = document.createElement('template');
+const documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="landing-tab">
+documentContainer.innerHTML = `<dom-module id="landing-tab">
   <template strip-whitespace="">
     <style>
       [hidden] {
@@ -50,7 +50,7 @@ $_documentContainer.innerHTML = `<dom-module id="landing-tab">
   
 </dom-module>`;
 
-document.head.appendChild($_documentContainer.content);
+document.head.appendChild(documentContainer.content);
 Polymer({
-  is: 'landing-tab'
+  is: 'landing-tab',
 });

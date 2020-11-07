@@ -22,9 +22,10 @@ import './shared-styles.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
+let Stripe;
 
 Polymer({
-    _template: html`
+  _template: html`
     <style>
     :host {
         background-color: #fff;
@@ -106,9 +107,6 @@ Polymer({
 
     a#signUpLink {
         float: left;
-    }
-
-    a#forgotPasswordLink {
     }
 
     paper-material {
@@ -334,7 +332,7 @@ Polymer({
 </div>
 <iron-form id="buyLicence">
     <paper-material elevation="1">
-        <form method="post" action="/api/v1/license" enctype='application/json' id='form' hidden=[[licenseKey]]>
+        <form method="POST" action="/api/v1/license" id='form' hidden$=[[licenseKey]]>
             <div id="contact-info">
                 <h4>Contact Information</h4>
 
@@ -367,7 +365,7 @@ Polymer({
             </div>
             <div id="order-details">
                 <h4>Order details</h4>
-                <paper-input id="vcpus" name="vcpus" id="vcpus" label="Number of vcpus" type="number" min=100 value={{vcpus}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of vcpus is wrong"></paper-input>
+                <paper-input id="vcpus" name="vcpus" label="Number of vcpus" type="number" min=100 value={{vcpus}} class="field form-input" required auto-validate always-float-label pattern="[0-9]*" error-message="Number of vcpus is wrong"></paper-input>
 
                 <paper-radio-group name="interval">
                     <paper-radio-button checked="{{annualy}}" class="field" name="annual" value="annual">
@@ -407,263 +405,278 @@ Polymer({
     </paper-material>
 </iron-form>`,
 
-    is: 'landing-buy-license',
+  is: 'landing-buy-license',
 
-    properties: {
-
-        loading: {
-            type: Boolean,
-            value: false
-        },
-
-        contact: {
-            type: Object,
-            value() {
-                return {
-                    name: undefined,
-                    address: undefined,
-                    email: ""
-                }
-            }
-        },
-
-        stripePayload: {
-            type: Object,
-            value() {
-                return {
-                    number: "",
-                    exp_month: "",
-                    exp_year: "",
-                    cvc: "",
-                    address_zip: undefined
-                }
-            }
-        },
-
-        vcpus: {
-            type: Number,
-            value: 100
-        },
-
-        dockerhubid: String,
-
-        cost: {
-            type: Number,
-            computed: '_computeCost(vcpus, annualy)'
-        },
-
-        annualy: {
-            type: Boolean,
-            value: true
-        },
-
-        annualCost: {
-            type: Number,
-            value: 1
-        },
-
-        monthlyCost: {
-            type: Number,
-            value: 1.2
-        },
-
-        formReady: {
-            type: Boolean,
-            computed: '_computeFormReady(vcpus, dockerhubid, contact.*, stripePayload.*, accept)',
-            value: true
-        },
-
-        accept: {
-            type: Boolean,
-            value: false
-        },
-
-        stripePublicApikey: {
-            type: String,
-            value: ""
-        },
-
-        instructions: {
-            type: String,
-            value: ""
-        },
-
-        registryUsername: {
-            type: String,
-            value: ""
-        },
-
-        licenseKey: {
-            type: String,
-            value: ""
-        },
-
-        registryPassword: {
-            type: String,
-            value: ""
-        }
+  properties: {
+    loading: {
+      type: Boolean,
+      value: false,
     },
 
-    attached() {
+    contact: {
+      type: Object,
+      value() {
+        return {
+          name: undefined,
+          address: undefined,
+          email: '',
+        };
+      },
+    },
+
+    stripePayload: {
+      type: Object,
+      value() {
+        return {
+          number: '',
+          exp_month: '',
+          exp_year: '',
+          cvc: '',
+          address_zip: undefined,
+        };
+      },
+    },
+
+    vcpus: {
+      type: Number,
+      value: 100,
+    },
+
+    dockerhubid: String,
+
+    cost: {
+      type: Number,
+      computed: '_computeCost(vcpus, annualy)',
+    },
+
+    annualy: {
+      type: Boolean,
+      value: true,
+    },
+
+    annualCost: {
+      type: Number,
+      value: 1,
+    },
+
+    monthlyCost: {
+      type: Number,
+      value: 1.2,
+    },
+
+    formReady: {
+      type: Boolean,
+      computed: '_computeFormReady(vcpus, dockerhubid, contact.*, stripePayload.*, accept)',
+      value: true,
+    },
+
+    accept: {
+      type: Boolean,
+      value: false,
+    },
+
+    stripePublicApikey: {
+      type: String,
+      value: '',
+    },
+
+    instructions: {
+      type: String,
+      value: '',
+    },
+
+    registryUsername: {
+      type: String,
+      value: '',
+    },
+
+    licenseKey: {
+      type: String,
+      value: '',
+    },
+
+    registryPassword: {
+      type: String,
+      value: '',
+    },
+
+    csrfToken: {
+      type: 'string',
+      value: '',
+    },
+  },
+
+  attached() {
+    const that = this;
+    this.$.buyLicence.addEventListener('iron-form-response', event => {
+      that.loading = false;
+      that.registryUsername = event.detail.xhr.response.username;
+      that.registryPassword = event.detail.xhr.response.password;
+      that.licenseKey = event.detail.xhr.response.license_key;
+      that.instructions = event.detail.xhr.response.instructions;
+      this.fire('user-action', 'purchase license sucess');
+    });
+    this.$.buyLicence.addEventListener('iron-form-presubmit', () => {
+      that.$.buyLicence.request.headers['Csrf-Token'] = that.csrfToken;
+    });
+    this.$.buyLicence.addEventListener('iron-form-error', event => {
+      that.loading = false;
+      that.$.buyLicence.querySelector('div.output').innerHTML =
+        event.detail.request.xhr.statusText || event.detail.error.message;
+    });
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://js.stripe.com/v2/';
+    document.getElementsByTagName('head')[0].appendChild(script);
+  },
+
+  submit() {
+    this.fire('user-action', 'purchase license submit');
+    if (this.formReady && typeof Stripe !== 'undefined') {
+      this.formReady = false;
+      this.loading = true;
+      // extra stripe validation
+      const isValid =
+        Stripe.card.validateCardNumber(this.stripePayload.number) &&
+        Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
+        Stripe.card.validateCVC(this.stripePayload.cvc) &&
+        this.stripePayload.address_zip !== '';
+
+      if (isValid) {
         const that = this;
-        this.$.buyLicence.addEventListener('iron-form-response', function(event) {
-            that.loading = false;
-            that.registryUsername = event.detail.xhr.response.username;
-            that.registryPassword = event.detail.xhr.response.password;
-            that.licenseKey = event.detail.xhr.response.license_key;
-            that.instructions = event.detail.xhr.response.instructions;
-            this.fire('user-action', 'purchase license sucess');
+        Stripe.setPublishableKey(this.stripePublicApikey);
+        Stripe.card.createToken(this.stripePayload, (status, response) => {
+          if (response.error) {
+            console.log('stripeResponseHandler failed', response.error.message);
+            that.showError(response.error.message);
+          } else {
+            that.submitPayment(status, response);
+          }
         });
-        this.$.buyLicence.addEventListener('iron-form-presubmit', (event) => {
-            that.$.buyLicence.request.headers['Csrf-Token'] = CSRF_TOKEN;
-        });
-        this.$.buyLicence.addEventListener('iron-form-error', (event) => {
-            that.loading = false;
-            that.$.buyLicence.querySelector('div.output').innerHTML = event.detail.request.xhr.statusText || event.detail.error.message;
-        });
-        const script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = 'https://js.stripe.com/v2/';
-        document.getElementsByTagName('head')[0].appendChild(script);
-    },
-
-    submit(e) {
-        this.fire('user-action', 'purchase license submit');
-        if (this.formReady) {
-            this.formReady = false;
-            this.loading = true;
-            // extra stripe validation
-            const isValid = Stripe.card.validateCardNumber(this.stripePayload.number) &&
-                Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
-                Stripe.card.validateCVC(this.stripePayload.cvc) && this.stripePayload.address_zip !== '';
-
-            if (isValid) {
-                const that = this;
-                Stripe.setPublishableKey(this.stripePublicApikey);
-                Stripe.card.createToken(this.stripePayload, (status, response) => {
-                    if (response.error) {
-                        console.log('stripeResponseHandler failed', response.error.message);
-                        that.showError(response.error.message);
-                    } else {
-                        that.sumbmitPayment(status, response);
-                    }
-                });
-                this.set('sendingData', true);
-            } else {
-                let errorText = 'There seems to be an error with the';
-                if (!Stripe.card.validateCardNumber(this.stripePayload.number)){
-                    errorText += ' card number';
-                    this.$["cc-cvc"].invalid = true;
-                }
-
-                if (!Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year)){
-                    errorText += ' expiration date';
-                    this.$["exp-year"].invalid = true;
-                }
-
-                if (!Stripe.card.validateCVC(this.stripePayload.cvc)){
-                    errorText += ' cvc';
-                    this.$["cc-cvc"].invalid = true;
-                }
-
-                errorText += '.';
-
-                this.showError(errorText);
-            }
-        }
-    },
-
-    sumbmitPayment(status, response) {
-        this.$.buyLicence.headers["Csrf-Token"] = CSRF_TOKEN;
-        this.$.token.value = response.id;
-        this.$.buyLicence.submit();
-    },
-
-    _computeFormReady(vcpus, dockerhubid, contact, stripePayload, accept) {
-        // move input focus for month/year if length == 2
-        if (stripePayload.path.startsWith("stripePayload."))
-            this.moveFocus(stripePayload)
-
-        // if vcpus empty not ready
-        if (this.vcpus < 10){
-            return false;
-        }
-        // if any of contact or payload is empty, form not ready
-        for (const prop in this.contact){
-            if (this.contact.hasOwnProperty(prop) && (this.contact[prop] === "" || this.contact[prop] === undefined)){
-                return false;
-            }
-        }
-        for (const prop in this.stripePayload){
-            if (this.stripePayload.hasOwnProperty(prop) && (this.stripePayload[prop] === "" || this.stripePayload[prop] === undefined)){
-                return false;
-            }
-        }
-        // if any of the fields is invalid, form is not ready
-        const fields = this.$.buyLicence.querySelectorAll(".form-input");
-        for (let i=0;i<fields.length;i++){
-            if (fields[i].invalid){
-                return false;
-            }
+        this.set('sendingData', true);
+      } else {
+        let errorText = 'There seems to be an error with the';
+        if (!Stripe.card.validateCardNumber(this.stripePayload.number)) {
+          errorText += ' card number';
+          this.$['cc-cvc'].invalid = true;
         }
 
-        // if user does not accept terms, form is not ready
-        if (!this.accept)
-            return false;
-
-        // else form is ready
-        console.log('form ready');
-        return this.$.buyLicence.validate();
-    },
-
-    _computeCost(vcpus, annualy){
-        if (vcpus > 0 && annualy) {
-            return (vcpus * 12 * this.annualCost).toFixed(2);
+        if (
+          !Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year)
+        ) {
+          errorText += ' expiration date';
+          this.$['exp-year'].invalid = true;
         }
-        if (vcpus > 0 && !annualy) {
-            return (vcpus * this.monthlyCost).toFixed(2);
+
+        if (!Stripe.card.validateCVC(this.stripePayload.cvc)) {
+          errorText += ' cvc';
+          this.$['cc-cvc'].invalid = true;
         }
-        this.set("vcpus", 0);
-        return 0;
-    },
 
-    moveFocus(stripePayload){
-        // if exp_mont has 2 digits move to year
-        if (stripePayload.path === "stripePayload.exp_month" && stripePayload.value.length === 2){
-            this.$.form.querySelector("paper-input#exp-year").focus()
-        }
-        // if exp_year has 2 digits move to cvc
-        if (stripePayload.path === "stripePayload.exp_year" && stripePayload.value.length === 2){
-            this.$.form.querySelector("gold-cc-cvc-input").focus()
-        }
-        // if exp_year has 2 digits move to cvc
-        if (stripePayload.path === "stripePayload.cvc" && stripePayload.value.length === 3){
-            this.$.form.querySelector("paper-input#address-zip").focus()
-        }
-    },
+        errorText += '.';
 
-    showError(result){
-        this.set('sendingData', false);
-        this.set('formError', true);
-        console.log(result)
-        if (result.error)
-            this.$.output.textContent = result.error.message;
-        else if (!result)
-            this.$.output.textContent = "";
-        else
-            this.$.output.textContent = result;
-        this.loading = false;
-    },
-
-    _logoClicked(_e) { /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "_" }] */
-        this.fire('user-action', 'logo click');
-    },
-
-    _signInClicked(_e) {
-        this.fire('user-action', 'purchase-license click')
-    },
-
-    _isSubmitDisabled(formReady, loading) {
-        return !formReady || loading;
+        this.showError(errorText);
+      }
     }
+  },
+
+  submitPayment(status, response) {
+    this.$.buyLicence.headers['Csrf-Token'] = this.csrfToken;
+    this.$.token.value = response.id;
+    this.$.buyLicence.submit();
+  },
+
+  _computeFormReady(vcpus, dockerhubid, contact, stripePayload) {
+    // move input focus for month/year if length == 2
+    if (stripePayload.path.startsWith('stripePayload.')) this.moveFocus(stripePayload);
+
+    // if vcpus empty not ready
+    if (this.vcpus < 10) {
+      return false;
+    }
+    // if any of contact or payload is empty, form not ready
+    let keys = Object.keys(this.contact);
+    for (let i = 0; i < keys.length; i++) {
+      const prop = keys[i];
+      if (
+        Object.prototype.hasOwnProperty.call(this.contact, prop) &&
+        (this.contact[prop] === '' || this.contact[prop] === undefined)
+      ) {
+        return false;
+      }
+    }
+    keys = Object.keys(this.stripePayload);
+    for (let i = 0; i < keys.length; i++) {
+      const prop = keys[i];
+      if (
+        Object.prototype.hasOwnProperty.call(this.stripePayload, prop) &&
+        (this.stripePayload[prop] === '' || this.stripePayload[prop] === undefined)
+      ) {
+        return false;
+      }
+    }
+    // if any of the fields is invalid, form is not ready
+    const fields = this.$.buyLicence.querySelectorAll('.form-input');
+    for (let i = 0; i < fields.length; i++) {
+      if (fields[i].invalid) {
+        return false;
+      }
+    }
+
+    // if user does not accept terms, form is not ready
+    if (!this.accept) return false;
+
+    // else form is ready
+    console.log('form ready');
+    return this.$.buyLicence.validate();
+  },
+
+  _computeCost(vcpus, annualy) {
+    if (vcpus > 0 && annualy) {
+      return (vcpus * 12 * this.annualCost).toFixed(2);
+    }
+    if (vcpus > 0 && !annualy) {
+      return (vcpus * this.monthlyCost).toFixed(2);
+    }
+    this.set('vcpus', 0);
+    return 0;
+  },
+
+  moveFocus(stripePayload) {
+    // if exp_mont has 2 digits move to year
+    if (stripePayload.path === 'stripePayload.exp_month' && stripePayload.value.length === 2) {
+      this.$.form.querySelector('paper-input#exp-year').focus();
+    }
+    // if exp_year has 2 digits move to cvc
+    if (stripePayload.path === 'stripePayload.exp_year' && stripePayload.value.length === 2) {
+      this.$.form.querySelector('gold-cc-cvc-input').focus();
+    }
+    // if exp_year has 2 digits move to cvc
+    if (stripePayload.path === 'stripePayload.cvc' && stripePayload.value.length === 3) {
+      this.$.form.querySelector('paper-input#address-zip').focus();
+    }
+  },
+
+  showError(result) {
+    this.set('sendingData', false);
+    this.set('formError', true);
+    console.log(result);
+    if (result.error) this.$.output.textContent = result.error.message;
+    else if (!result) this.$.output.textContent = '';
+    else this.$.output.textContent = result;
+    this.loading = false;
+  },
+
+  _logoClicked() {
+    /* eslint no-unused-vars: ["error", { "varsIgnorePattern": "_" }] */
+    this.fire('user-action', 'logo click');
+  },
+
+  _signInClicked() {
+    this.fire('user-action', 'purchase-license click');
+  },
+
+  _isSubmitDisabled(formReady, loading) {
+    return !formReady || loading;
+  },
 });

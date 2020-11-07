@@ -1,9 +1,9 @@
 import '../../node_modules/@polymer/polymer/polymer-legacy.js';
 import '../../node_modules/@polymer/paper-styles/paper-styles.js';
 
-const $_documentContainer = document.createElement('template');
+const documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<style is="custom-style">
+documentContainer.innerHTML = `<style is="custom-style">
     html {
         --app-background-color: #f2f2f2;
         --app-primary-color: #444444;
@@ -59,4 +59,4 @@ $_documentContainer.innerHTML = `<style is="custom-style">
     };
 </style>`;
 
-document.head.appendChild($_documentContainer.content);
+document.head.appendChild(documentContainer.content);

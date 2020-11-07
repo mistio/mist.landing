@@ -17,7 +17,6 @@ import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
 Polymer({
   _template: html`
     <style>
-
       :host {
         display: block;
         text-align: center;
@@ -40,11 +39,11 @@ Polymer({
     <landing-button>
       <a href="/">Go to the home page</a>
     </landing-button>
-`,
+  `,
 
   is: 'landing-error',
 
   properties: {
-    msg: String
-  }
+    msg: String,
+  },
 });

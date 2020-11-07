@@ -31,7 +31,8 @@ Polymer({
         background-color: var(--app-background-color);
       }
 
-      :host ::slotted(*:not(landing-sign-in):not(landing-sign-up):not(landing-sign-up):not(landing-get-started)) {
+      :host
+        ::slotted(*:not(landing-sign-in):not(landing-sign-up):not(landing-sign-up):not(landing-get-started)) {
         padding-top: 130px;
       }
 
@@ -56,34 +57,26 @@ Polymer({
           padding-top: 64px;
         }
       }
-
     </style>
-    
+
     <slot id="content"></slot>
-`,
+  `,
 
   is: 'landing-pages',
 
-  behaviors: [
-    IronResizableBehavior,
-    IronSelectableBehavior
-  ],
+  behaviors: [IronResizableBehavior, IronSelectableBehavior],
 
   properties: {
-
     activateEvent: {
       type: String,
-      value: ''
-    }
-
+      value: '',
+    },
   },
 
-  observers: [
-    '_selectedPageChanged(selected)'
-  ],
+  observers: ['_selectedPageChanged(selected)'],
 
   _selectedPageChanged(selected, old) {
     this.async(this.notifyResize);
     console.log('Page changed from ', old, 'to ', selected);
-  }
-})
+  },
+});

@@ -12,9 +12,9 @@ import '../node_modules/@polymer/polymer/polymer-legacy.js';
 import { PaperRippleBehavior } from '../node_modules/@polymer/paper-behaviors/paper-ripple-behavior.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 
-const $_documentContainer = document.createElement('template');
+const documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="landing-ripple-container">
+documentContainer.innerHTML = `<dom-module id="landing-ripple-container">
   <template strip-whitespace="">
     <style>
       :host {
@@ -31,17 +31,15 @@ $_documentContainer.innerHTML = `<dom-module id="landing-ripple-container">
   
 </dom-module>`;
 
-document.head.appendChild($_documentContainer.content);
+document.head.appendChild(documentContainer.content);
 Polymer({
   is: 'landing-ripple-container',
 
-  behaviors: [
-    PaperRippleBehavior
-  ],
+  behaviors: [PaperRippleBehavior],
 
   listeners: {
-    'down': '_rippleDown',
-    'up': '_rippleUp',
+    down: '_rippleDown',
+    up: '_rippleUp',
   },
 
   created() {

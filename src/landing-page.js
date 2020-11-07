@@ -17,7 +17,6 @@ import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
 Polymer({
   _template: html`
     <style include="shared-styles">
-
       :host {
         display: block;
         color: var(--app-secondary-color);
@@ -34,9 +33,9 @@ Polymer({
         font-weight: 300;
       }
       #placeholder {
-          opacity: 0;
-          background-color: grey;
-          @apply(--layout-fit);
+        opacity: 0;
+        background-color: grey;
+        @apply (--layout-fit);
       }
 
       .title {
@@ -47,26 +46,24 @@ Polymer({
         padding-top: 16px;
         padding-bottom: 80px;
       }
-
     </style>
     <div>
-      <slot>
-      </slot>
+      <slot> </slot>
     </div>
-`,
+  `,
 
   is: 'landing-page',
 
   properties: {
     name: {
       type: String,
-      reflectToAttribute: true
+      reflectToAttribute: true,
     },
     title: {
-      type: String
+      type: String,
     },
     data: {
-      type: Object
-    }
-  }
+      type: Object,
+    },
+  },
 });

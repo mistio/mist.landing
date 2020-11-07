@@ -12,9 +12,9 @@ import '@polymer/polymer/polymer-legacy.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { flush } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 
-const $_documentContainer = document.createElement('template');
+const documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="landing-tabs-overlay">
+documentContainer.innerHTML = `<dom-module id="landing-tabs-overlay">
   <template strip-whitespace="">
     <style>
       :host {
@@ -33,7 +33,7 @@ $_documentContainer.innerHTML = `<dom-module id="landing-tabs-overlay">
   
 </dom-module>`;
 
-document.head.appendChild($_documentContainer.content);
+document.head.appendChild(documentContainer.content);
 Polymer({
   is: 'landing-tabs-overlay',
 
@@ -44,11 +44,11 @@ Polymer({
     target: {
       type: Object,
       observer: '_targetChanged',
-    }
+    },
   },
 
   listeners: {
-    'transitionend': '_onTransitionend',
+    transitionend: '_onTransitionend',
   },
 
   created() {
@@ -104,9 +104,14 @@ Polymer({
     const fromRect = from.getBoundingClientRect();
     const toRect = to.getBoundingClientRect();
 
-    if (toRect.top === 0 && toRect.right === 0 &&
-        toRect.bottom === 0 && toRect.left === 0 &&
-        toRect.width === 0 && toRect.height === 0) {
+    if (
+      toRect.top === 0 &&
+      toRect.right === 0 &&
+      toRect.bottom === 0 &&
+      toRect.left === 0 &&
+      toRect.width === 0 &&
+      toRect.height === 0
+    ) {
       this.style.transitionProperty = 'none';
       this.style.opacity = toOpacity;
       this._transitionsInFlight = [];
@@ -123,11 +128,11 @@ Polymer({
     this.style.transitionDuration = '0s';
     this.style.transitionDelay = '0s';
     const startValues = [
-      this.style.top = `${top  }px`,
-      this.style.right = `${right  }px`,
-      this.style.bottom = `${bottom  }px`,
-      this.style.left = `${left  }px`,
-      this.style.opacity = String(fromOpacity)
+      (this.style.top = `${top}px`),
+      (this.style.right = `${right}px`),
+      (this.style.bottom = `${bottom}px`),
+      (this.style.left = `${left}px`),
+      (this.style.opacity = String(fromOpacity)),
     ];
 
     top += toRect.top - fromRect.top;
@@ -151,28 +156,22 @@ Polymer({
       delays[2] = 0.1;
     }
 
-    const endValues = [
-      `${top  }px`,
-      `${right  }px`,
-      `${bottom  }px`,
-      `${left  }px`,
-      String(toOpacity)
-    ];
+    const endValues = [`${top}px`, `${right}px`, `${bottom}px`, `${left}px`, String(toOpacity)];
 
     const names = ['top', 'right', 'bottom', 'left', 'opacity'];
     for (let i = 0; i < startValues.length; i++) {
-      if (startValues[i] === endValues[i]) continue;
-      if (durations[i] === 0 && delays[i] === 0) continue;
-      this._transitionsInFlight.push(names[i]);
+      if (startValues[i] !== endValues[i] && !(durations[i] === 0 && delays[i] === 0)) {
+        this._transitionsInFlight.push(names[i]);
+      }
     }
 
-    this.async(function() {
-      this.style.transitionDuration = durations.map((x) => `${x  }s`).join(', ');
-      this.style.transitionDelay = delays.map((x) => `${x  }s`).join(', ');
-      this.style.top = `${top  }px`;
-      this.style.right = `${right  }px`;
-      this.style.bottom = `${bottom  }px`;
-      this.style.left = `${left  }px`;
+    this.async(() => {
+      this.style.transitionDuration = durations.map(x => `${x}s`).join(', ');
+      this.style.transitionDelay = delays.map(x => `${x}s`).join(', ');
+      this.style.top = `${top}px`;
+      this.style.right = `${right}px`;
+      this.style.bottom = `${bottom}px`;
+      this.style.left = `${left}px`;
       this.style.opacity = String(toOpacity);
     }, 1);
   },
