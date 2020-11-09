@@ -29,54 +29,11 @@ import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
+import { Wave, waves } from './wave.js';
 
 // performance logging
 // eslint-disable-next-line babel/no-unused-expressions
 window.performance && performance.mark && performance.mark('landing-app - before register');
-
-const waves = [];
-const duration = 300;
-
-function up() {
-  waves.forEach(wave => {
-    wave.up();
-  });
-}
-
-function Wave(x, y, color, opacity) {
-  waves.push(this);
-  this.element = document.createElement('div');
-  this.element.style.left = `calc(${x}px - 2000px)`;
-  this.element.style.top = `calc(${y}px - 2000px)`;
-  this.element.style.backgroundColor = color;
-  this.element.style.opacity = opacity;
-  this.element.setAttribute('touch-action', 'none');
-  this.element.setAttribute('class', 'wave');
-  this.element.addEventListener('up', up);
-
-  document.body.appendChild(this.element);
-
-  this.scale = this.element.animate([{ transform: 'scale(0)' }, { transform: 'scale(1)' }], {
-    duration,
-    easing: 'cubic-bezier(0.3, 0.2, 1.0, 0.2)',
-    fill: 'forwards',
-  });
-}
-Wave.prototype = {
-  up() {
-    this.up = () => {};
-    this.opacity = this.element.animate([{ opacity: 0.66 }, { opacity: 0 }], {
-      duration,
-      fill: 'forwards',
-    });
-    this.opacity.onfinish = () => {
-      this.element.remove();
-      waves.splice(waves.indexOf(this), 1);
-    };
-  },
-};
-
-document.body.addEventListener('up', up);
 
 Polymer({
   _template: html`
@@ -349,6 +306,9 @@ Polymer({
 
         .logo {
           display: none;
+        }
+        app-toolbar {
+          width: 99%;
         }
       }
 
@@ -658,6 +618,7 @@ Polymer({
     'user-action': '_onUserAction',
     'open-dialog': '_openDialog',
     'go-to': '_goToPage',
+    wave: '_createWave',
   },
 
   created() {
@@ -1013,5 +974,16 @@ Polymer({
 
   _hasCategories(categories) {
     return (categories && categories.length > 0) || false;
+  },
+
+  _createWave(event) {
+    const _w = new Wave(event.detail.x, event.detail.y, event.detail.color, event.detail.opacity);
+    this.async(() => {
+      waves.forEach(wave => {
+        wave.up();
+      });
+      this.fire('go-to', event.detail.href);
+      window.scrollTo(0, 0);
+    }, 200);
   },
 });

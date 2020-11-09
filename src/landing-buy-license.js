@@ -332,7 +332,7 @@ Polymer({
 </div>
 <iron-form id="buyLicence">
     <paper-material elevation="1">
-        <form method="POST" action="/api/v1/license" id='form' hidden$=[[licenseKey]]>
+        <form method="POST" action="/api/v1/license" id='form' hidden=[[licenseKey]]>
             <div id="contact-info">
                 <h4>Contact Information</h4>
 

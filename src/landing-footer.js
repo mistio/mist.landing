@@ -114,32 +114,36 @@ Polymer({
         font-weight: 700;
         text-decoration: none;
       }
+
+      .light {
+        opacity: 0.7;
+      }
     </style>
 
     <div class="section dark">
       <div class="contains">
         <div class="grid-row">
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom address">
-            <img src="/landing/images/logo-white.svg" width="125px" />
+            <img src="/landing/images/logo-white.svg" width="160px" />
             <p>
               Made with <iron-icon icon="icons:favorite"></iron-icon> in Greece &amp; California<br /><br />
             </p>
-            <p>
+            <p class="light">
               <iron-icon icon="communication:email"></iron-icon> info@mist.io &nbsp;<br /><iron-icon
                 icon="communication:phone"
               ></iron-icon>
               +1-650-605-3299
             </p>
             <p></p>
-            <p>
+            <p class="light">
               Mist.io Inc <br />
               620 Folsom St, <br />
               San Francisco, CA 94107
             </p>
-            <p>
-              Athens hq<br />
-              189 Syngrou ave, <br />
-              17121, Athens, Greece
+            <p class="light">
+              Athens HQ<br />
+              Filaretou 86, <br />
+              176 73, Kalithea, Greece
             </p>
           </div>
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
