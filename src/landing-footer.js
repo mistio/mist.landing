@@ -179,7 +179,7 @@ Polymer({
           <li><a href="/product">Product</a></li>
           <li><a href="/pricing">Pricing</a></li>
           <li><a href="http://docs.mist.io/" target="new">Docs</a></li>
-          <li><a href="/blog" target="new">Blog</a></li>
+          <li><a href="/blog">Blog</a></li>
           <li><a href="/about">About</a></li>
         </ul>
         <ul class="footer-nav right">

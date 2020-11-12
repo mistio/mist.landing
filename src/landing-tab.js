@@ -7,11 +7,11 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
-import '../node_modules/@polymer/polymer/polymer-legacy.js';
+import '@polymer/polymer/polymer-legacy.js';
 
-import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import './landing-ripple-container.js';
-import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
+import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 
 const documentContainer = document.createElement('template');
 

@@ -1,6 +1,3 @@
-import '../../node_modules/@polymer/polymer/polymer-legacy.js';
-import '../../node_modules/@polymer/paper-styles/paper-styles.js';
-
 const documentContainer = document.createElement('template');
 
 documentContainer.innerHTML = `<style is="custom-style">
@@ -31,7 +28,7 @@ documentContainer.innerHTML = `<style is="custom-style">
         --link-color: #2196F3;
 
         --tab-color: #444444;
-        --tab-ontainer-width: 69%;
+        --tab-ontainer-width: 100%;
 
         --logo-height: 53px;
         --logo-width: 119px;

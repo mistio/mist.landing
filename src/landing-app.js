@@ -24,7 +24,7 @@ import './shared-styles.js';
 import './landing-fold.js';
 import './landing-sign-in.js';
 import './landing-sign-up.js';
-import './styles/mist-theme.js';
+import './mist-theme.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
@@ -171,13 +171,12 @@ Polymer({
       }
 
       .signin-btn-container {
+        width: 120px;
         position: absolute;
-        right: 16px;
+        right: 0;
       }
-
-      .signin-btn-container.true {
-        position: relative;
-        right: 0px;
+      .signin-btn-container > paper-button {
+        float: right;
       }
 
       [hidden] {
@@ -185,11 +184,12 @@ Polymer({
       }
 
       #tabContainer {
-        position: relative;
+        position: absolute;
+        left: 0px;
         height: 66px;
-        width: var(--tab-ontainer-width);
+        width: 100%;
         text-align: right;
-        margin: 12px 16px 0 0;
+        margin: 12px 0px 0px 0px;
       }
 
       landing-tabs,
@@ -201,7 +201,7 @@ Polymer({
 
       landing-tabs {
         height: 100%;
-        float: right;
+        width: 100%;
       }
 
       landing-tab {
@@ -359,7 +359,7 @@ Polymer({
         </div>
 
         <!-- Lazy-create the tabs for larger screen sizes. -->
-        <div id="tabContainer" sticky$="[[_shouldShowTabs]]" hidden$="[[!_shouldShowTabs]]">
+        <div id="tabContainer" sticky$="[[_shouldShowTabs]]" hidden$="[[!_shouldRenderTabs]]">
           <dom-if if="[[_shouldRenderTabs]]" restamp="">
             <template>
               <landing-tabs selected="{{page}}" attr-for-selected="name">
@@ -669,6 +669,23 @@ Polymer({
     }
     // Close the drawer - in case the *route* change came from a link in the drawer.
     this.drawerOpened = false;
+    if (this.route.path.indexOf('/blog/') !== -1) {
+      const post = this.route.path.replace('/blog/', '');
+      let url = '/api/v1/section/landing--blog';
+      if (post) {
+        url = `/api/v1/section/landing--blog--${post}`;
+      }
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', e => {
+        document.querySelector('landing-app').querySelector('.page').innerHTML =
+          e.currentTarget.response;
+      });
+      xhr.addEventListener('error', e => {
+        console.error(e);
+      });
+      xhr.open('GET', url);
+      xhr.send();
+    }
   },
 
   _pageChanged(page, oldPage) {

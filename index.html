@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <base tal:attributes="href string:/landing/${build_path}" tal:condition="build_path"></base>
   <base tal:attributes="href string:/landing-dev/" tal:condition="not: build_path"></base>
-
+  <link rel="stylesheet" href="styles/base.css">
   <title tal:content="title|portal_name"> mist.io :: open source multi-cloud management platform</title>
 
   <meta name="description" tal:attributes="content description|nothing">
   <meta property="og:title" tal:attributes="content title|portal_name">
   <meta property="og:description" tal:attributes="content description|nothing">
-  <meta property="og:image" tal:attributes="content image|nothing">
+  <meta a tal:attributes="content image|nothing">
   <meta property="og:url" tal:attributes="content url|nothing">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@mist_io">
 
   <link tal:condition="theme|nothing" rel="shortcut icon" sizes="32x32" tal:attributes="href string:/static/${theme}-favicon.ico">
   <link tal:condition="not theme" rel="shortcut icon" sizes="32x32" tal:attributes="href string:images/mist-icon-32.png">
@@ -44,7 +45,7 @@
     /* eslint-disable */
     const CONFIG = false;
   </script>
-  <link rel="stylesheet" href="src/styles/base.css">
+
 </head>
 <body>
   <landing-app unresolved>
