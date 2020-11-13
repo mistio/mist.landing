@@ -188,7 +188,7 @@ Polymer({
         left: 0px;
         height: 66px;
         width: 100%;
-        text-align: right;
+        text-align: center;
         margin: 12px 0px 0px 0px;
       }
 
@@ -294,6 +294,10 @@ Polymer({
         font-weight: bold;
       }
 
+      div.left-bar-item {
+        z-index: 1;
+      }
+
       /* small screen */
       @media (max-width: 767px) {
         .menu-btn {
@@ -329,7 +333,11 @@ Polymer({
       data="{{routeData}}"
       tail="{{subroute}}"
     ></app-route>
-
+    <app-route
+      route="{{subroute}}"
+      pattern="/:subpage"
+      data="{{subrouteData}}"
+    ></app-route>
     <iron-media-query query="max-width: 767px" query-matches="{{smallScreen}}"></iron-media-query>
 
     <!--
@@ -441,6 +449,7 @@ Polymer({
               </landing-page>
             </template>
           </dom-repeat>
+          </landing-page>
 
           <landing-sign-in
             name="sign-in"
@@ -608,6 +617,7 @@ Polymer({
 
   observers: [
     '_routePageChanged(routeData.page, route.__queryParams)',
+    '_subroutePathChanged(subroute.path, subroute.__queryParams)',
     '_categoryChanged(category.content)',
   ],
 
@@ -669,11 +679,20 @@ Polymer({
     }
     // Close the drawer - in case the *route* change came from a link in the drawer.
     this.drawerOpened = false;
-    if (this.route.path.indexOf('/blog/') !== -1) {
-      const post = this.route.path.replace('/blog/', '');
+  },
+
+  // eslint-disable-next-line no-unused-vars
+  _subroutePathChanged(path, params) {
+    const oldSubpage = this.subpage;
+    const subpage = path.replace('/', '');
+    if (subpage === oldSubpage) {
+      return;
+    }
+    this.subpage = subpage;
+    if (this.page === 'blog') {
       let url = '/api/v1/section/landing--blog';
-      if (post) {
-        url = `/api/v1/section/landing--blog--${post}`;
+      if (subpage) {
+        url = `/api/v1/section/landing--blog--${subpage}`;
       }
       const xhr = new XMLHttpRequest();
       xhr.addEventListener('load', e => {
@@ -685,6 +704,8 @@ Polymer({
       });
       xhr.open('GET', url);
       xhr.send();
+    } else {
+      console.warn(`Subpage changed: ${subpage} / ${oldSubpage} | ${this.page}`);
     }
   },
 
@@ -705,19 +726,7 @@ Polymer({
         import('./landing-buy-license.js').then(() => {
           console.warn('Buy-license page imported');
         });
-      } // else {
-      // debugger;
-      // When a load failed, it triggered a 404 which means we need to
-      // eagerly load the 404 page definition
-      // const cb = this._pageLoaded.bind(this, Boolean(oldPage));
-      // const category = this.categories && this.categories.find((c) => c.name === page);
-      // if (category && category.template) {
-      //   this.importHref(
-      //     this.resolveUrl('landing-' + category.template + '.html'),
-      //     cb, cb, true
-      //   );
-      // }
-      // }
+      }
     }
   },
 
@@ -984,7 +993,19 @@ Polymer({
       return;
     }
     if (this.querySelector('[slot="content"]')) {
-      this.querySelector('[slot="content"]').innerHTML = this.category.content;
+      const setInnerHTML = (elm, code) => {
+        // eslint-disable-next-line no-param-reassign
+        elm.innerHTML = code;
+        Array.from(elm.querySelectorAll('script')).forEach(oldScript => {
+          const newScript = document.createElement('script');
+          Array.from(oldScript.attributes).forEach(attr =>
+            newScript.setAttribute(attr.name, attr.value),
+          );
+          newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+          oldScript.parentNode.replaceChild(newScript, oldScript);
+        });
+      };
+      setInnerHTML(this.querySelector('[slot="content"]'), this.category.content);
       window.scrollTo(0, 0);
     }
   },
