@@ -306,7 +306,7 @@ Polymer({
               ></paper-spinner>
               <div class="output" hidden$="[[loading]]">
                 Sign in with <span hidden$="[[_ldapSelected]]">your email</span
-                ><span hidden$="[[!_ldapSelected]]">LDAP</span>
+                ><span id="login-method" hidden$="[[!_ldapSelected]]">LDAP</span>
               </div>
             </paper-button>
             <div class="forbidden-error" hidden$="[[!showRequestWhitelist]]">
@@ -407,6 +407,8 @@ Polymer({
   attached() {
     if (this.signInAD || this.signInLdap) {
       this._toggleLdap();
+      if (this.signInAD)
+        this.$.signInForm.querySelector('#login-method').innerHTML = 'Active Directory';
     }
     const that = this;
     const validate = event => {
