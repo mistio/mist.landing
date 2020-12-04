@@ -15,7 +15,10 @@
   <meta property="og:url" tal:attributes="content url|nothing">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@mist_io">
-
+  <link rel="alternate" type="application/rss+xml"
+        tal:condition="rss|nothing"
+        tal:attributes="href rss|string:nothing
+                        title string:${portal_name} RSS feed" />
   <link tal:condition="theme|nothing" rel="shortcut icon" sizes="32x32" tal:attributes="href string:/static/${theme}-favicon.ico">
   <link tal:condition="not theme" rel="shortcut icon" sizes="32x32" tal:attributes="href string:images/mist-icon-32.png">
 

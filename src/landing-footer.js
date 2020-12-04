@@ -58,17 +58,17 @@ Polymer({
         }
       }
 
-      #tumblr {
+      #blog {
         height: auto;
         min-height: 300px;
         overflow: hidden;
       }
 
-      #tumblr a {
+      #blog a {
         color: #444 !important;
       }
 
-      #tumblr-badge {
+      #blog-badge {
         float: right;
         position: relative;
         width: 300px;
@@ -80,12 +80,12 @@ Polymer({
         color: #707070;
       }
 
-      #tumblr-badge div#tumblr-header {
+      #blog-badge div#blog-header {
         border-bottom: 1px solid #e8e8e8;
         padding: 8px;
       }
 
-      #tumblr-badge div#tumblr-header h1 {
+      #blog-badge div#blog-header h1 {
         font-size: 14px;
         font-weight: 700;
         line-height: 18px;
@@ -94,29 +94,30 @@ Polymer({
         margin-bottom: 0;
       }
 
-      #tumblr-badge ul {
+      #blog-badge ul {
         padding: 8px;
         margin: 0;
       }
 
-      #tumblr-badge ul,
+      #blog-badge ul,
       .fa-ul,
       ul li {
         list-style-type: none;
       }
 
-      #tumblr-badge li {
+      #blog-badge li {
         margin-bottom: 10px;
       }
 
-      #tumblr-badge .tumblr-post-title {
+      #blog-badge .blog-post-title {
         color: #333;
         font-weight: 700;
         text-decoration: none;
       }
 
       .light {
-        opacity: 0.7;
+        opacity: 0.9;
+        font-size: 12px;
       }
     </style>
 
@@ -156,16 +157,15 @@ Polymer({
             ></a>
           </div>
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
-            <div id="tumblr">
-              <div id="tumblr-badge" class="box-round">
-                <div id="tumblr-header">
+            <div id="blog">
+              <div id="blog-badge" class="box-round">
+                <div id="blog-header">
                   <h1>
                     <a title="mist.io blog" href="/blog">Blog</a>
                   </h1>
                 </div>
-                <div id="tumblr-content">
-                  <script type="text/javascript" id="tumblr-script"></script>
-                </div>
+                <base href="/static/blog" />
+                <div id="blog-content"></div>
               </div>
             </div>
           </div>
@@ -225,6 +225,9 @@ Polymer({
         { width: '300', height: '400' },
       );
     }
-    this.$['tumblr-script'].src = 'tumblrBadge-1.1.js';
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = '/landing/blogBadge.js';
+    this.$['blog-content'].appendChild(script);
   },
 });
