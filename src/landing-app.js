@@ -16,7 +16,7 @@ import '@polymer/paper-styles/typography.js';
 
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import './landing-testimonials.js';
-
+import './landing-icons.js';
 import './landing-pages.js';
 import './landing-page.js';
 import './landing-category-data.js';
@@ -456,14 +456,15 @@ Polymer({
             route="[[subroute]]"
             offline="[[offline]]"
             id="sign-in"
-            sign-in-google="[[config.features.signin_google]]"
-            sign-in-github="[[config.features.signin_github]]"
-            sign-in-email="[[config.features.signin_email]]"
+            sign-in-google=[[config.features.signin_google]]
+            sign-in-github=[[config.features.signin_github]]
+            sign-in-email=[[config.features.signin_email]]
+            sign-in-ldap=[[config.features.signin_ldap]]
+            sign-in-a-d=[[config.features.signin_ad]]
             invitoken="[[invitoken]]"
             return-to="[[returnTo]]"
             csrf-token="[[csrfToken]]"
           ></landing-sign-in>
-
           <landing-sign-up
             name="sign-up"
             route="[[subroute]]"

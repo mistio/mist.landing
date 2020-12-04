@@ -10,6 +10,7 @@ import '../node_modules/@polymer/iron-icons/iron-icons.js';
 import '../node_modules/@polymer/iron-icons/social-icons.js';
 import '../node_modules/@polymer/iron-ajax/iron-ajax.js';
 import '../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js';
+import './landing-icons.js';
 import { Polymer } from '../node_modules/@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '../node_modules/@polymer/polymer/lib/utils/html-tag.js';
 
@@ -45,10 +46,10 @@ Polymer({
         font-weight: 500;
         font-size: 16px;
         margin: 24px auto 16px;
-        text-align: center;
+        /* text-align: center; */
         height: 46px;
         display: block;
-        width: 300px;
+        width: 305px;
         padding-left: 4px;
       }
 
@@ -57,6 +58,10 @@ Polymer({
         background-color: #fff;
         float: left;
         margin-top: -7px;
+      }
+
+      .textBtn {
+        padding-left: 7px;
       }
 
       paper-button > span {
@@ -81,6 +86,22 @@ Polymer({
       paper-button.white:not([disabled]) {
         background-color: #fff;
         color: #424242;
+      }
+
+      paper-button.white.ldap-selected.true:not([disabled]) {
+        background-color: transparent;
+        box-shadow: 0 0 0 0 transparent;
+        background-color: transparent;
+        padding-left: 0;
+        margin: 0 0 0 -3px;
+      }
+
+      paper-button > span > iron-icon.users {
+        color: #444;
+        background-color: transparent;
+        padding: 7px 2px 7px 12px;
+        float: left;
+        margin-top: -5px;
       }
 
       div.output {
@@ -176,45 +197,98 @@ Polymer({
       <h1>Sign in to your account</h1>
       <iron-form id="signInForm">
         <paper-material elevation="1">
-          <div hidden$="[[_canSignIn(signInGoogle, signInGithub, signInEmail)]]">
+          <div
+            hidden$="[[_canSignIn(signInGoogle, signInGithub, signInEmail,
+            signInLdap, signInAD)]]"
+          >
             Sign In has been disabled.
           </div>
+          <div hidden="[[_ldapSelected]]">
+            <paper-button
+              raised=""
+              class="white"
+              on-tap="_socialAuthGoogle"
+              id="signInBtnGoogle"
+              hidden$="[[!signInGoogle]]"
+              ><iron-icon icon="landing:google"></iron-icon>Sign in with Google</paper-button
+            >
+            <paper-button
+              raised=""
+              class="white"
+              on-tap="_socialAuthGithub"
+              id="signInBtnGithub"
+              hidden$="[[!signInGithub]]"
+              ><iron-icon icon="landing:github"></iron-icon>Sign in with Github</paper-button
+            >
+          </div>
           <paper-button
-            raised=""
-            class="white"
-            on-tap="_socialAuthGoogle"
-            id="signInBtnGoogle"
-            hidden$="[[!signInGoogle]]"
-            ><iron-icon icon="landing:google"></iron-icon>Sign in with Google</paper-button
+            raised
+            class$="white ldap-selected [[_ldapSelected]]"
+            on-tap="_toggleLdap"
+            id="signInBtnLdap"
+            hidden$="[[!signInAD]]"
           >
+            <span hidden$="[[_ldapSelected]]"
+              ><iron-icon class="users" icon="landing:users"></iron-icon
+              ><span class="textBtn"> Sign in with Active Directory</span></span
+            >
+            <span hidden$="[[!_ldapSelected]]"
+              ><iron-icon class="back" icon="arrow-back"></iron-icon
+            ></span>
+          </paper-button>
           <paper-button
-            raised=""
-            class="white"
-            on-tap="_socialAuthGithub"
-            id="signInBtnGithub"
-            hidden$="[[!signInGithub]]"
-            ><iron-icon icon="landing:github"></iron-icon>Sign in with Github</paper-button
+            raised
+            class$="white ldap-selected [[_ldapSelected]]"
+            on-tap="_toggleLdap"
+            id="signInBtnLdap"
+            hidden$="[[!signInLdap]]"
           >
-          <div class="or" hidden$="[[!_hasSeparator(signInGoogle, signInGithub, signInEmail)]]">
-            or
+            <span hidden$="[[_ldapSelected]]"
+              ><iron-icon class="users" icon="landing:users"></iron-icon
+              ><span class="textBtn"> Sign in with LDAP </span></span
+            >
+            <span hidden$="[[!_ldapSelected]]"
+              ><iron-icon class="back" icon="arrow-back"></iron-icon
+            ></span>
+          </paper-button>
+          <div hidden="[[_ldapSelected]]">
+            <div
+              class="or"
+              hidden$="[[!_hasSeparator(signInGoogle, signInGithub, signInEmail, signInLdap)]]"
+            >
+              or
+            </div>
           </div>
           <form
             method="post"
             action="/login"
             enctype="application/json"
             id="form"
-            hidden$="[[!signInEmail]]"
+            hidden$="[[!_canShowForm(signInEmail,_ldapSelected)]]"
           >
+            <paper-input
+              name="username"
+              id="signin-username"
+              label="Username"
+              required$="[[_ldapSelected]]"
+              auto-validate
+              autofocus
+              on-focus="_autoSelect"
+              hidden="[[!_ldapSelected]]"
+            >
+            </paper-input>
             <paper-input
               name="email"
               id="signin-email"
               label="Email"
-              required=""
-              auto-validate=""
-              autofocus=""
+              required$="[[!_ldapSelected]]"
+              auto-validate
+              autofocus
               type="email"
               on-focus="_autoSelect"
-            ></paper-input>
+              hidden="[[_ldapSelected]]"
+            >
+            </paper-input>
             <paper-input
               name="password"
               id="signin-password"
@@ -230,7 +304,10 @@ Polymer({
                 hidden$="[[!loading]]"
                 active="[[loading]]"
               ></paper-spinner>
-              <div class="output" hidden$="[[loading]]">Sign in with your email</div>
+              <div class="output" hidden$="[[loading]]">
+                Sign in with <span hidden$="[[_ldapSelected]]">your email</span
+                ><span hidden$="[[!_ldapSelected]]">LDAP</span>
+              </div>
             </paper-button>
             <div class="forbidden-error" hidden$="[[!showRequestWhitelist]]">
               <span id="forbidden"></span>
@@ -241,7 +318,7 @@ Polymer({
                 active="[[loadingIp]]"
               ></paper-spinner>
             </div>
-            <div class="forgot">
+            <div class="forgot" hidden="[[_ldapSelected]]">
               <a href="/forgot-password" id="forgotPasswordLink" on-tap="_forgotPasswordClicked"
                 ><span>Forgot password?</span></a
               >
@@ -288,7 +365,22 @@ Polymer({
       value: false,
     },
 
+    signInLdap: {
+      type: Boolean,
+      value: false,
+    },
+
+    signInAD: {
+      type: Boolean,
+      value: false,
+    },
+
     signInEmail: {
+      type: Boolean,
+      value: false,
+    },
+
+    _ldapSelected: {
       type: Boolean,
       value: false,
     },
@@ -324,10 +416,16 @@ Polymer({
       that.$.signInSubmit.disabled = !ret;
       return ret;
     };
+    this.$.signInForm.addEventListener('tap', event => {
+      const method = that._ldapSelected
+        ? (that.signInLdap && ' LDAP') || ' Active Directory'
+        : 'your email';
+      that.$.signInForm.querySelector('.output').innerHTML = `Sign in with ${method}`;
+      validate(event);
+    });
     this.$.signInForm.addEventListener('change', validate);
     this.$.signInForm.addEventListener('keyup', event => {
       const submitDisabled = that.$.signInSubmit.disabled;
-      that.$.signInForm.querySelector('.output').innerHTML = 'Sign in with your email';
       if (validate(event) && !submitDisabled && event.key === 'Enter') that._submitButtonHandler();
     });
     this.$.signInForm.addEventListener('iron-form-error', event => {
@@ -380,6 +478,14 @@ Polymer({
     window.location = '/social_auth/login/github';
   },
 
+  _toggleLdap() {
+    this.set('_ldapSelected', !this._ldapSelected);
+  },
+
+  _canShowForm(signInEmail, _ldapSelected) {
+    return signInEmail || _ldapSelected;
+  },
+
   _createAccountClicked() {
     this.fire('user-action', 'create account click');
   },
@@ -412,12 +518,12 @@ Polymer({
     this.fire('user-action', 'forgot password click');
   },
 
-  _hasSeparator(signInGoogle, signInGithub, signInEmail) {
-    return (signInGoogle || signInGithub) && signInEmail;
+  _hasSeparator(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD) {
+    return (signInGoogle || signInGithub || signInLdap || signInAD) && signInEmail;
   },
 
-  _canSignIn(signInGoogle, signInGithub, signInEmail) {
-    return signInGoogle || signInGithub || signInEmail;
+  _canSignIn(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD) {
+    return signInGoogle || signInGithub || signInLdap || signInEmail || signInAD;
   },
 
   _invitokenExists(tok) {
