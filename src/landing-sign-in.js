@@ -313,6 +313,9 @@ Polymer({
   },
 
   attached() {
+    if (this.signInAD || this.signInLdap) {
+      this._toggleLdap();
+    }
     const that = this;
     const validate = event => {
       console.warn('validating', event);
