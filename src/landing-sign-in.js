@@ -305,8 +305,7 @@ Polymer({
                 active="[[loading]]"
               ></paper-spinner>
               <div class="output" hidden$="[[loading]]">
-                Sign in with <span hidden$="[[_ldapSelected]]">your email</span
-                ><span hidden$="[[!_ldapSelected]]">LDAP</span>
+                Sign in with [[loginMethod]]
               </div>
             </paper-button>
             <div class="forbidden-error" hidden$="[[!showRequestWhitelist]]">
@@ -385,6 +384,11 @@ Polymer({
       value: false,
     },
 
+    loginMethod: {
+      type: String,
+      value: 'your email',
+    },
+
     showRequestWhitelist: {
       type: Boolean,
       value: false,
@@ -405,9 +409,7 @@ Polymer({
   },
 
   attached() {
-    if (this.signInAD || this.signInLdap) {
-      this._toggleLdap();
-    }
+    if (this.signInAD || this.signInLdap) this._toggleLdap();
     const that = this;
     const validate = event => {
       console.warn('validating', event);
@@ -416,13 +418,6 @@ Polymer({
       that.$.signInSubmit.disabled = !ret;
       return ret;
     };
-    this.$.signInForm.addEventListener('tap', event => {
-      const method = that._ldapSelected
-        ? (that.signInLdap && ' LDAP') || ' Active Directory'
-        : 'your email';
-      that.$.signInForm.querySelector('.output').innerHTML = `Sign in with ${method}`;
-      validate(event);
-    });
     this.$.signInForm.addEventListener('change', validate);
     this.$.signInForm.addEventListener('keyup', event => {
       const submitDisabled = that.$.signInSubmit.disabled;
@@ -480,6 +475,8 @@ Polymer({
 
   _toggleLdap() {
     this.set('_ldapSelected', !this._ldapSelected);
+    const method = this.signInAD ? 'Active Directory' : 'LDAP';
+    this.loginMethod = this._ldapSelected ? method : 'your email';
   },
 
   _canShowForm(signInEmail, _ldapSelected) {
