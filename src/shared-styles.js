@@ -859,7 +859,7 @@ landing-providers .provider {
 
 .provider img {
     opacity: .4;
-    max-width: 100%;
+    max-width: 180px;
     filter: grayscale(100%);
     -webkit-filter: grayscale(100%);
     -webkit-transition: all .2s ease-in-out;
