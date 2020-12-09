@@ -904,13 +904,15 @@ Polymer({
 
   _onUserAction(event) {
     console.debug('user-action', event);
+    // If Google Analytics is configured, emit a landing event
     if (typeof gtag === 'function') {
       // eslint-disable-next-line no-undef
       gtag('event', event.detail, {
         event_category: 'landing',
       });
     }
-    // TODO: De-comment when fingerprint gets updated
+
+    // Emit UI log event
     if (!this.config || !this.config.features || !this.config.features.ab) return;
     const xhr = new XMLHttpRequest();
     if (!this.fingerprint) {
