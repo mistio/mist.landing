@@ -190,12 +190,19 @@ Polymer({
       <dom-if if="[[frame]]" restamp="">
         <template>
           <div class="framed-image">
-            <img
-              src="[[image]]"
+            <video
+              autoplay
+              loop
+              muted
+              playsinline
               class="image-content"
+              -
               style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;"
-            />
-            <img src="[[frame]]" class="image-frame" />
+            >
+              <source src="[[image]]" type="video/webm" />
+              <source src="my-animation.mp4" type="video/mp4" />
+            </video>
+            <img src="[[frame]]" alt="Image frame" class="image-frame" />
           </div>
         </template>
       </dom-if>

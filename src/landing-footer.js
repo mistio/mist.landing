@@ -125,7 +125,7 @@ Polymer({
       <div class="contains">
         <div class="grid-row">
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom address">
-            <img src="/landing/images/logo-white.svg" width="160px" />
+            <img alt="Mist logo" src="/landing/images/logo-white.svg" width="160px" />
             <p>
               Made with <iron-icon icon="icons:favorite"></iron-icon> in Greece &amp; California<br /><br />
             </p>
@@ -150,11 +150,13 @@ Polymer({
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
             <a
               id="tweets"
+              alt="Twitter Widget"
               class="twitter-timeline"
               data-dnt="true"
               href="https://twitter.com/mist_io"
               data-widget-id="328880614860259329"
-            ></a>
+              >Twitter Widget</a
+            >
           </div>
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
             <div id="blog">
