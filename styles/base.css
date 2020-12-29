@@ -4,42 +4,6 @@ body {
     min-height: 100vh;
     box-sizing: border-box;
   }
-  
-  @font-face {
-    font-family: "Roboto";
-    src: local(Roboto Thin), url("../fonts/roboto/Roboto-Thin.eot");
-    src: url("../fonts/roboto/Roboto-Thin.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/Roboto-Thin.woff2") format("woff2"), url("../fonts/roboto/Roboto-Thin.woff") format("woff"), url("../fonts/roboto/Roboto-Thin.ttf") format("truetype");
-    font-weight: 200;
-  }
-
-  @font-face {
-    font-family: "Roboto";
-    src: local(Roboto Light), url("../fonts/roboto/Roboto-Light.eot");
-    src: url("../fonts/roboto/Roboto-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/Roboto-Light.woff2") format("woff2"), url("../fonts/roboto/Roboto-Light.woff") format("woff"), url("../fonts/roboto/Roboto-Light.ttf") format("truetype");
-    font-weight: 300;
-  }
-
-  @font-face {
-    font-family: "Roboto";
-    src: local(Roboto Regular), url("../fonts/roboto/Roboto-Regular.eot");
-    src: url("../fonts/roboto/Roboto-Regular.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/Roboto-Regular.woff2") format("woff2"), url("../fonts/roboto/Roboto-Regular.woff") format("woff"), url("../fonts/roboto/Roboto-Regular.ttf") format("truetype");
-    font-weight: 400;
-  }
-
-  @font-face {
-    font-family: "Roboto";
-    src: url("../fonts/roboto/Roboto-Medium.eot");
-    src: url("../fonts/roboto/Roboto-Medium.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/Roboto-Medium.woff2") format("woff2"), url("../fonts/roboto/Roboto-Medium.woff") format("woff"), url("../fonts/roboto/Roboto-Medium.ttf") format("truetype");
-    font-weight: 500;
-  }
-
-  @font-face {
-    font-family: "Roboto";
-    src: url("../fonts/roboto/Roboto-Bold.eot");
-    src: url("../fonts/roboto/Roboto-Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/Roboto-Bold.woff2") format("woff2"), url("../fonts/roboto/Roboto-Bold.woff") format("woff"), url("../fonts/roboto/Roboto-Bold.ttf") format("truetype");
-    font-weight: 700;
-  }
-
 
   @media only screen and (max-width: 993px) {
       body {
@@ -148,7 +112,7 @@ body {
 
   /* TODO import from css file */
   :after, :before {
-    box-sizing: inherit; 
+    box-sizing: inherit;
   }
   @media only screen and (min-width: 0) {
     :host > * {
@@ -241,7 +205,7 @@ body {
 
   marked-element::content a {
     text-decoration: none !important;
-    color: #09c !important; 
+    color: #09c !important;
   }
 
   [slot="marked-element"] a {
@@ -302,7 +266,7 @@ body {
 
   .right {
     float: right;
-  } 
+  }
   .right-align {
       text-align: right;
   }
@@ -1170,12 +1134,12 @@ body {
     h2 {
       margin: 24px 0;
     }
-  } 
+  }
 
   /* WHATS NEW */
 
   #whatsnew {
-      display: block;            
+      display: block;
   }
 
   #whatsnew[hidden] {
@@ -1340,7 +1304,7 @@ body {
   #testimonials {
       position: relative;
       display: block;
-  } 
+  }
   .client {
       font-size: 16px;
   }
@@ -1358,7 +1322,7 @@ body {
       margin: 0;
   }
   h5.client-name {
-      font-weight: 400; 
+      font-weight: 400;
   }
   h6.job-title {
       line-height: 130%;
@@ -1368,7 +1332,7 @@ body {
   hr {
       max-width: 66%;
       margin-top: 20px;
-      margin-bottom: 20px; 
+      margin-bottom: 20px;
       opacity: .3;
   }
   .client-testimonial {
@@ -1695,13 +1659,13 @@ body {
   }
 
   .rbac .offset-m3 {
-    margin-left: 25%; 
+    margin-left: 25%;
   }
 
   @media screen and (max-width: 991px) {
     .rbac .offset-m3 {
-      margin-left: 24px; 
-      margin-right: 24px; 
+      margin-left: 24px;
+      margin-right: 24px;
     }
   }
 
