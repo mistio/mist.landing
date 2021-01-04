@@ -1,6 +1,6 @@
 import '@polymer/polymer/polymer-legacy.js';
 import '@polymer/app-layout/app-header/app-header.js';
-import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
+// import '@polymer/app-layout/app-scroll-effects/effects/waterfall.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@polymer/app-route/app-location.js';
 import '@polymer/app-route/app-route.js';
@@ -684,21 +684,36 @@ Polymer({
 
   // eslint-disable-next-line no-unused-vars
   _subroutePathChanged(path, params) {
+    console.log('subpage changes ', this);
     const oldSubpage = this.subpage;
     const subpage = path.replace('/', '');
+    console.log('oldSubpage ', oldSubpage);
     if (subpage === oldSubpage) {
       return;
     }
     this.subpage = subpage;
     if (this.page === 'blog') {
+      console.log('page is blog');
+
       let url = '/api/v1/section/landing--blog';
       if (subpage) {
+        console.log('has subpage');
+
         url = `/api/v1/section/landing--blog--${subpage}`;
       }
       const xhr = new XMLHttpRequest();
+      // window.scrollTo(0, 0)
       xhr.addEventListener('load', e => {
         document.querySelector('landing-app').querySelector('.page').innerHTML =
           e.currentTarget.response;
+        if (subpage) {
+          window.scrollTo(0, 0);
+        } else {
+          const el = document.querySelector(`a[href='/blog/${oldSubpage}']`);
+          el.scrollIntoView();
+        }
+
+        // debugger;
       });
       xhr.addEventListener('error', e => {
         console.error(e);
@@ -711,6 +726,7 @@ Polymer({
   },
 
   _pageChanged(page, oldPage) {
+    console.log('page changed');
     if (page != null) {
       // in docs reset page to the oldPage
       if (['docs'].indexOf(page) > -1) {
@@ -754,8 +770,13 @@ Polymer({
               1 -
               (document.body.scrollHeight - window.scrollY - window.innerHeight) /
                 document.body.scrollHeight;
+            console.log('document.body.scrollHeight ', document.body.scrollHeight);
+            console.log('window.scrollY ', window.scrollY);
+            console.log('window.innerHeight ', window.innerHeight);
+            console.log('scrollpercent ', scrollPercent);
             if (document.body.scrollHeight <= window.innerHeight) return;
-            if (scrollPercent > 0.8 && !this.scrollThresholdReached) {
+            if (scrollPercent > 0.8 && scrollPercent < 1 && !this.scrollThresholdReached) {
+              console.log('scroll to bottom');
               that.fire('user-action', 'scroll to bottom');
               this.scrollThresholdReached = true;
               if (that.config.features && that.config.features.landing_footer) {
@@ -989,6 +1010,7 @@ Polymer({
   },
 
   _categoryChanged() {
+    console.log('category changed');
     const htmlContent = this.querySelector('[slot="content"]')
       ? this.querySelector('[slot="content"]').innerHTML
       : '';
