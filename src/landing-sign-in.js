@@ -374,6 +374,11 @@ Polymer({
       value: false,
     },
 
+    startLDAP: {
+      type: Boolean,
+      value: false,
+    },
+
     signInEmail: {
       type: Boolean,
       value: false,
@@ -409,7 +414,7 @@ Polymer({
   },
 
   attached() {
-    if (this.signInAD || this.signInLdap) this._toggleLdap();
+    if (this.startLDAP && (this.signInAD || this.signInLdap)) this._toggleLdap();
     const that = this;
     const validate = event => {
       console.warn('validating', event);

@@ -461,6 +461,7 @@ Polymer({
             sign-in-email=[[config.features.signin_email]]
             sign-in-ldap=[[config.features.signin_ldap]]
             sign-in-a-d=[[config.features.signin_ad]]
+            start-l-d-a-p=[[config.features.start_signin_ldap]]
             invitoken="[[invitoken]]"
             return-to="[[returnTo]]"
             csrf-token="[[csrfToken]]"
