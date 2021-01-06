@@ -365,7 +365,7 @@ Polymer({
     },
 
     signInLdap: {
-      type: String,
+      type: Boolean,
       value: false,
     },
 
