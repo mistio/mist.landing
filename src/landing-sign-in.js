@@ -365,18 +365,18 @@ Polymer({
     },
 
     signInLdap: {
-      type: Boolean,
+      type: String,
       value: false,
     },
 
     signInAD: {
       type: Boolean,
-      value: 'email',
+      value: false,
     },
 
     defaultMethod: {
-      type: Boolean,
-      value: false,
+      type: String,
+      value: 'email',
     },
 
     signInEmail: {
