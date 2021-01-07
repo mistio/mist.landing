@@ -30,6 +30,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { dom } from '@polymer/polymer/lib/legacy/polymer.dom.js';
 import { Wave, waves } from './wave.js';
+
 // performance logging
 // eslint-disable-next-line babel/no-unused-expressions
 window.performance && performance.mark && performance.mark('landing-app - before register');
@@ -744,6 +745,7 @@ Polymer({
         this.$.header.resetLayout();
       }, 1);
     }
+    console.log('Loaded page ', this.page);
   },
 
   _ensureLazyLoaded() {
@@ -759,7 +761,7 @@ Polymer({
               (document.body.scrollHeight - window.scrollY - window.innerHeight) /
                 document.body.scrollHeight;
             if (document.body.scrollHeight <= window.innerHeight) return;
-            if (scrollPercent > 0.8 && scrollPercent < 1 && !this.scrollThresholdReached) {
+            if (scrollPercent > 0.8 && !this.scrollThresholdReached) {
               that.fire('user-action', 'scroll to bottom');
               this.scrollThresholdReached = true;
               if (that.config.features && that.config.features.landing_footer) {
