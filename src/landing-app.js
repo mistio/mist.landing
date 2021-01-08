@@ -700,6 +700,12 @@ Polymer({
       xhr.addEventListener('load', e => {
         document.querySelector('landing-app').querySelector('.page').innerHTML =
           e.currentTarget.response;
+        if (subpage) {
+          window.scrollTo(0, 0);
+        } else {
+          const el = document.querySelector(`a[href='/blog/${oldSubpage}']`);
+          el.scrollIntoView();
+        }
       });
       xhr.addEventListener('error', e => {
         console.error(e);
