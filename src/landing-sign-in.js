@@ -496,7 +496,7 @@ Polymer({
 
   _socialAuthMs365() {
     this.fire('user-action', 'ms365 sign in');
-    window.location = '/social_auth/login/ms365';
+    window.location = '/social_auth/login/azuread-oauth2';
   },
 
   _toggleLdap() {
