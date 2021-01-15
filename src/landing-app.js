@@ -475,6 +475,7 @@ Polymer({
             sign-up-google="[[config.features.signup_google]]"
             sign-up-github="[[config.features.signup_github]]"
             sign-up-email="[[config.features.signup_email]]"
+            sign-up-ms365=true
             invitoken="[[invitoken]]"
             plan="[[plan]]"
             csrf-token="[[csrfToken]]"
