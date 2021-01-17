@@ -201,7 +201,7 @@ Polymer({
             on-tap="_socialAuthMs365"
             id="signUpBtnMs365"
             hidden$="[[!signUpMs365]]"
-            ><iron-icon></iron-icon>Sign up with Microsoft 365</paper-button
+            ><iron-icon icon="landing:ms"></iron-icon>Sign up with Microsoft 365</paper-button
           >
           <div class="or" hidden$="[[!_hasSeparator(signUpGoogle, signUpGithub, signUpEmail)]]">
             or

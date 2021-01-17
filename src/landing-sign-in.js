@@ -226,7 +226,7 @@ Polymer({
               on-tap="_socialAuthMs365"
               id="signInBtnMs365"
               hidden$="[[!signInMs365]]"
-              >Sign in with Microsoft 365</paper-button
+              ><iron-icon icon="landing:ms"></iron-icon>Sign in with Microsoft 365</paper-button
             >
           </div>
           <paper-button
