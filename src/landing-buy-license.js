@@ -439,7 +439,7 @@ Polymer({
 
     vcpus: {
       type: Number,
-      value: 100,
+      value: 300,
     },
 
     dockerhubid: String,
