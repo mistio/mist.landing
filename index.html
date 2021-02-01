@@ -23,7 +23,7 @@
   <link tal:condition="not theme" rel="shortcut icon" sizes="32x32" tal:attributes="href string:images/mist-icon-32.png">
   <link rel="preload" href="/landing/images/rings.svg" as="image" >
   <meta name="theme-color" content="#fff">
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/landing/manifest.json">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async tal:condition="google_analytics_id"
@@ -51,7 +51,7 @@
 
 </head>
 <body>
-  <landing-app unresolved>
+  <landing-app>
     <div slot="tabs" class="tabs">
       <dom-repeat>
         <template>
