@@ -220,6 +220,14 @@ Polymer({
               hidden$="[[!signInGithub]]"
               ><iron-icon icon="landing:github"></iron-icon>Sign in with Github</paper-button
             >
+            <paper-button
+              raised=""
+              class="white"
+              on-tap="_socialAuthMs365"
+              id="signInBtnMs365"
+              hidden$="[[!signInMs365]]"
+              ><iron-icon icon="landing:ms"></iron-icon>Sign in with Microsoft 365</paper-button
+            >
           </div>
           <paper-button
             raised
@@ -373,6 +381,10 @@ Polymer({
       type: Boolean,
       value: false,
     },
+    signInMs365: {
+      type: Boolean,
+      value: false,
+    },
 
     defaultMethod: {
       type: String,
@@ -480,6 +492,11 @@ Polymer({
   _socialAuthGithub() {
     this.fire('user-action', 'github sign in');
     window.location = '/social_auth/login/github';
+  },
+
+  _socialAuthMs365() {
+    this.fire('user-action', 'ms365 sign in');
+    window.location = '/social_auth/login/azuread-oauth2';
   },
 
   _toggleLdap() {
