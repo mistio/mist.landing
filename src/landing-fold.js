@@ -33,8 +33,8 @@ Polymer({
         width: 50%;
       }
 
-      .item:nth-of-type(3) > h2,
-      .item:nth-of-type(4) > h2 {
+      .item:nth-of-type(3) > h1,
+      .item:nth-of-type(4) > h1 {
         font-size: 1.1em;
       }
 
@@ -91,11 +91,11 @@ Polymer({
 
       /* very small mobile screens */
       @media only screen and (max-width: 600px) {
-        h2.typed {
+        h1.typed {
           font-size: 2.56rem !important;
         }
       }
-      h5 {
+      h2 {
         line-height: 140%;
         font-weight: 300 !important;
         font-size: 1.64rem;
@@ -163,7 +163,7 @@ Polymer({
           height: 240px;
         }
 
-        h2 {
+        h1 {
           margin: 24px 0;
         }
       }
@@ -180,10 +180,10 @@ Polymer({
     </style>
 
     <div class="hero text-center">
-      <h2>
+      <h1>
         <slot name="title"></slot>
-      </h2>
-      <h5><slot name="subtitle"></slot></h5>
+      </h1>
+      <h2><slot name="subtitle"></slot></h2>
       <br />
       <slot name="button"></slot>
 
