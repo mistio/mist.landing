@@ -194,7 +194,7 @@ Polymer({
           <paper-textarea
             name="comments"
             id="signUp-comments"
-            label="Describe your infrustructure and the problem you want to solve"
+            label="Describe your infrastructure and the problem you want to solve"
             auto-validate
             autofocus
             rows="7"
