@@ -8,6 +8,7 @@ import '@polymer/iron-flex-layout/iron-flex-layout.js';
 import '@polymer/iron-media-query/iron-media-query.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-button/paper-button.js';
+import '@polymer/paper-tooltip/paper-tooltip.js';
 
 import '@polymer/paper-styles/color.js';
 import '@polymer/paper-styles/default-theme.js';
