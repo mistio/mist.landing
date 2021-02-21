@@ -72,6 +72,11 @@ Polymer({
         display: block;
       }
 
+      img {
+        width: 100%;
+        height: auto;
+      }
+
       @media only screen and (max-width: 943px) {
         typed-text {
           display: block;
@@ -202,7 +207,13 @@ Polymer({
               <source src="[[image]]" type="video/webm" />
               <source src="my-animation.mp4" type="video/mp4" />
             </video>
-            <img src="[[frame]]" alt="Image frame" class="image-frame" />
+            <img
+              src="[[frame]]"
+              alt="Image frame"
+              width="[[imgWidth]]"
+              height="[[imgHeight]]"
+              class="image-frame"
+            />
           </div>
         </template>
       </dom-if>
@@ -230,6 +241,12 @@ Polymer({
     printTyped: {
       type: Boolean,
       value: false,
+    },
+    imgHeight: {
+      type: Number,
+    },
+    imgWidth: {
+      type: Number,
     },
   },
 
