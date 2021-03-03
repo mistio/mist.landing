@@ -176,7 +176,7 @@ Polymer({
       </h1>
       <iron-form id="signUpForm">
         <paper-material elevation="1">
-          <div hidden$="[[_canSignUp(signUpGoogle, signUpGithub, signUpEmail)]]">
+          <div hidden$="[[_canSignUp(signUpGoogle, signUpGithub, signUpEmail, signUpMs365)]]">
             Account creation has been disabled.
           </div>
           <paper-button
@@ -352,8 +352,8 @@ Polymer({
     return (signUpGoogle || signUpGithub) && signUpEmail;
   },
 
-  _canSignUp(signUpGoogle, signUpGithub, signUpEmail) {
-    return signUpGoogle || signUpGithub || signUpEmail;
+  _canSignUp(signUpGoogle, signUpGithub, signUpEmail, signUpMs365) {
+    return signUpGoogle || signUpGithub || signUpEmail || signUpMs365;
   },
 
   _invitokenExists(tok) {

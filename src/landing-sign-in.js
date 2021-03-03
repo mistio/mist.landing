@@ -199,7 +199,7 @@ Polymer({
         <paper-material elevation="1">
           <div
             hidden$="[[_canSignIn(signInGoogle, signInGithub, signInEmail,
-            signInLdap, signInAD)]]"
+            signInLdap, signInAD, signInMs365)]]"
           >
             Sign In has been disabled.
           </div>
@@ -545,8 +545,8 @@ Polymer({
     return (signInGoogle || signInGithub || signInLdap || signInAD) && signInEmail;
   },
 
-  _canSignIn(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD) {
-    return signInGoogle || signInGithub || signInLdap || signInEmail || signInAD;
+  _canSignIn(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD, signInMs365) {
+    return signInGoogle || signInGithub || signInLdap || signInEmail || signInAD || signInMs365;
   },
 
   _invitokenExists(tok) {
