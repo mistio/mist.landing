@@ -25,7 +25,6 @@ import './shared-styles.js';
 import './landing-fold.js';
 import './landing-sign-in.js';
 import './landing-sign-up.js';
-import './mist-theme.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
@@ -661,6 +660,10 @@ Polymer({
     this.fire('user-action', `entry at ${that.page}`);
 
     this._ensureLazyLoaded();
+    // eslint-disable-next-line
+    if (!CONFIG.theme) {
+      import('./mist-theme.js').then(console.log('Loaded default theme'));
+    }
   },
 
   _goToPage(event) {

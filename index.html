@@ -20,6 +20,7 @@
         tal:attributes="href rss|string:nothing
                         title string:${portal_name} RSS feed" />
   <link tal:condition="theme|nothing" rel="shortcut icon" sizes="32x32" tal:attributes="href string:/static/${theme}-favicon.ico">
+  <link tal:condition="theme|nothing" rel="stylesheet" tal:attributes="href string:/static/landing/${theme}-theme.css">
   <link tal:condition="not theme" rel="shortcut icon" sizes="32x32" tal:attributes="href string:images/mist-icon-32.png">
   <link rel="preload" href="/landing/images/rings.svg" as="image" >
   <meta name="theme-color" content="#fff">
@@ -44,7 +45,7 @@
   /* eslint-disable */
   const CATEGORIES=[];
   </script>
-  <script tal:content="string: const True = true, False = false, CONFIG = {'features': ${structure:features}, 'email': ${email}, 'portalName': '${portal_name}', 'stripeKey': '${stripe_public_apikey|nothing}'}">
+  <script tal:content="string: const True = true, False = false, CONFIG = {'features': ${structure:features}, 'email': ${email}, 'portalName': '${portal_name}', 'stripeKey': '${stripe_public_apikey|nothing}', 'theme': '${theme}'};">
     /* eslint-disable */
     const CONFIG = false;
   </script>
