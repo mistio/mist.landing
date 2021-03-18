@@ -233,7 +233,7 @@ Polymer({
             raised
             class$="white ldap-selected [[_ldapSelected]]"
             on-tap="_toggleLdap"
-            id="signInBtnLdap"
+            id="signInBtnAd"
             hidden$="[[!signInAD]]"
           >
             <span hidden$="[[_ldapSelected]]"
