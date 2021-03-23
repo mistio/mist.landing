@@ -204,8 +204,8 @@ Polymer({
               -
               style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;"
             >
-              <source src="[[image]]" type="video/webm" />
-              <source src="my-animation.mp4" type="video/mp4" />
+              <source src="[[video]]" type="video/webm" />
+              <source src="[[fallbackVideo]]" type="video/mp4" />
             </video>
             <img
               src="[[frame]]"
@@ -229,7 +229,11 @@ Polymer({
   is: 'landing-fold',
 
   properties: {
-    image: {
+    video: {
+      type: String,
+      reflectToAttribute: true,
+    },
+    fallbackVideo: {
       type: String,
       reflectToAttribute: true,
     },
