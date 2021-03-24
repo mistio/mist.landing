@@ -33,8 +33,8 @@ Polymer({
         width: 50%;
       }
 
-      .item:nth-of-type(3) > h1,
-      .item:nth-of-type(4) > h1 {
+      .item:nth-of-type(3) > .title,
+      .item:nth-of-type(4) > .title {
         font-size: 1.1em;
       }
 
@@ -96,15 +96,12 @@ Polymer({
 
       /* very small mobile screens */
       @media only screen and (max-width: 600px) {
-        h1.typed {
+        .title.typed {
           font-size: 2.56rem !important;
         }
-      }
-      h2 {
-        line-height: 140%;
-        font-weight: 300 !important;
-        font-size: 1.64rem;
-        margin: 0.82rem 0 0.656rem;
+        ::slotted(h1[slot='title']) {
+          margin: 0 0 1.424rem 0 !important;
+        }
       }
 
       .faqitem {
@@ -168,7 +165,7 @@ Polymer({
           height: 240px;
         }
 
-        h1 {
+        .title {
           margin: 24px 0;
         }
       }
@@ -182,13 +179,21 @@ Polymer({
         position: relative;
         z-index: 0;
       }
+      ::slotted(h1[slot='title']) {
+        font-size: 4.2rem !important;
+        line-height: 110% !important;
+      }
+      ::slotted(h2[slot='subtitle']) {
+        line-height: 140% !important;
+        font-weight: 300 !important;
+        font-size: 1.64rem !important;
+        margin: 0.82rem 0 0.656rem !important;
+      }
     </style>
 
     <div class="hero text-center">
-      <h1>
-        <slot name="title"></slot>
-      </h1>
-      <h2><slot name="subtitle"></slot></h2>
+      <slot name="title"></slot>
+      <slot name="subtitle"></slot>
       <br />
       <slot name="button"></slot>
 
