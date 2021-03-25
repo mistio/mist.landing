@@ -1110,7 +1110,21 @@ body {
       margin: 24px 0;
     }
   }
-
+  /* LANDING DESCRIPTION */
+  #landing-description h3{
+    font-size: 2.28rem;
+    line-height: 110%;
+    margin: 1.14rem 0 0.912rem 0;
+  }
+  /* LANDING FAQ, MIST EDITIONS, FEATURES, CLIENTS */
+  #landing-faq, #mist-editions, #landing-features, #landing-clients h4 {
+    font-weight: 400;
+    font-size: 1.64rem;
+    margin: .82rem 0 .656rem;
+  }
+  #landing-clients h5 {
+    font-size: 1rem;
+  }
   /* WHATS NEW */
 
   #whatsnew {
@@ -1308,10 +1322,10 @@ align-items: center;
       font-weight: 300;
       margin: 0;
   }
-  h5.client-name {
+  h4.client-name {
       font-weight: 400;
   }
-  h6.job-title {
+  h5.job-title {
       line-height: 130%;
       color: #7f7f7f;
       font-weight: 400;
