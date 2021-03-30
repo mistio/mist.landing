@@ -228,6 +228,14 @@ Polymer({
               hidden$="[[!signInMs365]]"
               ><iron-icon icon="landing:ms"></iron-icon>Sign in with Microsoft 365</paper-button
             >
+            <paper-button
+              raised=""
+              class="white"
+              on-tap="_socialAuthCILogon"
+              id="signInBtnCILogon"
+              hidden$="[[!signInCILogon]]"
+              ><iron-icon icon=""></iron-icon>Sign in with CI Logon</paper-button
+            >
           </div>
           <paper-button
             raised
@@ -385,7 +393,10 @@ Polymer({
       type: Boolean,
       value: false,
     },
-
+    signInCILogon: {
+      type: Boolean,
+      value: false,
+    },
     defaultMethod: {
       type: String,
       value: 'email',
@@ -497,6 +508,11 @@ Polymer({
   _socialAuthMs365() {
     this.fire('user-action', 'ms365 sign in');
     window.location = '/social_auth/login/azuread-oauth2';
+  },
+
+  _socialAuthCILogon() {
+    this.fire('user-action', 'cilogon sign in');
+    window.location = '/social_auth/login/cilogon-oauth2';
   },
 
   _toggleLdap() {
