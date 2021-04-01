@@ -203,6 +203,14 @@ Polymer({
             hidden$="[[!signUpMs365]]"
             ><iron-icon icon="landing:ms"></iron-icon>Sign up with Microsoft 365</paper-button
           >
+          <paper-button
+            raised=""
+            class="white"
+            on-tap="_socialAuthCILogon"
+            id="signUpBtnCILogon"
+            hidden$="[[!signUpCILogon]]"
+            ><iron-icon icon=""></iron-icon>Sign up with Microsoft 365</paper-button
+          >
           <div class="or" hidden$="[[!_hasSeparator(signUpGoogle, signUpGithub, signUpEmail)]]">
             or
           </div>
@@ -266,6 +274,11 @@ Polymer({
     },
 
     signUpMs365: {
+      type: Boolean,
+      value: false,
+    },
+
+    signUpCILogon: {
       type: Boolean,
       value: false,
     },
@@ -342,6 +355,11 @@ Polymer({
   _socialAuthMs365() {
     this.fire('user-action', 'ms365 sign up');
     window.location = '/social_auth/login/azuread-oauth2';
+  },
+
+  _socialAuthCILogon() {
+    this.fire('user-action', 'cilogon sign up');
+    window.location = '/social_auth/login/cilogon-oauth2';
   },
 
   _signInClicked() {
