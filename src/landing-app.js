@@ -462,6 +462,7 @@ Polymer({
             sign-in-ldap=[[config.features.signin_ldap]]
             sign-in-a-d=[[config.features.signin_ad]]
             sign-in-ms365=[[config.features.signin_ms365]]
+            sign-in-c-i-logon=[[config.features.signin_cilogon]]
             default-method=[[config.features.default_signin_method]]
             invitoken="[[invitoken]]"
             return-to="[[returnTo]]"
@@ -476,6 +477,7 @@ Polymer({
             sign-up-github="[[config.features.signup_github]]"
             sign-up-email="[[config.features.signup_email]]"
             sign-up-ms365="[[config.features.signup_ms365]]"
+            sign-up-c-i-logon="[[config.features.signup_cilogon]]"
             invitoken="[[invitoken]]"
             plan="[[plan]]"
             csrf-token="[[csrfToken]]"

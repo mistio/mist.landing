@@ -46,7 +46,7 @@ Polymer({
         font-weight: 500;
         font-size: 16px;
         margin: 24px auto 16px;
-        /* text-align: center; */
+        text-align: center;
         height: 46px;
         display: block;
         width: 305px;
@@ -228,6 +228,14 @@ Polymer({
               hidden$="[[!signInMs365]]"
               ><iron-icon icon="landing:ms"></iron-icon>Sign in with Microsoft 365</paper-button
             >
+            <paper-button
+              raised=""
+              class="white"
+              on-tap="_socialAuthCILogon"
+              id="signInBtnCILogon"
+              hidden$="[[!signInCILogon]]"
+              ><iron-icon icon="landing:cilogon"></iron-icon>Sign in with CI Logon</paper-button
+            >
           </div>
           <paper-button
             raised
@@ -385,7 +393,10 @@ Polymer({
       type: Boolean,
       value: false,
     },
-
+    signInCILogon: {
+      type: Boolean,
+      value: false,
+    },
     defaultMethod: {
       type: String,
       value: 'email',
@@ -499,6 +510,11 @@ Polymer({
     window.location = '/social_auth/login/azuread-oauth2';
   },
 
+  _socialAuthCILogon() {
+    this.fire('user-action', 'cilogon sign in');
+    window.location = '/social_auth/login/cilogon-oauth2';
+  },
+
   _toggleLdap() {
     this.set('_ldapSelected', !this._ldapSelected);
     const method = this.signInAD ? 'Active Directory' : 'LDAP';
@@ -545,8 +561,24 @@ Polymer({
     return (signInGoogle || signInGithub || signInLdap || signInAD) && signInEmail;
   },
 
-  _canSignIn(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD, signInMs365) {
-    return signInGoogle || signInGithub || signInLdap || signInEmail || signInAD || signInMs365;
+  _canSignIn(
+    signInGoogle,
+    signInGithub,
+    signInEmail,
+    signInLdap,
+    signInAD,
+    signInMs365,
+    signInCILogon,
+  ) {
+    return (
+      signInGoogle ||
+      signInGithub ||
+      signInLdap ||
+      signInEmail ||
+      signInAD ||
+      signInMs365 ||
+      signInCILogon
+    );
   },
 
   _invitokenExists(tok) {
