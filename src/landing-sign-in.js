@@ -46,7 +46,7 @@ Polymer({
         font-weight: 500;
         font-size: 16px;
         margin: 24px auto 16px;
-        /* text-align: center; */
+        text-align: center;
         height: 46px;
         display: block;
         width: 305px;
@@ -234,7 +234,7 @@ Polymer({
               on-tap="_socialAuthCILogon"
               id="signInBtnCILogon"
               hidden$="[[!signInCILogon]]"
-              ><iron-icon icon=""></iron-icon>Sign in with CI Logon</paper-button
+              ><iron-icon icon="landing:cilogon"></iron-icon>Sign in with CI Logon</paper-button
             >
           </div>
           <paper-button
@@ -561,8 +561,24 @@ Polymer({
     return (signInGoogle || signInGithub || signInLdap || signInAD) && signInEmail;
   },
 
-  _canSignIn(signInGoogle, signInGithub, signInEmail, signInLdap, signInAD, signInMs365) {
-    return signInGoogle || signInGithub || signInLdap || signInEmail || signInAD || signInMs365;
+  _canSignIn(
+    signInGoogle,
+    signInGithub,
+    signInEmail,
+    signInLdap,
+    signInAD,
+    signInMs365,
+    signInCILogon,
+  ) {
+    return (
+      signInGoogle ||
+      signInGithub ||
+      signInLdap ||
+      signInEmail ||
+      signInAD ||
+      signInMs365 ||
+      signInCILogon
+    );
   },
 
   _invitokenExists(tok) {
