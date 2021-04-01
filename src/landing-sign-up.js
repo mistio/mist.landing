@@ -209,7 +209,7 @@ Polymer({
             on-tap="_socialAuthCILogon"
             id="signUpBtnCILogon"
             hidden$="[[!signUpCILogon]]"
-            ><iron-icon icon=""></iron-icon>Sign up with Microsoft 365</paper-button
+            ><iron-icon icon=""></iron-icon>Sign up with CI Logon</paper-button
           >
           <div class="or" hidden$="[[!_hasSeparator(signUpGoogle, signUpGithub, signUpEmail)]]">
             or
