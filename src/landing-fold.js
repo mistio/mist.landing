@@ -212,13 +212,16 @@ Polymer({
               <source src="[[video]]" type="video/webm" />
               <source src="[[fallbackVideo]]" type="video/mp4" />
             </video>
-            <img
-              src="[[frame]]"
-              alt="Image frame"
-              width="[[imgWidth]]"
-              height="[[imgHeight]]"
-              class="image-frame"
-            />
+            <picture>
+              <source type="image/webp" srcset="[[frame]]" />
+              <img
+                src="[[fallbackFrame]]"
+                alt="Image frame"
+                width="[[imgWidth]]"
+                height="[[imgHeight]]"
+                class="image-frame"
+              />
+            </picture>
           </div>
         </template>
       </dom-if>
@@ -243,6 +246,11 @@ Polymer({
       reflectToAttribute: true,
     },
     frame: {
+      type: String,
+      reflectToAttribute: true,
+      value: false,
+    },
+    fallbackFrame: {
       type: String,
       reflectToAttribute: true,
       value: false,
