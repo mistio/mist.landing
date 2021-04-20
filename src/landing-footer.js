@@ -147,30 +147,6 @@ Polymer({
               176 73, Kalithea, Greece
             </p>
           </div>
-          <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
-            <a
-              id="tweets"
-              alt="Twitter Widget"
-              class="twitter-timeline"
-              data-dnt="true"
-              href="https://twitter.com/mist_io"
-              data-widget-id="328880614860259329"
-              >Twitter Widget</a
-            >
-          </div>
-          <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
-            <div id="blog">
-              <div id="blog-badge" class="box-round">
-                <div id="blog-header">
-                  <h1>
-                    <a title="mist.io blog" href="/blog">Blog</a>
-                  </h1>
-                </div>
-                <base href="/static/blog" />
-                <div id="blog-content"></div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
