@@ -413,7 +413,7 @@ Polymer({
                         <iron-icon icon="help"></iron-icon>
                         <span class="li-text"> Scheduled actions</span>
                         <paper-tooltip for="scheduled-actions" animation-delay="0" position="top"
-                          >Multi-cloud crontab to schedule script executions and machine
+                          >Multicloud crontab to schedule script executions and machine
                           actions.</paper-tooltip
                         >
                       </li>
