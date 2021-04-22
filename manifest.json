@@ -1,7 +1,7 @@
 {
   "name": "mist.io :: hybrid cloud management platform",
   "short_name": "mist.io",
-  "description": "A secure cloud management platform for automation, orchestration, cost and usage monitoring of public and private clouds. Provides multi-cloud RBAC. Enables self service provisioning. Cost analysis and cloud spending optimization",
+  "description": "A secure cloud management platform for automation, orchestration, cost and usage monitoring of public and private clouds. Provides multicloud RBAC. Enables self service provisioning. Cost analysis and cloud spending optimization",
   "icons": [{
       "src": "images/mist-icon-32.png",
       "sizes": "32x32",
