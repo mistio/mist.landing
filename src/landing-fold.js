@@ -200,28 +200,18 @@ Polymer({
       <dom-if if="[[frame]]" restamp="">
         <template>
           <div class="framed-image">
-            <video
-              autoplay
-              loop
-              muted
-              playsinline
-              class="image-content"
-              -
-              style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;"
-            >
-              <source src="[[video]]" type="video/webm" />
-              <source src="[[fallbackVideo]]" type="video/mp4" />
-            </video>
-            <picture>
-              <source type="image/webp" srcset="[[frame]]" />
-              <img
-                src="[[fallbackFrame]]"
-                alt="Image frame"
-                width="[[imgWidth]]"
-                height="[[imgHeight]]"
-                class="image-frame"
-              />
-            </picture>
+            <a href="[[videoLink]]" target="_blank">
+              <picture>
+                <source type="image/webp" srcset="[[frame]]" />
+                <img
+                  src="[[fallbackFrame]]"
+                  alt="[[imgAlt]]"
+                  width="[[imgWidth]]"
+                  height="[[imgHeight]]"
+                  class="image-frame"
+                />
+              </picture>
+            </a>
           </div>
         </template>
       </dom-if>
@@ -240,6 +230,9 @@ Polymer({
     video: {
       type: String,
       reflectToAttribute: true,
+    },
+    videoLink: {
+      type: String,
     },
     fallbackVideo: {
       type: String,
@@ -264,6 +257,9 @@ Polymer({
     },
     imgWidth: {
       type: Number,
+    },
+    imgAlt: {
+      type: String,
     },
   },
 
