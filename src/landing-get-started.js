@@ -352,7 +352,7 @@ Polymer({
                           ><a
                             href="https://github.com/mistio/mist.io/blob/master/LICENSE"
                             target="new"
-                            >AGPL</a
+                            >Apache 2</a
                           >
                           licensed</sub
                         >
