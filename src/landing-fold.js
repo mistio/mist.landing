@@ -199,30 +199,32 @@ Polymer({
 
       <dom-if if="[[frame]]" restamp="">
         <template>
-          <div class="framed-image">
-            <video
-              autoplay
-              loop
-              muted
-              playsinline
-              class="image-content"
-              -
-              style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;"
-            >
-              <source src="[[video]]" type="video/webm" />
-              <source src="[[fallbackVideo]]" type="video/mp4" />
-            </video>
-            <picture>
-              <source type="image/webp" srcset="[[frame]]" />
-              <img
-                src="[[fallbackFrame]]"
-                alt="Image frame"
-                width="[[imgWidth]]"
-                height="[[imgHeight]]"
-                class="image-frame"
-              />
-            </picture>
-          </div>
+          <a href="[[href]]" target="_blank">
+            <div class="framed-image">
+              <video
+                autoplay
+                loop
+                muted
+                playsinline
+                class="image-content"
+                -
+                style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;"
+              >
+                <source src="[[video]]" type="video/webm" />
+                <source src="[[fallbackVideo]]" type="video/mp4" />
+              </video>
+              <picture>
+                <source type="image/webp" srcset="[[frame]]" />
+                <img
+                  src="[[fallbackFrame]]"
+                  alt="Image frame"
+                  width="[[imgWidth]]"
+                  height="[[imgHeight]]"
+                  class="image-frame"
+                />
+              </picture>
+            </div>
+          </a>
         </template>
       </dom-if>
 
@@ -254,6 +256,11 @@ Polymer({
       type: String,
       reflectToAttribute: true,
       value: false,
+    },
+    href: {
+      type: String,
+      reflectToAttribute: true,
+      value: '',
     },
     printTyped: {
       type: Boolean,
