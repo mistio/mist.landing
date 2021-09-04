@@ -1193,7 +1193,7 @@ body {
     font-weight: 500;
   }
 
-  #whatsnew {
+  .dark {
     font-weight: 400 !important;
     background-color: #444;
     color: #fff;
