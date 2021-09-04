@@ -907,7 +907,7 @@ body {
 
   .provider img {
       opacity: .4;
-      max-width: 100%;
+      max-width: 80%;
       filter: grayscale(100%);
       -webkit-filter: grayscale(100%);
       -webkit-transition: all .2s ease-in-out;
@@ -921,6 +921,12 @@ body {
   .providers {
       justify-content: center;
       padding: 24px;
+  }
+
+  .providers div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   landing-person img {
       width: 100%;
@@ -966,6 +972,17 @@ body {
     margin-bottom: 0;
   }
 
+  /* TRUSTEDBY */
+  .trusted-by {
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media only screen and (min-width: 992px) {
+    .trusted-by img {
+      max-height: 90px;
+    }
+  }
   /* FEATURES */
 
   .features iron-icon {
@@ -1110,12 +1127,6 @@ body {
       margin: 24px 0;
     }
   }
-  /* LANDING DESCRIPTION */
-  #landing-description h3{
-    font-size: 2.28rem;
-    line-height: 110%;
-    margin: 1.14rem 0 0.912rem 0;
-  }
   /* LANDING FAQ, MIST EDITIONS, FEATURES, CLIENTS */
   #landing-faq, #mist-editions, #landing-features, #landing-clients h4 {
     font-weight: 400;
@@ -1133,7 +1144,7 @@ body {
   #whatsnew .image-block {
     display: flex;
 /* justify-content: center; */
-align-items: center;
+    align-items: center;
   }
 
   #whatsnew[hidden] {
@@ -1182,7 +1193,7 @@ align-items: center;
     font-weight: 500;
   }
 
-  #whatsnew {
+  .dark {
     font-weight: 400 !important;
     background-color: #444;
     color: #fff;
@@ -1725,6 +1736,52 @@ align-items: center;
       max-width: 100%;
   }
 
+  /* BLOG POSTS */
+  .feat-blog-post {
+    position: relative;
+    background-color: white;
+    text-align: left;
+  }
+  @media only screen and (min-width: 1200px) {
+    .feat-blog-post {
+      height: 930px;
+    }
+    .feat-blog-post .learn-more {
+      bottom: 25px;
+      position: absolute;
+    }
+}
+
+  .feat-blog-post h2{
+    font-size: 2.28rem;
+  }
+  .feat-blog-post .author {
+    line-height: 130%;
+    color: #7f7f7f;
+    font-weight: 400;
+  }
+
+  @media only screen and (max-width: 993px) {
+    .feat-blog-post .contents {
+      margin-bottom: 25px;
+    }
+  }
+  .feat-blog-post img {
+    height: 189px;
+    width: 100%;
+  }
+  .feat-blog-post section {
+    padding: 0 1.3em 1em 1.3em;
+  }
+  .feat-blog-post iron-icon {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    color: inherit;
+    display: inline-block;
+  }
   /* GET STARTED */
 
   #get-started .hero {
@@ -1740,6 +1797,11 @@ align-items: center;
       font-size: 18px;
       height: 54px;
       font-weight: 500;
+  }
+  #scheduleDemo {
+      color: rgb(0, 153, 204) !important;
+      background-color: #fff!important;
+      border: 2px solid rgb(0, 153, 204);
   }
   #get-started paper-button a {
       color: #fff !important;

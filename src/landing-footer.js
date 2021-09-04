@@ -119,6 +119,11 @@ Polymer({
         opacity: 0.9;
         font-size: 12px;
       }
+      .social-icon {
+        width: 24px;
+        display: inline;
+        margin: 0 5px;
+      }
     </style>
 
     <div class="section dark">
@@ -127,8 +132,44 @@ Polymer({
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom address">
             <img alt="Mist logo" src="/landing/images/logo-white.svg" width="160px" />
             <p>
-              Made with <iron-icon icon="icons:favorite"></iron-icon> in Greece &amp; California<br /><br />
+              Made with <iron-icon icon="icons:favorite"></iron-icon> in Greece &amp; California<br />
             </p>
+            <a href="https://github.com/mistio/" target="_blank">
+              <img
+                class="social-icon"
+                loading="lazy"
+                src="images/social/github.svg"
+                alt="github logo"
+                title="github"
+              />
+            </a>
+            <a href="https://www.linkedin.com/company/mist-io/" target="_blank" class="provider">
+              <img
+                style="background-color: white;"
+                class="social-icon"
+                loading="lazy"
+                src="images/social/linkedin.png"
+                alt="linkedin logo"
+                title="linkedin"
+              />
+            </a>
+            <a href="https://www.facebook.com/mistioinc" target="_blank" class="provider">
+              <img
+                class="social-icon"
+                loading="lazy"
+                src="images/social/facebook.png"
+                alt="facebook logo"
+                title="facebook"
+              />
+            </a>
+            <a href="https://twitter.com/mist_io" target="_blank" class="provider">
+              <img
+                class="social-icon"
+                loading="lazy"
+                src="images/social/twitter.svg"
+                alt="twitter logo"
+                title="twitter"
+            /></a>
             <p class="light">
               <iron-icon icon="communication:email"></iron-icon> info@mist.io &nbsp;<br /><iron-icon
                 icon="communication:phone"
@@ -151,12 +192,12 @@ Polymer({
             <a
               id="tweets"
               alt="Twitter Widget"
-              class="twitter-timeline"
+              class="twitter-timeline provider"
+              target="_blank"
               data-dnt="true"
               href="https://twitter.com/mist_io"
               data-widget-id="328880614860259329"
-              >Twitter Widget</a
-            >
+            ></a>
           </div>
           <div class="xs12 s12 m4 l4 margin-top margin-bottom padding-bottom">
             <div id="blog">
@@ -194,7 +235,6 @@ Polymer({
   `,
 
   is: 'landing-footer',
-
   attached() {
     // Twitter widget
     window.twttr = (function(d, s, id) {
