@@ -932,6 +932,13 @@ body {
       width: 100%;
   }
 
+  .espa-badge {
+    width: 150px;
+  }
+  .g2-badge {
+    width: 100px;
+  }
+
   /* PRODUCT */
 
   .page paper-button {

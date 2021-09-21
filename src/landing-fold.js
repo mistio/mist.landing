@@ -190,7 +190,7 @@ Polymer({
         margin: 0.82rem 0 0.656rem !important;
       }
 
-      .badges {
+      ::slotted(div[slot='badges']) {
         margin-top: 40px;
         display: flex;
         align-items: center;
@@ -199,33 +199,12 @@ Polymer({
       .badges img {
         margin: 0 10px;
       }
-      .espa-badge {
-        width: 150px;
-      }
-      .g2-badge {
-        width: 100px;
-      }
     </style>
 
     <div class="hero text-center">
       <slot name="title"></slot>
       <slot name="subtitle"></slot>
-      <div class="badges">
-        <a href="https://www.g2.com/products/mist-io-mist/reviews" target="_blank">
-          <img
-            class="g2-badge"
-            src="/static/landing/images/partners/g2_badge.png"
-            alt="G2 High Performer Fall 2021"
-          />
-        </a>
-        <a href="/static/landing/images/partners/espa-elevate.jpg" target="_blank">
-          <img
-            class="espa-badge"
-            src="/static/landing/images/partners/espa.jpg"
-            alt="ESPA partnership"
-          />
-        </a>
-      </div>
+      <slot name="badges" class="badges"></slot>
       <br />
       <slot name="button"></slot>
       <dom-if if="[[frame]]" restamp="">
