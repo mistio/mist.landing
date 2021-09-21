@@ -189,14 +189,24 @@ Polymer({
         font-size: 1.64rem !important;
         margin: 0.82rem 0 0.656rem !important;
       }
+
+      ::slotted(div[slot='badges']) {
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .badges img {
+        margin: 0 10px;
+      }
     </style>
 
     <div class="hero text-center">
       <slot name="title"></slot>
       <slot name="subtitle"></slot>
+      <slot name="badges" class="badges"></slot>
       <br />
       <slot name="button"></slot>
-
       <dom-if if="[[frame]]" restamp="">
         <template>
           <a href="[[href]]" target="_blank">

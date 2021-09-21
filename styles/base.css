@@ -932,6 +932,13 @@ body {
       width: 100%;
   }
 
+  .espa-badge {
+    width: 150px;
+  }
+  .g2-badge {
+    width: 100px;
+  }
+
   /* PRODUCT */
 
   .page paper-button {
@@ -970,6 +977,10 @@ body {
 
   .product .title {
     margin-bottom: 0;
+  }
+
+  .feature-header {
+    font-size: 2.92rem;
   }
 
   /* TRUSTEDBY */
@@ -1053,6 +1064,13 @@ body {
       margin: 0 auto;
       position: relative;
   }
+
+  .edition > h3, .faqitem > h3 {
+    font-weight: 400;
+    font-size: 1.64rem;
+    margin: .82rem 0 .656rem;
+  }
+
 
   /* FAQ */
 
@@ -1349,8 +1367,19 @@ body {
   }
   .client-testimonial {
       max-width: 75%;
-      margin: 0 auto;
+      margin: 0 auto 20px auto;
   }
+
+  @media only screen and (min-width: 1200px) {
+    .client-testimonial {
+      max-width: 55%;
+    }
+  }
+
+  .testimonial a {
+    font-size: large;
+  }
+
   #testimonials {
       position: relative;
       min-height: 300px;
@@ -1371,6 +1400,7 @@ body {
       right: 0;
       bottom: 0;
       margin: 0;
+      margin-top: 10px;
   }
   #controls .control-item {
       display: inline-block;
@@ -1537,6 +1567,7 @@ body {
   }
 
   #pricing .price {
+      font-size: 3.56rem;
       font-weight: 700;
       line-height: 1;
       padding: 0;
@@ -1744,7 +1775,7 @@ body {
   }
   @media only screen and (min-width: 1200px) {
     .feat-blog-post {
-      height: 930px;
+      height: 730px;
     }
     .feat-blog-post .learn-more {
       bottom: 25px;
@@ -2056,4 +2087,15 @@ body {
   #get-started h2.decorated {
       margin-left: 32px;
       margin-right: 32px !important;
+  }
+
+  #get-started h3 {
+      font-size: 1.64rem;
+      margin: .82rem 0 .656rem;
+  }
+
+  #get-started .plan h2 {
+    font-size: 2.28rem;
+    line-height: 110%;
+    margin: 1.14rem 0 0.912rem 0;
   }
