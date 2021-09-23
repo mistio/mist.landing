@@ -115,6 +115,11 @@ Polymer({
         text-decoration: none;
       }
 
+      #blog-content {
+        max-height: 366px;
+        overflow-y: scroll;
+      }
+
       .light {
         opacity: 0.9;
         font-size: 12px;
