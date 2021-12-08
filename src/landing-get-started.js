@@ -316,6 +316,40 @@ Polymer({
         margin-left: 32px;
         margin-right: 32px;
       }
+
+      h1.decorated {
+        margin-left: 32px;
+        margin-right: 32px;
+      }
+
+      h1,
+      .custom-needs {
+        font-size: 3.56rem;
+        line-height: 110%;
+        margin: 1.78rem 0 1.424rem 0;
+        font-weight: 300;
+      }
+
+      h2 {
+        font-size: 2.28rem;
+        line-height: 110%;
+        margin: 1.14rem 0 0.912rem 0;
+      }
+
+      h3 {
+        font-size: 2.28rem;
+        line-height: 110%;
+        margin: 1.14rem 0 0.912rem 0;
+      }
+
+      .help-subheader {
+        font-size: 1.64rem;
+        margin: 0.82 rem 0 0.656rem;
+      }
+
+      #vcpus-ee {
+        font-size: 3.56rem;
+      }
     </style>
     <div id="placeholder"></div>
     <div id="container">
@@ -324,7 +358,7 @@ Polymer({
           <div class="back">
             <span><iron-icon icon="icons:arrow-back" on-tap="goBack"></iron-icon></span>
           </div>
-          <h2 class="decorated">Choose your Mist</h2>
+          <h1 class="decorated">Choose your Mist</h1>
         </div>
       </div>
       <div class="section grey">
@@ -334,9 +368,9 @@ Polymer({
             <div class="xs12 s6 m4 l4 margin-bottom valign-top">
               <div class="plan green text-center">
                 <div class="plan-head">
-                  <h4>
+                  <h2>
                     Community Edition<br /><sub><iron-icon icon="social:share"></iron-icon>CE</sub>
-                  </h4>
+                  </h2>
                 </div>
                 <div class="plan-body">
                   <div class="plan-body-item">
@@ -346,7 +380,7 @@ Polymer({
                   </div>
                   <div class="plan-body-item">
                     <div class="valign">
-                      <h4>Free forever</h4>
+                      <h3>Free forever</h3>
                       <h4 class="price">
                         <sub
                           ><a
@@ -455,11 +489,11 @@ Polymer({
             <div class="xs12 s6 m4 l4 margin-bottom valign-top">
               <div class="plan purple text-center">
                 <div class="plan-head">
-                  <h4>
+                  <h2>
                     Enterprise Edition<br /><sub
                       ><iron-icon icon="icons:account-balance"></iron-icon>EE</sub
                     >
-                  </h4>
+                  </h2>
                 </div>
                 <div class="plan-body">
                   <div class="plan-body-item">
@@ -470,9 +504,9 @@ Polymer({
                   </div>
                   <div class="plan-body-item">
                     <div class="valign">
-                      <h2 class="price" id="vcpus-ee">
+                      <h3 class="price" id="vcpus-ee">
                         <sup>$</sup>1<sup class="vcpu">/vcpu</sup><sub class="month">/month</sub>
-                      </h2>
+                      </h3>
                       <paper-tooltip for="vcpus-ee" animation-delay="0" position="top"
                         >High water mark of physical and virtual cores under
                         management</paper-tooltip
@@ -545,11 +579,11 @@ Polymer({
             <div class="xs12 s6 m4 l4 margin-bottom valign-top">
               <div class="plan blue text-center">
                 <div class="plan-head">
-                  <h4>
+                  <h2>
                     Hosted Edition<br /><sub
                       ><iron-icon icon="icons:cloud-circle"></iron-icon>HE</sub
                     >
-                  </h4>
+                  </h2>
                 </div>
                 <div class="plan-body">
                   <div class="plan-body-item">
@@ -562,7 +596,7 @@ Polymer({
                     <div class="valign">
                       <div class="valign">
                         <a href="/pricing" on-tap="_pricingClick">
-                          <h4>Pay As You Go</h4>
+                          <h3>Pay As You Go</h3>
                           <h4 class="price"><sub>or prepaid plans.</sub></h4>
                         </a>
                       </div>
@@ -627,14 +661,14 @@ Polymer({
     <div class="section white">
       <div class="contains">
         <div class="row text-center">
-          <h2 class="decorated">Help with custom needs?</h2>
+          <h2 class="decorated custom-needs">Help with custom needs?</h2>
         </div>
         <div class="grid-row">
           <div class="xs12 s12 m6 l8">
             <div class="left">
-              <h5 class="w400">
+              <h3 class="w400 help-subheader">
                 Do you have more than 300 machines? <br />Do you want to run Mist on premises?
-              </h5>
+              </h3>
               <p>
                 We can provide custom pricing for businesses with a lot of infrastructure.
                 <br />Also, we can work with you to run Mist on premises or to setup a proof of
@@ -643,7 +677,7 @@ Polymer({
             </div>
           </div>
           <div class="xs12 s12 m6 l4">
-            <h5 class="w400">Contact us if you:</h5>
+            <h3 class="w400 help-subheader">Contact us if you:</h3>
             <p>
               <iron-icon icon="check"></iron-icon> Have more than 300 machines
               <br />
