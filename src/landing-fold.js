@@ -195,7 +195,7 @@ Polymer({
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 20px;
       }
       .badges img {
         margin: 0 10px;
