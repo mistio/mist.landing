@@ -22,8 +22,6 @@ import './shared-styles.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-let Stripe;
-
 Polymer({
   _template: html`
     <style>
@@ -532,20 +530,23 @@ Polymer({
 
   submit() {
     this.fire('user-action', 'purchase license submit');
-    if (this.formReady && typeof Stripe !== 'undefined') {
+    if (this.formReady && typeof window.Stripe !== 'undefined') {
       this.formReady = false;
       this.loading = true;
       // extra stripe validation
       const isValid =
-        Stripe.card.validateCardNumber(this.stripePayload.number) &&
-        Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year) &&
-        Stripe.card.validateCVC(this.stripePayload.cvc) &&
+        window.Stripe.card.validateCardNumber(this.stripePayload.number) &&
+        window.Stripe.card.validateExpiry(
+          this.stripePayload.exp_month,
+          this.stripePayload.exp_year,
+        ) &&
+        window.Stripe.card.validateCVC(this.stripePayload.cvc) &&
         this.stripePayload.address_zip !== '';
 
       if (isValid) {
         const that = this;
-        Stripe.setPublishableKey(this.stripePublicApikey);
-        Stripe.card.createToken(this.stripePayload, (status, response) => {
+        window.Stripe.setPublishableKey(this.stripePublicApikey);
+        window.Stripe.card.createToken(this.stripePayload, (status, response) => {
           if (response.error) {
             console.log('stripeResponseHandler failed', response.error.message);
             that.showError(response.error.message);
@@ -556,19 +557,22 @@ Polymer({
         this.set('sendingData', true);
       } else {
         let errorText = 'There seems to be an error with the';
-        if (!Stripe.card.validateCardNumber(this.stripePayload.number)) {
+        if (!window.Stripe.card.validateCardNumber(this.stripePayload.number)) {
           errorText += ' card number';
           this.$['cc-cvc'].invalid = true;
         }
 
         if (
-          !Stripe.card.validateExpiry(this.stripePayload.exp_month, this.stripePayload.exp_year)
+          !window.Stripe.card.validateExpiry(
+            this.stripePayload.exp_month,
+            this.stripePayload.exp_year,
+          )
         ) {
           errorText += ' expiration date';
           this.$['exp-year'].invalid = true;
         }
 
-        if (!Stripe.card.validateCVC(this.stripePayload.cvc)) {
+        if (!window.Stripe.card.validateCVC(this.stripePayload.cvc)) {
           errorText += ' cvc';
           this.$['cc-cvc'].invalid = true;
         }
