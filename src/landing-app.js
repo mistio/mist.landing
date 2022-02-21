@@ -25,6 +25,7 @@ import './shared-styles.js';
 import './landing-fold.js';
 import './landing-sign-in.js';
 import './landing-sign-up.js';
+import './landing-buy-license.js'
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
@@ -737,10 +738,6 @@ Polymer({
       } else if (page === 'request-pricing') {
         import('./landing-request-pricing.js').then(() => {
           console.warn('Request-pricing page imported');
-        });
-      } else if (page === 'buy-license') {
-        import('./landing-buy-license.js').then(() => {
-          console.warn('Buy-license page imported');
         });
       }
     }

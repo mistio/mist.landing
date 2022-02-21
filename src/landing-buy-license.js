@@ -22,8 +22,6 @@ import './shared-styles.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-let Stripe;
-
 Polymer({
   _template: html`
     <style>
