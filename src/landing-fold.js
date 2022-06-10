@@ -212,18 +212,11 @@ Polymer({
         <template>
           <a href="[[href]]" target="_blank">
             <div class="framed-image">
-              <video
-                autoplay
-                loop
-                muted
-                playsinline
+              <img
                 class="image-content"
-                -
                 style="position: absolute; top: 3.97%; left: 8.2%; width: 84%; height: 58.9%; z-index: 0;"
-              >
-                <source src="[[video]]" type="video/webm" />
-                <source src="[[fallbackVideo]]" type="video/mp4" />
-              </video>
+                src="[[video]]"
+              />
               <picture>
                 <source type="image/webp" srcset="[[frame]]" />
                 <img

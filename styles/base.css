@@ -927,6 +927,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 160px;
   }
   landing-person img {
       width: 100%;
@@ -1775,7 +1776,7 @@ body {
   }
   @media only screen and (min-width: 1200px) {
     .feat-blog-post {
-      height: 730px;
+      height: 610px;
     }
     .feat-blog-post .learn-more {
       bottom: 25px;
