@@ -56,12 +56,12 @@ build_landing_image:
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
-    - docker build --rm -t gcr.io/mist-ops/landing:$CI_COMMIT_SHA .
-    - docker tag gcr.io/mist-ops/landing:$CI_COMMIT_SHA gcr.io/mist-ops/landing:$CI_COMMIT_REF_SLUG
-    - docker tag gcr.io/mist-ops/landing:$CI_COMMIT_SHA mist/landing:$CI_COMMIT_SHA
-    - docker tag gcr.io/mist-ops/landing:$CI_COMMIT_REF_SLUG mist/landing:$CI_COMMIT_REF_SLUG
-    - docker push gcr.io/mist-ops/landing:$CI_COMMIT_SHA
-    - docker push gcr.io/mist-ops/landing:$CI_COMMIT_REF_SLUG
+    - docker build --rm -t registry.ops.mist.io/mistio/mist.landing:$CI_COMMIT_SHA .
+    - docker tag registry.ops.mist.io/mistio/mist.landing:$CI_COMMIT_SHA registry.ops.mist.io/mistio/mist.landing:$CI_COMMIT_REF_SLUG
+    - docker tag registry.ops.mist.io/mistio/mist.landing:$CI_COMMIT_SHA mist/landing:$CI_COMMIT_SHA
+    - docker tag registry.ops.mist.io/mistio/mist.landing:$CI_COMMIT_REF_SLUG mist/landing:$CI_COMMIT_REF_SLUG
+    - docker push registry.ops.mist.io/mistio/mist.landing:$CI_COMMIT_SHA
+    - docker push registry.ops.mist.io/mistio/mist.landing:$CI_COMMIT_REF_SLUG
     - docker push mist/landing:$CI_COMMIT_SHA
     - docker push mist/landing:$CI_COMMIT_REF_SLUG
   tags:
